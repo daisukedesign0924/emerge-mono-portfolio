@@ -4,7 +4,7 @@ Tags: portfolio, shortcode, contact form, dark mode, creator
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.20.1
+Stable tag: 2.20.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ Yes. It includes a honeypot field and rate limiting by default, with optional re
 4. Admin settings screen.
 
 == Changelog ==
+
+= 2.20.2 =
+* Corrected the Plugin URI to point to the actual GitHub repository.
 
 = 2.20.1 =
 * Renamed the plugin folder and main file to "emerge-mono-portfolio" and unified the admin menu slug to match the plugin name.
