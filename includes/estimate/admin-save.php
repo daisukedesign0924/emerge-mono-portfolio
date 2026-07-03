@@ -72,8 +72,8 @@ function en_save_estimate() {
     }
 
     // 全体設定
-    $note_text = sanitize_text_field( $_POST['estimate_note_text'] ?? __( '* The final amount will be provided after inquiry.', 'emerge-mono' ) );
-    $btn_text  = sanitize_text_field( $_POST['estimate_btn_text']  ?? __( 'Send inquiry with these details', 'emerge-mono' ) );
+    $note_text = sanitize_text_field( $_POST['estimate_note_text'] ?? __( '* The final amount will be provided after inquiry.', 'emerge-mono-portfolio' ) );
+    $btn_text  = sanitize_text_field( $_POST['estimate_btn_text']  ?? __( 'Send inquiry with these details', 'emerge-mono-portfolio' ) );
 
     update_option( 'en_estimate_services',       $services );
     update_option( 'en_estimate_payment_methods', $payment_methods );

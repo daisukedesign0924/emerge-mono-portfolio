@@ -22,7 +22,7 @@ function en_register_admin_menu() {
     // Works独立メニュー（カテゴリーも配下に）
     $work_label = en_opt('work_label', 'Works');
     $work_icon  = en_opt('work_icon',  'dashicons-portfolio');
-    $cat_label  = en_opt('cat_label',  __( 'Category', 'emerge-mono' ));
+    $cat_label  = en_opt('cat_label',  __( 'Category', 'emerge-mono-portfolio' ));
 
     add_menu_page(
         $work_label, $work_label, 'edit_posts',
@@ -38,7 +38,7 @@ function en_register_admin_menu() {
     // News独立メニュー（カテゴリーも配下に）。Worksと対称
     $news_label     = en_opt('news_label', 'News');
     $news_icon      = en_opt('news_icon',  'dashicons-megaphone');
-    $news_cat_label = en_opt('news_cat_label', __( 'Category', 'emerge-mono' ));
+    $news_cat_label = en_opt('news_cat_label', __( 'Category', 'emerge-mono-portfolio' ));
 
     add_menu_page(
         $news_label, $news_label, 'edit_posts',

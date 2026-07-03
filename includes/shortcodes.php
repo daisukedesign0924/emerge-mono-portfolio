@@ -164,7 +164,7 @@ function en_shortcode_contact( $atts ) {
                     $placeholder = isset($field['placeholder']) ? $field['placeholder'] : '';
                     $options     = isset($field['options']) ? $field['options'] : array();
                     $req_attr    = $required ? 'required' : '';
-                    $req_mark    = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono' ) . '</span>';
+                    $req_mark    = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono-portfolio' ) . '</span>';
                 ?>
                 <div class="en-form-group">
                     <label class="en-form-label"><?php echo esc_html($label); ?> <?php echo $req_mark; ?></label>
@@ -172,7 +172,7 @@ function en_shortcode_contact( $atts ) {
                         <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-form-textarea" placeholder="<?php echo esc_attr($placeholder); ?>" <?php echo $req_attr; ?>></textarea>
                     <?php elseif ( $type === 'select' ) : ?>
                         <select name="en_field_<?php echo esc_attr($key); ?>" class="en-form-input" <?php echo $req_attr; ?>>
-                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono-portfolio' ); ?></option>
                             <?php foreach ( $options as $opt ) : ?>
                                 <option value="<?php echo esc_attr($opt); ?>"><?php echo esc_html($opt); ?></option>
                             <?php endforeach; ?>
@@ -194,7 +194,7 @@ function en_shortcode_contact( $atts ) {
                 <?php
                 // 同意チェックボックス
                 $consent_enabled  = en_opt('contact_consent_enabled', '0');
-                $consent_text     = en_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono' ));
+                $consent_text     = en_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ));
                 $consent_page_id  = (int)en_opt('contact_consent_page_id', 0);
                 $consent_page_url = $consent_page_id ? get_permalink($consent_page_id) : '';
                 if ( $consent_enabled === '1' ) : ?>
@@ -234,7 +234,7 @@ function en_shortcode_posts( $atts ) {
         'order'          => 'DESC',
     ));
 
-    if ( empty($posts) ) return '<div class="en-posts-empty">' . esc_html__( 'No posts found', 'emerge-mono' ) . '</div>';
+    if ( empty($posts) ) return '<div class="en-posts-empty">' . esc_html__( 'No posts found', 'emerge-mono-portfolio' ) . '</div>';
 
     ob_start(); ?>
     <div class="en-posts" id="en-posts-<?php echo esc_attr($type); ?>">
@@ -296,10 +296,10 @@ function en_shortcode_news( $atts ) {
     <div class="en-news" id="en-news">
         <div class="en-news-header">
             <div class="en-news-label">News</div>
-            <div class="en-news-title"><?php esc_html_e( 'News', 'emerge-mono' ); ?></div>
+            <div class="en-news-title"><?php esc_html_e( 'News', 'emerge-mono-portfolio' ); ?></div>
         </div>
         <?php if ( empty($posts) ) : ?>
-            <div class="en-news-empty"><?php esc_html_e( 'No posts found', 'emerge-mono' ); ?></div>
+            <div class="en-news-empty"><?php esc_html_e( 'No posts found', 'emerge-mono-portfolio' ); ?></div>
         <?php else : ?>
         <div class="en-news-list">
             <?php foreach ( $posts as $post ) :

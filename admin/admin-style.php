@@ -224,8 +224,8 @@ function en_admin_inline_script() { ?>
 // WPメディアライブラリを開く
 function enOpenMedia(targetId) {
     var frame = wp.media({
-        title: '<?php echo esc_js( __( 'Select Image', 'emerge-mono' ) ); ?>',
-        button: { text: '<?php echo esc_js( __( 'Select', 'emerge-mono' ) ); ?>' },
+        title: '<?php echo esc_js( __( 'Select Image', 'emerge-mono-portfolio' ) ); ?>',
+        button: { text: '<?php echo esc_js( __( 'Select', 'emerge-mono-portfolio' ) ); ?>' },
         multiple: false,
         library: { type: 'image' }
     });

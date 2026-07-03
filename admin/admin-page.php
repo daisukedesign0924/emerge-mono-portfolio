@@ -4,17 +4,17 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function en_admin_page() {
     $tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'general';
     $tabs = array(
-        'general'  => array( 'label' => __( 'Site Settings', 'emerge-mono' ),              'icon' => '⚙' ),
-        'profile'  => array( 'label' => __( 'Profile', 'emerge-mono' ),                'icon' => '👤' ),
-        'nav'      => array( 'label' => __( 'Menu Settings', 'emerge-mono' ),              'icon' => '☰' ),
-        'contact'  => array( 'label' => __( 'Contact Form', 'emerge-mono' ),        'icon' => '✉' ),
-        'design'   => array( 'label' => __( 'Design', 'emerge-mono' ),                'icon' => '🎨' ),
-        'cpt'      => array( 'label' => __( 'Post Type (Works)', 'emerge-mono' ),     'icon' => '📂' ),
-        'privacy'  => array( 'label' => __( 'Privacy Policy', 'emerge-mono' ),               'icon' => '🔒' ),
-        'terms'    => array( 'label' => __( 'Terms of Service', 'emerge-mono' ),                           'icon' => '📋' ),
-        'estimate' => array( 'label' => __( 'Estimate Simulator', 'emerge-mono' ),               'icon' => '💰' ),
-        'editor'   => array( 'label' => __( 'Editor', 'emerge-mono' ),                            'icon' => '✏️' ),
-        'shortcodes' => array( 'label' => __( 'Shortcodes', 'emerge-mono' ),        'icon' => '📋' ),
+        'general'  => array( 'label' => __( 'Site Settings', 'emerge-mono-portfolio' ),              'icon' => '⚙' ),
+        'profile'  => array( 'label' => __( 'Profile', 'emerge-mono-portfolio' ),                'icon' => '👤' ),
+        'nav'      => array( 'label' => __( 'Menu Settings', 'emerge-mono-portfolio' ),              'icon' => '☰' ),
+        'contact'  => array( 'label' => __( 'Contact Form', 'emerge-mono-portfolio' ),        'icon' => '✉' ),
+        'design'   => array( 'label' => __( 'Design', 'emerge-mono-portfolio' ),                'icon' => '🎨' ),
+        'cpt'      => array( 'label' => __( 'Post Type (Works)', 'emerge-mono-portfolio' ),     'icon' => '📂' ),
+        'privacy'  => array( 'label' => __( 'Privacy Policy', 'emerge-mono-portfolio' ),               'icon' => '🔒' ),
+        'terms'    => array( 'label' => __( 'Terms of Service', 'emerge-mono-portfolio' ),                           'icon' => '📋' ),
+        'estimate' => array( 'label' => __( 'Estimate Simulator', 'emerge-mono-portfolio' ),               'icon' => '💰' ),
+        'editor'   => array( 'label' => __( 'Editor', 'emerge-mono-portfolio' ),                            'icon' => '✏️' ),
+        'shortcodes' => array( 'label' => __( 'Shortcodes', 'emerge-mono-portfolio' ),        'icon' => '📋' ),
     );
     $opts = en_get_options();
     ?>
@@ -34,7 +34,7 @@ function en_admin_page() {
             <a class="en-admin-theme-btn<?php echo $en_theme_disabled ? ' is-disabled' : ''; ?>"
                href="<?php echo esc_url( $en_theme_url ); ?>"
                <?php if ( ! $en_theme_disabled ) : ?>target="_blank" rel="noopener noreferrer"<?php else : ?>onclick="return false;" aria-disabled="true"<?php endif; ?>>
-                <span class="en-admin-theme-btn-label"><?php esc_html_e( 'Theme', 'emerge-mono' ); ?></span>
+                <span class="en-admin-theme-btn-label"><?php esc_html_e( 'Theme', 'emerge-mono-portfolio' ); ?></span>
                 <span class="en-admin-theme-btn-sep">-</span>
                 <span class="en-admin-theme-btn-name">Emerge Mono Zero</span>
             </a>
@@ -83,96 +83,96 @@ function en_admin_tab_general($opts) {
         <?php wp_nonce_field('en_save_general','en_nonce'); ?>
         <input type="hidden" name="en_action" value="general">
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Site Info', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Site Info', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Site Name', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Site Name', 'emerge-mono-portfolio' ); ?></label>
                 <input type="text" name="site_name" value="<?php echo esc_attr(isset($opts['site_name']) ? $opts['site_name'] : ''); ?>" class="en-field-input">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Tagline (Title)', 'emerge-mono' ); ?></label>
-                <input type="text" name="site_tagline" value="<?php echo esc_attr(isset($opts['site_tagline']) ? $opts['site_tagline'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Web Creator', 'emerge-mono' ); ?>">
+                <label class="en-field-label"><?php esc_html_e( 'Tagline (Title)', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="site_tagline" value="<?php echo esc_attr(isset($opts['site_tagline']) ? $opts['site_tagline'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Web Creator', 'emerge-mono-portfolio' ); ?>">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Copyright', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Copyright', 'emerge-mono-portfolio' ); ?></label>
                 <input type="text" name="copyright" value="<?php echo esc_attr(isset($opts['copyright']) ? $opts['copyright'] : ''); ?>" class="en-field-input">
             </div>
         </div>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Logo', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'You can set separate logos for dark and light mode. If only one is set, it will be used in both modes.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Logo', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'You can set separate logos for dark and light mode. If only one is set, it will be used in both modes.', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Logo (Dark Mode)', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Logo (Dark Mode)', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;gap:8px;align-items:center">
                     <input type="text" name="logo_url" id="en-logo-url" value="<?php echo esc_attr(isset($opts['logo_url']) ? $opts['logo_url'] : ''); ?>" class="en-field-input">
-                    <button type="button" class="en-media-btn" onclick="enOpenMedia('en-logo-url')"><?php esc_html_e( 'Select', 'emerge-mono' ); ?></button>
+                    <button type="button" class="en-media-btn" onclick="enOpenMedia('en-logo-url')"><?php esc_html_e( 'Select', 'emerge-mono-portfolio' ); ?></button>
                 </div>
                 <?php if ( ! empty($opts['logo_url']) ) : ?>
                     <img src="<?php echo esc_url($opts['logo_url']); ?>" style="margin-top:10px;max-width:120px;max-height:120px;object-fit:contain;background:#111;padding:8px">
                 <?php endif; ?>
             </div>
             <div class="en-field-group" style="margin-top:16px">
-                <label class="en-field-label"><?php esc_html_e( 'Logo (Light Mode)', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Logo (Light Mode)', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;gap:8px;align-items:center">
                     <input type="text" name="logo_url_light" id="en-logo-url-light" value="<?php echo esc_attr(isset($opts['logo_url_light']) ? $opts['logo_url_light'] : ''); ?>" class="en-field-input">
-                    <button type="button" class="en-media-btn" onclick="enOpenMedia('en-logo-url-light')"><?php esc_html_e( 'Select', 'emerge-mono' ); ?></button>
+                    <button type="button" class="en-media-btn" onclick="enOpenMedia('en-logo-url-light')"><?php esc_html_e( 'Select', 'emerge-mono-portfolio' ); ?></button>
                 </div>
                 <?php if ( ! empty($opts['logo_url_light']) ) : ?>
                     <img src="<?php echo esc_url($opts['logo_url_light']); ?>" style="margin-top:10px;max-width:120px;max-height:120px;object-fit:contain;background:#eee;padding:8px">
                 <?php endif; ?>
             </div>
             <div class="en-field-group" style="margin-top:16px">
-                <label class="en-field-label"><?php esc_html_e( 'Top Page Logo Size (vw)', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Top Page Logo Size (vw)', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap">
                     <div>
-                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Desktop', 'emerge-mono' ); ?></div>
+                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Desktop', 'emerge-mono-portfolio' ); ?></div>
                         <input type="number" name="top_logo_size" min="2" max="60" step="0.1"
                             value="<?php echo esc_attr(isset($opts['top_logo_size']) ? $opts['top_logo_size'] : 14); ?>"
                             class="en-field-input" style="width:80px">
                     </div>
                     <div>
-                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Tablet (≤768px)', 'emerge-mono' ); ?></div>
+                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Tablet (≤768px)', 'emerge-mono-portfolio' ); ?></div>
                         <input type="number" name="top_logo_size_tablet" min="0" max="80" step="0.1"
                             value="<?php echo esc_attr(isset($opts['top_logo_size_tablet']) ? $opts['top_logo_size_tablet'] : ''); ?>"
                             placeholder="auto" class="en-field-input" style="width:80px">
                     </div>
                     <div>
-                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Mobile (≤480px)', 'emerge-mono' ); ?></div>
+                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Mobile (≤480px)', 'emerge-mono-portfolio' ); ?></div>
                         <input type="number" name="top_logo_size_mobile" min="0" max="100" step="0.1"
                             value="<?php echo esc_attr(isset($opts['top_logo_size_mobile']) ? $opts['top_logo_size_mobile'] : ''); ?>"
                             placeholder="auto" class="en-field-input" style="width:80px">
                     </div>
                 </div>
-                <div class="en-field-desc" style="margin-top:6px"><?php esc_html_e( 'Top page logo size in vw, per screen width. Leave Tablet/Mobile empty to inherit the larger breakpoint. Desktop default: 14.', 'emerge-mono' ); ?></div>
+                <div class="en-field-desc" style="margin-top:6px"><?php esc_html_e( 'Top page logo size in vw, per screen width. Leave Tablet/Mobile empty to inherit the larger breakpoint. Desktop default: 14.', 'emerge-mono-portfolio' ); ?></div>
             </div>
 
             <div class="en-field-group" style="margin-top:16px">
-                <label class="en-field-label"><?php esc_html_e( 'Header Logo Size (vw)', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Header Logo Size (vw)', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap">
                     <div>
-                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Desktop', 'emerge-mono' ); ?></div>
+                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Desktop', 'emerge-mono-portfolio' ); ?></div>
                         <input type="number" name="header_logo_size" min="1" max="20" step="0.1"
                             value="<?php echo esc_attr(isset($opts['header_logo_size']) ? $opts['header_logo_size'] : '3.2'); ?>"
                             class="en-field-input" style="width:80px">
                     </div>
                     <div>
-                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Tablet (≤768px)', 'emerge-mono' ); ?></div>
+                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Tablet (≤768px)', 'emerge-mono-portfolio' ); ?></div>
                         <input type="number" name="header_logo_size_tablet" min="0" max="30" step="0.1"
                             value="<?php echo esc_attr(isset($opts['header_logo_size_tablet']) ? $opts['header_logo_size_tablet'] : ''); ?>"
                             placeholder="auto" class="en-field-input" style="width:80px">
                     </div>
                     <div>
-                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Mobile (≤480px)', 'emerge-mono' ); ?></div>
+                        <div style="font-size:11px;opacity:.6;margin-bottom:4px"><?php esc_html_e( 'Mobile (≤480px)', 'emerge-mono-portfolio' ); ?></div>
                         <input type="number" name="header_logo_size_mobile" min="0" max="40" step="0.1"
                             value="<?php echo esc_attr(isset($opts['header_logo_size_mobile']) ? $opts['header_logo_size_mobile'] : ''); ?>"
                             placeholder="auto" class="en-field-input" style="width:80px">
                     </div>
                 </div>
-                <div class="en-field-desc" style="margin-top:6px"><?php esc_html_e( 'Header logo size in vw, per screen width. Leave Tablet/Mobile empty to inherit the larger breakpoint. Desktop default: 3.2.', 'emerge-mono' ); ?></div>
+                <div class="en-field-desc" style="margin-top:6px"><?php esc_html_e( 'Header logo size in vw, per screen width. Leave Tablet/Mobile empty to inherit the larger breakpoint. Desktop default: 3.2.', 'emerge-mono-portfolio' ); ?></div>
             </div>
         </div>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Top Page Buttons', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Add or remove buttons shown on the top page. Link to a page or enter a URL directly.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Top Page Buttons', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Add or remove buttons shown on the top page. Link to a page or enter a URL directly.', 'emerge-mono-portfolio' ); ?></div>
             <?php
             $top_buttons = isset($opts['top_buttons']) ? $opts['top_buttons'] : array(
                 array( 'label' => $btn1_label, 'url' => $btn1_url ),
@@ -185,21 +185,21 @@ function en_admin_tab_general($opts) {
                 ?>
                 <div class="en-top-btn-row">
                     <div class="en-field-group" style="margin-bottom:10px">
-                        <label class="en-field-label"><?php esc_html_e( 'Button Label', 'emerge-mono' ); ?></label>
-                        <input type="text" name="top_btn_label[]" value="<?php echo esc_attr(isset($tbtn['label']) ? $tbtn['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. Profile', 'emerge-mono' ); ?>">
+                        <label class="en-field-label"><?php esc_html_e( 'Button Label', 'emerge-mono-portfolio' ); ?></label>
+                        <input type="text" name="top_btn_label[]" value="<?php echo esc_attr(isset($tbtn['label']) ? $tbtn['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. Profile', 'emerge-mono-portfolio' ); ?>">
                     </div>
                     <div class="en-field-group" style="margin-bottom:10px">
-                        <label class="en-field-label"><?php esc_html_e( 'Link (Select Page)', 'emerge-mono' ); ?></label>
+                        <label class="en-field-label"><?php esc_html_e( 'Link (Select Page)', 'emerge-mono-portfolio' ); ?></label>
                         <select name="top_btn_url[]" class="en-field-input" style="margin-bottom:6px">
-                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono-portfolio' ); ?></option>
                             <?php foreach ( $pages as $page ) :
                                 $purl = get_permalink($page->ID); ?>
                                 <option value="<?php echo esc_url($purl); ?>" <?php selected( $tbtn_url, $purl ); ?>><?php echo esc_html( $page->post_title ); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <input type="url" name="top_btn_url_manual[]" value="<?php echo esc_attr($tbtn_url); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Or enter URL directly: https://', 'emerge-mono' ); ?>">
+                        <input type="url" name="top_btn_url_manual[]" value="<?php echo esc_attr($tbtn_url); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Or enter URL directly: https://', 'emerge-mono-portfolio' ); ?>">
                     </div>
-                    <button type="button" class="en-remove-btn" onclick="this.closest('.en-top-btn-row').remove()"><?php esc_html_e( 'Remove this button', 'emerge-mono' ); ?></button>
+                    <button type="button" class="en-remove-btn" onclick="this.closest('.en-top-btn-row').remove()"><?php esc_html_e( 'Remove this button', 'emerge-mono-portfolio' ); ?></button>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -208,20 +208,20 @@ function en_admin_tab_general($opts) {
             <template id="en-top-btn-template">
                 <div class="en-top-btn-row">
                     <div class="en-field-group" style="margin-bottom:10px">
-                        <label class="en-field-label"><?php esc_html_e( 'Button Label', 'emerge-mono' ); ?></label>
-                        <input type="text" name="top_btn_label[]" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. Contact', 'emerge-mono' ); ?>">
+                        <label class="en-field-label"><?php esc_html_e( 'Button Label', 'emerge-mono-portfolio' ); ?></label>
+                        <input type="text" name="top_btn_label[]" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. Contact', 'emerge-mono-portfolio' ); ?>">
                     </div>
                     <div class="en-field-group" style="margin-bottom:10px">
-                        <label class="en-field-label"><?php esc_html_e( 'Link (Select Page)', 'emerge-mono' ); ?></label>
+                        <label class="en-field-label"><?php esc_html_e( 'Link (Select Page)', 'emerge-mono-portfolio' ); ?></label>
                         <select name="top_btn_url[]" class="en-field-input" style="margin-bottom:6px">
-                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono-portfolio' ); ?></option>
                             <?php foreach ( $pages as $page ) : ?>
                                 <option value="<?php echo esc_url(get_permalink($page->ID)); ?>"><?php echo esc_html($page->post_title); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <input type="url" name="top_btn_url_manual[]" class="en-field-input" placeholder="<?php esc_attr_e( 'Or enter URL directly: https://', 'emerge-mono' ); ?>">
+                        <input type="url" name="top_btn_url_manual[]" class="en-field-input" placeholder="<?php esc_attr_e( 'Or enter URL directly: https://', 'emerge-mono-portfolio' ); ?>">
                     </div>
-                    <button type="button" class="en-remove-btn" onclick="this.closest('.en-top-btn-row').remove()"><?php esc_html_e( 'Remove this button', 'emerge-mono' ); ?></button>
+                    <button type="button" class="en-remove-btn" onclick="this.closest('.en-top-btn-row').remove()"><?php esc_html_e( 'Remove this button', 'emerge-mono-portfolio' ); ?></button>
                 </div>
             </template>
         </div>
@@ -233,7 +233,7 @@ function en_admin_tab_general($opts) {
             if (tpl) list.appendChild(tpl.content.cloneNode(true));
         }
         </script>
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
     <?php
 }
@@ -245,68 +245,68 @@ function en_admin_tab_profile($opts) {
         <?php wp_nonce_field('en_save_profile','en_nonce'); ?>
         <input type="hidden" name="en_action" value="profile">
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Profile Info', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Profile Info', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Name', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Name', 'emerge-mono-portfolio' ); ?></label>
                 <input type="text" name="profile_name" value="<?php echo esc_attr(isset($opts['profile_name']) ? $opts['profile_name'] : ''); ?>" class="en-field-input">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Title', 'emerge-mono' ); ?></label>
-                <input type="text" name="profile_role" value="<?php echo esc_attr(isset($opts['profile_role']) ? $opts['profile_role'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Web Creator / iOS Developer', 'emerge-mono' ); ?>">
+                <label class="en-field-label"><?php esc_html_e( 'Title', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="profile_role" value="<?php echo esc_attr(isset($opts['profile_role']) ? $opts['profile_role'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Web Creator / iOS Developer', 'emerge-mono-portfolio' ); ?>">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Bio', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Bio', 'emerge-mono-portfolio' ); ?></label>
                 <textarea name="profile_bio" class="en-field-textarea"><?php echo esc_textarea(isset($opts['profile_bio']) ? $opts['profile_bio'] : ''); ?></textarea>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Profile Image URL', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Profile Image URL', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;gap:8px;align-items:center">
                     <input type="text" name="profile_img" id="en-profile-img" value="<?php echo esc_attr(isset($opts['profile_img']) ? $opts['profile_img'] : ''); ?>" class="en-field-input">
-                    <button type="button" class="en-media-btn" onclick="enOpenMedia('en-profile-img')"><?php esc_html_e( 'Select', 'emerge-mono' ); ?></button>
+                    <button type="button" class="en-media-btn" onclick="enOpenMedia('en-profile-img')"><?php esc_html_e( 'Select', 'emerge-mono-portfolio' ); ?></button>
                 </div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Skills', 'emerge-mono' ); ?></label>
-                <div class="en-field-desc" style="margin-bottom:8px"><?php esc_html_e( 'Enter comma-separated values. e.g. Web Design, PHP, Figma, Live2D', 'emerge-mono' ); ?></div>
-                <input type="text" name="profile_skills" value="<?php echo esc_attr(isset($opts['profile_skills']) ? $opts['profile_skills'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Web Design, PHP, Figma, Live2D', 'emerge-mono' ); ?>">
+                <label class="en-field-label"><?php esc_html_e( 'Skills', 'emerge-mono-portfolio' ); ?></label>
+                <div class="en-field-desc" style="margin-bottom:8px"><?php esc_html_e( 'Enter comma-separated values. e.g. Web Design, PHP, Figma, Live2D', 'emerge-mono-portfolio' ); ?></div>
+                <input type="text" name="profile_skills" value="<?php echo esc_attr(isset($opts['profile_skills']) ? $opts['profile_skills'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Web Design, PHP, Figma, Live2D', 'emerge-mono-portfolio' ); ?>">
             </div>
         </div>
 
         <?php $sns = isset($opts['sns_links']) ? $opts['sns_links'] : array(); ?>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Social Links', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:12px"><?php esc_html_e( 'These links appear on your profile page.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Social Links', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:12px"><?php esc_html_e( 'These links appear on your profile page.', 'emerge-mono-portfolio' ); ?></div>
             <div id="en-sns-list">
                 <?php foreach ( $sns as $idx => $s ) :
                     $sns_icon = isset($s['icon']) ? $s['icon'] : '';
                 ?>
                 <div class="en-sns-row">
-                    <input type="text" name="sns_label[]" value="<?php echo esc_attr(isset($s['label']) ? $s['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. X / Instagram', 'emerge-mono' ); ?>" style="margin-bottom:6px">
+                    <input type="text" name="sns_label[]" value="<?php echo esc_attr(isset($s['label']) ? $s['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. X / Instagram', 'emerge-mono-portfolio' ); ?>" style="margin-bottom:6px">
                     <div style="display:flex;gap:8px;margin-bottom:6px">
                         <input type="url" name="sns_url[]" value="<?php echo esc_attr(isset($s['url']) ? $s['url'] : ''); ?>" class="en-field-input" placeholder="https://">
-                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-sns-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-sns-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                     <div style="display:flex;gap:8px;align-items:center">
-                        <input type="text" name="sns_icon[]" value="<?php echo esc_attr($sns_icon); ?>" class="en-field-input en-sns-icon-input" placeholder="<?php echo esc_attr__( 'Icon image URL (optional)', 'emerge-mono' ); ?>" readonly style="flex:1">
-                        <button type="button" class="en-media-btn en-sns-icon-btn" style="white-space:nowrap"><?php esc_html_e( 'Select Icon', 'emerge-mono' ); ?></button>
-                        <button type="button" class="en-remove-btn en-sns-icon-clear" style="white-space:nowrap"><?php esc_html_e( 'Clear', 'emerge-mono' ); ?></button>
+                        <input type="text" name="sns_icon[]" value="<?php echo esc_attr($sns_icon); ?>" class="en-field-input en-sns-icon-input" placeholder="<?php echo esc_attr__( 'Icon image URL (optional)', 'emerge-mono-portfolio' ); ?>" readonly style="flex:1">
+                        <button type="button" class="en-media-btn en-sns-icon-btn" style="white-space:nowrap"><?php esc_html_e( 'Select Icon', 'emerge-mono-portfolio' ); ?></button>
+                        <button type="button" class="en-remove-btn en-sns-icon-clear" style="white-space:nowrap"><?php esc_html_e( 'Clear', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                 </div>
                 <?php endforeach; ?>
             </div>
-            <button type="button" class="en-add-btn" onclick="enAddSns()"><?php esc_html_e( '+ Add Social Link', 'emerge-mono' ); ?></button>
+            <button type="button" class="en-add-btn" onclick="enAddSns()"><?php esc_html_e( '+ Add Social Link', 'emerge-mono-portfolio' ); ?></button>
         </div>
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
     <script>
     var enSnsI18n = {
-        placeholder: <?php echo wp_json_encode( esc_attr__( 'e.g. X / Instagram', 'emerge-mono' ) ); ?>,
-        del: <?php echo wp_json_encode( __( 'Delete', 'emerge-mono' ) ); ?>,
-        iconPlaceholder: <?php echo wp_json_encode( esc_attr__( 'Icon image URL (optional)', 'emerge-mono' ) ); ?>,
-        selectIcon: <?php echo wp_json_encode( __( 'Select Icon', 'emerge-mono' ) ); ?>,
-        clear: <?php echo wp_json_encode( __( 'Clear', 'emerge-mono' ) ); ?>,
-        mediaTitle: <?php echo wp_json_encode( __( 'Select Icon Image', 'emerge-mono' ) ); ?>,
-        mediaButton: <?php echo wp_json_encode( __( 'Use this image', 'emerge-mono' ) ); ?>
+        placeholder: <?php echo wp_json_encode( esc_attr__( 'e.g. X / Instagram', 'emerge-mono-portfolio' ) ); ?>,
+        del: <?php echo wp_json_encode( __( 'Delete', 'emerge-mono-portfolio' ) ); ?>,
+        iconPlaceholder: <?php echo wp_json_encode( esc_attr__( 'Icon image URL (optional)', 'emerge-mono-portfolio' ) ); ?>,
+        selectIcon: <?php echo wp_json_encode( __( 'Select Icon', 'emerge-mono-portfolio' ) ); ?>,
+        clear: <?php echo wp_json_encode( __( 'Clear', 'emerge-mono-portfolio' ) ); ?>,
+        mediaTitle: <?php echo wp_json_encode( __( 'Select Icon Image', 'emerge-mono-portfolio' ) ); ?>,
+        mediaButton: <?php echo wp_json_encode( __( 'Use this image', 'emerge-mono-portfolio' ) ); ?>
     };
     function enAddSns(){
         var list = document.getElementById('en-sns-list');
@@ -356,21 +356,21 @@ function en_admin_tab_sns_DEPRECATED($opts) {
         <?php wp_nonce_field('en_save_sns','en_nonce'); ?>
         <input type="hidden" name="en_action" value="sns">
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Social Links', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Social Links', 'emerge-mono-portfolio' ); ?></div>
             <div id="en-sns-list">
                 <?php foreach ( $sns as $s ) : ?>
                 <div class="en-sns-row">
-                    <input type="text" name="sns_label[]" value="<?php echo esc_attr(isset($s['label']) ? $s['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. X / Instagram', 'emerge-mono' ); ?>" style="margin-bottom:6px">
+                    <input type="text" name="sns_label[]" value="<?php echo esc_attr(isset($s['label']) ? $s['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. X / Instagram', 'emerge-mono-portfolio' ); ?>" style="margin-bottom:6px">
                     <div style="display:flex;gap:8px">
                         <input type="url" name="sns_url[]" value="<?php echo esc_attr(isset($s['url']) ? $s['url'] : ''); ?>" class="en-field-input" placeholder="https://">
-                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-sns-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-sns-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                 </div>
                 <?php endforeach; ?>
             </div>
-            <button type="button" class="en-add-btn" onclick="enAddSns()">+ <?php esc_html_e( 'Add Social Link', 'emerge-mono' ); ?></button>
+            <button type="button" class="en-add-btn" onclick="enAddSns()">+ <?php esc_html_e( 'Add Social Link', 'emerge-mono-portfolio' ); ?></button>
         </div>
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
     <?php
 }
@@ -393,27 +393,27 @@ function en_admin_tab_nav($opts) {
         <input type="hidden" name="en_action" value="nav">
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Mode', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Mode', 'emerge-mono-portfolio' ); ?></div>
             <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="radio" name="nav_mode" value="auto" <?php checked($nav_mode,'auto'); ?>>
-                    <span><?php esc_html_e( 'Auto (show published pages automatically)', 'emerge-mono' ); ?></span>
+                    <span><?php esc_html_e( 'Auto (show published pages automatically)', 'emerge-mono-portfolio' ); ?></span>
                 </label>
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="radio" name="nav_mode" value="manual" <?php checked($nav_mode,'manual'); ?>>
-                    <span><?php esc_html_e( 'Manual (choose pages/URLs yourself)', 'emerge-mono' ); ?></span>
+                    <span><?php esc_html_e( 'Manual (choose pages/URLs yourself)', 'emerge-mono-portfolio' ); ?></span>
                 </label>
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="radio" name="nav_mode" value="wp_menu" <?php checked($nav_mode,'wp_menu'); ?>>
-                    <span><?php esc_html_e( 'Use WordPress menu (manage via Appearance → Menus)', 'emerge-mono' ); ?></span>
+                    <span><?php esc_html_e( 'Use WordPress menu (manage via Appearance → Menus)', 'emerge-mono-portfolio' ); ?></span>
                 </label>
             </div>
         </div>
 
         <!-- 手動設定エリア -->
         <div class="en-admin-section" id="en-nav-manual-section" style="<?php echo $nav_mode !== 'manual' ? 'display:none' : ''; ?>">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Items', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Select a page or enter a URL directly. Drag to reorder.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Items', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Select a page or enter a URL directly. Drag to reorder.', 'emerge-mono-portfolio' ); ?></div>
             <div id="en-nav-list">
                 <?php foreach ( $nav as $item ) :
                     $item_type = isset($item['type']) ? $item['type'] : 'url';
@@ -423,10 +423,10 @@ function en_admin_tab_nav($opts) {
                     <div style="display:flex;gap:8px;align-items:center;">
                         <select name="nav_type[]" class="en-field-input" style="width:140px" onchange="enNavTypeChange(this)">
                             <option value="page" <?php selected($item_type,'page'); ?>>Page</option>
-                            <option value="url"  <?php selected($item_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono' ); ?></option>
+                            <option value="url"  <?php selected($item_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono-portfolio' ); ?></option>
                         </select>
-                        <input type="text" name="nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (e.g. About)', 'emerge-mono' ); ?>" style="width:140px">
-                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                        <input type="text" name="nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (e.g. About)', 'emerge-mono-portfolio' ); ?>" style="width:140px">
+                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                     <div class="en-nav-page-wrap" style="<?php echo $item_type !== 'page' ? 'display:none' : ''; ?>">
                         <select name="nav_page_id[]" class="en-field-input">
@@ -449,13 +449,13 @@ function en_admin_tab_nav($opts) {
 
         <!-- WPメニューSelectエリア -->
         <div class="en-admin-section" id="en-nav-wpmenu-section" style="<?php echo $nav_mode !== 'wp_menu' ? 'display:none' : ''; ?>">
-            <div class="en-admin-section-title"><?php esc_html_e( 'WordPress Menu to Use', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'WordPress Menu to Use', 'emerge-mono-portfolio' ); ?></div>
             <?php if ( empty($wp_menus) ) : ?>
                 <div class="en-field-desc"><?php
                     printf(
                         /* translators: %s is a link to the WordPress menus screen */
-                        esc_html__( 'No WordPress menu has been created. Go to %s to create a menu.', 'emerge-mono' ),
-                        '<a href="' . esc_url( admin_url('nav-menus.php') ) . '" style="color:inherit;text-decoration:underline">' . esc_html__( 'Appearance → Menus', 'emerge-mono' ) . '</a>'
+                        esc_html__( 'No WordPress menu has been created. Go to %s to create a menu.', 'emerge-mono-portfolio' ),
+                        '<a href="' . esc_url( admin_url('nav-menus.php') ) . '" style="color:inherit;text-decoration:underline">' . esc_html__( 'Appearance → Menus', 'emerge-mono-portfolio' ) . '</a>'
                     );
                 ?></div>
             <?php else : ?>
@@ -472,8 +472,8 @@ function en_admin_tab_nav($opts) {
 
         <!-- フッターメニュー設定 -->
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Footer Menu', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Links shown above the copyright in the footer. For Page type, the page title is displayed (label is ignored). For Direct URL, the label is displayed.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Footer Menu', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Links shown above the copyright in the footer. For Page type, the page title is displayed (label is ignored). For Direct URL, the label is displayed.', 'emerge-mono-portfolio' ); ?></div>
             <div id="en-footer-nav-list">
                 <?php foreach ( $footer_nav as $item ) :
                     $fitem_type = isset($item['type']) ? $item['type'] : 'page';
@@ -483,10 +483,10 @@ function en_admin_tab_nav($opts) {
                     <div style="display:flex;gap:8px;align-items:center;">
                         <select name="footer_nav_type[]" class="en-field-input" style="width:140px" onchange="enFooterNavTypeChange(this)">
                             <option value="page" <?php selected($fitem_type,'page'); ?>>Page</option>
-                            <option value="url"  <?php selected($fitem_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono' ); ?></option>
+                            <option value="url"  <?php selected($fitem_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono-portfolio' ); ?></option>
                         </select>
-                        <input type="text" name="footer_nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (URL only)', 'emerge-mono' ); ?>" style="width:140px">
-                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-footer-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                        <input type="text" name="footer_nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (URL only)', 'emerge-mono-portfolio' ); ?>" style="width:140px">
+                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-footer-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                     <div class="en-footer-nav-page-wrap" style="<?php echo $fitem_type !== 'page' ? 'display:none' : ''; ?>">
                         <select name="footer_nav_page_id[]" class="en-field-input">
@@ -507,7 +507,7 @@ function en_admin_tab_nav($opts) {
             <button type="button" class="en-add-btn" onclick="enAddFooterNav()">+ Add Item</button>
         </div>
 
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
 
     <script>
@@ -530,11 +530,11 @@ function en_admin_tab_nav($opts) {
     window.enAddNav = function(){
         var pages = <?php echo json_encode( array_map( function($p){ return array('id'=>$p->ID,'title'=>$p->post_title,'slug'=>$p->post_name); }, $pages ) ); ?>;
         var navI18n = {
-            selectPage: <?php echo wp_json_encode( __( '— Select a page —', 'emerge-mono' ) ); ?>,
-            page: <?php echo wp_json_encode( __( 'Page', 'emerge-mono' ) ); ?>,
-            directUrl: <?php echo wp_json_encode( __( 'Direct URL', 'emerge-mono' ) ); ?>,
-            labelPlaceholder: <?php echo wp_json_encode( esc_attr__( 'Label (e.g. About)', 'emerge-mono' ) ); ?>,
-            del: <?php echo wp_json_encode( __( 'Delete', 'emerge-mono' ) ); ?>
+            selectPage: <?php echo wp_json_encode( __( '— Select a page —', 'emerge-mono-portfolio' ) ); ?>,
+            page: <?php echo wp_json_encode( __( 'Page', 'emerge-mono-portfolio' ) ); ?>,
+            directUrl: <?php echo wp_json_encode( __( 'Direct URL', 'emerge-mono-portfolio' ) ); ?>,
+            labelPlaceholder: <?php echo wp_json_encode( esc_attr__( 'Label (e.g. About)', 'emerge-mono-portfolio' ) ); ?>,
+            del: <?php echo wp_json_encode( __( 'Delete', 'emerge-mono-portfolio' ) ); ?>
         };
         var opts = '<option value="">' + navI18n.selectPage + '</option>';
         pages.forEach(function(p){ opts += '<option value="'+p.id+'">'+p.title+' (/'+p.slug+')</option>'; });
@@ -566,11 +566,11 @@ function en_admin_tab_nav($opts) {
     window.enAddFooterNav = function(){
         var pages = <?php echo wp_json_encode( array_map( function($p){ return array('id'=>$p->ID,'title'=>$p->post_title,'slug'=>$p->post_name); }, $pages ) ); ?>;
         var fI18n = {
-            selectPage: <?php echo wp_json_encode( __( '— Select a page —', 'emerge-mono' ) ); ?>,
-            page: <?php echo wp_json_encode( __( 'Page', 'emerge-mono' ) ); ?>,
-            directUrl: <?php echo wp_json_encode( __( 'Direct URL', 'emerge-mono' ) ); ?>,
-            labelPlaceholder: <?php echo wp_json_encode( esc_attr__( 'Label (URL only)', 'emerge-mono' ) ); ?>,
-            del: <?php echo wp_json_encode( __( 'Delete', 'emerge-mono' ) ); ?>
+            selectPage: <?php echo wp_json_encode( __( '— Select a page —', 'emerge-mono-portfolio' ) ); ?>,
+            page: <?php echo wp_json_encode( __( 'Page', 'emerge-mono-portfolio' ) ); ?>,
+            directUrl: <?php echo wp_json_encode( __( 'Direct URL', 'emerge-mono-portfolio' ) ); ?>,
+            labelPlaceholder: <?php echo wp_json_encode( esc_attr__( 'Label (URL only)', 'emerge-mono-portfolio' ) ); ?>,
+            del: <?php echo wp_json_encode( __( 'Delete', 'emerge-mono-portfolio' ) ); ?>
         };
         var opts = '<option value="">' + fI18n.selectPage + '</option>';
         pages.forEach(function(p){ opts += '<option value="'+p.id+'">'+p.title+' (/'+p.slug+')</option>'; });
@@ -598,57 +598,61 @@ function en_admin_tab_contact($opts) {
     en_admin_notice();
     $fields = get_option('en_contact_fields', en_default_contact_fields());
     $field_types = array(
-        'text'     => __( 'Text (single line)', 'emerge-mono' ),
-        'email'    => __( 'Email', 'emerge-mono' ),
-        'tel'      => __( 'Phone', 'emerge-mono' ),
-        'textarea' => __( 'Text (multi-line)', 'emerge-mono' ),
-        'select'   => __( 'Select box', 'emerge-mono' ),
-        'checkbox' => __( 'Checkbox', 'emerge-mono' ),
+        'text'     => __( 'Text (single line)', 'emerge-mono-portfolio' ),
+        'email'    => __( 'Email', 'emerge-mono-portfolio' ),
+        'tel'      => __( 'Phone', 'emerge-mono-portfolio' ),
+        'textarea' => __( 'Text (multi-line)', 'emerge-mono-portfolio' ),
+        'select'   => __( 'Select box', 'emerge-mono-portfolio' ),
+        'checkbox' => __( 'Checkbox', 'emerge-mono-portfolio' ),
     );
 
     // 送信ログ表示
     global $wpdb;
     $table = $wpdb->prefix . 'en_contact_log';
     $logs = array();
-    if ( $wpdb->get_var("SHOW TABLES LIKE '$table'") === $table ) {
-        $logs = $wpdb->get_results("SELECT * FROM $table ORDER BY created_at DESC LIMIT 30");
+    if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) === $table ) {
+        // $table is an internal, plugin-generated name ($wpdb->prefix . 'en_contact_log'); no user input.
+        $logs = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY created_at DESC LIMIT 30" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         // 既読処理
-        if ( isset($_GET['mark_read']) ) {
+        if ( isset($_GET['mark_read']) && isset($_GET['_ennonce'])
+            && wp_verify_nonce( sanitize_text_field( wp_unslash($_GET['_ennonce']) ), 'en_log_action' ) ) {
             $wpdb->update($table, array('status'=>'read'), array('id'=>(int)$_GET['mark_read']));
         }
-        if ( isset($_GET['delete_log']) ) {
+        if ( isset($_GET['delete_log']) && isset($_GET['_ennonce'])
+            && wp_verify_nonce( sanitize_text_field( wp_unslash($_GET['_ennonce']) ), 'en_log_action' ) ) {
             $wpdb->delete($table, array('id'=>(int)$_GET['delete_log']));
         }
     }
-    $unread = ( $wpdb->get_var("SELECT COUNT(*) FROM {$table} WHERE status='unread'") ? (int)$wpdb->get_var("SELECT COUNT(*) FROM {$table} WHERE status='unread'") : 0 );
+    // $table is an internal, plugin-generated name; no user input.
+    $unread = ( $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='unread'" ) ? (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='unread'" ) : 0 ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
     ?>
     <form method="post" action="">
         <?php wp_nonce_field('en_save_contact','en_nonce'); ?>
         <input type="hidden" name="en_action" value="contact">
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Basic Settings', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Basic Settings', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Recipient Email', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Recipient Email', 'emerge-mono-portfolio' ); ?></label>
                 <input type="email" name="contact_email" value="<?php echo esc_attr(isset($opts['contact_email']) ? $opts['contact_email'] : get_option('admin_email')); ?>" class="en-field-input">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Description', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Description', 'emerge-mono-portfolio' ); ?></label>
                 <textarea name="contact_desc" class="en-field-textarea"><?php echo esc_textarea(isset($opts['contact_desc']) ? $opts['contact_desc'] : ''); ?></textarea>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Submit Button Text', 'emerge-mono' ); ?></label>
-                <input type="text" name="contact_btn_text" value="<?php echo esc_attr(isset($opts['contact_btn_text']) ? $opts['contact_btn_text'] : 'Send'); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Send', 'emerge-mono' ); ?>">
+                <label class="en-field-label"><?php esc_html_e( 'Submit Button Text', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="contact_btn_text" value="<?php echo esc_attr(isset($opts['contact_btn_text']) ? $opts['contact_btn_text'] : 'Send'); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Send', 'emerge-mono-portfolio' ); ?>">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Success Message', 'emerge-mono' ); ?></label>
-                <input type="text" name="contact_success" value="<?php echo esc_attr(isset($opts['contact_success']) ? $opts['contact_success'] : __( 'Your message has been sent.', 'emerge-mono' )); ?>" class="en-field-input">
+                <label class="en-field-label"><?php esc_html_e( 'Success Message', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="contact_success" value="<?php echo esc_attr(isset($opts['contact_success']) ? $opts['contact_success'] : __( 'Your message has been sent.', 'emerge-mono-portfolio' )); ?>" class="en-field-input">
             </div>
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Form Fields', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Freely add or remove form fields. You must include at least one email field.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Form Fields', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Freely add or remove form fields. You must include at least one email field.', 'emerge-mono-portfolio' ); ?></div>
             <div id="en-contact-fields-list">
                 <?php foreach ( $fields as $i => $field ) :
                     $key  = $field['key'];
@@ -660,38 +664,38 @@ function en_admin_tab_contact($opts) {
                     <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:start;margin-bottom:8px">
                         <div>
                             <div class="en-field-label" style="margin-bottom:4px">Label</div>
-                            <input type="text" name="cf_label[]" value="<?php echo esc_attr($field['label']); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Your Name', 'emerge-mono' ); ?>">
+                            <input type="text" name="cf_label[]" value="<?php echo esc_attr($field['label']); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Your Name', 'emerge-mono-portfolio' ); ?>">
                         </div>
                         <div>
-                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field Type', 'emerge-mono' ); ?></div>
+                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field Type', 'emerge-mono-portfolio' ); ?></div>
                             <select name="cf_type[]" class="en-field-input en-field-select" onchange="enToggleOptions(this)">
                                 <?php foreach ( $field_types as $ft => $fl ) : ?>
                                     <option value="<?php echo $ft; ?>" <?php selected($type,$ft); ?>><?php echo $fl; ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <button type="button" class="en-remove-btn" style="margin-top:20px" onclick="this.closest('.en-contact-field-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                        <button type="button" class="en-remove-btn" style="margin-top:20px" onclick="this.closest('.en-contact-field-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
                         <div>
-                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field ID (alphanumeric)', 'emerge-mono' ); ?></div>
-                            <input type="text" name="cf_key[]" value="<?php echo esc_attr($key); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'name', 'emerge-mono' ); ?>">
+                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field ID (alphanumeric)', 'emerge-mono-portfolio' ); ?></div>
+                            <input type="text" name="cf_key[]" value="<?php echo esc_attr($key); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'name', 'emerge-mono-portfolio' ); ?>">
                         </div>
                         <div>
-                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Placeholder', 'emerge-mono' ); ?></div>
-                            <input type="text" name="cf_placeholder[]" value="<?php echo esc_attr(isset($field['placeholder']) ? $field['placeholder'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Show example', 'emerge-mono' ); ?>">
+                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Placeholder', 'emerge-mono-portfolio' ); ?></div>
+                            <input type="text" name="cf_placeholder[]" value="<?php echo esc_attr(isset($field['placeholder']) ? $field['placeholder'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Show example', 'emerge-mono-portfolio' ); ?>">
                         </div>
                         <div>
-                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Required / Optional', 'emerge-mono' ); ?></div>
+                            <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Required / Optional', 'emerge-mono-portfolio' ); ?></div>
                             <select name="cf_required[]" class="en-field-input en-field-select">
-                                <option value="1" <?php selected(!empty($field['required']),true); ?>><?php esc_html_e( 'Required', 'emerge-mono' ); ?></option>
-                                <option value="0" <?php selected(!empty($field['required']),false); ?>><?php esc_html_e( 'Optional', 'emerge-mono' ); ?></option>
+                                <option value="1" <?php selected(!empty($field['required']),true); ?>><?php esc_html_e( 'Required', 'emerge-mono-portfolio' ); ?></option>
+                                <option value="0" <?php selected(!empty($field['required']),false); ?>><?php esc_html_e( 'Optional', 'emerge-mono-portfolio' ); ?></option>
                             </select>
                         </div>
                     </div>
                     <div class="en-cf-options" style="<?php echo in_array($type,array('select','checkbox')) ? '' : 'display:none'; ?>">
-                        <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Options (one per line)', 'emerge-mono' ); ?></div>
-                        <textarea name="cf_options[]" class="en-field-textarea" style="height:80px" placeholder="<?php esc_attr_e( 'Option A&#10;Option B&#10;Option C', 'emerge-mono' ); ?>"><?php echo esc_textarea($opts_val); ?></textarea>
+                        <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Options (one per line)', 'emerge-mono-portfolio' ); ?></div>
+                        <textarea name="cf_options[]" class="en-field-textarea" style="height:80px" placeholder="<?php esc_attr_e( 'Option A&#10;Option B&#10;Option C', 'emerge-mono-portfolio' ); ?>"><?php echo esc_textarea($opts_val); ?></textarea>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -700,75 +704,75 @@ function en_admin_tab_contact($opts) {
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Auto-Reply Email', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Auto-Reply Email', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Send Auto-Reply', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Send Auto-Reply', 'emerge-mono-portfolio' ); ?></label>
                 <select name="contact_auto_reply" class="en-field-input en-field-select">
                     <option value="1" <?php selected(isset($opts['contact_auto_reply']) ? $opts['contact_auto_reply'] : '1', '1'); ?>>Send</option>
-                    <option value="0" <?php selected(isset($opts['contact_auto_reply']) ? $opts['contact_auto_reply'] : '1', '0'); ?>><?php esc_html_e( 'Do not send', 'emerge-mono' ); ?></option>
+                    <option value="0" <?php selected(isset($opts['contact_auto_reply']) ? $opts['contact_auto_reply'] : '1', '0'); ?>><?php esc_html_e( 'Do not send', 'emerge-mono-portfolio' ); ?></option>
                 </select>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Auto-Reply Subject', 'emerge-mono' ); ?></label>
-                <input type="text" name="contact_reply_subject" value="<?php echo esc_attr(isset($opts['contact_reply_subject']) ? $opts['contact_reply_subject'] : __( 'We have received your inquiry', 'emerge-mono' )); ?>" class="en-field-input">
+                <label class="en-field-label"><?php esc_html_e( 'Auto-Reply Subject', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="contact_reply_subject" value="<?php echo esc_attr(isset($opts['contact_reply_subject']) ? $opts['contact_reply_subject'] : __( 'We have received your inquiry', 'emerge-mono-portfolio' )); ?>" class="en-field-input">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Auto-Reply Body', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Auto-Reply Body', 'emerge-mono-portfolio' ); ?></label>
                 <textarea name="contact_reply_body" class="en-field-textarea" style="height:120px"><?php echo esc_textarea(isset($opts['contact_reply_body']) ? $opts['contact_reply_body'] : __( "Thank you for your inquiry.
-We will review your message and get back to you shortly.", 'emerge-mono' )); ?></textarea>
+We will review your message and get back to you shortly.", 'emerge-mono-portfolio' )); ?></textarea>
             </div>
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Admin Email Settings', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Admin Email Settings', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Subject', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Subject', 'emerge-mono-portfolio' ); ?></label>
                 <input type="text" name="contact_mail_subject" value="<?php echo esc_attr(isset($opts['contact_mail_subject']) ? $opts['contact_mail_subject'] : '[Inquiry] ' . get_bloginfo('name')); ?>" class="en-field-input">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Email Intro Text', 'emerge-mono' ); ?></label>
-                <textarea name="contact_mail_body" class="en-field-textarea"><?php echo esc_textarea(isset($opts['contact_mail_body']) ? $opts['contact_mail_body'] : __( "You have received a new inquiry with the following details.\n\n", 'emerge-mono' )); ?></textarea>
+                <label class="en-field-label"><?php esc_html_e( 'Email Intro Text', 'emerge-mono-portfolio' ); ?></label>
+                <textarea name="contact_mail_body" class="en-field-textarea"><?php echo esc_textarea(isset($opts['contact_mail_body']) ? $opts['contact_mail_body'] : __( "You have received a new inquiry with the following details.\n\n", 'emerge-mono-portfolio' )); ?></textarea>
             </div>
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Security Settings', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Security Settings', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="margin-bottom:12px">
-                <?php esc_html_e( 'Honeypot spam protection is always enabled. Add reCAPTCHA v3 for extra protection.', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Honeypot spam protection is always enabled. Add reCAPTCHA v3 for extra protection.', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'reCAPTCHA v3 Site Key', 'emerge-mono' ); ?></label>
-                <input type="text" name="recaptcha_site_key" value="<?php echo esc_attr(isset($opts['recaptcha_site_key']) ? $opts['recaptcha_site_key'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Enter your Google reCAPTCHA site key', 'emerge-mono' ); ?>">
-                <div class="en-field-desc" style="margin-top:4px"><a href="https://www.google.com/recaptcha/admin" target="_blank" style="color:rgba(255,255,255,.4)"><?php esc_html_e( 'Google reCAPTCHA Admin →', 'emerge-mono' ); ?></a>  <?php esc_html_e( 'to get your keys.', 'emerge-mono' ); ?></div>
+                <label class="en-field-label"><?php esc_html_e( 'reCAPTCHA v3 Site Key', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="recaptcha_site_key" value="<?php echo esc_attr(isset($opts['recaptcha_site_key']) ? $opts['recaptcha_site_key'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Enter your Google reCAPTCHA site key', 'emerge-mono-portfolio' ); ?>">
+                <div class="en-field-desc" style="margin-top:4px"><a href="https://www.google.com/recaptcha/admin" target="_blank" style="color:rgba(255,255,255,.4)"><?php esc_html_e( 'Google reCAPTCHA Admin →', 'emerge-mono-portfolio' ); ?></a>  <?php esc_html_e( 'to get your keys.', 'emerge-mono-portfolio' ); ?></div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'reCAPTCHA v3 Secret Key', 'emerge-mono' ); ?></label>
-                <input type="password" name="recaptcha_secret" value="<?php echo esc_attr(isset($opts['recaptcha_secret']) ? $opts['recaptcha_secret'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Enter your secret key', 'emerge-mono' ); ?>">
+                <label class="en-field-label"><?php esc_html_e( 'reCAPTCHA v3 Secret Key', 'emerge-mono-portfolio' ); ?></label>
+                <input type="password" name="recaptcha_secret" value="<?php echo esc_attr(isset($opts['recaptcha_secret']) ? $opts['recaptcha_secret'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Enter your secret key', 'emerge-mono-portfolio' ); ?>">
             </div>
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Privacy Policy Consent', 'emerge-mono' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Require a privacy policy consent checkbox before form submission.', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Privacy Policy Consent', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Require a privacy policy consent checkbox before form submission.', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="checkbox" name="contact_consent_enabled" value="1" <?php checked( isset($opts['contact_consent_enabled']) ? $opts['contact_consent_enabled'] : '0', '1' ); ?>>
-                    <span><?php esc_html_e( 'Show consent checkbox', 'emerge-mono' ); ?></span>
+                    <span><?php esc_html_e( 'Show consent checkbox', 'emerge-mono-portfolio' ); ?></span>
                 </label>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Checkbox Text', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Checkbox Text', 'emerge-mono-portfolio' ); ?></label>
                 <input type="text" name="contact_consent_text" value="<?php echo esc_attr(isset($opts['contact_consent_text']) ? $opts['contact_consent_text'] : 'I agree to the Privacy Policy.'); ?>" class="en-field-input">
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Link Page (optional)', 'emerge-mono' ); ?></label>
-                <div class="en-field-desc" style="margin-bottom:8px"><?php esc_html_e( 'Clicking the checkbox text navigates to this page.', 'emerge-mono' ); ?></div>
+                <label class="en-field-label"><?php esc_html_e( 'Link Page (optional)', 'emerge-mono-portfolio' ); ?></label>
+                <div class="en-field-desc" style="margin-bottom:8px"><?php esc_html_e( 'Clicking the checkbox text navigates to this page.', 'emerge-mono-portfolio' ); ?></div>
                 <?php
                 $pages = get_pages( array( 'post_status' => 'publish', 'sort_column' => 'menu_order' ) );
                 $consent_page_id = isset($opts['contact_consent_page_id']) ? (int)$opts['contact_consent_page_id'] : 0;
                 ?>
                 <select name="contact_consent_page_id" class="en-field-input" style="max-width:400px">
-                    <option value=""><?php esc_html_e( '— No page selected —', 'emerge-mono' ); ?></option>
+                    <option value=""><?php esc_html_e( '— No page selected —', 'emerge-mono-portfolio' ); ?></option>
                     <?php foreach ( $pages as $page ) : ?>
                     <option value="<?php echo esc_attr($page->ID); ?>" <?php selected($consent_page_id, $page->ID); ?>>
                         <?php echo esc_html($page->post_title); ?> （/<?php echo esc_html($page->post_name); ?>）
@@ -778,7 +782,7 @@ We will review your message and get back to you shortly.", 'emerge-mono' )); ?><
             </div>
         </div>
 
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
 
     <?php if ( ! empty($logs) ) : ?>
@@ -796,8 +800,8 @@ We will review your message and get back to you shortly.", 'emerge-mono' )); ?><
                         <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal;white-space:nowrap">Date</th>
                         <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal">Name</th>
                         <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal">Email</th>
-                        <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal"><?php esc_html_e( 'Content', 'emerge-mono' ); ?></th>
-                        <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal"><?php esc_html_e( 'Actions', 'emerge-mono' ); ?></th>
+                        <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal"><?php esc_html_e( 'Content', 'emerge-mono-portfolio' ); ?></th>
+                        <th style="padding:10px;text-align:left;color:rgba(255,255,255,.3);font-weight:normal"><?php esc_html_e( 'Actions', 'emerge-mono-portfolio' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -811,7 +815,7 @@ We will review your message and get back to you shortly.", 'emerge-mono' )); ?><
                         <td style="padding:10px"><a href="mailto:<?php echo esc_attr($log->email); ?>" style="color:rgba(255,255,255,.5)"><?php echo esc_html($log->email); ?></a></td>
                         <td style="padding:10px">
                             <details>
-                                <summary style="cursor:pointer;color:rgba(255,255,255,.4);font-size:11px"><?php esc_html_e( 'View details', 'emerge-mono' ); ?></summary>
+                                <summary style="cursor:pointer;color:rgba(255,255,255,.4);font-size:11px"><?php esc_html_e( 'View details', 'emerge-mono-portfolio' ); ?></summary>
                                 <div style="margin-top:8px;padding:10px;background:rgba(255,255,255,.03);border-radius:4px">
                                     <?php foreach ( $fields_data as $fd ) : ?>
                                         <div style="margin-bottom:6px"><span style="color:rgba(255,255,255,.3);font-size:10px"><?php echo esc_html($fd['label']); ?>：</span><br><?php echo nl2br(esc_html($fd['value'])); ?></div>
@@ -821,9 +825,9 @@ We will review your message and get back to you shortly.", 'emerge-mono' )); ?><
                         </td>
                         <td style="padding:10px;white-space:nowrap">
                             <?php if ($is_unread) : ?>
-                                <a href="?page=emerge-mono-portfolio&tab=contact&mark_read=<?php echo $log->id; ?>" style="font-size:10px;color:rgba(255,255,255,.35);margin-right:8px"><?php esc_html_e( 'Mark as read', 'emerge-mono' ); ?></a>
+                                <a href="<?php echo esc_url( wp_nonce_url( '?page=emerge-mono-portfolio&tab=contact&mark_read=' . (int) $log->id, 'en_log_action', '_ennonce' ) ); ?>" style="font-size:10px;color:rgba(255,255,255,.35);margin-right:8px"><?php esc_html_e( 'Mark as read', 'emerge-mono-portfolio' ); ?></a>
                             <?php endif; ?>
-                            <a href="?page=emerge-mono-portfolio&tab=contact&delete_log=<?php echo $log->id; ?>" style="font-size:10px;color:rgba(255,100,100,.4)" onclick="return confirm('<?php echo esc_js( __( 'Delete this?', 'emerge-mono' ) ); ?>')"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></a>
+                            <a href="<?php echo esc_url( wp_nonce_url( '?page=emerge-mono-portfolio&tab=contact&delete_log=' . (int) $log->id, 'en_log_action', '_ennonce' ) ); ?>" style="font-size:10px;color:rgba(255,100,100,.4)" onclick="return confirm('<?php echo esc_js( __( 'Delete this?', 'emerge-mono-portfolio' ) ); ?>')"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -839,41 +843,41 @@ We will review your message and get back to you shortly.", 'emerge-mono' )); ?><
             <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:start;margin-bottom:8px">
                 <div>
                     <div class="en-field-label" style="margin-bottom:4px">Label</div>
-                    <input type="text" name="cf_label[]" class="en-field-input" placeholder="<?php esc_attr_e( 'Your Name', 'emerge-mono' ); ?>">
+                    <input type="text" name="cf_label[]" class="en-field-input" placeholder="<?php esc_attr_e( 'Your Name', 'emerge-mono-portfolio' ); ?>">
                 </div>
                 <div>
-                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field Type', 'emerge-mono' ); ?></div>
+                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field Type', 'emerge-mono-portfolio' ); ?></div>
                     <select name="cf_type[]" class="en-field-input en-field-select" onchange="enToggleOptions(this)">
-                        <option value="text"><?php esc_html_e( 'Text (single line)', 'emerge-mono' ); ?></option>
-                        <option value="email"><?php esc_html_e( 'Email', 'emerge-mono' ); ?></option>
-                        <option value="tel"><?php esc_html_e( 'Phone', 'emerge-mono' ); ?></option>
-                        <option value="textarea"><?php esc_html_e( 'Text (multi-line)', 'emerge-mono' ); ?></option>
-                        <option value="select"><?php esc_html_e( 'Select box', 'emerge-mono' ); ?></option>
-                        <option value="checkbox"><?php esc_html_e( 'Checkbox', 'emerge-mono' ); ?></option>
+                        <option value="text"><?php esc_html_e( 'Text (single line)', 'emerge-mono-portfolio' ); ?></option>
+                        <option value="email"><?php esc_html_e( 'Email', 'emerge-mono-portfolio' ); ?></option>
+                        <option value="tel"><?php esc_html_e( 'Phone', 'emerge-mono-portfolio' ); ?></option>
+                        <option value="textarea"><?php esc_html_e( 'Text (multi-line)', 'emerge-mono-portfolio' ); ?></option>
+                        <option value="select"><?php esc_html_e( 'Select box', 'emerge-mono-portfolio' ); ?></option>
+                        <option value="checkbox"><?php esc_html_e( 'Checkbox', 'emerge-mono-portfolio' ); ?></option>
                     </select>
                 </div>
-                <button type="button" class="en-remove-btn" style="margin-top:20px" onclick="this.closest('.en-contact-field-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                <button type="button" class="en-remove-btn" style="margin-top:20px" onclick="this.closest('.en-contact-field-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">
                 <div>
-                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field ID (alphanumeric)', 'emerge-mono' ); ?></div>
-                    <input type="text" name="cf_key[]" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. inquiry_type', 'emerge-mono' ); ?>">
+                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field ID (alphanumeric)', 'emerge-mono-portfolio' ); ?></div>
+                    <input type="text" name="cf_key[]" class="en-field-input" placeholder="<?php esc_attr_e( 'e.g. inquiry_type', 'emerge-mono-portfolio' ); ?>">
                 </div>
                 <div>
-                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Placeholder', 'emerge-mono' ); ?></div>
+                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Placeholder', 'emerge-mono-portfolio' ); ?></div>
                     <input type="text" name="cf_placeholder[]" class="en-field-input">
                 </div>
                 <div>
-                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Required / Optional', 'emerge-mono' ); ?></div>
+                    <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Required / Optional', 'emerge-mono-portfolio' ); ?></div>
                     <select name="cf_required[]" class="en-field-input en-field-select">
-                        <option value="1"><?php esc_html_e( 'Required', 'emerge-mono' ); ?></option>
-                        <option value="0"><?php esc_html_e( 'Optional', 'emerge-mono' ); ?></option>
+                        <option value="1"><?php esc_html_e( 'Required', 'emerge-mono-portfolio' ); ?></option>
+                        <option value="0"><?php esc_html_e( 'Optional', 'emerge-mono-portfolio' ); ?></option>
                     </select>
                 </div>
             </div>
             <div class="en-cf-options" style="display:none">
-                <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Options (one per line)', 'emerge-mono' ); ?></div>
-                <textarea name="cf_options[]" class="en-field-textarea" style="height:80px" placeholder="<?php esc_attr_e( 'Option A&#10;Option B', 'emerge-mono' ); ?>"></textarea>
+                <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Options (one per line)', 'emerge-mono-portfolio' ); ?></div>
+                <textarea name="cf_options[]" class="en-field-textarea" style="height:80px" placeholder="<?php esc_attr_e( 'Option A&#10;Option B', 'emerge-mono-portfolio' ); ?>"></textarea>
             </div>
         </div>
     </template>
@@ -907,49 +911,49 @@ function en_admin_tab_cpt($opts) {
 
     // よく使うdashiconsのリスト
     $icons = array(
-        'dashicons-portfolio'     => '💼 ' . __( 'Portfolio', 'emerge-mono' ),
-        'dashicons-images-alt2'   => '🖼 ' . __( 'Images / Works', 'emerge-mono' ),
-        'dashicons-art'           => '🎨 ' . __( 'Art', 'emerge-mono' ),
-        'dashicons-camera'        => '📷 ' . __( 'Camera', 'emerge-mono' ),
-        'dashicons-video-alt3'    => '🎬 ' . __( 'Video', 'emerge-mono' ),
-        'dashicons-music'         => '🎵 ' . __( 'Music', 'emerge-mono' ),
-        'dashicons-edit'          => '✏️ ' . __( 'Edit', 'emerge-mono' ),
-        'dashicons-admin-page'    => '📄 ' . __( 'Page', 'emerge-mono' ),
-        'dashicons-star-filled'   => '⭐ ' . __( 'Star', 'emerge-mono' ),
-        'dashicons-heart'         => '❤️ ' . __( 'Heart', 'emerge-mono' ),
-        'dashicons-products'      => '📦 ' . __( 'Product', 'emerge-mono' ),
-        'dashicons-admin-tools'   => '🔧 ' . __( 'Tools', 'emerge-mono' ),
-        'dashicons-lightbulb'     => '💡 ' . __( 'Idea', 'emerge-mono' ),
-        'dashicons-awards'        => '🏆 ' . __( 'Award', 'emerge-mono' ),
-        'dashicons-megaphone'     => '📣 ' . __( 'News', 'emerge-mono' ),
+        'dashicons-portfolio'     => '💼 ' . __( 'Portfolio', 'emerge-mono-portfolio' ),
+        'dashicons-images-alt2'   => '🖼 ' . __( 'Images / Works', 'emerge-mono-portfolio' ),
+        'dashicons-art'           => '🎨 ' . __( 'Art', 'emerge-mono-portfolio' ),
+        'dashicons-camera'        => '📷 ' . __( 'Camera', 'emerge-mono-portfolio' ),
+        'dashicons-video-alt3'    => '🎬 ' . __( 'Video', 'emerge-mono-portfolio' ),
+        'dashicons-music'         => '🎵 ' . __( 'Music', 'emerge-mono-portfolio' ),
+        'dashicons-edit'          => '✏️ ' . __( 'Edit', 'emerge-mono-portfolio' ),
+        'dashicons-admin-page'    => '📄 ' . __( 'Page', 'emerge-mono-portfolio' ),
+        'dashicons-star-filled'   => '⭐ ' . __( 'Star', 'emerge-mono-portfolio' ),
+        'dashicons-heart'         => '❤️ ' . __( 'Heart', 'emerge-mono-portfolio' ),
+        'dashicons-products'      => '📦 ' . __( 'Product', 'emerge-mono-portfolio' ),
+        'dashicons-admin-tools'   => '🔧 ' . __( 'Tools', 'emerge-mono-portfolio' ),
+        'dashicons-lightbulb'     => '💡 ' . __( 'Idea', 'emerge-mono-portfolio' ),
+        'dashicons-awards'        => '🏆 ' . __( 'Award', 'emerge-mono-portfolio' ),
+        'dashicons-megaphone'     => '📣 ' . __( 'News', 'emerge-mono-portfolio' ),
     );
     ?>
     <form method="post" action="">
         <?php wp_nonce_field('en_save_cpt','en_nonce'); ?>
         <input type="hidden" name="en_action" value="cpt">
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Works Display Settings', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Works Display Settings', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="line-height:1.9;margin-bottom:16px">
-                <?php esc_html_e( 'Customize the name and icon of the "Works" post type shown in the WordPress admin.', 'emerge-mono' ); ?><br>
-                <?php esc_html_e( 'For example, you can rename "Works" to "Portfolio", "Projects", or "Gallery".', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Customize the name and icon of the "Works" post type shown in the WordPress admin.', 'emerge-mono-portfolio' ); ?><br>
+                <?php esc_html_e( 'For example, you can rename "Works" to "Portfolio", "Projects", or "Gallery".', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Display Name (plural)', 'emerge-mono' ); ?></label>
-                <input type="text" name="work_label" value="<?php echo esc_attr($work_label); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Works', 'emerge-mono' ); ?>">
-                <div class="en-field-desc" style="margin-top:4px"><?php esc_html_e( 'Name shown in the admin menu (e.g. Portfolio, Projects, Gallery)', 'emerge-mono' ); ?></div>
+                <label class="en-field-label"><?php esc_html_e( 'Display Name (plural)', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="work_label" value="<?php echo esc_attr($work_label); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Works', 'emerge-mono-portfolio' ); ?>">
+                <div class="en-field-desc" style="margin-top:4px"><?php esc_html_e( 'Name shown in the admin menu (e.g. Portfolio, Projects, Gallery)', 'emerge-mono-portfolio' ); ?></div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Display Name (singular)', 'emerge-mono' ); ?></label>
-                <input type="text" name="work_singular" value="<?php echo esc_attr($work_singular); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Work', 'emerge-mono' ); ?>">
-                <div class="en-field-desc" style="margin-top:4px"><?php esc_html_e( 'Name for an individual item (e.g. Work, Piece, Project)', 'emerge-mono' ); ?></div>
+                <label class="en-field-label"><?php esc_html_e( 'Display Name (singular)', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="work_singular" value="<?php echo esc_attr($work_singular); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Work', 'emerge-mono-portfolio' ); ?>">
+                <div class="en-field-desc" style="margin-top:4px"><?php esc_html_e( 'Name for an individual item (e.g. Work, Piece, Project)', 'emerge-mono-portfolio' ); ?></div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Category Display Name', 'emerge-mono' ); ?></label>
-                <input type="text" name="cat_label" value="<?php echo esc_attr($cat_label); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Category', 'emerge-mono' ); ?>">
-                <div class="en-field-desc" style="margin-top:4px"><?php esc_html_e( 'Label for categorizing works (e.g. Genre, Type, Tag)', 'emerge-mono' ); ?></div>
+                <label class="en-field-label"><?php esc_html_e( 'Category Display Name', 'emerge-mono-portfolio' ); ?></label>
+                <input type="text" name="cat_label" value="<?php echo esc_attr($cat_label); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Category', 'emerge-mono-portfolio' ); ?>">
+                <div class="en-field-desc" style="margin-top:4px"><?php esc_html_e( 'Label for categorizing works (e.g. Genre, Type, Tag)', 'emerge-mono-portfolio' ); ?></div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Admin Menu Icon', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Admin Menu Icon', 'emerge-mono-portfolio' ); ?></label>
                 <select name="work_icon" class="en-field-input" style="margin-bottom:8px">
                     <?php foreach ( $icons as $icon_class => $icon_label ) : ?>
                         <option value="<?php echo esc_attr($icon_class); ?>" <?php selected( $work_icon, $icon_class ); ?>>
@@ -957,17 +961,17 @@ function en_admin_tab_cpt($opts) {
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <div class="en-field-desc"><?php esc_html_e( 'After selecting, click "Save" to change the icon in the left admin menu.', 'emerge-mono' ); ?></div>
+                <div class="en-field-desc"><?php esc_html_e( 'After selecting, click "Save" to change the icon in the left admin menu.', 'emerge-mono-portfolio' ); ?></div>
             </div>
         </div>
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
     <?php
 }
 
 function en_admin_notice() {
     if ( isset($_GET['saved']) && $_GET['saved'] === '1' ) {
-        echo '<div class="en-admin-notice success">✓ ' . esc_html__( 'Saved.', 'emerge-mono' ) . '</div>';
+        echo '<div class="en-admin-notice success">✓ ' . esc_html__( 'Saved.', 'emerge-mono-portfolio' ) . '</div>';
     }
 }
 
@@ -981,26 +985,26 @@ function en_admin_tab_design($opts) {
 
     // フォントリスト（Google Fonts + システムフォント）
     $fonts = array(
-        'Space Mono'    => 'Space Mono ' . __( '(default, monospace)', 'emerge-mono' ),
-        'Inter'         => 'Inter ' . __( '(simple, modern)', 'emerge-mono' ),
-        'DM Sans'       => 'DM Sans ' . __( '(clean, readable)', 'emerge-mono' ),
-        'Outfit'        => 'Outfit ' . __( '(stylish)', 'emerge-mono' ),
-        'Syne'          => 'Syne ' . __( '(bold, impactful)', 'emerge-mono' ),
-        'Josefin Sans'  => 'Josefin Sans ' . __( '(thin, elegant)', 'emerge-mono' ),
-        'Bebas Neue'    => 'Bebas Neue ' . __( '(uppercase, impactful)', 'emerge-mono' ),
-        'Noto Sans JP'  => 'Noto Sans JP ' . __( '(Japanese support)', 'emerge-mono' ),
-        'M PLUS 1p'     => 'M PLUS 1p ' . __( '(Japanese, thin)', 'emerge-mono' ),
-        'Zen Kaku Gothic New' => 'Zen Kaku Gothic ' . __( '(Japanese, modern)', 'emerge-mono' ),
-        'System Sans'   => 'System Sans-serif ' . __( '(no external load)', 'emerge-mono' ),
-        'System Serif'  => 'System Serif ' . __( '(no external load)', 'emerge-mono' ),
-        'System Mono'   => 'System Monospace ' . __( '(no external load)', 'emerge-mono' ),
+        'Space Mono'    => 'Space Mono ' . __( '(default, monospace)', 'emerge-mono-portfolio' ),
+        'Inter'         => 'Inter ' . __( '(simple, modern)', 'emerge-mono-portfolio' ),
+        'DM Sans'       => 'DM Sans ' . __( '(clean, readable)', 'emerge-mono-portfolio' ),
+        'Outfit'        => 'Outfit ' . __( '(stylish)', 'emerge-mono-portfolio' ),
+        'Syne'          => 'Syne ' . __( '(bold, impactful)', 'emerge-mono-portfolio' ),
+        'Josefin Sans'  => 'Josefin Sans ' . __( '(thin, elegant)', 'emerge-mono-portfolio' ),
+        'Bebas Neue'    => 'Bebas Neue ' . __( '(uppercase, impactful)', 'emerge-mono-portfolio' ),
+        'Noto Sans JP'  => 'Noto Sans JP ' . __( '(Japanese support)', 'emerge-mono-portfolio' ),
+        'M PLUS 1p'     => 'M PLUS 1p ' . __( '(Japanese, thin)', 'emerge-mono-portfolio' ),
+        'Zen Kaku Gothic New' => 'Zen Kaku Gothic ' . __( '(Japanese, modern)', 'emerge-mono-portfolio' ),
+        'System Sans'   => 'System Sans-serif ' . __( '(no external load)', 'emerge-mono-portfolio' ),
+        'System Serif'  => 'System Serif ' . __( '(no external load)', 'emerge-mono-portfolio' ),
+        'System Mono'   => 'System Monospace ' . __( '(no external load)', 'emerge-mono-portfolio' ),
     );
 
     // カスタムフォント（アップロード済み・複数）を選択肢に追加
     $custom_fonts_list = function_exists('en_get_custom_fonts') ? en_get_custom_fonts() : array();
     foreach ( $custom_fonts_list as $cf ) {
         if ( ! empty($cf['name']) && ! isset($fonts[ $cf['name'] ]) ) {
-            $fonts[ $cf['name'] ] = $cf['name'] . ' (' . __( 'Custom', 'emerge-mono' ) . ')';
+            $fonts[ $cf['name'] ] = $cf['name'] . ' (' . __( 'Custom', 'emerge-mono-portfolio' ) . ')';
         }
     }
     ?>
@@ -1008,9 +1012,9 @@ function en_admin_tab_design($opts) {
         <?php wp_nonce_field('en_save_design','en_nonce'); ?>
         <input type="hidden" name="en_action" value="design">
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Color Mode', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Color Mode', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="margin-bottom:16px">
-                <?php esc_html_e( 'Select the site color mode. With Match device setting, the background switches to dark or light automatically based on the visitor device.', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Select the site color mode. With Match device setting, the background switches to dark or light automatically based on the visitor device.', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
                 <div style="display:flex;flex-direction:column;gap:10px">
@@ -1019,8 +1023,8 @@ function en_admin_tab_design($opts) {
                         <div class="en-mode-preview en-mode-dark">
                             <div class="en-mode-icon">◐</div>
                             <div>
-                                <div class="en-mode-title"><?php esc_html_e( 'Always Dark', 'emerge-mono' ); ?></div>
-                                <div class="en-mode-desc"><?php esc_html_e( 'Always dark background, white text', 'emerge-mono' ); ?></div>
+                                <div class="en-mode-title"><?php esc_html_e( 'Always Dark', 'emerge-mono-portfolio' ); ?></div>
+                                <div class="en-mode-desc"><?php esc_html_e( 'Always dark background, white text', 'emerge-mono-portfolio' ); ?></div>
                             </div>
                         </div>
                     </label>
@@ -1029,8 +1033,8 @@ function en_admin_tab_design($opts) {
                         <div class="en-mode-preview en-mode-light">
                             <div class="en-mode-icon">○</div>
                             <div>
-                                <div class="en-mode-title"><?php esc_html_e( 'Always Light', 'emerge-mono' ); ?></div>
-                                <div class="en-mode-desc"><?php esc_html_e( 'Always light background, black text', 'emerge-mono' ); ?></div>
+                                <div class="en-mode-title"><?php esc_html_e( 'Always Light', 'emerge-mono-portfolio' ); ?></div>
+                                <div class="en-mode-desc"><?php esc_html_e( 'Always light background, black text', 'emerge-mono-portfolio' ); ?></div>
                             </div>
                         </div>
                     </label>
@@ -1039,8 +1043,8 @@ function en_admin_tab_design($opts) {
                         <div class="en-mode-preview en-mode-auto">
                             <div class="en-mode-icon">◑</div>
                             <div>
-                                <div class="en-mode-title"><?php esc_html_e( 'Match device setting (auto)', 'emerge-mono' ); ?></div>
-                                <div class="en-mode-desc"><?php esc_html_e( 'Automatically follows the visitor dark/light mode setting', 'emerge-mono' ); ?></div>
+                                <div class="en-mode-title"><?php esc_html_e( 'Match device setting (auto)', 'emerge-mono-portfolio' ); ?></div>
+                                <div class="en-mode-desc"><?php esc_html_e( 'Automatically follows the visitor dark/light mode setting', 'emerge-mono-portfolio' ); ?></div>
                             </div>
                         </div>
                     </label>
@@ -1048,26 +1052,26 @@ function en_admin_tab_design($opts) {
             </div>
         </div>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Color Settings', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Color Settings', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="margin-bottom:16px">
-                <?php esc_html_e( 'Set the overall site colors. No change needed if you keep the default dark background with white text.', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Set the overall site colors. No change needed if you keep the default dark background with white text.', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Background Color', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Background Color', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;gap:10px;align-items:center">
                     <input type="color" name="design_bg" value="<?php echo esc_attr($bg); ?>" style="width:48px;height:36px;border:1px solid rgba(255,255,255,.15);background:none;cursor:pointer;border-radius:4px">
                     <input type="text" name="design_bg_text" value="<?php echo esc_attr($bg); ?>" class="en-field-input" style="width:120px" placeholder="#000000" oninput="document.querySelector('[name=design_bg]').value=this.value">
                 </div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Text Color', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Text Color', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;gap:10px;align-items:center">
                     <input type="color" name="design_text" value="<?php echo esc_attr($text); ?>" style="width:48px;height:36px;border:1px solid rgba(255,255,255,.15);background:none;cursor:pointer;border-radius:4px">
                     <input type="text" name="design_text_text" value="<?php echo esc_attr($text); ?>" class="en-field-input" style="width:120px" placeholder="#ffffff" oninput="document.querySelector('[name=design_text]').value=this.value">
                 </div>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Accent Color (buttons, borders, etc.)', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Accent Color (buttons, borders, etc.)', 'emerge-mono-portfolio' ); ?></label>
                 <div style="display:flex;gap:10px;align-items:center">
                     <input type="color" name="design_accent" value="<?php echo esc_attr($accent); ?>" style="width:48px;height:36px;border:1px solid rgba(255,255,255,.15);background:none;cursor:pointer;border-radius:4px">
                     <input type="text" name="design_accent_text" value="<?php echo esc_attr($accent); ?>" class="en-field-input" style="width:120px" placeholder="#ffffff" oninput="document.querySelector('[name=design_accent]').value=this.value">
@@ -1075,12 +1079,12 @@ function en_admin_tab_design($opts) {
             </div>
         </div>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Font Settings', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Font Settings', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="margin-bottom:16px">
-                <?php esc_html_e( 'Select the overall site font. Choose a Japanese-capable font if you have a lot of Japanese content.', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Select the overall site font. Choose a Japanese-capable font if you have a lot of Japanese content.', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Font', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Font', 'emerge-mono-portfolio' ); ?></label>
                 <select name="design_font" class="en-field-input">
                     <?php foreach ( $fonts as $fkey => $flabel ) : ?>
                         <option value="<?php echo esc_attr($fkey); ?>" <?php selected($font, $fkey); ?>>
@@ -1090,13 +1094,13 @@ function en_admin_tab_design($opts) {
                 </select>
             </div>
             <div class="en-field-desc">
-                <?php esc_html_e( '* Check your site after saving. Google Fonts are loaded automatically; system fonts require no external load.', 'emerge-mono' ); ?>
+                <?php esc_html_e( '* Check your site after saving. Google Fonts are loaded automatically; system fonts require no external load.', 'emerge-mono-portfolio' ); ?>
             </div>
 
             <div class="en-field-group" style="margin-top:24px;border-top:1px solid rgba(255,255,255,.08);padding-top:20px">
-                <label class="en-field-label"><?php esc_html_e( 'Custom Font Upload', 'emerge-mono' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Custom Font Upload', 'emerge-mono-portfolio' ); ?></label>
                 <div class="en-field-desc" style="margin-bottom:10px">
-                    <?php esc_html_e( 'Upload your own font file (.woff2 / .woff / .ttf / .otf). It is added immediately and appears in the font list above.', 'emerge-mono' ); ?>
+                    <?php esc_html_e( 'Upload your own font file (.woff2 / .woff / .ttf / .otf). It is added immediately and appears in the font list above.', 'emerge-mono-portfolio' ); ?>
                 </div>
                 <?php
                 $custom_fonts = function_exists('en_get_custom_fonts') ? en_get_custom_fonts() : array();
@@ -1110,11 +1114,11 @@ function en_admin_tab_design($opts) {
                     echo '</style>';
                 }
                 ?>
-                <input type="text" id="en-custom-font-name" class="en-field-input" placeholder="<?php echo esc_attr__( 'Font name (e.g. Baskerville)', 'emerge-mono' ); ?>" style="margin-bottom:8px">
+                <input type="text" id="en-custom-font-name" class="en-field-input" placeholder="<?php echo esc_attr__( 'Font name (e.g. Baskerville)', 'emerge-mono-portfolio' ); ?>" style="margin-bottom:8px">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
-                    <input type="text" id="en-custom-font-url" class="en-field-input" placeholder="<?php echo esc_attr__( 'Font file URL', 'emerge-mono' ); ?>" style="flex:1" readonly>
-                    <button type="button" class="en-media-btn" id="en-custom-font-select" style="white-space:nowrap"><?php esc_html_e( 'Select File', 'emerge-mono' ); ?></button>
-                    <button type="button" class="en-save-btn" id="en-custom-font-add" style="white-space:nowrap;padding:8px 20px"><?php esc_html_e( 'Add Font', 'emerge-mono' ); ?></button>
+                    <input type="text" id="en-custom-font-url" class="en-field-input" placeholder="<?php echo esc_attr__( 'Font file URL', 'emerge-mono-portfolio' ); ?>" style="flex:1" readonly>
+                    <button type="button" class="en-media-btn" id="en-custom-font-select" style="white-space:nowrap"><?php esc_html_e( 'Select File', 'emerge-mono-portfolio' ); ?></button>
+                    <button type="button" class="en-save-btn" id="en-custom-font-add" style="white-space:nowrap;padding:8px 20px"><?php esc_html_e( 'Add Font', 'emerge-mono-portfolio' ); ?></button>
                 </div>
                 <div id="en-custom-font-msg" style="font-size:12px;min-height:18px;margin-bottom:10px"></div>
 
@@ -1123,7 +1127,7 @@ function en_admin_tab_design($opts) {
                         <?php foreach ( $custom_fonts as $cf ) : if ( empty($cf['name']) ) continue; ?>
                         <div class="en-custom-font-row" data-name="<?php echo esc_attr($cf['name']); ?>" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.04);padding:10px 14px;border-radius:6px;margin-bottom:6px">
                             <span style="font-family:'<?php echo esc_attr($cf['name']); ?>',sans-serif;font-size:18px"><?php echo esc_html($cf['name']); ?></span>
-                            <button type="button" class="en-remove-btn en-custom-font-del" data-name="<?php echo esc_attr($cf['name']); ?>"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
+                            <button type="button" class="en-remove-btn en-custom-font-del" data-name="<?php echo esc_attr($cf['name']); ?>"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
                         </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -1134,12 +1138,12 @@ function en_admin_tab_design($opts) {
                 var nonce   = <?php echo wp_json_encode( wp_create_nonce('en_custom_font_nonce') ); ?>;
                 var ajaxUrl = <?php echo wp_json_encode( admin_url('admin-ajax.php') ); ?>;
                 var i18n = {
-                    needBoth: <?php echo wp_json_encode( __( 'Please enter a font name and select a file.', 'emerge-mono' ) ); ?>,
-                    adding:   <?php echo wp_json_encode( __( 'Adding...', 'emerge-mono' ) ); ?>,
-                    added:    <?php echo wp_json_encode( __( 'Font added.', 'emerge-mono' ) ); ?>,
-                    confirmDel: <?php echo wp_json_encode( __( 'Delete this font?', 'emerge-mono' ) ); ?>,
-                    custom:   <?php echo wp_json_encode( __( 'Custom', 'emerge-mono' ) ); ?>,
-                    del:      <?php echo wp_json_encode( __( 'Delete', 'emerge-mono' ) ); ?>
+                    needBoth: <?php echo wp_json_encode( __( 'Please enter a font name and select a file.', 'emerge-mono-portfolio' ) ); ?>,
+                    adding:   <?php echo wp_json_encode( __( 'Adding...', 'emerge-mono-portfolio' ) ); ?>,
+                    added:    <?php echo wp_json_encode( __( 'Font added.', 'emerge-mono-portfolio' ) ); ?>,
+                    confirmDel: <?php echo wp_json_encode( __( 'Delete this font?', 'emerge-mono-portfolio' ) ); ?>,
+                    custom:   <?php echo wp_json_encode( __( 'Custom', 'emerge-mono-portfolio' ) ); ?>,
+                    del:      <?php echo wp_json_encode( __( 'Delete', 'emerge-mono-portfolio' ) ); ?>
                 };
                 var nameInput = document.getElementById('en-custom-font-name');
                 var urlInput  = document.getElementById('en-custom-font-url');
@@ -1151,8 +1155,8 @@ function en_admin_tab_design($opts) {
                 document.getElementById('en-custom-font-select').addEventListener('click', function(e){
                     e.preventDefault();
                     var frame = wp.media({
-                        title: <?php echo wp_json_encode( __( 'Select Font File', 'emerge-mono' ) ); ?>,
-                        button: { text: <?php echo wp_json_encode( __( 'Use this font', 'emerge-mono' ) ); ?> },
+                        title: <?php echo wp_json_encode( __( 'Select Font File', 'emerge-mono-portfolio' ) ); ?>,
+                        button: { text: <?php echo wp_json_encode( __( 'Use this font', 'emerge-mono-portfolio' ) ); ?> },
                         multiple: false,
                         library: { type: ['font/woff','font/woff2','font/ttf','font/otf','application/octet-stream'] }
                     });
@@ -1255,14 +1259,14 @@ function en_admin_tab_design($opts) {
             </script>
         </div>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Preview', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?></div>
             <div id="en-design-preview" style="background:<?php echo esc_attr($bg); ?>;color:<?php echo esc_attr($text); ?>;padding:24px;border-radius:8px;font-family:<?php echo esc_attr( en_font_stack($font) ); ?>;border:1px solid rgba(255,255,255,.08)">
                 <div style="font-size:20px;font-weight:700;letter-spacing:.1em;margin-bottom:8px">DAISUKE DESIGN</div>
                 <div style="font-size:11px;letter-spacing:.4em;opacity:.5;margin-bottom:16px">WEB CREATOR</div>
                 <div style="display:inline-block;border:1px solid <?php echo esc_attr($accent); ?>;color:<?php echo esc_attr($accent); ?>;font-size:10px;letter-spacing:.3em;padding:8px 20px;opacity:.7">WORKS</div>
             </div>
         </div>
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
     <?php
 }
@@ -1271,47 +1275,47 @@ function en_admin_tab_shortcodes() {
     $shortcodes = array(
         array(
             'code'  => '[emerge_mono_top]',
-            'title' => __( 'Home', 'emerge-mono' ),
-            'desc'  => __( 'Top page shortcode showing the logo, site name, and buttons. Paste it into your front page.', 'emerge-mono' ),
+            'title' => __( 'Home', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Top page shortcode showing the logo, site name, and buttons. Paste it into your front page.', 'emerge-mono-portfolio' ),
         ),
         array(
             'code'  => '[emerge_mono_about]',
-            'title' => __( 'Profile', 'emerge-mono' ),
-            'desc'  => __( 'Displays the profile image, name, title, bio, and social links. Reflects the Profile settings.', 'emerge-mono' ),
+            'title' => __( 'Profile', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays the profile image, name, title, bio, and social links. Reflects the Profile settings.', 'emerge-mono-portfolio' ),
         ),
         array(
             'code'  => '[emerge_mono_works]',
-            'title' => __( 'Works', 'emerge-mono' ),
-            'desc'  => __( 'Displays works in a grid layout with category filtering. Added works appear automatically.', 'emerge-mono' ),
+            'title' => __( 'Works', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays works in a grid layout with category filtering. Added works appear automatically.', 'emerge-mono-portfolio' ),
         ),
         array(
             'code'  => '[emerge_mono_contact]',
-            'title' => __( 'Contact', 'emerge-mono' ),
-            'desc'  => __( 'Displays the contact form. Reflects the settings in the "Contact Form" tab.', 'emerge-mono' ),
+            'title' => __( 'Contact', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays the contact form. Reflects the settings in the "Contact Form" tab.', 'emerge-mono-portfolio' ),
         ),
         array(
             'code'  => '[emerge_mono_news]',
-            'title' => __( 'News', 'emerge-mono' ),
-            'desc'  => __( 'Displays standard WordPress posts. Useful for a blog or news page. You can set the count with per_page="10", e.g. [emerge_mono_news per_page="10"]', 'emerge-mono' ),
+            'title' => __( 'News', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays standard WordPress posts. Useful for a blog or news page. You can set the count with per_page="10", e.g. [emerge_mono_news per_page="10"]', 'emerge-mono-portfolio' ),
         ),
         array(
             'code'  => '[emerge_mono_privacy]',
-            'title' => __( 'Privacy Policy Page', 'emerge-mono' ),
-            'desc'  => __( 'Displays the privacy policy. Text is auto-generated from the operator name and email in the "Privacy Policy" settings.', 'emerge-mono' ),
+            'title' => __( 'Privacy Policy Page', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays the privacy policy. Text is auto-generated from the operator name and email in the "Privacy Policy" settings.', 'emerge-mono-portfolio' ),
         ),
         array(
             'code'  => '[emerge_mono_terms]',
-            'title' => __( 'Terms of Service Page', 'emerge-mono' ),
-            'desc'  => __( 'Displays the terms of service. Text is auto-generated from the operator name and email in the "Terms of Service" settings.', 'emerge-mono' ),
+            'title' => __( 'Terms of Service Page', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays the terms of service. Text is auto-generated from the operator name and email in the "Terms of Service" settings.', 'emerge-mono-portfolio' ),
         ),
 
     );
     ?>
     <div class="en-admin-section">
-        <div class="en-admin-section-title"><?php esc_html_e( 'Shortcodes', 'emerge-mono' ); ?></div>
+        <div class="en-admin-section-title"><?php esc_html_e( 'Shortcodes', 'emerge-mono-portfolio' ); ?></div>
         <div class="en-field-desc" style="margin-bottom:20px;line-height:1.9">
-            <?php esc_html_e( 'Paste a shortcode into the WordPress page editor to display its content on that page.', 'emerge-mono' ); ?><br>
-            <?php esc_html_e( 'Use the Copy button on the right to copy it to your clipboard.', 'emerge-mono' ); ?>
+            <?php esc_html_e( 'Paste a shortcode into the WordPress page editor to display its content on that page.', 'emerge-mono-portfolio' ); ?><br>
+            <?php esc_html_e( 'Use the Copy button on the right to copy it to your clipboard.', 'emerge-mono-portfolio' ); ?>
         </div>
         <?php foreach ( $shortcodes as $sc ) : ?>
         <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;margin-bottom:16px">
@@ -1334,23 +1338,23 @@ function en_admin_tab_shortcodes() {
     </div>
 
     <div class="en-admin-section">
-        <div class="en-admin-section-title"><?php esc_html_e( 'How to Use', 'emerge-mono' ); ?></div>
+        <div class="en-admin-section-title"><?php esc_html_e( 'How to Use', 'emerge-mono-portfolio' ); ?></div>
         <div style="font-size:13px;color:rgba(255,255,255,.4);line-height:2">
             <div style="margin-bottom:12px">
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 1</span>
-                <?php esc_html_e( 'WordPress Admin → Pages → Add New', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'WordPress Admin → Pages → Add New', 'emerge-mono-portfolio' ); ?>
             </div>
             <div style="margin-bottom:12px">
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 2</span>
-                <?php esc_html_e( 'Enter a page title (e.g. About)', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Enter a page title (e.g. About)', 'emerge-mono-portfolio' ); ?>
             </div>
             <div style="margin-bottom:12px">
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 3</span>
-                <?php esc_html_e( 'Paste the shortcode in the content area (e.g. [emerge_mono_about])', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Paste the shortcode in the content area (e.g. [emerge_mono_about])', 'emerge-mono-portfolio' ); ?>
             </div>
             <div>
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 4</span>
-                <?php esc_html_e( 'Click Publish to finish', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'Click Publish to finish', 'emerge-mono-portfolio' ); ?>
             </div>
         </div>
     </div>
@@ -1358,7 +1362,7 @@ function en_admin_tab_shortcodes() {
     <script>
     function enCopyShortcode(btn) {
         var code = btn.dataset.code;
-        var copiedLabel = <?php echo wp_json_encode( '✓ ' . __( 'Copied', 'emerge-mono' ) ); ?>;
+        var copiedLabel = <?php echo wp_json_encode( '✓ ' . __( 'Copied', 'emerge-mono-portfolio' ) ); ?>;
         navigator.clipboard.writeText(code).then(function() {
             var orig = btn.innerHTML;
             btn.innerHTML = copiedLabel;
@@ -1386,32 +1390,32 @@ function en_admin_tab_editor($opts) {
         <?php wp_nonce_field('en_save_editor', 'en_nonce'); ?>
         <input type="hidden" name="en_action" value="editor">
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Editor Feature', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Editor Feature', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="margin-bottom:16px">
-                <?php esc_html_e( 'When enabled, a simple non-Gutenberg editor is used for Works and News posts.', 'emerge-mono' ); ?><br>
-                <?php esc_html_e( 'Turn it off if you prefer Gutenberg. Reload the page after changing this setting.', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'When enabled, a simple non-Gutenberg editor is used for Works and News posts.', 'emerge-mono-portfolio' ); ?><br>
+                <?php esc_html_e( 'Turn it off if you prefer Gutenberg. Reload the page after changing this setting.', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
                 <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px">
                     <input type="checkbox" name="editor_enabled" value="1" <?php checked($enabled, '1'); ?>>
-                    <span><?php esc_html_e( 'Enable the editor (default: on)', 'emerge-mono' ); ?></span>
+                    <span><?php esc_html_e( 'Enable the editor (default: on)', 'emerge-mono-portfolio' ); ?></span>
                 </label>
             </div>
         </div>
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Standard Posts', 'emerge-mono' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Standard Posts', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-desc" style="margin-bottom:16px">
-                <?php esc_html_e( 'News is managed as a dedicated post type, so the standard WordPress Posts menu is hidden by default.', 'emerge-mono' ); ?><br>
-                <?php esc_html_e( 'Enable this only if you also want to use the standard blog Posts feature.', 'emerge-mono' ); ?>
+                <?php esc_html_e( 'News is managed as a dedicated post type, so the standard WordPress Posts menu is hidden by default.', 'emerge-mono-portfolio' ); ?><br>
+                <?php esc_html_e( 'Enable this only if you also want to use the standard blog Posts feature.', 'emerge-mono-portfolio' ); ?>
             </div>
             <div class="en-field-group">
                 <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px">
                     <input type="checkbox" name="show_default_posts" value="1" <?php checked($show_posts, '1'); ?>>
-                    <span><?php esc_html_e( 'Show the standard Posts menu (default: off)', 'emerge-mono' ); ?></span>
+                    <span><?php esc_html_e( 'Show the standard Posts menu (default: off)', 'emerge-mono-portfolio' ); ?></span>
                 </label>
             </div>
         </div>
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
     </form>
     <?php
 }

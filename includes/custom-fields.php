@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_action( 'add_meta_boxes', 'en_add_work_meta_boxes' );
 function en_add_work_meta_boxes() {
-    add_meta_box( 'en_work_meta', __( 'Work Details', 'emerge-mono' ), 'en_work_meta_box_html', 'en_work', 'normal', 'high' );
+    add_meta_box( 'en_work_meta', __( 'Work Details', 'emerge-mono-portfolio' ), 'en_work_meta_box_html', 'en_work', 'normal', 'high' );
 
 }
 
@@ -17,20 +17,20 @@ function en_work_meta_box_html( $post ) {
     $status  = get_post_meta( $post->ID, 'en_status', true );
     ?>
     <table style="width:100%;border-collapse:collapse">
-        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Video URL', 'emerge-mono' ); ?></th>
-            <td><input type="url" name="en_video_url" value="<?php echo esc_attr($video); ?>" style="width:100%;padding:6px 8px;border:1px solid #ddd" placeholder="<?php echo esc_attr__( 'YouTube / Vimeo URL', 'emerge-mono' ); ?>"></td></tr>
-        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'External Link', 'emerge-mono' ); ?></th>
+        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Video URL', 'emerge-mono-portfolio' ); ?></th>
+            <td><input type="url" name="en_video_url" value="<?php echo esc_attr($video); ?>" style="width:100%;padding:6px 8px;border:1px solid #ddd" placeholder="<?php echo esc_attr__( 'YouTube / Vimeo URL', 'emerge-mono-portfolio' ); ?>"></td></tr>
+        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'External Link', 'emerge-mono-portfolio' ); ?></th>
             <td><input type="url" name="en_external_url" value="<?php echo esc_attr($ext_url); ?>" style="width:100%;padding:6px 8px;border:1px solid #ddd" placeholder="https://"></td></tr>
-        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Duration', 'emerge-mono' ); ?></th>
+        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Duration', 'emerge-mono-portfolio' ); ?></th>
             <td><input type="text" name="en_period" value="<?php echo esc_attr($period); ?>" style="width:100%;padding:6px 8px;border:1px solid #ddd" placeholder="2024.01 - 2024.03"></td></tr>
-        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Role', 'emerge-mono' ); ?></th>
+        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Role', 'emerge-mono-portfolio' ); ?></th>
             <td><input type="text" name="en_role" value="<?php echo esc_attr($role); ?>" style="width:100%;padding:6px 8px;border:1px solid #ddd"></td></tr>
-        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Tools Used', 'emerge-mono' ); ?></th>
+        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Tools Used', 'emerge-mono-portfolio' ); ?></th>
             <td><input type="text" name="en_tools" value="<?php echo esc_attr($tools); ?>" style="width:100%;padding:6px 8px;border:1px solid #ddd"></td></tr>
-        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Status', 'emerge-mono' ); ?></th>
+        <tr><th style="width:140px;padding:10px 10px 10px 0;font-size:13px;text-align:left"><?php esc_html_e( 'Status', 'emerge-mono-portfolio' ); ?></th>
             <td><select name="en_status" style="padding:6px 8px;border:1px solid #ddd">
-                <option value="publish" <?php selected($status,'publish'); ?>><?php esc_html_e( 'Published', 'emerge-mono' ); ?></option>
-                <option value="private" <?php selected($status,'private'); ?>><?php esc_html_e( 'Private', 'emerge-mono' ); ?></option>
+                <option value="publish" <?php selected($status,'publish'); ?>><?php esc_html_e( 'Published', 'emerge-mono-portfolio' ); ?></option>
+                <option value="private" <?php selected($status,'private'); ?>><?php esc_html_e( 'Private', 'emerge-mono-portfolio' ); ?></option>
             </select></td></tr>
     </table>
     <?php

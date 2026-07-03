@@ -11,14 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function en_get_em_page_defs() {
     return array(
-        array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',               'desc' => __( 'Top page — logo, site name, buttons', 'emerge-mono' ), 'icon' => '🏠', 'recommended' => true ),
-        array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',          'desc' => __( 'Profile page — bio, social links', 'emerge-mono' ),    'icon' => '👤', 'recommended' => true ),
-        array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',          'desc' => __( 'Works page — portfolio grid', 'emerge-mono' ),         'icon' => '📂', 'recommended' => true ),
-        array( 'sc' => '[emerge_mono_news]',      'title' => 'News',             'slug' => 'news',           'desc' => __( 'News page — post list', 'emerge-mono' ),               'icon' => '📰', 'recommended' => true ),
-        array( 'sc' => '[emerge_mono_contact]',   'title' => 'Contact',          'slug' => 'contact',        'desc' => __( 'Contact page — form', 'emerge-mono' ),                 'icon' => '✉',  'recommended' => true ),
-        array( 'sc' => '[emerge_mono_privacy]',   'title' => 'Privacy Policy',   'slug' => 'privacy-policy', 'desc' => __( 'Privacy policy page', 'emerge-mono' ),                 'icon' => '🔒', 'recommended' => false ),
-        array( 'sc' => '[emerge_mono_terms]',     'title' => 'Terms of Service', 'slug' => 'terms',          'desc' => __( 'Terms of service page', 'emerge-mono' ),               'icon' => '📋', 'recommended' => false ),
-        array( 'sc' => '[emerge_mono_estimate]',  'title' => 'Estimate',         'slug' => 'estimate',       'desc' => __( 'Estimate simulator page', 'emerge-mono' ),             'icon' => '💰', 'recommended' => false ),
+        array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',               'desc' => __( 'Top page — logo, site name, buttons', 'emerge-mono-portfolio' ), 'icon' => '🏠', 'recommended' => true ),
+        array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',          'desc' => __( 'Profile page — bio, social links', 'emerge-mono-portfolio' ),    'icon' => '👤', 'recommended' => true ),
+        array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',          'desc' => __( 'Works page — portfolio grid', 'emerge-mono-portfolio' ),         'icon' => '📂', 'recommended' => true ),
+        array( 'sc' => '[emerge_mono_news]',      'title' => 'News',             'slug' => 'news',           'desc' => __( 'News page — post list', 'emerge-mono-portfolio' ),               'icon' => '📰', 'recommended' => true ),
+        array( 'sc' => '[emerge_mono_contact]',   'title' => 'Contact',          'slug' => 'contact',        'desc' => __( 'Contact page — form', 'emerge-mono-portfolio' ),                 'icon' => '✉',  'recommended' => true ),
+        array( 'sc' => '[emerge_mono_privacy]',   'title' => 'Privacy Policy',   'slug' => 'privacy-policy', 'desc' => __( 'Privacy policy page', 'emerge-mono-portfolio' ),                 'icon' => '🔒', 'recommended' => false ),
+        array( 'sc' => '[emerge_mono_terms]',     'title' => 'Terms of Service', 'slug' => 'terms',          'desc' => __( 'Terms of service page', 'emerge-mono-portfolio' ),               'icon' => '📋', 'recommended' => false ),
+        array( 'sc' => '[emerge_mono_estimate]',  'title' => 'Estimate',         'slug' => 'estimate',       'desc' => __( 'Estimate simulator page', 'emerge-mono-portfolio' ),             'icon' => '💰', 'recommended' => false ),
     );
 }
 
@@ -67,8 +67,8 @@ add_action( 'admin_menu', 'en_wizard_register_page', 99 );
 function en_wizard_register_page() {
     $hook = add_submenu_page(
         null, // 親なし＝メニューに出さない
-        __( 'Emerge Mono Setup', 'emerge-mono' ),
-        __( 'Emerge Mono Setup', 'emerge-mono' ),
+        __( 'Emerge Mono Setup', 'emerge-mono-portfolio' ),
+        __( 'Emerge Mono Setup', 'emerge-mono-portfolio' ),
         'manage_options',
         'en-setup-wizard',
         'en_wizard_render'
@@ -114,10 +114,10 @@ function en_wizard_render() {
         : admin_url('admin.php?page=emerge-mono-portfolio');
 
     $steps = array(
-        __( 'Site Info', 'emerge-mono' ),
-        __( 'Color', 'emerge-mono' ),
-        __( 'Logo', 'emerge-mono' ),
-        __( 'Pages', 'emerge-mono' ),
+        __( 'Site Info', 'emerge-mono-portfolio' ),
+        __( 'Color', 'emerge-mono-portfolio' ),
+        __( 'Logo', 'emerge-mono-portfolio' ),
+        __( 'Pages', 'emerge-mono-portfolio' ),
     );
     ?>
     <div class="en-wiz-overlay">
@@ -139,18 +139,18 @@ function en_wizard_render() {
                 <!-- STEP 1: サイト名・キャッチコピー -->
                 <section class="en-wiz-pane active" data-pane="0">
                     <div class="en-wiz-head">
-                        <div class="en-wiz-badge"><?php esc_html_e( 'Welcome', 'emerge-mono' ); ?></div>
-                        <h1 class="en-wiz-title"><?php esc_html_e( 'Emerge Mono Setup', 'emerge-mono' ); ?></h1>
-                        <p class="en-wiz-lead"><?php esc_html_e( 'Let\'s set up the basics. Every step is optional — you can skip anything and change it later in the settings.', 'emerge-mono' ); ?></p>
+                        <div class="en-wiz-badge"><?php esc_html_e( 'Welcome', 'emerge-mono-portfolio' ); ?></div>
+                        <h1 class="en-wiz-title"><?php esc_html_e( 'Emerge Mono Setup', 'emerge-mono-portfolio' ); ?></h1>
+                        <p class="en-wiz-lead"><?php esc_html_e( 'Let\'s set up the basics. Every step is optional — you can skip anything and change it later in the settings.', 'emerge-mono-portfolio' ); ?></p>
                     </div>
                     <div class="en-wiz-form">
                         <label class="en-wiz-field">
-                            <span class="en-wiz-flabel"><?php esc_html_e( 'Site Name', 'emerge-mono' ); ?></span>
+                            <span class="en-wiz-flabel"><?php esc_html_e( 'Site Name', 'emerge-mono-portfolio' ); ?></span>
                             <input type="text" id="en-wiz-site-name" class="en-wiz-input" value="<?php echo esc_attr( $cur_name ); ?>" placeholder="<?php echo esc_attr( get_bloginfo('name') ); ?>">
                         </label>
                         <label class="en-wiz-field">
-                            <span class="en-wiz-flabel"><?php esc_html_e( 'Tagline', 'emerge-mono' ); ?></span>
-                            <input type="text" id="en-wiz-tagline" class="en-wiz-input" value="<?php echo esc_attr( $cur_tagline ); ?>" placeholder="<?php echo esc_attr__( 'Web Creator', 'emerge-mono' ); ?>">
+                            <span class="en-wiz-flabel"><?php esc_html_e( 'Tagline', 'emerge-mono-portfolio' ); ?></span>
+                            <input type="text" id="en-wiz-tagline" class="en-wiz-input" value="<?php echo esc_attr( $cur_tagline ); ?>" placeholder="<?php echo esc_attr__( 'Web Creator', 'emerge-mono-portfolio' ); ?>">
                         </label>
                     </div>
                 </section>
@@ -158,15 +158,15 @@ function en_wizard_render() {
                 <!-- STEP 2: カラーモード -->
                 <section class="en-wiz-pane" data-pane="1">
                     <div class="en-wiz-head">
-                        <h1 class="en-wiz-title"><?php esc_html_e( 'Color Mode', 'emerge-mono' ); ?></h1>
-                        <p class="en-wiz-lead"><?php esc_html_e( 'Choose how your site looks. Auto follows each visitor\'s device setting.', 'emerge-mono' ); ?></p>
+                        <h1 class="en-wiz-title"><?php esc_html_e( 'Color Mode', 'emerge-mono-portfolio' ); ?></h1>
+                        <p class="en-wiz-lead"><?php esc_html_e( 'Choose how your site looks. Auto follows each visitor\'s device setting.', 'emerge-mono-portfolio' ); ?></p>
                     </div>
                     <div class="en-wiz-modes" id="en-wiz-modes">
                         <?php
                         $mode_opts = array(
-                            'dark'  => array( __( 'Dark', 'emerge-mono' ),  __( 'Dark background, white text', 'emerge-mono' ) ),
-                            'light' => array( __( 'Light', 'emerge-mono' ), __( 'Light background, black text', 'emerge-mono' ) ),
-                            'auto'  => array( __( 'Auto', 'emerge-mono' ),  __( 'Match device setting', 'emerge-mono' ) ),
+                            'dark'  => array( __( 'Dark', 'emerge-mono-portfolio' ),  __( 'Dark background, white text', 'emerge-mono-portfolio' ) ),
+                            'light' => array( __( 'Light', 'emerge-mono-portfolio' ), __( 'Light background, black text', 'emerge-mono-portfolio' ) ),
+                            'auto'  => array( __( 'Auto', 'emerge-mono-portfolio' ),  __( 'Match device setting', 'emerge-mono-portfolio' ) ),
                         );
                         foreach ( $mode_opts as $val => $info ) : ?>
                         <label class="en-wiz-mode<?php echo $cur_mode === $val ? ' active' : ''; ?>" data-mode="<?php echo esc_attr( $val ); ?>">
@@ -182,32 +182,32 @@ function en_wizard_render() {
                 <!-- STEP 3: ロゴ（カラーモードに応じて入力欄が変化） -->
                 <section class="en-wiz-pane" data-pane="2">
                     <div class="en-wiz-head">
-                        <h1 class="en-wiz-title"><?php esc_html_e( 'Logo', 'emerge-mono' ); ?></h1>
-                        <p class="en-wiz-lead"><?php esc_html_e( 'Upload a logo for the site header. You can skip this and add it later.', 'emerge-mono' ); ?></p>
+                        <h1 class="en-wiz-title"><?php esc_html_e( 'Logo', 'emerge-mono-portfolio' ); ?></h1>
+                        <p class="en-wiz-lead"><?php esc_html_e( 'Upload a logo for the site header. You can skip this and add it later.', 'emerge-mono-portfolio' ); ?></p>
                     </div>
                     <div class="en-wiz-logos">
                         <!-- ダーク用ロゴスロット -->
                         <div class="en-wiz-logo-slot" data-slot="dark">
-                            <div class="en-wiz-logo-slot-label" id="en-wiz-logo-label-dark"><?php esc_html_e( 'Logo (Dark Mode)', 'emerge-mono' ); ?></div>
+                            <div class="en-wiz-logo-slot-label" id="en-wiz-logo-label-dark"><?php esc_html_e( 'Logo (Dark Mode)', 'emerge-mono-portfolio' ); ?></div>
                             <div class="en-wiz-logo-preview en-wiz-logo-prev-dark" id="en-wiz-logo-preview-dark" style="<?php echo $cur_logo ? '' : 'display:none'; ?>">
                                 <img id="en-wiz-logo-img-dark" src="<?php echo esc_url( $cur_logo ); ?>" alt="">
                             </div>
                             <input type="hidden" id="en-wiz-logo-url" value="<?php echo esc_attr( $cur_logo ); ?>">
                             <div class="en-wiz-logo-btns">
-                                <button type="button" class="en-wiz-media-btn" data-target="dark"><?php esc_html_e( 'Select from Media Library', 'emerge-mono' ); ?></button>
-                                <button type="button" class="en-wiz-link en-wiz-logo-remove" data-target="dark" style="<?php echo $cur_logo ? '' : 'display:none'; ?>"><?php esc_html_e( 'Remove', 'emerge-mono' ); ?></button>
+                                <button type="button" class="en-wiz-media-btn" data-target="dark"><?php esc_html_e( 'Select from Media Library', 'emerge-mono-portfolio' ); ?></button>
+                                <button type="button" class="en-wiz-link en-wiz-logo-remove" data-target="dark" style="<?php echo $cur_logo ? '' : 'display:none'; ?>"><?php esc_html_e( 'Remove', 'emerge-mono-portfolio' ); ?></button>
                             </div>
                         </div>
                         <!-- ライト用ロゴスロット -->
                         <div class="en-wiz-logo-slot" data-slot="light">
-                            <div class="en-wiz-logo-slot-label" id="en-wiz-logo-label-light"><?php esc_html_e( 'Logo (Light Mode)', 'emerge-mono' ); ?></div>
+                            <div class="en-wiz-logo-slot-label" id="en-wiz-logo-label-light"><?php esc_html_e( 'Logo (Light Mode)', 'emerge-mono-portfolio' ); ?></div>
                             <div class="en-wiz-logo-preview en-wiz-logo-prev-light" id="en-wiz-logo-preview-light" style="<?php echo $cur_logo_light ? '' : 'display:none'; ?>">
                                 <img id="en-wiz-logo-img-light" src="<?php echo esc_url( $cur_logo_light ); ?>" alt="">
                             </div>
                             <input type="hidden" id="en-wiz-logo-url-light" value="<?php echo esc_attr( $cur_logo_light ); ?>">
                             <div class="en-wiz-logo-btns">
-                                <button type="button" class="en-wiz-media-btn" data-target="light"><?php esc_html_e( 'Select from Media Library', 'emerge-mono' ); ?></button>
-                                <button type="button" class="en-wiz-link en-wiz-logo-remove" data-target="light" style="<?php echo $cur_logo_light ? '' : 'display:none'; ?>"><?php esc_html_e( 'Remove', 'emerge-mono' ); ?></button>
+                                <button type="button" class="en-wiz-media-btn" data-target="light"><?php esc_html_e( 'Select from Media Library', 'emerge-mono-portfolio' ); ?></button>
+                                <button type="button" class="en-wiz-link en-wiz-logo-remove" data-target="light" style="<?php echo $cur_logo_light ? '' : 'display:none'; ?>"><?php esc_html_e( 'Remove', 'emerge-mono-portfolio' ); ?></button>
                             </div>
                         </div>
                     </div>
@@ -217,15 +217,15 @@ function en_wizard_render() {
                 <!-- STEP 4: ページ選択 -->
                 <section class="en-wiz-pane" data-pane="3">
                     <div class="en-wiz-head">
-                        <h1 class="en-wiz-title"><?php esc_html_e( 'Create Pages', 'emerge-mono' ); ?></h1>
-                        <p class="en-wiz-lead"><?php esc_html_e( 'Select the pages to create. Each is created with its shortcode already inserted.', 'emerge-mono' ); ?></p>
+                        <h1 class="en-wiz-title"><?php esc_html_e( 'Create Pages', 'emerge-mono-portfolio' ); ?></h1>
+                        <p class="en-wiz-lead"><?php esc_html_e( 'Select the pages to create. Each is created with its shortcode already inserted.', 'emerge-mono-portfolio' ); ?></p>
                     </div>
                     <div class="en-wiz-toolbar">
-                        <button type="button" class="en-wiz-link" id="en-wiz-select-all"><?php esc_html_e( 'Select all', 'emerge-mono' ); ?></button>
+                        <button type="button" class="en-wiz-link" id="en-wiz-select-all"><?php esc_html_e( 'Select all', 'emerge-mono-portfolio' ); ?></button>
                         <span class="en-wiz-sep">·</span>
-                        <button type="button" class="en-wiz-link" id="en-wiz-select-recommended"><?php esc_html_e( 'Recommended only', 'emerge-mono' ); ?></button>
+                        <button type="button" class="en-wiz-link" id="en-wiz-select-recommended"><?php esc_html_e( 'Recommended only', 'emerge-mono-portfolio' ); ?></button>
                         <span class="en-wiz-sep">·</span>
-                        <button type="button" class="en-wiz-link" id="en-wiz-clear"><?php esc_html_e( 'Clear', 'emerge-mono' ); ?></button>
+                        <button type="button" class="en-wiz-link" id="en-wiz-clear"><?php esc_html_e( 'Clear', 'emerge-mono-portfolio' ); ?></button>
                     </div>
                     <div class="en-wiz-list">
                         <?php foreach ( $defs as $def ) :
@@ -246,9 +246,9 @@ function en_wizard_render() {
                                 <code class="en-wiz-sc"><?php echo esc_html( $def['sc'] ); ?></code>
                             </span>
                             <?php if ( $exists ) : ?>
-                                <span class="en-wiz-tag en-wiz-tag-done"><?php esc_html_e( 'Created', 'emerge-mono' ); ?></span>
+                                <span class="en-wiz-tag en-wiz-tag-done"><?php esc_html_e( 'Created', 'emerge-mono-portfolio' ); ?></span>
                             <?php elseif ( $def['recommended'] ) : ?>
-                                <span class="en-wiz-tag en-wiz-tag-rec"><?php esc_html_e( 'Recommended', 'emerge-mono' ); ?></span>
+                                <span class="en-wiz-tag en-wiz-tag-rec"><?php esc_html_e( 'Recommended', 'emerge-mono-portfolio' ); ?></span>
                             <?php endif; ?>
                         </label>
                         <?php endforeach; ?>
@@ -260,15 +260,15 @@ function en_wizard_render() {
             <div class="en-wiz-msg" id="en-wiz-msg"></div>
 
             <div class="en-wiz-actions">
-                <a href="<?php echo esc_url( $dash_url ); ?>" class="en-wiz-skip" id="en-wiz-skip-all"><?php esc_html_e( 'Skip setup', 'emerge-mono' ); ?></a>
+                <a href="<?php echo esc_url( $dash_url ); ?>" class="en-wiz-skip" id="en-wiz-skip-all"><?php esc_html_e( 'Skip setup', 'emerge-mono-portfolio' ); ?></a>
                 <div class="en-wiz-nav">
-                    <button type="button" class="en-wiz-back" id="en-wiz-back" style="display:none"><?php esc_html_e( '← Back', 'emerge-mono' ); ?></button>
-                    <button type="button" class="en-wiz-next" id="en-wiz-next"><?php esc_html_e( 'Save & Next →', 'emerge-mono' ); ?></button>
-                    <button type="button" class="en-wiz-create" id="en-wiz-finish" style="display:none"><?php esc_html_e( 'Finish & create pages', 'emerge-mono' ); ?></button>
+                    <button type="button" class="en-wiz-back" id="en-wiz-back" style="display:none"><?php esc_html_e( '← Back', 'emerge-mono-portfolio' ); ?></button>
+                    <button type="button" class="en-wiz-next" id="en-wiz-next"><?php esc_html_e( 'Save & Next →', 'emerge-mono-portfolio' ); ?></button>
+                    <button type="button" class="en-wiz-create" id="en-wiz-finish" style="display:none"><?php esc_html_e( 'Finish & create pages', 'emerge-mono-portfolio' ); ?></button>
                 </div>
             </div>
 
-            <p class="en-wiz-foot"><?php esc_html_e( 'Everything here can be changed later from the plugin settings.', 'emerge-mono' ); ?></p>
+            <p class="en-wiz-foot"><?php esc_html_e( 'Everything here can be changed later from the plugin settings.', 'emerge-mono-portfolio' ); ?></p>
 
         </div>
     </div>
@@ -393,16 +393,16 @@ function en_wizard_render() {
         var msg    = document.getElementById('en-wiz-msg');
 
         var i18n = {
-            none:     <?php echo wp_json_encode( __( 'Please select at least one page.', 'emerge-mono' ) ); ?>,
-            saving:   <?php echo wp_json_encode( __( 'Saving settings…', 'emerge-mono' ) ); ?>,
-            saved:    <?php echo wp_json_encode( __( 'Saved ✓', 'emerge-mono' ) ); ?>,
-            creating: <?php echo wp_json_encode( __( 'Creating pages…', 'emerge-mono' ) ); ?>,
-            doneOne:  <?php echo wp_json_encode( __( 'Created: %s', 'emerge-mono' ) ); ?>,
-            allDone:  <?php echo wp_json_encode( __( 'All set! Redirecting…', 'emerge-mono' ) ); ?>,
-            failOne:  <?php echo wp_json_encode( __( 'Failed: %s', 'emerge-mono' ) ); ?>,
-            mediaTitle: <?php echo wp_json_encode( __( 'Select Logo', 'emerge-mono' ) ); ?>,
-            mediaBtn:   <?php echo wp_json_encode( __( 'Use this logo', 'emerge-mono' ) ); ?>,
-            mediaUnavailable: <?php echo wp_json_encode( __( 'Media library could not load. Please reload the page and try again.', 'emerge-mono' ) ); ?>
+            none:     <?php echo wp_json_encode( __( 'Please select at least one page.', 'emerge-mono-portfolio' ) ); ?>,
+            saving:   <?php echo wp_json_encode( __( 'Saving settings…', 'emerge-mono-portfolio' ) ); ?>,
+            saved:    <?php echo wp_json_encode( __( 'Saved ✓', 'emerge-mono-portfolio' ) ); ?>,
+            creating: <?php echo wp_json_encode( __( 'Creating pages…', 'emerge-mono-portfolio' ) ); ?>,
+            doneOne:  <?php echo wp_json_encode( __( 'Created: %s', 'emerge-mono-portfolio' ) ); ?>,
+            allDone:  <?php echo wp_json_encode( __( 'All set! Redirecting…', 'emerge-mono-portfolio' ) ); ?>,
+            failOne:  <?php echo wp_json_encode( __( 'Failed: %s', 'emerge-mono-portfolio' ) ); ?>,
+            mediaTitle: <?php echo wp_json_encode( __( 'Select Logo', 'emerge-mono-portfolio' ) ); ?>,
+            mediaBtn:   <?php echo wp_json_encode( __( 'Use this logo', 'emerge-mono-portfolio' ) ); ?>,
+            mediaUnavailable: <?php echo wp_json_encode( __( 'Media library could not load. Please reload the page and try again.', 'emerge-mono-portfolio' ) ); ?>
         };
         var ajaxurl     = <?php echo wp_json_encode( admin_url('admin-ajax.php') ); ?>;
         var nonce       = <?php echo wp_json_encode( wp_create_nonce('ene_create_em_page') ); ?>;
@@ -464,14 +464,14 @@ function en_wizard_render() {
         var labelLight  = document.getElementById('en-wiz-logo-label-light');
         var logoHint    = document.getElementById('en-wiz-logo-hint');
         var logoLabels = {
-            dark:   <?php echo wp_json_encode( __( 'Logo (Dark Mode)', 'emerge-mono' ) ); ?>,
-            light:  <?php echo wp_json_encode( __( 'Logo (Light Mode)', 'emerge-mono' ) ); ?>,
-            single: <?php echo wp_json_encode( __( 'Logo', 'emerge-mono' ) ); ?>
+            dark:   <?php echo wp_json_encode( __( 'Logo (Dark Mode)', 'emerge-mono-portfolio' ) ); ?>,
+            light:  <?php echo wp_json_encode( __( 'Logo (Light Mode)', 'emerge-mono-portfolio' ) ); ?>,
+            single: <?php echo wp_json_encode( __( 'Logo', 'emerge-mono-portfolio' ) ); ?>
         };
         var logoHints = {
-            dark:  <?php echo wp_json_encode( __( 'Dark mode is selected, so only the dark logo is needed.', 'emerge-mono' ) ); ?>,
-            light: <?php echo wp_json_encode( __( 'Light mode is selected, so only the light logo is needed.', 'emerge-mono' ) ); ?>,
-            auto:  <?php echo wp_json_encode( __( 'Auto mode is selected. Set both a dark and a light logo for the best result.', 'emerge-mono' ) ); ?>
+            dark:  <?php echo wp_json_encode( __( 'Dark mode is selected, so only the dark logo is needed.', 'emerge-mono-portfolio' ) ); ?>,
+            light: <?php echo wp_json_encode( __( 'Light mode is selected, so only the light logo is needed.', 'emerge-mono-portfolio' ) ); ?>,
+            auto:  <?php echo wp_json_encode( __( 'Auto mode is selected. Set both a dark and a light logo for the best result.', 'emerge-mono-portfolio' ) ); ?>
         };
 
         // カラーモードに応じてロゴスロットの表示を切り替える

@@ -6,7 +6,7 @@ function en_shortcode_estimate( $atts ) {
     $services        = get_option( 'en_estimate_services',        array() );
     $payment_methods = get_option( 'en_estimate_payment_methods', array() );
     $settings        = get_option( 'en_estimate_settings',        array() );
-    $note_text       = isset($settings['note_text']) ? $settings['note_text'] : __( '* The final amount will be provided after inquiry.', 'emerge-mono' );
+    $note_text       = isset($settings['note_text']) ? $settings['note_text'] : __( '* The final amount will be provided after inquiry.', 'emerge-mono-portfolio' );
 
     // 支払い方法にIDを付与
     $pms = array();
@@ -33,67 +33,67 @@ function en_shortcode_estimate( $atts ) {
     // コンタクトフォーム設定を共有
     $contact_fields  = get_option( 'en_contact_fields', en_default_contact_fields() );
     $consent_enabled = en_opt('contact_consent_enabled', '0');
-    $consent_text    = en_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono' ));
+    $consent_text    = en_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ));
     $consent_page_id = (int)en_opt('contact_consent_page_id', 0);
     $consent_url     = $consent_page_id ? get_permalink($consent_page_id) : '';
-    $btn_text        = en_opt('contact_btn_text', __( 'Send', 'emerge-mono' ));
+    $btn_text        = en_opt('contact_btn_text', __( 'Send', 'emerge-mono-portfolio' ));
     $recaptcha_key   = en_opt('recaptcha_site_key', '');
-    $success_msg     = en_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono' ));
+    $success_msg     = en_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono-portfolio' ));
 
     ob_start(); ?>
     <div class="en-estimate" id="en-estimate">
         <?php if ( empty($svcs) ) : ?>
-        <div class="en-estimate-empty"><?php esc_html_e( 'The estimate simulator has not been set up.', 'emerge-mono' ); ?></div>
+        <div class="en-estimate-empty"><?php esc_html_e( 'The estimate simulator has not been set up.', 'emerge-mono-portfolio' ); ?></div>
         <?php else : ?>
 
         <!-- ステップバー -->
         <div class="en-est-steps">
-            <div class="en-est-step active" data-step="1"><span class="en-est-step-num">1</span><span class="en-est-step-label"><?php esc_html_e( 'Service', 'emerge-mono' ); ?></span></div>
+            <div class="en-est-step active" data-step="1"><span class="en-est-step-num">1</span><span class="en-est-step-label"><?php esc_html_e( 'Service', 'emerge-mono-portfolio' ); ?></span></div>
             <div class="en-est-step-line"></div>
-            <div class="en-est-step" data-step="2"><span class="en-est-step-num">2</span><span class="en-est-step-label"><?php esc_html_e( 'Options', 'emerge-mono' ); ?></span></div>
+            <div class="en-est-step" data-step="2"><span class="en-est-step-num">2</span><span class="en-est-step-label"><?php esc_html_e( 'Options', 'emerge-mono-portfolio' ); ?></span></div>
             <div class="en-est-step-line"></div>
-            <div class="en-est-step" data-step="3"><span class="en-est-step-num">3</span><span class="en-est-step-label"><?php esc_html_e( 'How to Order', 'emerge-mono' ); ?></span></div>
+            <div class="en-est-step" data-step="3"><span class="en-est-step-num">3</span><span class="en-est-step-label"><?php esc_html_e( 'How to Order', 'emerge-mono-portfolio' ); ?></span></div>
             <div class="en-est-step-line"></div>
-            <div class="en-est-step" data-step="4"><span class="en-est-step-num">4</span><span class="en-est-step-label"><?php esc_html_e( 'Estimate', 'emerge-mono' ); ?></span></div>
+            <div class="en-est-step" data-step="4"><span class="en-est-step-num">4</span><span class="en-est-step-label"><?php esc_html_e( 'Estimate', 'emerge-mono-portfolio' ); ?></span></div>
             <div class="en-est-step-line"></div>
-            <div class="en-est-step" data-step="5"><span class="en-est-step-num">5</span><span class="en-est-step-label"><?php esc_html_e( 'Contact', 'emerge-mono' ); ?></span></div>
+            <div class="en-est-step" data-step="5"><span class="en-est-step-num">5</span><span class="en-est-step-label"><?php esc_html_e( 'Contact', 'emerge-mono-portfolio' ); ?></span></div>
         </div>
 
         <!-- STEP1 -->
         <div class="en-est-panel active" id="en-est-panel-1">
-            <div class="en-est-panel-heading"><h3>Service</h3><p><?php esc_html_e( 'Select the services you want (multiple allowed)', 'emerge-mono' ); ?></p></div>
+            <div class="en-est-panel-heading"><h3>Service</h3><p><?php esc_html_e( 'Select the services you want (multiple allowed)', 'emerge-mono-portfolio' ); ?></p></div>
             <div class="en-est-service-grid" id="en-est-svc-grid"></div>
             <div class="en-est-selected-badge" id="en-est-badge"></div>
             <div class="en-est-nav">
-                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to2" disabled>Next → <?php esc_html_e( 'Choose options', 'emerge-mono' ); ?></button>
+                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to2" disabled>Next → <?php esc_html_e( 'Choose options', 'emerge-mono-portfolio' ); ?></button>
             </div>
         </div>
 
         <!-- STEP2 -->
         <div class="en-est-panel" id="en-est-panel-2">
-            <div class="en-est-panel-heading"><h3>Options</h3><p><?php esc_html_e( 'Configure the details for each service', 'emerge-mono' ); ?></p></div>
+            <div class="en-est-panel-heading"><h3>Options</h3><p><?php esc_html_e( 'Configure the details for each service', 'emerge-mono-portfolio' ); ?></p></div>
             <div id="en-est-opt-panels"></div>
             <div class="en-est-nav">
                 <button type="button" class="en-est-btn en-est-btn-back" id="en-est-back1">← Back</button>
-                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to3">Next → <?php esc_html_e( 'Choose order method', 'emerge-mono' ); ?></button>
+                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to3">Next → <?php esc_html_e( 'Choose order method', 'emerge-mono-portfolio' ); ?></button>
             </div>
         </div>
 
         <!-- STEP3 -->
         <div class="en-est-panel" id="en-est-panel-3">
-            <div class="en-est-panel-heading"><h3>How to Order</h3><p><?php esc_html_e( 'Choose how to order', 'emerge-mono' ); ?></p></div>
+            <div class="en-est-panel-heading"><h3>How to Order</h3><p><?php esc_html_e( 'Choose how to order', 'emerge-mono-portfolio' ); ?></p></div>
             <div class="en-est-pay-grid" id="en-est-pay-grid"></div>
             <div class="en-est-nav">
                 <button type="button" class="en-est-btn en-est-btn-back" id="en-est-back2">← Back</button>
-                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to4">Next → <?php esc_html_e( 'Review estimate', 'emerge-mono' ); ?></button>
+                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to4">Next → <?php esc_html_e( 'Review estimate', 'emerge-mono-portfolio' ); ?></button>
             </div>
         </div>
 
         <!-- STEP4 -->
         <div class="en-est-panel" id="en-est-panel-4">
-            <div class="en-est-panel-heading"><h3>Estimate</h3><p><?php esc_html_e( 'Review the details and proceed to contact', 'emerge-mono' ); ?></p></div>
+            <div class="en-est-panel-heading"><h3>Estimate</h3><p><?php esc_html_e( 'Review the details and proceed to contact', 'emerge-mono-portfolio' ); ?></p></div>
             <div class="en-est-summary">
-                <div class="en-est-summary-header"><?php esc_html_e( 'Breakdown', 'emerge-mono' ); ?></div>
+                <div class="en-est-summary-header"><?php esc_html_e( 'Breakdown', 'emerge-mono-portfolio' ); ?></div>
                 <div id="en-est-summary-body"></div>
                 <div class="en-est-summary-fee" id="en-est-fee-row" style="display:none">
                     <span id="en-est-fee-label"></span>
@@ -107,15 +107,15 @@ function en_shortcode_estimate( $atts ) {
             <div class="en-est-note"><?php echo esc_html($note_text); ?></div>
             <div class="en-est-nav">
                 <button type="button" class="en-est-btn en-est-btn-back" id="en-est-back3">← Back</button>
-                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to5">Next → <?php esc_html_e( 'Contact', 'emerge-mono' ); ?></button>
+                <button type="button" class="en-est-btn en-est-btn-next" id="en-est-to5">Next → <?php esc_html_e( 'Contact', 'emerge-mono-portfolio' ); ?></button>
             </div>
         </div>
 
         <!-- STEP5 -->
         <div class="en-est-panel" id="en-est-panel-5">
-            <div class="en-est-panel-heading"><h3>Contact</h3><p><?php esc_html_e( 'Send an inquiry with your estimate details', 'emerge-mono' ); ?></p></div>
+            <div class="en-est-panel-heading"><h3>Contact</h3><p><?php esc_html_e( 'Send an inquiry with your estimate details', 'emerge-mono-portfolio' ); ?></p></div>
             <div class="en-est-form-intro">
-                <div class="en-est-form-intro-label"><?php esc_html_e( 'Estimate Details', 'emerge-mono' ); ?></div>
+                <div class="en-est-form-intro-label"><?php esc_html_e( 'Estimate Details', 'emerge-mono-portfolio' ); ?></div>
                 <div id="en-est-form-summary"></div>
             </div>
             <form class="en-est-contact-form" id="en-est-contact-form">
@@ -133,7 +133,7 @@ function en_shortcode_estimate( $atts ) {
                     $pholder  = isset($field['placeholder']) ? $field['placeholder'] : '';
                     $options  = isset($field['options']) ? $field['options'] : array();
                     $req_attr = $required ? 'required' : '';
-                    $req_mark = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono' ) . '</span>';
+                    $req_mark = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono-portfolio' ) . '</span>';
                 ?>
                 <div class="en-est-form-field">
                     <label class="en-est-form-label"><?php echo esc_html($label); ?> <?php echo $req_mark; ?></label>
@@ -141,7 +141,7 @@ function en_shortcode_estimate( $atts ) {
                         <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-textarea" placeholder="<?php echo esc_attr($pholder); ?>" <?php echo $req_attr; ?>></textarea>
                     <?php elseif ( $type === 'select' ) : ?>
                         <select name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-input" <?php echo $req_attr; ?>>
-                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Please select', 'emerge-mono-portfolio' ); ?></option>
                             <?php foreach ( $options as $opt ) : ?>
                                 <option value="<?php echo esc_attr($opt); ?>"><?php echo esc_html($opt); ?></option>
                             <?php endforeach; ?>
@@ -171,7 +171,7 @@ function en_shortcode_estimate( $atts ) {
             <div class="en-est-nav" id="en-est-nav-5">
                 <button type="button" class="en-est-btn en-est-btn-back" id="en-est-back4">← Back</button>
             </div>
-            <button type="button" class="en-est-reset" id="en-est-reset"><?php esc_html_e( 'Start over', 'emerge-mono' ); ?></button>
+            <button type="button" class="en-est-reset" id="en-est-reset"><?php esc_html_e( 'Start over', 'emerge-mono-portfolio' ); ?></button>
         </div>
 
         <?php endif; ?>
@@ -184,19 +184,19 @@ function en_shortcode_estimate( $atts ) {
         'noteText'       => $note_text,
         'recaptchaKey'   => $recaptcha_key,
         'i18n'           => array(
-            'perUnit'       => __( 'each', 'emerge-mono' ),          // 「1個あたり ¥」→ prefix前後で使用
-            'perUnitPrefix' => __( 'each', 'emerge-mono' ),
-            'currency'      => __( '¥', 'emerge-mono' ),
-            'noFee'         => __( 'No fee', 'emerge-mono' ),
-            'fee'           => __( 'Fee', 'emerge-mono' ),
-            'feeLabel'      => __( 'fee', 'emerge-mono' ),           // 「{name} 手数料（{x}%）」
-            'method'        => __( 'Method', 'emerge-mono' ),        // 依頼方法
-            'estTotal'      => __( 'Estimated total', 'emerge-mono' ),// 概算合計
-            'subtotal'      => __( 'Subtotal', 'emerge-mono' ),       // 小計
-            'listSep'       => __( ', ', 'emerge-mono' ),            // 「、」
-            'bullet'        => __( '• ', 'emerge-mono' ),            // 「・」
-            'sendFailed'    => __( 'Failed to send.', 'emerge-mono' ),
-            'commError'     => __( 'A communication error occurred.', 'emerge-mono' ),
+            'perUnit'       => __( 'each', 'emerge-mono-portfolio' ),          // 「1個あたり ¥」→ prefix前後で使用
+            'perUnitPrefix' => __( 'each', 'emerge-mono-portfolio' ),
+            'currency'      => __( '¥', 'emerge-mono-portfolio' ),
+            'noFee'         => __( 'No fee', 'emerge-mono-portfolio' ),
+            'fee'           => __( 'Fee', 'emerge-mono-portfolio' ),
+            'feeLabel'      => __( 'fee', 'emerge-mono-portfolio' ),           // 「{name} 手数料（{x}%）」
+            'method'        => __( 'Method', 'emerge-mono-portfolio' ),        // 依頼方法
+            'estTotal'      => __( 'Estimated total', 'emerge-mono-portfolio' ),// 概算合計
+            'subtotal'      => __( 'Subtotal', 'emerge-mono-portfolio' ),       // 小計
+            'listSep'       => __( ', ', 'emerge-mono-portfolio' ),            // 「、」
+            'bullet'        => __( '• ', 'emerge-mono-portfolio' ),            // 「・」
+            'sendFailed'    => __( 'Failed to send.', 'emerge-mono-portfolio' ),
+            'commError'     => __( 'A communication error occurred.', 'emerge-mono-portfolio' ),
         ),
     ) ); ?>;
     </script>

@@ -9,7 +9,7 @@ require_once EN_PATH . 'includes/privacy/shortcode.php';
 add_action( 'wp_ajax_en_preview_privacy', 'en_ajax_preview_privacy' );
 function en_ajax_preview_privacy() {
     if ( ! check_ajax_referer('en_preview_privacy', 'nonce', false) || ! current_user_can('manage_options') ) {
-        wp_send_json_error( __( 'Permission denied', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Permission denied', 'emerge-mono-portfolio' ) );
     }
     $lang           = sanitize_key( (isset($_POST['privacy_lang']) ? $_POST['privacy_lang'] : 'ja') );
     $owner          = sanitize_text_field( (isset($_POST['legal_owner']) ? $_POST['legal_owner'] : '') );
@@ -37,15 +37,15 @@ function en_cookie_banner() {
     if ( $lang === 'en' ) {
         $text_before = 'This site uses cookies to improve your experience.';
         $text_after  = '';
-        $link    = __( 'Learn more', 'emerge-mono' );
-        $accept  = __( 'Accept', 'emerge-mono' );
-        $decline = __( 'Decline', 'emerge-mono' );
+        $link    = __( 'Learn more', 'emerge-mono-portfolio' );
+        $accept  = __( 'Accept', 'emerge-mono-portfolio' );
+        $decline = __( 'Decline', 'emerge-mono-portfolio' );
     } else {
-        $text_before = __( 'This site uses cookies.', 'emerge-mono' );
+        $text_before = __( 'This site uses cookies.', 'emerge-mono-portfolio' );
         $text_after  = '';
-        $link    = __( 'Learn more', 'emerge-mono' );
-        $accept  = __( 'Accept', 'emerge-mono' );
-        $decline = __( 'Decline', 'emerge-mono' );
+        $link    = __( 'Learn more', 'emerge-mono-portfolio' );
+        $accept  = __( 'Accept', 'emerge-mono-portfolio' );
+        $decline = __( 'Decline', 'emerge-mono-portfolio' );
     }
     ?>
     <div class="en-cookie-banner" id="en-cookie-banner" style="display:none;">

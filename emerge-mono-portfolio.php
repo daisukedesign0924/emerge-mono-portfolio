@@ -3,19 +3,19 @@
  * Plugin Name:       Emerge Mono - Portfolio
  * Plugin URI:        https://github.com/daisukedesign0924/emerge-mono-portfolio
  * Description:       A monochrome portfolio toolkit for creators. Build a full portfolio site with shortcodes: hero, works gallery, profile, news, contact form, estimate simulator, and auto-generated privacy policy / terms pages.
- * Version:           2.20.2
+ * Version:           2.21.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            DAISUKE DESIGN
  * Author URI:        https://daisuke-design.com
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       emerge-mono
+ * Text Domain:       emerge-mono-portfolio
  * Domain Path:       /languages
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'EN_VERSION', '2.20.2' );
+define( 'EN_VERSION', '2.21.0' );
 define( 'EN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EN_URL',  plugin_dir_url( __FILE__ ) );
 
@@ -24,7 +24,7 @@ define( 'EN_URL',  plugin_dir_url( __FILE__ ) );
 define( 'EN_THEME_URL', '#' );
 
 add_action( 'plugins_loaded', function() {
-    load_plugin_textdomain( 'emerge-mono', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+    load_plugin_textdomain( 'emerge-mono-portfolio', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }, 1 );
 
 require_once EN_PATH . 'includes/post-types.php';
@@ -53,11 +53,11 @@ function en_load_editor() {
 }
 
 function en_editor_menus() {
-    add_menu_page( __( 'Post', 'emerge-mono' ),     __( 'Post', 'emerge-mono' ),     'edit_posts',  'ene-post',        'ene_page_post',   'dashicons-edit-page',  32 );
-    add_menu_page( __( 'All Works', 'emerge-mono' ),   __( 'All Works', 'emerge-mono' ),    'edit_posts',  'ene-works',       'ene_page_works',  'dashicons-portfolio',  33 );
-    add_menu_page( __( 'All News', 'emerge-mono' ), __( 'All News', 'emerge-mono' ), 'edit_posts',  'ene-news',        'ene_page_news',   'dashicons-megaphone',  34 );
-    add_menu_page( __( 'Page Manager', 'emerge-mono' ),   __( 'Page Manager', 'emerge-mono' ),   'edit_pages',  'ene-page-create', 'ene_page_create', 'dashicons-admin-page', 35 );
-    add_submenu_page( null, __( 'Edit Page', 'emerge-mono' ), __( 'Edit Page', 'emerge-mono' ), 'edit_pages', 'ene-page-edit', 'ene_page_edit' );
+    add_menu_page( __( 'Post', 'emerge-mono-portfolio' ),     __( 'Post', 'emerge-mono-portfolio' ),     'edit_posts',  'ene-post',        'ene_page_post',   'dashicons-edit-page',  32 );
+    add_menu_page( __( 'All Works', 'emerge-mono-portfolio' ),   __( 'All Works', 'emerge-mono-portfolio' ),    'edit_posts',  'ene-works',       'ene_page_works',  'dashicons-portfolio',  33 );
+    add_menu_page( __( 'All News', 'emerge-mono-portfolio' ), __( 'All News', 'emerge-mono-portfolio' ), 'edit_posts',  'ene-news',        'ene_page_news',   'dashicons-megaphone',  34 );
+    add_menu_page( __( 'Page Manager', 'emerge-mono-portfolio' ),   __( 'Page Manager', 'emerge-mono-portfolio' ),   'edit_pages',  'ene-page-create', 'ene_page_create', 'dashicons-admin-page', 35 );
+    add_submenu_page( null, __( 'Edit Page', 'emerge-mono-portfolio' ), __( 'Edit Page', 'emerge-mono-portfolio' ), 'edit_pages', 'ene-page-edit', 'ene_page_edit' );
 }
 
 function en_editor_hide_menus() {
@@ -85,7 +85,7 @@ function en_enqueue_assets() {
         'nonce'    => wp_create_nonce( 'en_nonce' ),
         'options'  => en_get_options(),
         'i18n'     => array(
-            'sendFailed' => __( 'Failed to send.', 'emerge-mono' ),
+            'sendFailed' => __( 'Failed to send.', 'emerge-mono-portfolio' ),
         ),
     ));
 }
@@ -271,15 +271,15 @@ function en_font_is_google( $font_key ) {
 add_action( 'wp_ajax_en_add_custom_font', 'en_ajax_add_custom_font' );
 function en_ajax_add_custom_font() {
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_send_json_error( __( 'Permission denied', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Permission denied', 'emerge-mono-portfolio' ) );
     }
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field($_POST['nonce']), 'en_custom_font_nonce' ) ) {
-        wp_send_json_error( __( 'Invalid request', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Invalid request', 'emerge-mono-portfolio' ) );
     }
     $name = isset($_POST['name']) ? sanitize_text_field( wp_unslash($_POST['name']) ) : '';
     $url  = isset($_POST['url'])  ? esc_url_raw( wp_unslash($_POST['url']) )  : '';
     if ( ! $name || ! $url ) {
-        wp_send_json_error( __( 'Please enter a font name and select a file.', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Please enter a font name and select a file.', 'emerge-mono-portfolio' ) );
     }
 
     $opts = get_option( 'en_options', array() );
@@ -308,10 +308,10 @@ function en_ajax_add_custom_font() {
 add_action( 'wp_ajax_en_delete_custom_font', 'en_ajax_delete_custom_font' );
 function en_ajax_delete_custom_font() {
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_send_json_error( __( 'Permission denied', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Permission denied', 'emerge-mono-portfolio' ) );
     }
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field($_POST['nonce']), 'en_custom_font_nonce' ) ) {
-        wp_send_json_error( __( 'Invalid request', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Invalid request', 'emerge-mono-portfolio' ) );
     }
     $name = isset($_POST['name']) ? sanitize_text_field( wp_unslash($_POST['name']) ) : '';
 

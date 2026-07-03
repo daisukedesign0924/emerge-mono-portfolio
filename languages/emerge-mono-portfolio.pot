@@ -1,0 +1,2081 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Emerge Mono - Portfolio package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Emerge Mono - Portfolio 2.20.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-03 00:19+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin/editor/style.php:28 admin/admin-style.php:227
+msgid "Select Image"
+msgstr ""
+
+#: admin/editor/style.php:29 admin/admin-page.php:107 admin/admin-page.php:117
+#: admin/admin-page.php:265 admin/admin-style.php:228
+msgid "Select"
+msgstr ""
+
+#: admin/editor/style.php:30 admin/editor/page.php:141
+#: admin/editor/page.php:701
+msgid "Change"
+msgstr ""
+
+#: admin/editor/style.php:31 admin/editor/page.php:145
+#: admin/editor/page.php:705
+msgid "Click to select an image"
+msgstr ""
+
+#: admin/editor/style.php:32
+msgid "Select Gallery Images"
+msgstr ""
+
+#: admin/editor/style.php:33 admin/editor/page.php:204
+msgid "Add"
+msgstr ""
+
+#: admin/editor/style.php:34 admin/editor/page.php:325
+msgid "Image"
+msgstr ""
+
+#: admin/editor/style.php:35 admin/editor/api.php:22 admin/editor/api.php:182
+msgid "Please enter a title."
+msgstr ""
+
+#: admin/editor/style.php:36
+msgid "Submitting..."
+msgstr ""
+
+#: admin/editor/style.php:37
+msgid "Failed to submit."
+msgstr ""
+
+#: admin/editor/style.php:38
+msgid "Delete this post? This cannot be undone."
+msgstr ""
+
+#: admin/editor/style.php:39 admin/editor/page.php:535
+msgid "Deleting..."
+msgstr ""
+
+#: admin/editor/style.php:40 admin/editor/api.php:113 admin/editor/api.php:161
+msgid "Deleted."
+msgstr ""
+
+#: admin/editor/style.php:41
+msgid "Category added."
+msgstr ""
+
+#: admin/editor/style.php:42
+msgid "Delete this category?"
+msgstr ""
+
+#: admin/editor/style.php:43
+msgid "No categories yet"
+msgstr ""
+
+#: admin/editor/style.php:44
+msgid "Category deleted."
+msgstr ""
+
+#: admin/editor/style.php:45
+msgid "Processing..."
+msgstr ""
+
+#: admin/editor/page.php:28
+msgid "Edit Post"
+msgstr ""
+
+#: admin/editor/page.php:28
+msgid "New Post"
+msgstr ""
+
+#: admin/editor/page.php:34
+msgid "Where would you like to post?"
+msgstr ""
+
+#: admin/editor/page.php:40
+msgid "Works / Portfolio"
+msgstr ""
+
+#: admin/editor/page.php:45 admin/admin-page.php:928 admin/admin-page.php:1298
+#: includes/shortcodes.php:299
+msgid "News"
+msgstr ""
+
+#: admin/editor/page.php:46
+msgid "Blog / News posts"
+msgstr ""
+
+#: admin/editor/page.php:53
+msgid "📂 Editing Works"
+msgstr ""
+
+#: admin/editor/page.php:53
+msgid "📰 Editing News"
+msgstr ""
+
+#: admin/editor/page.php:67 admin/editor/page.php:326 admin/editor/page.php:419
+#: admin/admin-page.php:254
+msgid "Title"
+msgstr ""
+
+#: admin/editor/page.php:68
+msgid "Enter a title"
+msgstr ""
+
+#: admin/editor/page.php:74 admin/admin-page.php:803
+msgid "Content"
+msgstr ""
+
+#: admin/editor/page.php:75
+msgid "Enter content (optional)"
+msgstr ""
+
+#: admin/editor/page.php:92 includes/custom-fields.php:20
+msgid "Video URL"
+msgstr ""
+
+#: admin/editor/page.php:93 admin/editor/page.php:202
+#: includes/custom-fields.php:21
+msgid "YouTube / Vimeo URL"
+msgstr ""
+
+#: admin/editor/page.php:99 includes/custom-fields.php:22
+msgid "External Link"
+msgstr ""
+
+#: admin/editor/page.php:106 includes/custom-fields.php:24
+msgid "Duration"
+msgstr ""
+
+#: admin/editor/page.php:113 includes/custom-fields.php:26
+msgid "Role"
+msgstr ""
+
+#: admin/editor/page.php:114
+msgid "Design / Development"
+msgstr ""
+
+#: admin/editor/page.php:120 includes/custom-fields.php:28
+msgid "Tools Used"
+msgstr ""
+
+#: admin/editor/page.php:121
+msgid "Figma, Swift"
+msgstr ""
+
+#: admin/editor/page.php:133 admin/editor/page.php:697
+msgid "Featured Image"
+msgstr ""
+
+#: admin/editor/page.php:151 admin/editor/page.php:711
+msgid "Remove image"
+msgstr ""
+
+#: admin/editor/page.php:157
+msgid "Gallery"
+msgstr ""
+
+#: admin/editor/page.php:158
+msgid "Add images and videos. Drag to reorder."
+msgstr ""
+
+#: admin/editor/page.php:197
+msgid "+ Image"
+msgstr ""
+
+#: admin/editor/page.php:198
+msgid "+ Video"
+msgstr ""
+
+#: admin/editor/page.php:205 admin/editor/page.php:266
+#: admin/editor/page.php:727
+msgid "Cancel"
+msgstr ""
+
+#: admin/editor/page.php:212 admin/editor/page.php:327
+#: admin/editor/page.php:420 admin/admin-page.php:952 admin/admin-save.php:231
+#: admin/admin-save.php:326 admin/admin.php:25 admin/admin.php:41
+#: includes/post-types.php:9 includes/post-types.php:56
+msgid "Category"
+msgstr ""
+
+#: admin/editor/page.php:253 admin/editor/page.php:716
+msgid "Visibility"
+msgstr ""
+
+#: admin/editor/page.php:263 admin/editor/page.php:725
+msgid "Update"
+msgstr ""
+
+#: admin/editor/page.php:263
+msgid "Publish"
+msgstr ""
+
+#: admin/editor/page.php:294 emerge-mono-portfolio.php:57
+msgid "All Works"
+msgstr ""
+
+#: admin/editor/page.php:295
+msgid "+ Add New Work"
+msgstr ""
+
+#: admin/editor/page.php:300
+msgid "Works Categories"
+msgstr ""
+
+#: admin/editor/page.php:313 admin/editor/page.php:407
+msgid "Enter a new category name"
+msgstr ""
+
+#: admin/editor/page.php:328 admin/editor/page.php:421
+#: includes/custom-fields.php:30
+msgid "Status"
+msgstr ""
+
+#: admin/editor/page.php:329 admin/editor/page.php:422
+msgid "Date"
+msgstr ""
+
+#: admin/editor/page.php:330 admin/editor/page.php:423
+#: admin/editor/page.php:497 admin/admin-page.php:804
+msgid "Actions"
+msgstr ""
+
+#: admin/editor/page.php:338 admin/editor/page.php:430
+#: admin/editor/page.php:505 includes/custom-fields.php:32
+msgid "Published"
+msgstr ""
+
+#: admin/editor/page.php:338 admin/editor/page.php:430
+#: admin/editor/page.php:505
+msgid "Draft"
+msgstr ""
+
+#: admin/editor/page.php:351 admin/editor/page.php:436
+msgid "(No title)"
+msgstr ""
+
+#: admin/editor/page.php:358 admin/editor/page.php:443
+#: admin/editor/page.php:518 admin/admin-page.php:920
+msgid "Edit"
+msgstr ""
+
+#: admin/editor/page.php:388 emerge-mono-portfolio.php:58
+msgid "All News"
+msgstr ""
+
+#: admin/editor/page.php:389
+msgid "+ Add New Post"
+msgstr ""
+
+#: admin/editor/page.php:394
+msgid "News Categories"
+msgstr ""
+
+#: admin/editor/page.php:459 admin/setup-wizard.php:14
+msgid "Top page — logo, site name, buttons"
+msgstr ""
+
+#: admin/editor/page.php:460 admin/setup-wizard.php:15
+msgid "Profile page — bio, social links"
+msgstr ""
+
+#: admin/editor/page.php:461 admin/setup-wizard.php:16
+msgid "Works page — portfolio grid"
+msgstr ""
+
+#: admin/editor/page.php:462 admin/setup-wizard.php:17
+msgid "News page — post list"
+msgstr ""
+
+#: admin/editor/page.php:463 admin/setup-wizard.php:18
+msgid "Contact page — form"
+msgstr ""
+
+#: admin/editor/page.php:464 admin/setup-wizard.php:19
+msgid "Privacy policy page"
+msgstr ""
+
+#: admin/editor/page.php:465 admin/setup-wizard.php:20
+msgid "Terms of service page"
+msgstr ""
+
+#: admin/editor/page.php:466 admin/setup-wizard.php:21
+msgid "Estimate simulator page"
+msgstr ""
+
+#: admin/editor/page.php:482 emerge-mono-portfolio.php:59
+msgid "Page Manager"
+msgstr ""
+
+#: admin/editor/page.php:484
+msgid "Open Setup Wizard"
+msgstr ""
+
+#: admin/editor/page.php:489
+msgid ""
+"Create and manage Emerge Mono pages. Clicking \"Create\" generates a page "
+"with the shortcode already set."
+msgstr ""
+
+#: admin/editor/page.php:494
+msgid "Page Name"
+msgstr ""
+
+#: admin/editor/page.php:495
+msgid "Shortcode"
+msgstr ""
+
+#: admin/editor/page.php:505
+msgid "Not created"
+msgstr ""
+
+#: admin/editor/page.php:519
+msgid "View"
+msgstr ""
+
+#: admin/editor/page.php:534
+#, php-format
+msgid "Delete \"%s\"?\\nThis cannot be undone."
+msgstr ""
+
+#: admin/editor/page.php:536
+#, php-format
+msgid "Deleted \"%s\"."
+msgstr ""
+
+#: admin/editor/page.php:537 admin/admin-page.php:287 admin/admin-page.php:304
+#: admin/admin-page.php:366 admin/admin-page.php:429 admin/admin-page.php:489
+#: admin/admin-page.php:537 admin/admin-page.php:573 admin/admin-page.php:677
+#: admin/admin-page.php:830 admin/admin-page.php:859 admin/admin-page.php:1130
+#: admin/admin-page.php:1146 includes/estimate/admin-page.php:42
+#: includes/estimate/admin-page.php:86 includes/estimate/admin-page.php:208
+msgid "Delete"
+msgstr ""
+
+#: admin/editor/page.php:538
+msgid "Error: "
+msgstr ""
+
+#: admin/editor/page.php:539
+msgid "Could not delete"
+msgstr ""
+
+#: admin/editor/page.php:540
+msgid "Creating..."
+msgstr ""
+
+#: admin/editor/page.php:541
+msgid "created."
+msgstr ""
+
+#: admin/editor/page.php:542
+msgid "Create"
+msgstr ""
+
+#: admin/editor/page.php:543
+msgid "Could not create"
+msgstr ""
+
+#: admin/editor/page.php:669 emerge-mono-portfolio.php:60
+msgid "Edit Page"
+msgstr ""
+
+#: admin/editor/page.php:677
+msgid "Page Title"
+msgstr ""
+
+#: admin/editor/page.php:683
+msgid "URL (slug)"
+msgstr ""
+
+#: admin/editor/api.php:8 admin/editor/api.php:100 admin/editor/api.php:123
+#: admin/editor/api.php:147 admin/editor/api.php:168 includes/contact.php:38
+msgid "Invalid request."
+msgstr ""
+
+#: admin/editor/api.php:11 admin/editor/api.php:103 admin/editor/api.php:126
+#: admin/editor/api.php:150 admin/editor/api.php:171
+msgid "Permission denied."
+msgstr ""
+
+#: admin/editor/api.php:90
+msgid "Updated."
+msgstr ""
+
+#: admin/editor/api.php:90
+msgid "Published."
+msgstr ""
+
+#: admin/editor/api.php:108 admin/editor/api.php:155
+msgid "Invalid ID."
+msgstr ""
+
+#: admin/editor/api.php:115
+msgid "Failed to delete."
+msgstr ""
+
+#: admin/editor/api.php:131
+msgid "Please enter a category name."
+msgstr ""
+
+#: admin/admin-page.php:7
+msgid "Site Settings"
+msgstr ""
+
+#: admin/admin-page.php:8 admin/admin-page.php:1283
+msgid "Profile"
+msgstr ""
+
+#: admin/admin-page.php:9
+msgid "Menu Settings"
+msgstr ""
+
+#: admin/admin-page.php:10
+msgid "Contact Form"
+msgstr ""
+
+#: admin/admin-page.php:11
+msgid "Design"
+msgstr ""
+
+#: admin/admin-page.php:12
+msgid "Post Type (Works)"
+msgstr ""
+
+#: admin/admin-page.php:13
+msgid "Privacy Policy"
+msgstr ""
+
+#: admin/admin-page.php:14
+msgid "Terms of Service"
+msgstr ""
+
+#: admin/admin-page.php:15
+msgid "Estimate Simulator"
+msgstr ""
+
+#: admin/admin-page.php:16
+msgid "Editor"
+msgstr ""
+
+#: admin/admin-page.php:17 admin/admin-page.php:1315
+msgid "Shortcodes"
+msgstr ""
+
+#: admin/admin-page.php:37
+msgid "Theme"
+msgstr ""
+
+#: admin/admin-page.php:86 admin/setup-wizard.php:117
+msgid "Site Info"
+msgstr ""
+
+#: admin/admin-page.php:88 admin/setup-wizard.php:148
+#: includes/terms/admin-page.php:44 includes/privacy/admin-page.php:46
+msgid "Site Name"
+msgstr ""
+
+#: admin/admin-page.php:92
+msgid "Tagline (Title)"
+msgstr ""
+
+#: admin/admin-page.php:93 admin/setup-wizard.php:153
+msgid "Web Creator"
+msgstr ""
+
+#: admin/admin-page.php:96
+msgid "Copyright"
+msgstr ""
+
+#: admin/admin-page.php:101 admin/setup-wizard.php:119
+#: admin/setup-wizard.php:185 admin/setup-wizard.php:469
+msgid "Logo"
+msgstr ""
+
+#: admin/admin-page.php:102
+msgid ""
+"You can set separate logos for dark and light mode. If only one is set, it "
+"will be used in both modes."
+msgstr ""
+
+#: admin/admin-page.php:104 admin/setup-wizard.php:191
+#: admin/setup-wizard.php:467
+msgid "Logo (Dark Mode)"
+msgstr ""
+
+#: admin/admin-page.php:114 admin/setup-wizard.php:203
+#: admin/setup-wizard.php:468
+msgid "Logo (Light Mode)"
+msgstr ""
+
+#: admin/admin-page.php:124
+msgid "Top Page Logo Size (vw)"
+msgstr ""
+
+#: admin/admin-page.php:127 admin/admin-page.php:152
+msgid "Desktop"
+msgstr ""
+
+#: admin/admin-page.php:133 admin/admin-page.php:158
+msgid "Tablet (≤768px)"
+msgstr ""
+
+#: admin/admin-page.php:139 admin/admin-page.php:164
+msgid "Mobile (≤480px)"
+msgstr ""
+
+#: admin/admin-page.php:145
+msgid ""
+"Top page logo size in vw, per screen width. Leave Tablet/Mobile empty to "
+"inherit the larger breakpoint. Desktop default: 14."
+msgstr ""
+
+#: admin/admin-page.php:149
+msgid "Header Logo Size (vw)"
+msgstr ""
+
+#: admin/admin-page.php:170
+msgid ""
+"Header logo size in vw, per screen width. Leave Tablet/Mobile empty to "
+"inherit the larger breakpoint. Desktop default: 3.2."
+msgstr ""
+
+#: admin/admin-page.php:174
+msgid "Top Page Buttons"
+msgstr ""
+
+#: admin/admin-page.php:175
+msgid ""
+"Add or remove buttons shown on the top page. Link to a page or enter a URL "
+"directly."
+msgstr ""
+
+#: admin/admin-page.php:188 admin/admin-page.php:211
+msgid "Button Label"
+msgstr ""
+
+#: admin/admin-page.php:189
+msgid "e.g. Profile"
+msgstr ""
+
+#: admin/admin-page.php:192 admin/admin-page.php:215
+msgid "Link (Select Page)"
+msgstr ""
+
+#: admin/admin-page.php:194 admin/admin-page.php:217
+#: includes/estimate/shortcode.php:144 includes/shortcodes.php:175
+msgid "Please select"
+msgstr ""
+
+#: admin/admin-page.php:200 admin/admin-page.php:222
+msgid "Or enter URL directly: https://"
+msgstr ""
+
+#: admin/admin-page.php:202 admin/admin-page.php:224
+msgid "Remove this button"
+msgstr ""
+
+#: admin/admin-page.php:212
+msgid "e.g. Contact"
+msgstr ""
+
+#: admin/admin-page.php:236 admin/admin-page.php:299 admin/admin-page.php:373
+#: admin/admin-page.php:510 admin/admin-page.php:785 admin/admin-page.php:967
+#: admin/admin-page.php:1269 admin/admin-page.php:1418
+#: includes/estimate/admin-page.php:61 includes/terms/admin-page.php:71
+#: includes/privacy/admin-page.php:119
+msgid "Save"
+msgstr ""
+
+#: admin/admin-page.php:248
+msgid "Profile Info"
+msgstr ""
+
+#: admin/admin-page.php:250 includes/contact.php:172
+msgid "Name"
+msgstr ""
+
+#: admin/admin-page.php:255
+msgid "Web Creator / iOS Developer"
+msgstr ""
+
+#: admin/admin-page.php:258
+msgid "Bio"
+msgstr ""
+
+#: admin/admin-page.php:262
+msgid "Profile Image URL"
+msgstr ""
+
+#: admin/admin-page.php:269
+msgid "Skills"
+msgstr ""
+
+#: admin/admin-page.php:270
+msgid "Enter comma-separated values. e.g. Web Design, PHP, Figma, Live2D"
+msgstr ""
+
+#: admin/admin-page.php:271
+msgid "Web Design, PHP, Figma, Live2D"
+msgstr ""
+
+#: admin/admin-page.php:277 admin/admin-page.php:359
+msgid "Social Links"
+msgstr ""
+
+#: admin/admin-page.php:278
+msgid "These links appear on your profile page."
+msgstr ""
+
+#: admin/admin-page.php:284 admin/admin-page.php:303 admin/admin-page.php:363
+msgid "e.g. X / Instagram"
+msgstr ""
+
+#: admin/admin-page.php:290 admin/admin-page.php:305
+msgid "Icon image URL (optional)"
+msgstr ""
+
+#: admin/admin-page.php:291 admin/admin-page.php:306
+msgid "Select Icon"
+msgstr ""
+
+#: admin/admin-page.php:292 admin/admin-page.php:307 admin/setup-wizard.php:228
+msgid "Clear"
+msgstr ""
+
+#: admin/admin-page.php:297
+msgid "+ Add Social Link"
+msgstr ""
+
+#: admin/admin-page.php:308
+msgid "Select Icon Image"
+msgstr ""
+
+#: admin/admin-page.php:309
+msgid "Use this image"
+msgstr ""
+
+#: admin/admin-page.php:371
+msgid "Add Social Link"
+msgstr ""
+
+#: admin/admin-page.php:396
+msgid "Navigation Mode"
+msgstr ""
+
+#: admin/admin-page.php:400
+msgid "Auto (show published pages automatically)"
+msgstr ""
+
+#: admin/admin-page.php:404
+msgid "Manual (choose pages/URLs yourself)"
+msgstr ""
+
+#: admin/admin-page.php:408
+msgid "Use WordPress menu (manage via Appearance → Menus)"
+msgstr ""
+
+#: admin/admin-page.php:415
+msgid "Navigation Items"
+msgstr ""
+
+#: admin/admin-page.php:416
+msgid "Select a page or enter a URL directly. Drag to reorder."
+msgstr ""
+
+#: admin/admin-page.php:426 admin/admin-page.php:486 admin/admin-page.php:535
+#: admin/admin-page.php:571
+msgid "Direct URL"
+msgstr ""
+
+#: admin/admin-page.php:428 admin/admin-page.php:536
+msgid "Label (e.g. About)"
+msgstr ""
+
+#: admin/admin-page.php:452
+msgid "WordPress Menu to Use"
+msgstr ""
+
+#: admin/admin-page.php:457
+#, php-format
+msgid "No WordPress menu has been created. Go to %s to create a menu."
+msgstr ""
+
+#: admin/admin-page.php:458
+msgid "Appearance → Menus"
+msgstr ""
+
+#: admin/admin-page.php:475
+msgid "Footer Menu"
+msgstr ""
+
+#: admin/admin-page.php:476
+msgid ""
+"Links shown above the copyright in the footer. For Page type, the page title "
+"is displayed (label is ignored). For Direct URL, the label is displayed."
+msgstr ""
+
+#: admin/admin-page.php:488 admin/admin-page.php:572
+msgid "Label (URL only)"
+msgstr ""
+
+#: admin/admin-page.php:533 admin/admin-page.php:569
+msgid "— Select a page —"
+msgstr ""
+
+#: admin/admin-page.php:534 admin/admin-page.php:570 admin/admin-page.php:921
+msgid "Page"
+msgstr ""
+
+#: admin/admin-page.php:601 admin/admin-page.php:851
+msgid "Text (single line)"
+msgstr ""
+
+#: admin/admin-page.php:602 admin/admin-page.php:852 includes/contact.php:173
+msgid "Email"
+msgstr ""
+
+#: admin/admin-page.php:603 admin/admin-page.php:853
+msgid "Phone"
+msgstr ""
+
+#: admin/admin-page.php:604 admin/admin-page.php:854
+msgid "Text (multi-line)"
+msgstr ""
+
+#: admin/admin-page.php:605 admin/admin-page.php:855
+msgid "Select box"
+msgstr ""
+
+#: admin/admin-page.php:606 admin/admin-page.php:856
+msgid "Checkbox"
+msgstr ""
+
+#: admin/admin-page.php:634
+msgid "Basic Settings"
+msgstr ""
+
+#: admin/admin-page.php:636
+msgid "Recipient Email"
+msgstr ""
+
+#: admin/admin-page.php:640
+msgid "Description"
+msgstr ""
+
+#: admin/admin-page.php:644
+msgid "Submit Button Text"
+msgstr ""
+
+#: admin/admin-page.php:645 includes/estimate/shortcode.php:39
+msgid "Send"
+msgstr ""
+
+#: admin/admin-page.php:648
+msgid "Success Message"
+msgstr ""
+
+#: admin/admin-page.php:649 includes/estimate/shortcode.php:41
+#: includes/contact.php:154
+msgid "Your message has been sent."
+msgstr ""
+
+#: admin/admin-page.php:654
+msgid "Form Fields"
+msgstr ""
+
+#: admin/admin-page.php:655
+msgid ""
+"Freely add or remove form fields. You must include at least one email field."
+msgstr ""
+
+#: admin/admin-page.php:667 admin/admin-page.php:846
+msgid "Your Name"
+msgstr ""
+
+#: admin/admin-page.php:670 admin/admin-page.php:849
+msgid "Field Type"
+msgstr ""
+
+#: admin/admin-page.php:681 admin/admin-page.php:863
+msgid "Field ID (alphanumeric)"
+msgstr ""
+
+#: admin/admin-page.php:682
+msgid "name"
+msgstr ""
+
+#: admin/admin-page.php:685 admin/admin-page.php:867
+msgid "Placeholder"
+msgstr ""
+
+#: admin/admin-page.php:686
+msgid "Show example"
+msgstr ""
+
+#: admin/admin-page.php:689 admin/admin-page.php:871
+msgid "Required / Optional"
+msgstr ""
+
+#: admin/admin-page.php:691 admin/admin-page.php:873
+msgid "Required"
+msgstr ""
+
+#: admin/admin-page.php:692 admin/admin-page.php:874
+#: includes/estimate/shortcode.php:136 includes/shortcodes.php:167
+msgid "Optional"
+msgstr ""
+
+#: admin/admin-page.php:697 admin/admin-page.php:879
+msgid "Options (one per line)"
+msgstr ""
+
+#: admin/admin-page.php:698
+msgid "Option A&#10;Option B&#10;Option C"
+msgstr ""
+
+#: admin/admin-page.php:707
+msgid "Auto-Reply Email"
+msgstr ""
+
+#: admin/admin-page.php:709
+msgid "Send Auto-Reply"
+msgstr ""
+
+#: admin/admin-page.php:712
+msgid "Do not send"
+msgstr ""
+
+#: admin/admin-page.php:716
+msgid "Auto-Reply Subject"
+msgstr ""
+
+#: admin/admin-page.php:717
+msgid "We have received your inquiry"
+msgstr ""
+
+#: admin/admin-page.php:720
+msgid "Auto-Reply Body"
+msgstr ""
+
+#: admin/admin-page.php:721
+msgid ""
+"Thank you for your inquiry.\n"
+"We will review your message and get back to you shortly."
+msgstr ""
+
+#: admin/admin-page.php:727
+msgid "Admin Email Settings"
+msgstr ""
+
+#: admin/admin-page.php:729
+msgid "Subject"
+msgstr ""
+
+#: admin/admin-page.php:733
+msgid "Email Intro Text"
+msgstr ""
+
+#: admin/admin-page.php:734
+msgid ""
+"You have received a new inquiry with the following details.\n"
+"\n"
+msgstr ""
+
+#: admin/admin-page.php:739
+msgid "Security Settings"
+msgstr ""
+
+#: admin/admin-page.php:741
+msgid ""
+"Honeypot spam protection is always enabled. Add reCAPTCHA v3 for extra "
+"protection."
+msgstr ""
+
+#: admin/admin-page.php:744
+msgid "reCAPTCHA v3 Site Key"
+msgstr ""
+
+#: admin/admin-page.php:745
+msgid "Enter your Google reCAPTCHA site key"
+msgstr ""
+
+#: admin/admin-page.php:746
+msgid "Google reCAPTCHA Admin →"
+msgstr ""
+
+#: admin/admin-page.php:746
+msgid "to get your keys."
+msgstr ""
+
+#: admin/admin-page.php:749
+msgid "reCAPTCHA v3 Secret Key"
+msgstr ""
+
+#: admin/admin-page.php:750
+msgid "Enter your secret key"
+msgstr ""
+
+#: admin/admin-page.php:755
+msgid "Privacy Policy Consent"
+msgstr ""
+
+#: admin/admin-page.php:756
+msgid "Require a privacy policy consent checkbox before form submission."
+msgstr ""
+
+#: admin/admin-page.php:760
+msgid "Show consent checkbox"
+msgstr ""
+
+#: admin/admin-page.php:764
+msgid "Checkbox Text"
+msgstr ""
+
+#: admin/admin-page.php:768
+msgid "Link Page (optional)"
+msgstr ""
+
+#: admin/admin-page.php:769
+msgid "Clicking the checkbox text navigates to this page."
+msgstr ""
+
+#: admin/admin-page.php:775 includes/privacy/admin-page.php:102
+msgid "— No page selected —"
+msgstr ""
+
+#: admin/admin-page.php:818
+msgid "View details"
+msgstr ""
+
+#: admin/admin-page.php:828
+msgid "Mark as read"
+msgstr ""
+
+#: admin/admin-page.php:830
+msgid "Delete this?"
+msgstr ""
+
+#: admin/admin-page.php:864
+msgid "e.g. inquiry_type"
+msgstr ""
+
+#: admin/admin-page.php:880
+msgid "Option A&#10;Option B"
+msgstr ""
+
+#: admin/admin-page.php:914
+msgid "Portfolio"
+msgstr ""
+
+#: admin/admin-page.php:915
+msgid "Images / Works"
+msgstr ""
+
+#: admin/admin-page.php:916
+msgid "Art"
+msgstr ""
+
+#: admin/admin-page.php:917
+msgid "Camera"
+msgstr ""
+
+#: admin/admin-page.php:918
+msgid "Video"
+msgstr ""
+
+#: admin/admin-page.php:919
+msgid "Music"
+msgstr ""
+
+#: admin/admin-page.php:922
+msgid "Star"
+msgstr ""
+
+#: admin/admin-page.php:923
+msgid "Heart"
+msgstr ""
+
+#: admin/admin-page.php:924
+msgid "Product"
+msgstr ""
+
+#: admin/admin-page.php:925
+msgid "Tools"
+msgstr ""
+
+#: admin/admin-page.php:926
+msgid "Idea"
+msgstr ""
+
+#: admin/admin-page.php:927
+msgid "Award"
+msgstr ""
+
+#: admin/admin-page.php:935
+msgid "Works Display Settings"
+msgstr ""
+
+#: admin/admin-page.php:937
+msgid ""
+"Customize the name and icon of the \"Works\" post type shown in the "
+"WordPress admin."
+msgstr ""
+
+#: admin/admin-page.php:938
+msgid ""
+"For example, you can rename \"Works\" to \"Portfolio\", \"Projects\", or "
+"\"Gallery\"."
+msgstr ""
+
+#: admin/admin-page.php:941
+msgid "Display Name (plural)"
+msgstr ""
+
+#: admin/admin-page.php:942 admin/admin-page.php:1288
+msgid "Works"
+msgstr ""
+
+#: admin/admin-page.php:943
+msgid "Name shown in the admin menu (e.g. Portfolio, Projects, Gallery)"
+msgstr ""
+
+#: admin/admin-page.php:946
+msgid "Display Name (singular)"
+msgstr ""
+
+#: admin/admin-page.php:947
+msgid "Work"
+msgstr ""
+
+#: admin/admin-page.php:948
+msgid "Name for an individual item (e.g. Work, Piece, Project)"
+msgstr ""
+
+#: admin/admin-page.php:951
+msgid "Category Display Name"
+msgstr ""
+
+#: admin/admin-page.php:953
+msgid "Label for categorizing works (e.g. Genre, Type, Tag)"
+msgstr ""
+
+#: admin/admin-page.php:956
+msgid "Admin Menu Icon"
+msgstr ""
+
+#: admin/admin-page.php:964
+msgid ""
+"After selecting, click \"Save\" to change the icon in the left admin menu."
+msgstr ""
+
+#: admin/admin-page.php:974
+msgid "Saved."
+msgstr ""
+
+#: admin/admin-page.php:988
+msgid "(default, monospace)"
+msgstr ""
+
+#: admin/admin-page.php:989
+msgid "(simple, modern)"
+msgstr ""
+
+#: admin/admin-page.php:990
+msgid "(clean, readable)"
+msgstr ""
+
+#: admin/admin-page.php:991
+msgid "(stylish)"
+msgstr ""
+
+#: admin/admin-page.php:992
+msgid "(bold, impactful)"
+msgstr ""
+
+#: admin/admin-page.php:993
+msgid "(thin, elegant)"
+msgstr ""
+
+#: admin/admin-page.php:994
+msgid "(uppercase, impactful)"
+msgstr ""
+
+#: admin/admin-page.php:995
+msgid "(Japanese support)"
+msgstr ""
+
+#: admin/admin-page.php:996
+msgid "(Japanese, thin)"
+msgstr ""
+
+#: admin/admin-page.php:997
+msgid "(Japanese, modern)"
+msgstr ""
+
+#: admin/admin-page.php:998 admin/admin-page.php:999 admin/admin-page.php:1000
+msgid "(no external load)"
+msgstr ""
+
+#: admin/admin-page.php:1007 admin/admin-page.php:1145
+msgid "Custom"
+msgstr ""
+
+#: admin/admin-page.php:1015 admin/setup-wizard.php:161
+msgid "Color Mode"
+msgstr ""
+
+#: admin/admin-page.php:1017
+msgid ""
+"Select the site color mode. With Match device setting, the background "
+"switches to dark or light automatically based on the visitor device."
+msgstr ""
+
+#: admin/admin-page.php:1026
+msgid "Always Dark"
+msgstr ""
+
+#: admin/admin-page.php:1027
+msgid "Always dark background, white text"
+msgstr ""
+
+#: admin/admin-page.php:1036
+msgid "Always Light"
+msgstr ""
+
+#: admin/admin-page.php:1037
+msgid "Always light background, black text"
+msgstr ""
+
+#: admin/admin-page.php:1046
+msgid "Match device setting (auto)"
+msgstr ""
+
+#: admin/admin-page.php:1047
+msgid "Automatically follows the visitor dark/light mode setting"
+msgstr ""
+
+#: admin/admin-page.php:1055
+msgid "Color Settings"
+msgstr ""
+
+#: admin/admin-page.php:1057
+msgid ""
+"Set the overall site colors. No change needed if you keep the default dark "
+"background with white text."
+msgstr ""
+
+#: admin/admin-page.php:1060
+msgid "Background Color"
+msgstr ""
+
+#: admin/admin-page.php:1067
+msgid "Text Color"
+msgstr ""
+
+#: admin/admin-page.php:1074
+msgid "Accent Color (buttons, borders, etc.)"
+msgstr ""
+
+#: admin/admin-page.php:1082
+msgid "Font Settings"
+msgstr ""
+
+#: admin/admin-page.php:1084
+msgid ""
+"Select the overall site font. Choose a Japanese-capable font if you have a "
+"lot of Japanese content."
+msgstr ""
+
+#: admin/admin-page.php:1087
+msgid "Font"
+msgstr ""
+
+#: admin/admin-page.php:1097
+msgid ""
+"* Check your site after saving. Google Fonts are loaded automatically; "
+"system fonts require no external load."
+msgstr ""
+
+#: admin/admin-page.php:1101
+msgid "Custom Font Upload"
+msgstr ""
+
+#: admin/admin-page.php:1103
+msgid ""
+"Upload your own font file (.woff2 / .woff / .ttf / .otf). It is added "
+"immediately and appears in the font list above."
+msgstr ""
+
+#: admin/admin-page.php:1117
+msgid "Font name (e.g. Baskerville)"
+msgstr ""
+
+#: admin/admin-page.php:1119
+msgid "Font file URL"
+msgstr ""
+
+#: admin/admin-page.php:1120
+msgid "Select File"
+msgstr ""
+
+#: admin/admin-page.php:1121
+msgid "Add Font"
+msgstr ""
+
+#: admin/admin-page.php:1141 emerge-mono-portfolio.php:282
+msgid "Please enter a font name and select a file."
+msgstr ""
+
+#: admin/admin-page.php:1142
+msgid "Adding..."
+msgstr ""
+
+#: admin/admin-page.php:1143
+msgid "Font added."
+msgstr ""
+
+#: admin/admin-page.php:1144
+msgid "Delete this font?"
+msgstr ""
+
+#: admin/admin-page.php:1158
+msgid "Select Font File"
+msgstr ""
+
+#: admin/admin-page.php:1159
+msgid "Use this font"
+msgstr ""
+
+#: admin/admin-page.php:1262
+msgid "Preview"
+msgstr ""
+
+#: admin/admin-page.php:1278
+msgid "Home"
+msgstr ""
+
+#: admin/admin-page.php:1279
+msgid ""
+"Top page shortcode showing the logo, site name, and buttons. Paste it into "
+"your front page."
+msgstr ""
+
+#: admin/admin-page.php:1284
+msgid ""
+"Displays the profile image, name, title, bio, and social links. Reflects the "
+"Profile settings."
+msgstr ""
+
+#: admin/admin-page.php:1289
+msgid ""
+"Displays works in a grid layout with category filtering. Added works appear "
+"automatically."
+msgstr ""
+
+#: admin/admin-page.php:1293 includes/estimate/shortcode.php:59
+#: includes/estimate/shortcode.php:110
+msgid "Contact"
+msgstr ""
+
+#: admin/admin-page.php:1294
+msgid ""
+"Displays the contact form. Reflects the settings in the \"Contact Form\" tab."
+msgstr ""
+
+#: admin/admin-page.php:1299
+msgid ""
+"Displays standard WordPress posts. Useful for a blog or news page. You can "
+"set the count with per_page=\"10\", e.g. [emerge_mono_news per_page=\"10\"]"
+msgstr ""
+
+#: admin/admin-page.php:1303
+msgid "Privacy Policy Page"
+msgstr ""
+
+#: admin/admin-page.php:1304
+msgid ""
+"Displays the privacy policy. Text is auto-generated from the operator name "
+"and email in the \"Privacy Policy\" settings."
+msgstr ""
+
+#: admin/admin-page.php:1308
+msgid "Terms of Service Page"
+msgstr ""
+
+#: admin/admin-page.php:1309
+msgid ""
+"Displays the terms of service. Text is auto-generated from the operator name "
+"and email in the \"Terms of Service\" settings."
+msgstr ""
+
+#: admin/admin-page.php:1317
+msgid ""
+"Paste a shortcode into the WordPress page editor to display its content on "
+"that page."
+msgstr ""
+
+#: admin/admin-page.php:1318
+msgid "Use the Copy button on the right to copy it to your clipboard."
+msgstr ""
+
+#: admin/admin-page.php:1341 includes/estimate/admin-page.php:66
+msgid "How to Use"
+msgstr ""
+
+#: admin/admin-page.php:1345
+msgid "WordPress Admin → Pages → Add New"
+msgstr ""
+
+#: admin/admin-page.php:1349
+msgid "Enter a page title (e.g. About)"
+msgstr ""
+
+#: admin/admin-page.php:1353
+msgid "Paste the shortcode in the content area (e.g. [emerge_mono_about])"
+msgstr ""
+
+#: admin/admin-page.php:1357
+msgid "Click Publish to finish"
+msgstr ""
+
+#: admin/admin-page.php:1365
+msgid "Copied"
+msgstr ""
+
+#: admin/admin-page.php:1393
+msgid "Editor Feature"
+msgstr ""
+
+#: admin/admin-page.php:1395
+msgid ""
+"When enabled, a simple non-Gutenberg editor is used for Works and News posts."
+msgstr ""
+
+#: admin/admin-page.php:1396
+msgid ""
+"Turn it off if you prefer Gutenberg. Reload the page after changing this "
+"setting."
+msgstr ""
+
+#: admin/admin-page.php:1401
+msgid "Enable the editor (default: on)"
+msgstr ""
+
+#: admin/admin-page.php:1406
+msgid "Standard Posts"
+msgstr ""
+
+#: admin/admin-page.php:1408
+msgid ""
+"News is managed as a dedicated post type, so the standard WordPress Posts "
+"menu is hidden by default."
+msgstr ""
+
+#: admin/admin-page.php:1409
+msgid ""
+"Enable this only if you also want to use the standard blog Posts feature."
+msgstr ""
+
+#: admin/admin-page.php:1414
+msgid "Show the standard Posts menu (default: off)"
+msgstr ""
+
+#: admin/admin-save.php:190 admin/admin-save.php:285
+#: includes/estimate/shortcode.php:36 includes/shortcodes.php:197
+msgid "I agree to the Privacy Policy."
+msgstr ""
+
+#: admin/setup-wizard.php:70 admin/setup-wizard.php:71
+#: admin/setup-wizard.php:143
+msgid "Emerge Mono Setup"
+msgstr ""
+
+#: admin/setup-wizard.php:118
+msgid "Color"
+msgstr ""
+
+#: admin/setup-wizard.php:120
+msgid "Pages"
+msgstr ""
+
+#: admin/setup-wizard.php:142
+msgid "Welcome"
+msgstr ""
+
+#: admin/setup-wizard.php:144
+msgid ""
+"Let's set up the basics. Every step is optional — you can skip anything and "
+"change it later in the settings."
+msgstr ""
+
+#: admin/setup-wizard.php:152
+msgid "Tagline"
+msgstr ""
+
+#: admin/setup-wizard.php:162
+msgid "Choose how your site looks. Auto follows each visitor's device setting."
+msgstr ""
+
+#: admin/setup-wizard.php:167
+msgid "Dark"
+msgstr ""
+
+#: admin/setup-wizard.php:167
+msgid "Dark background, white text"
+msgstr ""
+
+#: admin/setup-wizard.php:168
+msgid "Light"
+msgstr ""
+
+#: admin/setup-wizard.php:168
+msgid "Light background, black text"
+msgstr ""
+
+#: admin/setup-wizard.php:169
+msgid "Auto"
+msgstr ""
+
+#: admin/setup-wizard.php:169
+msgid "Match device setting"
+msgstr ""
+
+#: admin/setup-wizard.php:186
+msgid "Upload a logo for the site header. You can skip this and add it later."
+msgstr ""
+
+#: admin/setup-wizard.php:197 admin/setup-wizard.php:209
+msgid "Select from Media Library"
+msgstr ""
+
+#: admin/setup-wizard.php:198 admin/setup-wizard.php:210
+msgid "Remove"
+msgstr ""
+
+#: admin/setup-wizard.php:220
+msgid "Create Pages"
+msgstr ""
+
+#: admin/setup-wizard.php:221
+msgid ""
+"Select the pages to create. Each is created with its shortcode already "
+"inserted."
+msgstr ""
+
+#: admin/setup-wizard.php:224
+msgid "Select all"
+msgstr ""
+
+#: admin/setup-wizard.php:226
+msgid "Recommended only"
+msgstr ""
+
+#: admin/setup-wizard.php:249
+msgid "Created"
+msgstr ""
+
+#: admin/setup-wizard.php:251
+msgid "Recommended"
+msgstr ""
+
+#: admin/setup-wizard.php:263
+msgid "Skip setup"
+msgstr ""
+
+#: admin/setup-wizard.php:265
+msgid "← Back"
+msgstr ""
+
+#: admin/setup-wizard.php:266
+msgid "Save & Next →"
+msgstr ""
+
+#: admin/setup-wizard.php:267
+msgid "Finish & create pages"
+msgstr ""
+
+#: admin/setup-wizard.php:271
+msgid "Everything here can be changed later from the plugin settings."
+msgstr ""
+
+#: admin/setup-wizard.php:396
+msgid "Please select at least one page."
+msgstr ""
+
+#: admin/setup-wizard.php:397
+msgid "Saving settings…"
+msgstr ""
+
+#: admin/setup-wizard.php:398
+msgid "Saved ✓"
+msgstr ""
+
+#: admin/setup-wizard.php:399
+msgid "Creating pages…"
+msgstr ""
+
+#: admin/setup-wizard.php:400
+#, php-format
+msgid "Created: %s"
+msgstr ""
+
+#: admin/setup-wizard.php:401
+msgid "All set! Redirecting…"
+msgstr ""
+
+#: admin/setup-wizard.php:402
+#, php-format
+msgid "Failed: %s"
+msgstr ""
+
+#: admin/setup-wizard.php:403
+msgid "Select Logo"
+msgstr ""
+
+#: admin/setup-wizard.php:404
+msgid "Use this logo"
+msgstr ""
+
+#: admin/setup-wizard.php:405
+msgid "Media library could not load. Please reload the page and try again."
+msgstr ""
+
+#: admin/setup-wizard.php:472
+msgid "Dark mode is selected, so only the dark logo is needed."
+msgstr ""
+
+#: admin/setup-wizard.php:473
+msgid "Light mode is selected, so only the light logo is needed."
+msgstr ""
+
+#: admin/setup-wizard.php:474
+msgid ""
+"Auto mode is selected. Set both a dark and a light logo for the best result."
+msgstr ""
+
+#: includes/single-work.php:36
+msgid "— Duration —"
+msgstr ""
+
+#: includes/single-work.php:37
+msgid "— Role —"
+msgstr ""
+
+#: includes/single-work.php:38
+msgid "— Tools —"
+msgstr ""
+
+#: includes/single-post.php:51
+msgid "Back to News"
+msgstr ""
+
+#: includes/custom-fields.php:6
+msgid "Work Details"
+msgstr ""
+
+#: includes/custom-fields.php:33
+msgid "Private"
+msgstr ""
+
+#: includes/estimate/shortcode.php:9 includes/estimate/admin-save.php:75
+msgid "* The final amount will be provided after inquiry."
+msgstr ""
+
+#: includes/estimate/shortcode.php:46
+msgid "The estimate simulator has not been set up."
+msgstr ""
+
+#: includes/estimate/shortcode.php:51
+msgid "Service"
+msgstr ""
+
+#: includes/estimate/shortcode.php:53
+msgid "Options"
+msgstr ""
+
+#: includes/estimate/shortcode.php:55
+msgid "How to Order"
+msgstr ""
+
+#: includes/estimate/shortcode.php:57
+msgid "Estimate"
+msgstr ""
+
+#: includes/estimate/shortcode.php:64
+msgid "Select the services you want (multiple allowed)"
+msgstr ""
+
+#: includes/estimate/shortcode.php:68
+msgid "Choose options"
+msgstr ""
+
+#: includes/estimate/shortcode.php:74
+msgid "Configure the details for each service"
+msgstr ""
+
+#: includes/estimate/shortcode.php:78
+msgid "Choose order method"
+msgstr ""
+
+#: includes/estimate/shortcode.php:84
+msgid "Choose how to order"
+msgstr ""
+
+#: includes/estimate/shortcode.php:88
+msgid "Review estimate"
+msgstr ""
+
+#: includes/estimate/shortcode.php:94
+msgid "Review the details and proceed to contact"
+msgstr ""
+
+#: includes/estimate/shortcode.php:96
+msgid "Breakdown"
+msgstr ""
+
+#: includes/estimate/shortcode.php:116
+msgid "Send an inquiry with your estimate details"
+msgstr ""
+
+#: includes/estimate/shortcode.php:118
+msgid "Estimate Details"
+msgstr ""
+
+#: includes/estimate/shortcode.php:174
+msgid "Start over"
+msgstr ""
+
+#: includes/estimate/shortcode.php:187 includes/estimate/shortcode.php:188
+msgid "each"
+msgstr ""
+
+#: includes/estimate/shortcode.php:189
+msgid "¥"
+msgstr ""
+
+#: includes/estimate/shortcode.php:190
+msgid "No fee"
+msgstr ""
+
+#: includes/estimate/shortcode.php:191
+msgid "Fee"
+msgstr ""
+
+#: includes/estimate/shortcode.php:192
+msgid "fee"
+msgstr ""
+
+#: includes/estimate/shortcode.php:193
+msgid "Method"
+msgstr ""
+
+#: includes/estimate/shortcode.php:194
+msgid "Estimated total"
+msgstr ""
+
+#: includes/estimate/shortcode.php:195
+msgid "Subtotal"
+msgstr ""
+
+#: includes/estimate/shortcode.php:196
+msgid ", "
+msgstr ""
+
+#: includes/estimate/shortcode.php:197
+msgid "• "
+msgstr ""
+
+#: includes/estimate/shortcode.php:198 includes/contact.php:43
+#: emerge-mono-portfolio.php:88
+msgid "Failed to send."
+msgstr ""
+
+#: includes/estimate/shortcode.php:199
+msgid "A communication error occurred."
+msgstr ""
+
+#: includes/estimate/admin-page.php:21
+msgid "Service List"
+msgstr ""
+
+#: includes/estimate/admin-page.php:22
+msgid ""
+"Add the services you offer. You can set estimate items for each service."
+msgstr ""
+
+#: includes/estimate/admin-page.php:30
+msgid "+ Add Service"
+msgstr ""
+
+#: includes/estimate/admin-page.php:34
+msgid "Order Methods"
+msgstr ""
+
+#: includes/estimate/admin-page.php:35
+msgid ""
+"Set each order method name and surcharge rate (%). 0% shows as \"no fee\"."
+msgstr ""
+
+#: includes/estimate/admin-page.php:39 includes/estimate/admin-page.php:85
+msgid "e.g. Bank transfer"
+msgstr ""
+
+#: includes/estimate/admin-page.php:46
+msgid "+ Add Order Method"
+msgstr ""
+
+#: includes/estimate/admin-page.php:50
+msgid "General Settings"
+msgstr ""
+
+#: includes/estimate/admin-page.php:52
+msgid "Note Text"
+msgstr ""
+
+#: includes/estimate/admin-page.php:56
+msgid "Contact Button Text"
+msgstr ""
+
+#: includes/estimate/admin-page.php:84 includes/estimate/admin-page.php:237
+msgid "Option name"
+msgstr ""
+
+#: includes/estimate/admin-page.php:87 includes/estimate/admin-page.php:207
+msgid "Service name (e.g. VTuber illustration)"
+msgstr ""
+
+#: includes/estimate/admin-page.php:88 includes/estimate/admin-page.php:211
+msgid "Description (optional)"
+msgstr ""
+
+#: includes/estimate/admin-page.php:89 includes/estimate/admin-page.php:217
+msgid "Option"
+msgstr ""
+
+#: includes/estimate/admin-page.php:90 includes/estimate/admin-page.php:217
+msgid "Check"
+msgstr ""
+
+#: includes/estimate/admin-page.php:91 includes/estimate/admin-page.php:217
+msgid "Quantity"
+msgstr ""
+
+#: includes/estimate/admin-page.php:92
+msgid "Item name (e.g. Number of characters)"
+msgstr ""
+
+#: includes/estimate/admin-page.php:93 includes/estimate/admin-page.php:228
+msgid "Unit price ¥"
+msgstr ""
+
+#: includes/estimate/admin-page.php:94 includes/estimate/admin-page.php:230
+msgid "Min qty"
+msgstr ""
+
+#: includes/estimate/admin-page.php:95 includes/estimate/admin-page.php:244
+msgid "+ Add option"
+msgstr ""
+
+#: includes/estimate/admin-page.php:96 includes/estimate/admin-page.php:250
+msgid "+ Option"
+msgstr ""
+
+#: includes/estimate/admin-page.php:97 includes/estimate/admin-page.php:251
+msgid "+ Check"
+msgstr ""
+
+#: includes/estimate/admin-page.php:98 includes/estimate/admin-page.php:252
+msgid "+ Quantity"
+msgstr ""
+
+#: includes/estimate/admin-page.php:223
+msgid "Item name"
+msgstr ""
+
+#: includes/estimate/admin-save.php:76
+msgid "Send inquiry with these details"
+msgstr ""
+
+#: includes/post-types.php:16 includes/post-types.php:63
+msgid "Add New"
+msgstr ""
+
+#: includes/post-types.php:17 includes/post-types.php:39
+#: includes/post-types.php:64 includes/post-types.php:86
+#, php-format
+msgid "Add %s"
+msgstr ""
+
+#: includes/post-types.php:18 includes/post-types.php:40
+#: includes/post-types.php:65 includes/post-types.php:87
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#: includes/post-types.php:19 includes/post-types.php:66
+#, php-format
+msgid "New %s"
+msgstr ""
+
+#: includes/post-types.php:20 includes/post-types.php:67
+#, php-format
+msgid "View %s"
+msgstr ""
+
+#: includes/post-types.php:21 includes/post-types.php:68
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: includes/post-types.php:22 includes/post-types.php:69
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: includes/post-types.php:23 includes/post-types.php:70
+#, php-format
+msgid "No %s found in Trash"
+msgstr ""
+
+#: includes/post-types.php:41 includes/post-types.php:88
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#: includes/contact.php:51
+msgid "You have reached the submission limit. Please try again later."
+msgstr ""
+
+#: includes/contact.php:68
+msgid "Detected as spam."
+msgstr ""
+
+#: includes/contact.php:89
+#, php-format
+msgid "Please enter a valid %s."
+msgstr ""
+
+#: includes/contact.php:95
+#, php-format
+msgid "Please select %s."
+msgstr ""
+
+#: includes/contact.php:101
+#, php-format
+msgid "Please enter %s."
+msgstr ""
+
+#: includes/contact.php:110
+msgid "Email address not found."
+msgstr ""
+
+#: includes/contact.php:115
+#, php-format
+msgid "[Inquiry] %s"
+msgstr ""
+
+#: includes/contact.php:117
+msgid ""
+"You have received a new inquiry:\n"
+"\n"
+msgstr ""
+
+#: includes/contact.php:119
+msgid "■ Estimate Details\n"
+msgstr ""
+
+#: includes/contact.php:124
+msgid ""
+"---\n"
+"Sender IP: "
+msgstr ""
+
+#: includes/contact.php:124
+msgid ""
+"\n"
+"Sent at: "
+msgstr ""
+
+#: includes/contact.php:135
+#, php-format
+msgid "We received your inquiry | %s"
+msgstr ""
+
+#: includes/contact.php:136
+msgid ""
+"Thank you for your inquiry.\n"
+"We will review your message and get back to you shortly.\n"
+"\n"
+msgstr ""
+
+#: includes/contact.php:172
+msgid "e.g. John Smith"
+msgstr ""
+
+#: includes/contact.php:174
+msgid "Message"
+msgstr ""
+
+#: includes/contact.php:174
+msgid "Feel free to send us your requests or questions."
+msgstr ""
+
+#: includes/terms/shortcode.php:22 includes/privacy/privacy.php:12
+#: emerge-mono-portfolio.php:274 emerge-mono-portfolio.php:311
+msgid "Permission denied"
+msgstr ""
+
+#: includes/terms/admin-page.php:21 includes/privacy/admin-page.php:23
+msgid "Basic Info"
+msgstr ""
+
+#: includes/terms/admin-page.php:22
+msgid "The terms of service text is auto-generated from the info you enter."
+msgstr ""
+
+#: includes/terms/admin-page.php:25 includes/privacy/admin-page.php:27
+#: includes/privacy/admin-page.php:115
+msgid "Display Language"
+msgstr ""
+
+#: includes/terms/admin-page.php:29 includes/privacy/admin-page.php:31
+msgid "Japanese"
+msgstr ""
+
+#: includes/terms/admin-page.php:39 includes/privacy/admin-page.php:41
+msgid "Operator Name (personal or business)"
+msgstr ""
+
+#: includes/terms/admin-page.php:40 includes/privacy/admin-page.php:42
+msgid "e.g. Taro Yamada"
+msgstr ""
+
+#: includes/terms/admin-page.php:49 includes/privacy/admin-page.php:51
+msgid "Contact Email"
+msgstr ""
+
+#: includes/terms/admin-page.php:55 includes/privacy/admin-page.php:57
+msgid "Sections to Include"
+msgstr ""
+
+#: includes/terms/admin-page.php:59
+msgid "Include a disclaimer"
+msgstr ""
+
+#: includes/terms/admin-page.php:65 includes/privacy/admin-page.php:76
+msgid "Additional Notes (optional)"
+msgstr ""
+
+#: includes/terms/admin-page.php:67
+msgid "e.g. Refund policy for paid services, etc. ..."
+msgstr ""
+
+#: includes/privacy/admin-page.php:24
+msgid "The privacy policy text is auto-generated from the info you enter."
+msgstr ""
+
+#: includes/privacy/admin-page.php:58
+msgid "Checked sections are automatically added to the privacy policy."
+msgstr ""
+
+#: includes/privacy/admin-page.php:62
+msgid "Add a section about cookie usage"
+msgstr ""
+
+#: includes/privacy/admin-page.php:66
+msgid "Add a section about Google Analytics"
+msgstr ""
+
+#: includes/privacy/admin-page.php:70
+msgid "Add a disclaimer section"
+msgstr ""
+
+#: includes/privacy/admin-page.php:77
+msgid "Enter any content you want to append to the end of the template."
+msgstr ""
+
+#: includes/privacy/admin-page.php:79
+msgid "e.g. This site participates in affiliate programs. ..."
+msgstr ""
+
+#: includes/privacy/admin-page.php:84
+msgid "Cookie Banner"
+msgstr ""
+
+#: includes/privacy/admin-page.php:85
+msgid ""
+"Shows a cookie consent banner on the first visit. Required in the EU, UK, "
+"and US."
+msgstr ""
+
+#: includes/privacy/admin-page.php:90
+msgid "Show cookie banner"
+msgstr ""
+
+#: includes/privacy/admin-page.php:95
+msgid "Privacy Policy Page (optional)"
+msgstr ""
+
+#: includes/privacy/admin-page.php:96
+msgid ""
+"This becomes the \"Learn more\" link in the banner. No link if unselected."
+msgstr ""
+
+#: includes/privacy/admin-page.php:112
+msgid "Banner text (auto)"
+msgstr ""
+
+#: includes/privacy/admin-page.php:113
+msgid "Japanese:"
+msgstr ""
+
+#: includes/privacy/admin-page.php:114
+msgid "English:"
+msgstr ""
+
+#: includes/privacy/admin-page.php:115
+#, php-format
+msgid "* The display language follows the \"%s\" setting above."
+msgstr ""
+
+#: includes/privacy/privacy.php:40 includes/privacy/privacy.php:46
+msgid "Learn more"
+msgstr ""
+
+#: includes/privacy/privacy.php:41 includes/privacy/privacy.php:47
+msgid "Accept"
+msgstr ""
+
+#: includes/privacy/privacy.php:42 includes/privacy/privacy.php:48
+msgid "Decline"
+msgstr ""
+
+#: includes/privacy/privacy.php:44
+msgid "This site uses cookies."
+msgstr ""
+
+#: includes/shortcodes.php:237 includes/shortcodes.php:302
+msgid "No posts found"
+msgstr ""
+
+#: emerge-mono-portfolio.php:56
+msgid "Post"
+msgstr ""
+
+#: emerge-mono-portfolio.php:277 emerge-mono-portfolio.php:314
+msgid "Invalid request"
+msgstr ""

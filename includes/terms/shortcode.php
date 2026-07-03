@@ -19,7 +19,7 @@ function en_shortcode_terms( $atts ) {
 add_action( 'wp_ajax_en_preview_terms', 'en_ajax_preview_terms' );
 function en_ajax_preview_terms() {
     if ( ! check_ajax_referer('en_preview_terms', 'nonce', false) || ! current_user_can('manage_options') ) {
-        wp_send_json_error( __( 'Permission denied', 'emerge-mono' ) );
+        wp_send_json_error( __( 'Permission denied', 'emerge-mono-portfolio' ) );
     }
     $lang           = sanitize_key( (isset($_POST['terms_lang']) ? $_POST['terms_lang'] : 'ja') );
     $owner          = sanitize_text_field( (isset($_POST['legal_owner']) ? $_POST['legal_owner'] : '') );

@@ -5,10 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'wp_ajax_ene_save_post', 'ene_handle_save_post' );
 function ene_handle_save_post() {
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_post_nonce') ) {
-        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('edit_posts') ) {
-        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
 
     $type    = sanitize_key( $_POST['post_type'] ?? 'works' );
@@ -19,7 +19,7 @@ function ene_handle_save_post() {
     $thumb_id = (int)( $_POST['thumb_id'] ?? 0 );
 
     if ( ! $title ) {
-        wp_send_json_error( array('message' => __( 'Please enter a title.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Please enter a title.', 'emerge-mono-portfolio' )) );
     }
 
     $post_type = $type === 'works' ? 'en_work' : 'en_news';
@@ -87,7 +87,7 @@ function ene_handle_save_post() {
     }
 
     wp_send_json_success( array(
-        'message' => $post_id ? __( 'Updated.', 'emerge-mono' ) : __( 'Published.', 'emerge-mono' ),
+        'message' => $post_id ? __( 'Updated.', 'emerge-mono-portfolio' ) : __( 'Published.', 'emerge-mono-portfolio' ),
         'post_id' => $saved_id,
         'edit_url' => admin_url('admin.php?page=ene-post&type=' . $type . '&edit=' . $saved_id),
     ));
@@ -97,22 +97,22 @@ function ene_handle_save_post() {
 add_action( 'wp_ajax_ene_delete_post', 'ene_handle_delete_post' );
 function ene_handle_delete_post() {
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_delete_nonce') ) {
-        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('delete_posts') ) {
-        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
 
     $post_id = (int)( $_POST['post_id'] ?? 0 );
     if ( ! $post_id ) {
-        wp_send_json_error( array('message' => __( 'Invalid ID.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid ID.', 'emerge-mono-portfolio' )) );
     }
 
     $result = wp_delete_post( $post_id, true );
     if ( $result ) {
-        wp_send_json_success( array('message' => __( 'Deleted.', 'emerge-mono' )) );
+        wp_send_json_success( array('message' => __( 'Deleted.', 'emerge-mono-portfolio' )) );
     } else {
-        wp_send_json_error( array('message' => __( 'Failed to delete.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Failed to delete.', 'emerge-mono-portfolio' )) );
     }
 }
 
@@ -120,15 +120,15 @@ function ene_handle_delete_post() {
 add_action( 'wp_ajax_ene_add_category', 'ene_handle_add_category' );
 function ene_handle_add_category() {
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_cat_nonce') ) {
-        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('manage_categories') ) {
-        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
     $name     = sanitize_text_field( $_POST['name'] ?? '' );
     $taxonomy = sanitize_key( $_POST['taxonomy'] ?? 'category' );
     if ( ! $name ) {
-        wp_send_json_error( array('message' => __( 'Please enter a category name.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Please enter a category name.', 'emerge-mono-portfolio' )) );
     }
     $result = wp_insert_term( $name, $taxonomy );
     if ( is_wp_error($result) ) {
@@ -144,31 +144,31 @@ function ene_handle_add_category() {
 add_action( 'wp_ajax_ene_delete_category', 'ene_handle_delete_category' );
 function ene_handle_delete_category() {
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_cat_nonce') ) {
-        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('manage_categories') ) {
-        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
     $term_id  = (int)( $_POST['term_id'] ?? 0 );
     $taxonomy = sanitize_key( $_POST['taxonomy'] ?? 'category' );
     if ( ! $term_id ) {
-        wp_send_json_error( array('message' => __( 'Invalid ID.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid ID.', 'emerge-mono-portfolio' )) );
     }
     $result = wp_delete_term( $term_id, $taxonomy );
     if ( is_wp_error($result) ) {
         wp_send_json_error( array('message' => $result->get_error_message()) );
     }
-    wp_send_json_success( array('message' => __( 'Deleted.', 'emerge-mono' )) );
+    wp_send_json_success( array('message' => __( 'Deleted.', 'emerge-mono-portfolio' )) );
 }
 
 // ── Ajax: ページ保存 ──
 add_action( 'wp_ajax_ene_save_page', 'ene_handle_save_page' );
 function ene_handle_save_page() {
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_page_nonce') ) {
-        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('edit_pages') ) {
-        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
 
     $post_id  = (int)( $_POST['post_id'] ?? 0 );
@@ -179,7 +179,7 @@ function ene_handle_save_page() {
     $thumb_id = (int)( $_POST['thumb_id'] ?? 0 );
 
     if ( ! $title ) {
-        wp_send_json_error( array('message' => __( 'Please enter a title.', 'emerge-mono' )) );
+        wp_send_json_error( array('message' => __( 'Please enter a title.', 'emerge-mono-portfolio' )) );
     }
 
     $post_data = array(

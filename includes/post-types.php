@@ -6,21 +6,21 @@ function en_register_work_post_type() {
     $opts     = en_get_options();
     $label    = isset($opts['work_label'])    ? $opts['work_label']    : 'Works';
     $singular = isset($opts['work_singular']) ? $opts['work_singular'] : 'Work';
-    $cat_lbl  = isset($opts['cat_label'])     ? $opts['cat_label']     : __( 'Category', 'emerge-mono' );
+    $cat_lbl  = isset($opts['cat_label'])     ? $opts['cat_label']     : __( 'Category', 'emerge-mono-portfolio' );
     $icon     = isset($opts['work_icon'])     ? $opts['work_icon']     : 'dashicons-portfolio';
 
     register_post_type( 'en_work', array(
         'labels' => array(
             'name'               => $label,
             'singular_name'      => $singular,
-            'add_new'            => __( 'Add New', 'emerge-mono' ),
-            'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono' ), $singular ),
-            'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono' ), $singular ),
-            'new_item'           => sprintf( __( 'New %s', 'emerge-mono' ), $singular ),
-            'view_item'          => sprintf( __( 'View %s', 'emerge-mono' ), $singular ),
-            'search_items'       => sprintf( __( 'Search %s', 'emerge-mono' ), $label ),
-            'not_found'          => sprintf( __( 'No %s found', 'emerge-mono' ), $label ),
-            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono' ), $label ),
+            'add_new'            => __( 'Add New', 'emerge-mono-portfolio' ),
+            'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $singular ),
+            'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $singular ),
+            'new_item'           => sprintf( __( 'New %s', 'emerge-mono-portfolio' ), $singular ),
+            'view_item'          => sprintf( __( 'View %s', 'emerge-mono-portfolio' ), $singular ),
+            'search_items'       => sprintf( __( 'Search %s', 'emerge-mono-portfolio' ), $label ),
+            'not_found'          => sprintf( __( 'No %s found', 'emerge-mono-portfolio' ), $label ),
+            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono-portfolio' ), $label ),
         ),
         'public'       => true,
         'has_archive'  => false,
@@ -36,9 +36,9 @@ function en_register_work_post_type() {
         'labels' => array(
             'name'          => $cat_lbl,
             'singular_name' => $cat_lbl,
-            'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono' ), $cat_lbl ),
-            'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono' ), $cat_lbl ),
-            'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono' ), $cat_lbl ),
+            'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono-portfolio' ), $cat_lbl ),
             'menu_name'     => $cat_lbl,
         ),
         'hierarchical'      => true,
@@ -53,21 +53,21 @@ function en_register_news_post_type() {
     $opts     = en_get_options();
     $label    = isset($opts['news_label'])    ? $opts['news_label']    : 'News';
     $singular = isset($opts['news_singular']) ? $opts['news_singular'] : 'Post';
-    $cat_lbl  = isset($opts['news_cat_label'])? $opts['news_cat_label']: __( 'Category', 'emerge-mono' );
+    $cat_lbl  = isset($opts['news_cat_label'])? $opts['news_cat_label']: __( 'Category', 'emerge-mono-portfolio' );
     $icon     = isset($opts['news_icon'])     ? $opts['news_icon']     : 'dashicons-megaphone';
 
     register_post_type( 'en_news', array(
         'labels' => array(
             'name'               => $label,
             'singular_name'      => $singular,
-            'add_new'            => __( 'Add New', 'emerge-mono' ),
-            'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono' ), $singular ),
-            'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono' ), $singular ),
-            'new_item'           => sprintf( __( 'New %s', 'emerge-mono' ), $singular ),
-            'view_item'          => sprintf( __( 'View %s', 'emerge-mono' ), $singular ),
-            'search_items'       => sprintf( __( 'Search %s', 'emerge-mono' ), $label ),
-            'not_found'          => sprintf( __( 'No %s found', 'emerge-mono' ), $label ),
-            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono' ), $label ),
+            'add_new'            => __( 'Add New', 'emerge-mono-portfolio' ),
+            'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $singular ),
+            'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $singular ),
+            'new_item'           => sprintf( __( 'New %s', 'emerge-mono-portfolio' ), $singular ),
+            'view_item'          => sprintf( __( 'View %s', 'emerge-mono-portfolio' ), $singular ),
+            'search_items'       => sprintf( __( 'Search %s', 'emerge-mono-portfolio' ), $label ),
+            'not_found'          => sprintf( __( 'No %s found', 'emerge-mono-portfolio' ), $label ),
+            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono-portfolio' ), $label ),
         ),
         'public'       => true,
         'has_archive'  => false,
@@ -83,9 +83,9 @@ function en_register_news_post_type() {
         'labels' => array(
             'name'          => $cat_lbl,
             'singular_name' => $cat_lbl,
-            'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono' ), $cat_lbl ),
-            'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono' ), $cat_lbl ),
-            'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono' ), $cat_lbl ),
+            'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono-portfolio' ), $cat_lbl ),
             'menu_name'     => $cat_lbl,
         ),
         'hierarchical'      => true,

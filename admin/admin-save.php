@@ -187,7 +187,7 @@ function en_handle_save() {
             $opts['recaptcha_site_key']    = sanitize_text_field( (isset($_POST['recaptcha_site_key']) ? $_POST['recaptcha_site_key'] : '') );
             $opts['recaptcha_secret']           = sanitize_text_field( (isset($_POST['recaptcha_secret']) ? $_POST['recaptcha_secret'] : '') );
             $opts['contact_consent_enabled']    = isset($_POST['contact_consent_enabled']) ? '1' : '0';
-            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? $_POST['contact_consent_text'] : __( 'I agree to the Privacy Policy.', 'emerge-mono' )) );
+            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? $_POST['contact_consent_text'] : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' )) );
             $opts['contact_consent_page_id']    = (int)( (isset($_POST['contact_consent_page_id']) ? $_POST['contact_consent_page_id'] : 0) );
             update_option( 'en_options', $opts );
 
@@ -228,7 +228,7 @@ function en_handle_save() {
         case 'cpt':
             $opts['work_label']    = sanitize_text_field( isset($_POST['work_label'])    ? $_POST['work_label']    : 'Works' );
             $opts['work_singular'] = sanitize_text_field( isset($_POST['work_singular']) ? $_POST['work_singular'] : 'Work' );
-            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? $_POST['cat_label']     : __( 'Category', 'emerge-mono' ) );
+            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? $_POST['cat_label']     : __( 'Category', 'emerge-mono-portfolio' ) );
             $opts['work_icon']     = sanitize_text_field( isset($_POST['work_icon'])     ? $_POST['work_icon']     : 'dashicons-portfolio' );
             update_option( 'en_options', $opts );
             flush_rewrite_rules();
@@ -282,7 +282,7 @@ function en_handle_save() {
             $opts['recaptcha_site_key']    = sanitize_text_field( (isset($_POST['recaptcha_site_key']) ? $_POST['recaptcha_site_key'] : '') );
             $opts['recaptcha_secret']           = sanitize_text_field( (isset($_POST['recaptcha_secret']) ? $_POST['recaptcha_secret'] : '') );
             $opts['contact_consent_enabled']    = isset($_POST['contact_consent_enabled']) ? '1' : '0';
-            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? $_POST['contact_consent_text'] : __( 'I agree to the Privacy Policy.', 'emerge-mono' )) );
+            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? $_POST['contact_consent_text'] : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' )) );
             $opts['contact_consent_page_id']    = (int)( (isset($_POST['contact_consent_page_id']) ? $_POST['contact_consent_page_id'] : 0) );
             update_option( 'en_options', $opts );
 
@@ -323,7 +323,7 @@ function en_handle_save() {
         case 'cpt':
             $opts['work_label']    = sanitize_text_field( isset($_POST['work_label'])    ? $_POST['work_label']    : 'Works' );
             $opts['work_singular'] = sanitize_text_field( isset($_POST['work_singular']) ? $_POST['work_singular'] : 'Work' );
-            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? $_POST['cat_label']     : __( 'Category', 'emerge-mono' ) );
+            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? $_POST['cat_label']     : __( 'Category', 'emerge-mono-portfolio' ) );
             $opts['work_icon']     = sanitize_text_field( isset($_POST['work_icon'])     ? $_POST['work_icon']     : 'dashicons-portfolio' );
             update_option( 'en_options', $opts );
             flush_rewrite_rules();

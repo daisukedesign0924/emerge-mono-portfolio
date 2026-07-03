@@ -1,0 +1,2211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Emerge Mono - Portfolio package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Emerge Mono - Portfolio 2.20.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-03 00:19+0000\n"
+"PO-Revision-Date: 2026-06-25 13:00+0900\n"
+"Last-Translator: Daisuke <daisuke-design.com>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: admin/editor/style.php:28 admin/admin-style.php:227
+msgid "Select Image"
+msgstr "画像を選択"
+
+#: admin/editor/style.php:29 admin/admin-page.php:107 admin/admin-page.php:117
+#: admin/admin-page.php:265 admin/admin-style.php:228
+msgid "Select"
+msgstr "選択"
+
+#: admin/editor/style.php:30 admin/editor/page.php:141
+#: admin/editor/page.php:701
+msgid "Change"
+msgstr "変更する"
+
+#: admin/editor/style.php:31 admin/editor/page.php:145
+#: admin/editor/page.php:705
+msgid "Click to select an image"
+msgstr "クリックして画像を選択"
+
+#: admin/editor/style.php:32
+msgid "Select Gallery Images"
+msgstr "ギャラリー画像を選択"
+
+#: admin/editor/style.php:33 admin/editor/page.php:204
+msgid "Add"
+msgstr "追加"
+
+#: admin/editor/style.php:34 admin/editor/page.php:325
+msgid "Image"
+msgstr "画像"
+
+#: admin/editor/style.php:35 admin/editor/api.php:22 admin/editor/api.php:182
+msgid "Please enter a title."
+msgstr "タイトルを入力してください。"
+
+#: admin/editor/style.php:36
+msgid "Submitting..."
+msgstr "送信中..."
+
+#: admin/editor/style.php:37
+msgid "Failed to submit."
+msgstr "送信に失敗しました。"
+
+#: admin/editor/style.php:38
+msgid "Delete this post? This cannot be undone."
+msgstr "この投稿を削除しますか？この操作は取り消せません。"
+
+#: admin/editor/style.php:39 admin/editor/page.php:535
+msgid "Deleting..."
+msgstr "削除中..."
+
+#: admin/editor/style.php:40 admin/editor/api.php:113 admin/editor/api.php:161
+msgid "Deleted."
+msgstr "削除しました。"
+
+#: admin/editor/style.php:41
+msgid "Category added."
+msgstr "カテゴリーを追加しました。"
+
+#: admin/editor/style.php:42
+msgid "Delete this category?"
+msgstr "このカテゴリーを削除しますか？"
+
+#: admin/editor/style.php:43
+msgid "No categories yet"
+msgstr "カテゴリーがまだありません"
+
+#: admin/editor/style.php:44
+msgid "Category deleted."
+msgstr "カテゴリーを削除しました。"
+
+#: admin/editor/style.php:45
+msgid "Processing..."
+msgstr "処理中..."
+
+#: admin/editor/page.php:28
+msgid "Edit Post"
+msgstr "投稿を編集"
+
+#: admin/editor/page.php:28
+msgid "New Post"
+msgstr "新しく投稿する"
+
+#: admin/editor/page.php:34
+msgid "Where would you like to post?"
+msgstr "どちらに投稿しますか？"
+
+#: admin/editor/page.php:40
+msgid "Works / Portfolio"
+msgstr "作品・ポートフォリオ"
+
+#: admin/editor/page.php:45 admin/admin-page.php:928 admin/admin-page.php:1298
+#: includes/shortcodes.php:299
+msgid "News"
+msgstr "お知らせ"
+
+#: admin/editor/page.php:46
+msgid "Blog / News posts"
+msgstr "ブログ・お知らせ記事"
+
+#: admin/editor/page.php:53
+msgid "📂 Editing Works"
+msgstr "📂 Works を編集中"
+
+#: admin/editor/page.php:53
+msgid "📰 Editing News"
+msgstr "📰 お知らせ を編集中"
+
+#: admin/editor/page.php:67 admin/editor/page.php:326 admin/editor/page.php:419
+#: admin/admin-page.php:254
+msgid "Title"
+msgstr "肩書き"
+
+#: admin/editor/page.php:68
+msgid "Enter a title"
+msgstr "タイトルを入力"
+
+#: admin/editor/page.php:74 admin/admin-page.php:803
+msgid "Content"
+msgstr "本文"
+
+#: admin/editor/page.php:75
+msgid "Enter content (optional)"
+msgstr "本文を入力（任意）"
+
+#: admin/editor/page.php:92 includes/custom-fields.php:20
+msgid "Video URL"
+msgstr "動画URL"
+
+#: admin/editor/page.php:93 admin/editor/page.php:202
+#: includes/custom-fields.php:21
+msgid "YouTube / Vimeo URL"
+msgstr "YouTube / Vimeo のURL"
+
+#: admin/editor/page.php:99 includes/custom-fields.php:22
+msgid "External Link"
+msgstr "外部リンク"
+
+#: admin/editor/page.php:106 includes/custom-fields.php:24
+msgid "Duration"
+msgstr "制作期間"
+
+#: admin/editor/page.php:113 includes/custom-fields.php:26
+msgid "Role"
+msgstr "担当範囲"
+
+#: admin/editor/page.php:114
+msgid "Design / Development"
+msgstr "デザイン / 実装"
+
+#: admin/editor/page.php:120 includes/custom-fields.php:28
+msgid "Tools Used"
+msgstr "使用ツール"
+
+#: admin/editor/page.php:121
+msgid "Figma, Swift"
+msgstr "Figma, Swift"
+
+#: admin/editor/page.php:133 admin/editor/page.php:697
+msgid "Featured Image"
+msgstr "アイキャッチ画像"
+
+#: admin/editor/page.php:151 admin/editor/page.php:711
+msgid "Remove image"
+msgstr "画像を削除"
+
+#: admin/editor/page.php:157
+msgid "Gallery"
+msgstr "ギャラリー"
+
+#: admin/editor/page.php:158
+msgid "Add images and videos. Drag to reorder."
+msgstr "画像・動画を追加できます。順番はドラッグで並べ替えできます。"
+
+#: admin/editor/page.php:197
+msgid "+ Image"
+msgstr "＋ 画像"
+
+#: admin/editor/page.php:198
+msgid "+ Video"
+msgstr "＋ 動画"
+
+#: admin/editor/page.php:205 admin/editor/page.php:266
+#: admin/editor/page.php:727
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: admin/editor/page.php:212 admin/editor/page.php:327
+#: admin/editor/page.php:420 admin/admin-page.php:952 admin/admin-save.php:231
+#: admin/admin-save.php:326 admin/admin.php:25 admin/admin.php:41
+#: includes/post-types.php:9 includes/post-types.php:56
+msgid "Category"
+msgstr "カテゴリー"
+
+#: admin/editor/page.php:253 admin/editor/page.php:716
+msgid "Visibility"
+msgstr "公開設定"
+
+#: admin/editor/page.php:263 admin/editor/page.php:725
+msgid "Update"
+msgstr "更新する"
+
+#: admin/editor/page.php:263
+msgid "Publish"
+msgstr "投稿する"
+
+#: admin/editor/page.php:294 emerge-mono-portfolio.php:57
+msgid "All Works"
+msgstr "Works一覧"
+
+#: admin/editor/page.php:295
+msgid "+ Add New Work"
+msgstr "＋ 新しいWorkを追加"
+
+#: admin/editor/page.php:300
+msgid "Works Categories"
+msgstr "Worksのカテゴリー"
+
+#: admin/editor/page.php:313 admin/editor/page.php:407
+msgid "Enter a new category name"
+msgstr "新しいカテゴリー名を入力"
+
+#: admin/editor/page.php:328 admin/editor/page.php:421
+#: includes/custom-fields.php:30
+msgid "Status"
+msgstr "ステータス"
+
+#: admin/editor/page.php:329 admin/editor/page.php:422
+msgid "Date"
+msgstr "投稿日"
+
+#: admin/editor/page.php:330 admin/editor/page.php:423
+#: admin/editor/page.php:497 admin/admin-page.php:804
+msgid "Actions"
+msgstr "操作"
+
+#: admin/editor/page.php:338 admin/editor/page.php:430
+#: admin/editor/page.php:505 includes/custom-fields.php:32
+msgid "Published"
+msgstr "公開"
+
+#: admin/editor/page.php:338 admin/editor/page.php:430
+#: admin/editor/page.php:505
+msgid "Draft"
+msgstr "下書き"
+
+#: admin/editor/page.php:351 admin/editor/page.php:436
+msgid "(No title)"
+msgstr "（タイトルなし）"
+
+#: admin/editor/page.php:358 admin/editor/page.php:443
+#: admin/editor/page.php:518 admin/admin-page.php:920
+msgid "Edit"
+msgstr "編集"
+
+#: admin/editor/page.php:388 emerge-mono-portfolio.php:58
+msgid "All News"
+msgstr "お知らせ一覧"
+
+#: admin/editor/page.php:389
+msgid "+ Add New Post"
+msgstr "＋ 新しいお知らせを追加"
+
+#: admin/editor/page.php:394
+msgid "News Categories"
+msgstr "お知らせのカテゴリー"
+
+#: admin/editor/page.php:459 admin/setup-wizard.php:14
+msgid "Top page — logo, site name, buttons"
+msgstr "TOPページ — ロゴ・サイト名・ボタン"
+
+#: admin/editor/page.php:460 admin/setup-wizard.php:15
+msgid "Profile page — bio, social links"
+msgstr "プロフィールページ — 自己紹介・SNS"
+
+#: admin/editor/page.php:461 admin/setup-wizard.php:16
+msgid "Works page — portfolio grid"
+msgstr "Worksページ — 作品一覧グリッド"
+
+#: admin/editor/page.php:462 admin/setup-wizard.php:17
+msgid "News page — post list"
+msgstr "お知らせページ — 記事一覧"
+
+#: admin/editor/page.php:463 admin/setup-wizard.php:18
+msgid "Contact page — form"
+msgstr "お問い合わせページ — フォーム"
+
+#: admin/editor/page.php:464 admin/setup-wizard.php:19
+msgid "Privacy policy page"
+msgstr "プライバシーポリシーページ"
+
+#: admin/editor/page.php:465 admin/setup-wizard.php:20
+msgid "Terms of service page"
+msgstr "利用規約ページ"
+
+#: admin/editor/page.php:466 admin/setup-wizard.php:21
+msgid "Estimate simulator page"
+msgstr "見積もりシミュレーターページ"
+
+#: admin/editor/page.php:482 emerge-mono-portfolio.php:59
+msgid "Page Manager"
+msgstr "ページ管理"
+
+#: admin/editor/page.php:484
+msgid "Open Setup Wizard"
+msgstr "セットアップウィザードを開く"
+
+#: admin/editor/page.php:489
+msgid ""
+"Create and manage Emerge Mono pages. Clicking \"Create\" generates a page "
+"with the shortcode already set."
+msgstr ""
+"Emerge Monoのページを作成・管理します。「作成」をクリックすると、ショートコー"
+"ドが設定済みのページが自動生成されます。"
+
+#: admin/editor/page.php:494
+msgid "Page Name"
+msgstr "ページ名"
+
+#: admin/editor/page.php:495
+msgid "Shortcode"
+msgstr "ショートコード"
+
+#: admin/editor/page.php:505
+msgid "Not created"
+msgstr "未作成"
+
+#: admin/editor/page.php:519
+msgid "View"
+msgstr "表示"
+
+#: admin/editor/page.php:534
+#, php-format
+msgid "Delete \"%s\"?\\nThis cannot be undone."
+msgstr "「%s」を削除しますか？\\nこの操作は元に戻せません。"
+
+#: admin/editor/page.php:536
+#, php-format
+msgid "Deleted \"%s\"."
+msgstr "「%s」を削除しました。"
+
+#: admin/editor/page.php:537 admin/admin-page.php:287 admin/admin-page.php:304
+#: admin/admin-page.php:366 admin/admin-page.php:429 admin/admin-page.php:489
+#: admin/admin-page.php:537 admin/admin-page.php:573 admin/admin-page.php:677
+#: admin/admin-page.php:830 admin/admin-page.php:859 admin/admin-page.php:1130
+#: admin/admin-page.php:1146 includes/estimate/admin-page.php:42
+#: includes/estimate/admin-page.php:86 includes/estimate/admin-page.php:208
+msgid "Delete"
+msgstr "削除"
+
+#: admin/editor/page.php:538
+msgid "Error: "
+msgstr "エラー: "
+
+#: admin/editor/page.php:539
+msgid "Could not delete"
+msgstr "削除できませんでした"
+
+#: admin/editor/page.php:540
+msgid "Creating..."
+msgstr "作成中..."
+
+#: admin/editor/page.php:541
+msgid "created."
+msgstr "を作成しました。"
+
+#: admin/editor/page.php:542
+msgid "Create"
+msgstr "作成する"
+
+#: admin/editor/page.php:543
+msgid "Could not create"
+msgstr "作成できませんでした"
+
+#: admin/editor/page.php:669 emerge-mono-portfolio.php:60
+msgid "Edit Page"
+msgstr "ページを編集"
+
+#: admin/editor/page.php:677
+msgid "Page Title"
+msgstr "ページタイトル"
+
+#: admin/editor/page.php:683
+msgid "URL (slug)"
+msgstr "URL（スラッグ）"
+
+#: admin/editor/api.php:8 admin/editor/api.php:100 admin/editor/api.php:123
+#: admin/editor/api.php:147 admin/editor/api.php:168 includes/contact.php:38
+msgid "Invalid request."
+msgstr "不正なリクエストです。"
+
+#: admin/editor/api.php:11 admin/editor/api.php:103 admin/editor/api.php:126
+#: admin/editor/api.php:150 admin/editor/api.php:171
+msgid "Permission denied."
+msgstr "権限がありません。"
+
+#: admin/editor/api.php:90
+msgid "Updated."
+msgstr "更新しました。"
+
+#: admin/editor/api.php:90
+msgid "Published."
+msgstr "投稿しました。"
+
+#: admin/editor/api.php:108 admin/editor/api.php:155
+msgid "Invalid ID."
+msgstr "IDが不正です。"
+
+#: admin/editor/api.php:115
+msgid "Failed to delete."
+msgstr "削除に失敗しました。"
+
+#: admin/editor/api.php:131
+msgid "Please enter a category name."
+msgstr "カテゴリー名を入力してください。"
+
+#: admin/admin-page.php:7
+msgid "Site Settings"
+msgstr "サイト基本設定"
+
+#: admin/admin-page.php:8 admin/admin-page.php:1283
+msgid "Profile"
+msgstr "プロフィール"
+
+#: admin/admin-page.php:9
+msgid "Menu Settings"
+msgstr "メニュー設定"
+
+#: admin/admin-page.php:10
+msgid "Contact Form"
+msgstr "お問い合わせフォーム"
+
+#: admin/admin-page.php:11
+msgid "Design"
+msgstr "デザイン設定"
+
+#: admin/admin-page.php:12
+msgid "Post Type (Works)"
+msgstr "投稿タイプ設定（Works）"
+
+#: admin/admin-page.php:13
+msgid "Privacy Policy"
+msgstr "プライバシーポリシー"
+
+#: admin/admin-page.php:14
+msgid "Terms of Service"
+msgstr "利用規約"
+
+#: admin/admin-page.php:15
+msgid "Estimate Simulator"
+msgstr "見積もりシミュレーター"
+
+#: admin/admin-page.php:16
+msgid "Editor"
+msgstr "エディター設定"
+
+#: admin/admin-page.php:17 admin/admin-page.php:1315
+msgid "Shortcodes"
+msgstr "ショートコード一覧"
+
+#: admin/admin-page.php:37
+msgid "Theme"
+msgstr "WPテーマ"
+
+#: admin/admin-page.php:86 admin/setup-wizard.php:117
+msgid "Site Info"
+msgstr "サイト情報"
+
+#: admin/admin-page.php:88 admin/setup-wizard.php:148
+#: includes/terms/admin-page.php:44 includes/privacy/admin-page.php:46
+msgid "Site Name"
+msgstr "サイト名"
+
+#: admin/admin-page.php:92
+msgid "Tagline (Title)"
+msgstr "キャッチフレーズ（肩書き）"
+
+#: admin/admin-page.php:93 admin/setup-wizard.php:153
+msgid "Web Creator"
+msgstr "Web Creator"
+
+#: admin/admin-page.php:96
+msgid "Copyright"
+msgstr "コピーライト"
+
+#: admin/admin-page.php:101 admin/setup-wizard.php:119
+#: admin/setup-wizard.php:185 admin/setup-wizard.php:469
+msgid "Logo"
+msgstr "ロゴ"
+
+#: admin/admin-page.php:102
+msgid ""
+"You can set separate logos for dark and light mode. If only one is set, it "
+"will be used in both modes."
+msgstr ""
+"ダークモードとライトモードで別々のロゴを設定できます。片方のみ設定した場合"
+"は、両モードで共通利用されます。"
+
+#: admin/admin-page.php:104 admin/setup-wizard.php:191
+#: admin/setup-wizard.php:467
+msgid "Logo (Dark Mode)"
+msgstr "ロゴ画像（ダーク用）"
+
+#: admin/admin-page.php:114 admin/setup-wizard.php:203
+#: admin/setup-wizard.php:468
+msgid "Logo (Light Mode)"
+msgstr "ロゴ画像（ライト用）"
+
+#: admin/admin-page.php:124
+msgid "Top Page Logo Size (vw)"
+msgstr "TOPページ ロゴサイズ（vw）"
+
+#: admin/admin-page.php:127 admin/admin-page.php:152
+msgid "Desktop"
+msgstr "デスクトップ"
+
+#: admin/admin-page.php:133 admin/admin-page.php:158
+msgid "Tablet (≤768px)"
+msgstr "タブレット（≤768px）"
+
+#: admin/admin-page.php:139 admin/admin-page.php:164
+msgid "Mobile (≤480px)"
+msgstr "モバイル（≤480px）"
+
+#: admin/admin-page.php:145
+msgid ""
+"Top page logo size in vw, per screen width. Leave Tablet/Mobile empty to "
+"inherit the larger breakpoint. Desktop default: 14."
+msgstr ""
+"トップページのロゴサイズ（vw）を画面幅ごとに設定。タブレット/モバイルを空欄に"
+"すると、上位ブレイクポイントの値を継承します。デスクトップの初期値：14。"
+
+#: admin/admin-page.php:149
+msgid "Header Logo Size (vw)"
+msgstr "ヘッダーロゴサイズ（vw）"
+
+#: admin/admin-page.php:170
+msgid ""
+"Header logo size in vw, per screen width. Leave Tablet/Mobile empty to "
+"inherit the larger breakpoint. Desktop default: 3.2."
+msgstr ""
+"ヘッダーのロゴサイズ（vw）を画面幅ごとに設定。タブレット/モバイルを空欄にする"
+"と、上位ブレイクポイントの値を継承します。デスクトップの初期値：3.2。"
+
+#: admin/admin-page.php:174
+msgid "Top Page Buttons"
+msgstr "TOPページ ボタン設定"
+
+#: admin/admin-page.php:175
+msgid ""
+"Add or remove buttons shown on the top page. Link to a page or enter a URL "
+"directly."
+msgstr ""
+"トップページに表示するボタンを追加・削除できます。ページへのリンク、またはURL"
+"を直接指定できます。"
+
+#: admin/admin-page.php:188 admin/admin-page.php:211
+msgid "Button Label"
+msgstr "ボタンラベル"
+
+#: admin/admin-page.php:189
+msgid "e.g. Profile"
+msgstr "例：Profile"
+
+#: admin/admin-page.php:192 admin/admin-page.php:215
+msgid "Link (Select Page)"
+msgstr "リンク先（固定ページから選択）"
+
+#: admin/admin-page.php:194 admin/admin-page.php:217
+#: includes/estimate/shortcode.php:144 includes/shortcodes.php:175
+msgid "Please select"
+msgstr "選択してください"
+
+#: admin/admin-page.php:200 admin/admin-page.php:222
+msgid "Or enter URL directly: https://"
+msgstr "または URL を直接入力：https://"
+
+#: admin/admin-page.php:202 admin/admin-page.php:224
+msgid "Remove this button"
+msgstr "このボタンを削除"
+
+#: admin/admin-page.php:212
+msgid "e.g. Contact"
+msgstr "例：Contact"
+
+#: admin/admin-page.php:236 admin/admin-page.php:299 admin/admin-page.php:373
+#: admin/admin-page.php:510 admin/admin-page.php:785 admin/admin-page.php:967
+#: admin/admin-page.php:1269 admin/admin-page.php:1418
+#: includes/estimate/admin-page.php:61 includes/terms/admin-page.php:71
+#: includes/privacy/admin-page.php:119
+msgid "Save"
+msgstr "保存する"
+
+#: admin/admin-page.php:248
+msgid "Profile Info"
+msgstr "プロフィール情報"
+
+#: admin/admin-page.php:250 includes/contact.php:172
+msgid "Name"
+msgstr "名前"
+
+#: admin/admin-page.php:255
+msgid "Web Creator / iOS Developer"
+msgstr "Web Creator / iOS Developer"
+
+#: admin/admin-page.php:258
+msgid "Bio"
+msgstr "自己紹介文"
+
+#: admin/admin-page.php:262
+msgid "Profile Image URL"
+msgstr "プロフィール画像URL"
+
+#: admin/admin-page.php:269
+msgid "Skills"
+msgstr "スキル"
+
+#: admin/admin-page.php:270
+msgid "Enter comma-separated values. e.g. Web Design, PHP, Figma, Live2D"
+msgstr "カンマ区切りで入力してください。（例：Web Design, PHP, Figma, Live2D）"
+
+#: admin/admin-page.php:271
+msgid "Web Design, PHP, Figma, Live2D"
+msgstr "Web Design, PHP, Figma, Live2D"
+
+#: admin/admin-page.php:277 admin/admin-page.php:359
+msgid "Social Links"
+msgstr "SNSリンク"
+
+#: admin/admin-page.php:278
+msgid "These links appear on your profile page."
+msgstr "これらのリンクはプロフィールページに表示されます。"
+
+#: admin/admin-page.php:284 admin/admin-page.php:303 admin/admin-page.php:363
+msgid "e.g. X / Instagram"
+msgstr "例：X / Instagram など"
+
+#: admin/admin-page.php:290 admin/admin-page.php:305
+msgid "Icon image URL (optional)"
+msgstr "アイコン画像URL（任意）"
+
+#: admin/admin-page.php:291 admin/admin-page.php:306
+msgid "Select Icon"
+msgstr "アイコンを選択"
+
+#: admin/admin-page.php:292 admin/admin-page.php:307 admin/setup-wizard.php:228
+msgid "Clear"
+msgstr "クリア"
+
+#: admin/admin-page.php:297
+msgid "+ Add Social Link"
+msgstr "＋ SNSリンクを追加"
+
+#: admin/admin-page.php:308
+msgid "Select Icon Image"
+msgstr "アイコン画像を選択"
+
+#: admin/admin-page.php:309
+msgid "Use this image"
+msgstr "この画像を使う"
+
+#: admin/admin-page.php:371
+msgid "Add Social Link"
+msgstr "SNSリンクを追加"
+
+#: admin/admin-page.php:396
+msgid "Navigation Mode"
+msgstr "ナビゲーションの設定方法"
+
+#: admin/admin-page.php:400
+msgid "Auto (show published pages automatically)"
+msgstr "自動（公開済みページを自動表示）"
+
+#: admin/admin-page.php:404
+msgid "Manual (choose pages/URLs yourself)"
+msgstr "手動（ページ／URLを自分で選択）"
+
+#: admin/admin-page.php:408
+msgid "Use WordPress menu (manage via Appearance → Menus)"
+msgstr "WordPressメニューを使用（外観 → メニュー で管理）"
+
+#: admin/admin-page.php:415
+msgid "Navigation Items"
+msgstr "ナビゲーション項目"
+
+#: admin/admin-page.php:416
+msgid "Select a page or enter a URL directly. Drag to reorder."
+msgstr ""
+"ページを選択するか、URLを直接入力してください。ドラッグで並び替えできます。"
+
+#: admin/admin-page.php:426 admin/admin-page.php:486 admin/admin-page.php:535
+#: admin/admin-page.php:571
+msgid "Direct URL"
+msgstr "URL直接入力"
+
+#: admin/admin-page.php:428 admin/admin-page.php:536
+msgid "Label (e.g. About)"
+msgstr "ラベル（例：About）"
+
+#: admin/admin-page.php:452
+msgid "WordPress Menu to Use"
+msgstr "使用するWordPressメニュー"
+
+#: admin/admin-page.php:457
+#, php-format
+msgid "No WordPress menu has been created. Go to %s to create a menu."
+msgstr ""
+"WordPressメニューがまだ作成されていません。%s からメニューを作成してくださ"
+"い。"
+
+#: admin/admin-page.php:458
+msgid "Appearance → Menus"
+msgstr "外観 → メニュー"
+
+#: admin/admin-page.php:475
+msgid "Footer Menu"
+msgstr "フッターメニュー"
+
+#: admin/admin-page.php:476
+msgid ""
+"Links shown above the copyright in the footer. For Page type, the page title "
+"is displayed (label is ignored). For Direct URL, the label is displayed."
+msgstr ""
+"フッターのコピーライト上に表示されるリンクです。Pageタイプではページタイトル"
+"が表示されます（ラベルは無視されます）。Direct URLタイプではラベルが表示され"
+"ます。"
+
+#: admin/admin-page.php:488 admin/admin-page.php:572
+msgid "Label (URL only)"
+msgstr "ラベル（URLのみ）"
+
+#: admin/admin-page.php:533 admin/admin-page.php:569
+msgid "— Select a page —"
+msgstr "— ページを選択 —"
+
+#: admin/admin-page.php:534 admin/admin-page.php:570 admin/admin-page.php:921
+msgid "Page"
+msgstr "固定ページ"
+
+#: admin/admin-page.php:601 admin/admin-page.php:851
+msgid "Text (single line)"
+msgstr "テキスト（1行）"
+
+#: admin/admin-page.php:602 admin/admin-page.php:852 includes/contact.php:173
+msgid "Email"
+msgstr "メールアドレス"
+
+#: admin/admin-page.php:603 admin/admin-page.php:853
+msgid "Phone"
+msgstr "電話番号"
+
+#: admin/admin-page.php:604 admin/admin-page.php:854
+msgid "Text (multi-line)"
+msgstr "テキスト（複数行）"
+
+#: admin/admin-page.php:605 admin/admin-page.php:855
+msgid "Select box"
+msgstr "セレクトボックス"
+
+#: admin/admin-page.php:606 admin/admin-page.php:856
+msgid "Checkbox"
+msgstr "チェックボックス"
+
+#: admin/admin-page.php:634
+msgid "Basic Settings"
+msgstr "基本設定"
+
+#: admin/admin-page.php:636
+msgid "Recipient Email"
+msgstr "送信先メールアドレス"
+
+#: admin/admin-page.php:640
+msgid "Description"
+msgstr "説明文"
+
+#: admin/admin-page.php:644
+msgid "Submit Button Text"
+msgstr "送信ボタンのテキスト"
+
+#: admin/admin-page.php:645 includes/estimate/shortcode.php:39
+msgid "Send"
+msgstr "送信"
+
+#: admin/admin-page.php:648
+msgid "Success Message"
+msgstr "送信完了メッセージ"
+
+#: admin/admin-page.php:649 includes/estimate/shortcode.php:41
+#: includes/contact.php:154
+msgid "Your message has been sent."
+msgstr "メッセージを送信しました。"
+
+#: admin/admin-page.php:654
+msgid "Form Fields"
+msgstr "フォームフィールド設定"
+
+#: admin/admin-page.php:655
+msgid ""
+"Freely add or remove form fields. You must include at least one email field."
+msgstr ""
+"フォームの項目を自由に追加・削除できます。メールアドレスの項目を最低1つ含める"
+"必要があります。"
+
+#: admin/admin-page.php:667 admin/admin-page.php:846
+msgid "Your Name"
+msgstr "山田 太郎"
+
+#: admin/admin-page.php:670 admin/admin-page.php:849
+msgid "Field Type"
+msgstr "フィールド種別"
+
+#: admin/admin-page.php:681 admin/admin-page.php:863
+msgid "Field ID (alphanumeric)"
+msgstr "フィールドID（英数字）"
+
+#: admin/admin-page.php:682
+msgid "name"
+msgstr "name"
+
+#: admin/admin-page.php:685 admin/admin-page.php:867
+msgid "Placeholder"
+msgstr "プレースホルダー"
+
+#: admin/admin-page.php:686
+msgid "Show example"
+msgstr "例を表示"
+
+#: admin/admin-page.php:689 admin/admin-page.php:871
+msgid "Required / Optional"
+msgstr "必須／任意"
+
+#: admin/admin-page.php:691 admin/admin-page.php:873
+msgid "Required"
+msgstr "必須"
+
+#: admin/admin-page.php:692 admin/admin-page.php:874
+#: includes/estimate/shortcode.php:136 includes/shortcodes.php:167
+msgid "Optional"
+msgstr "任意"
+
+#: admin/admin-page.php:697 admin/admin-page.php:879
+msgid "Options (one per line)"
+msgstr "選択肢（1行に1つ）"
+
+#: admin/admin-page.php:698
+msgid "Option A&#10;Option B&#10;Option C"
+msgstr "選択肢A&#10;選択肢B&#10;選択肢C"
+
+#: admin/admin-page.php:707
+msgid "Auto-Reply Email"
+msgstr "自動返信メール"
+
+#: admin/admin-page.php:709
+msgid "Send Auto-Reply"
+msgstr "自動返信メールを送る"
+
+#: admin/admin-page.php:712
+msgid "Do not send"
+msgstr "送信しない"
+
+#: admin/admin-page.php:716
+msgid "Auto-Reply Subject"
+msgstr "自動返信メールの件名"
+
+#: admin/admin-page.php:717
+msgid "We have received your inquiry"
+msgstr "お問い合わせを受け付けました"
+
+#: admin/admin-page.php:720
+msgid "Auto-Reply Body"
+msgstr "自動返信メールの本文"
+
+#: admin/admin-page.php:721
+msgid ""
+"Thank you for your inquiry.\n"
+"We will review your message and get back to you shortly."
+msgstr ""
+"お問い合わせありがとうございます。\n"
+"内容を確認のうえ、追ってご連絡いたします。"
+
+#: admin/admin-page.php:727
+msgid "Admin Email Settings"
+msgstr "管理者へのメール設定"
+
+#: admin/admin-page.php:729
+msgid "Subject"
+msgstr "件名"
+
+#: admin/admin-page.php:733
+msgid "Email Intro Text"
+msgstr "本文の冒頭テキスト"
+
+#: admin/admin-page.php:734
+msgid ""
+"You have received a new inquiry with the following details.\n"
+"\n"
+msgstr ""
+"以下の内容でお問い合わせを受け付けました。\n"
+"\n"
+
+#: admin/admin-page.php:739
+msgid "Security Settings"
+msgstr "セキュリティ設定"
+
+#: admin/admin-page.php:741
+msgid ""
+"Honeypot spam protection is always enabled. Add reCAPTCHA v3 for extra "
+"protection."
+msgstr ""
+"ハニーポットによるスパム対策は常に有効です。さらに保護を強化するには "
+"reCAPTCHA v3 を追加してください。"
+
+#: admin/admin-page.php:744
+msgid "reCAPTCHA v3 Site Key"
+msgstr "reCAPTCHA v3 サイトキー"
+
+#: admin/admin-page.php:745
+msgid "Enter your Google reCAPTCHA site key"
+msgstr "Google reCAPTCHA のサイトキーを入力"
+
+#: admin/admin-page.php:746
+msgid "Google reCAPTCHA Admin →"
+msgstr "Google reCAPTCHA 管理画面 →"
+
+#: admin/admin-page.php:746
+msgid "to get your keys."
+msgstr "でキーを取得できます。"
+
+#: admin/admin-page.php:749
+msgid "reCAPTCHA v3 Secret Key"
+msgstr "reCAPTCHA v3 シークレットキー"
+
+#: admin/admin-page.php:750
+msgid "Enter your secret key"
+msgstr "シークレットキーを入力"
+
+#: admin/admin-page.php:755
+msgid "Privacy Policy Consent"
+msgstr "プライバシーポリシーへの同意"
+
+#: admin/admin-page.php:756
+msgid "Require a privacy policy consent checkbox before form submission."
+msgstr ""
+"フォーム送信前に、プライバシーポリシー同意のチェックボックスを必須にします。"
+
+#: admin/admin-page.php:760
+msgid "Show consent checkbox"
+msgstr "同意チェックボックスを表示"
+
+#: admin/admin-page.php:764
+msgid "Checkbox Text"
+msgstr "チェックボックスのテキスト"
+
+#: admin/admin-page.php:768
+msgid "Link Page (optional)"
+msgstr "リンク先ページ（任意）"
+
+#: admin/admin-page.php:769
+msgid "Clicking the checkbox text navigates to this page."
+msgstr "チェックボックスのテキストをクリックすると、このページに移動します。"
+
+#: admin/admin-page.php:775 includes/privacy/admin-page.php:102
+msgid "— No page selected —"
+msgstr "— ページを選択しない —"
+
+#: admin/admin-page.php:818
+msgid "View details"
+msgstr "詳細を表示"
+
+#: admin/admin-page.php:828
+msgid "Mark as read"
+msgstr "既読にする"
+
+#: admin/admin-page.php:830
+msgid "Delete this?"
+msgstr "これを削除しますか？"
+
+#: admin/admin-page.php:864
+msgid "e.g. inquiry_type"
+msgstr "例：inquiry_type"
+
+#: admin/admin-page.php:880
+msgid "Option A&#10;Option B"
+msgstr "選択肢A&#10;選択肢B"
+
+#: admin/admin-page.php:914
+msgid "Portfolio"
+msgstr "ポートフォリオ"
+
+#: admin/admin-page.php:915
+msgid "Images / Works"
+msgstr "画像・作品"
+
+#: admin/admin-page.php:916
+msgid "Art"
+msgstr "アート"
+
+#: admin/admin-page.php:917
+msgid "Camera"
+msgstr "カメラ"
+
+#: admin/admin-page.php:918
+msgid "Video"
+msgstr "動画"
+
+#: admin/admin-page.php:919
+msgid "Music"
+msgstr "音楽"
+
+#: admin/admin-page.php:922
+msgid "Star"
+msgstr "スター"
+
+#: admin/admin-page.php:923
+msgid "Heart"
+msgstr "ハート"
+
+#: admin/admin-page.php:924
+msgid "Product"
+msgstr "プロダクト"
+
+#: admin/admin-page.php:925
+msgid "Tools"
+msgstr "ツール"
+
+#: admin/admin-page.php:926
+msgid "Idea"
+msgstr "アイデア"
+
+#: admin/admin-page.php:927
+msgid "Award"
+msgstr "受賞"
+
+#: admin/admin-page.php:935
+msgid "Works Display Settings"
+msgstr "Works表示設定"
+
+#: admin/admin-page.php:937
+msgid ""
+"Customize the name and icon of the \"Works\" post type shown in the "
+"WordPress admin."
+msgstr ""
+"WordPress管理画面に表示される「Works」投稿タイプの名前とアイコンをカスタマイ"
+"ズできます。"
+
+#: admin/admin-page.php:938
+msgid ""
+"For example, you can rename \"Works\" to \"Portfolio\", \"Projects\", or "
+"\"Gallery\"."
+msgstr ""
+"例えば「Works」を「Portfolio」「Projects」「Gallery」などに変更できます。"
+
+#: admin/admin-page.php:941
+msgid "Display Name (plural)"
+msgstr "表示名（複数形）"
+
+#: admin/admin-page.php:942 admin/admin-page.php:1288
+msgid "Works"
+msgstr "Works"
+
+#: admin/admin-page.php:943
+msgid "Name shown in the admin menu (e.g. Portfolio, Projects, Gallery)"
+msgstr "管理メニューに表示される名前（例：Portfolio、Projects、Gallery）"
+
+#: admin/admin-page.php:946
+msgid "Display Name (singular)"
+msgstr "表示名（単数形）"
+
+#: admin/admin-page.php:947
+msgid "Work"
+msgstr "Work"
+
+#: admin/admin-page.php:948
+msgid "Name for an individual item (e.g. Work, Piece, Project)"
+msgstr "個別アイテムの名前（例：Work、Piece、Project）"
+
+#: admin/admin-page.php:951
+msgid "Category Display Name"
+msgstr "カテゴリーの表示名"
+
+#: admin/admin-page.php:953
+msgid "Label for categorizing works (e.g. Genre, Type, Tag)"
+msgstr "作品を分類するラベル（例：Genre、Type、Tag）"
+
+#: admin/admin-page.php:956
+msgid "Admin Menu Icon"
+msgstr "管理メニューのアイコン"
+
+#: admin/admin-page.php:964
+msgid ""
+"After selecting, click \"Save\" to change the icon in the left admin menu."
+msgstr ""
+"選択後に「保存」をクリックすると、左側の管理メニューのアイコンが変わります。"
+
+#: admin/admin-page.php:974
+msgid "Saved."
+msgstr "保存しました。"
+
+#: admin/admin-page.php:988
+msgid "(default, monospace)"
+msgstr "（デフォルト・等幅）"
+
+#: admin/admin-page.php:989
+msgid "(simple, modern)"
+msgstr "（シンプル・モダン）"
+
+#: admin/admin-page.php:990
+msgid "(clean, readable)"
+msgstr "（クリーン・読みやすい）"
+
+#: admin/admin-page.php:991
+msgid "(stylish)"
+msgstr "（スタイリッシュ）"
+
+#: admin/admin-page.php:992
+msgid "(bold, impactful)"
+msgstr "（太字・インパクト大）"
+
+#: admin/admin-page.php:993
+msgid "(thin, elegant)"
+msgstr "（細字・エレガント）"
+
+#: admin/admin-page.php:994
+msgid "(uppercase, impactful)"
+msgstr "（大文字・インパクト大）"
+
+#: admin/admin-page.php:995
+msgid "(Japanese support)"
+msgstr "（日本語対応）"
+
+#: admin/admin-page.php:996
+msgid "(Japanese, thin)"
+msgstr "（日本語・細字）"
+
+#: admin/admin-page.php:997
+msgid "(Japanese, modern)"
+msgstr "（日本語・モダン）"
+
+#: admin/admin-page.php:998 admin/admin-page.php:999 admin/admin-page.php:1000
+msgid "(no external load)"
+msgstr "（外部読み込みなし）"
+
+#: admin/admin-page.php:1007 admin/admin-page.php:1145
+msgid "Custom"
+msgstr "カスタム"
+
+#: admin/admin-page.php:1015 admin/setup-wizard.php:161
+msgid "Color Mode"
+msgstr "カラーモード"
+
+#: admin/admin-page.php:1017
+msgid ""
+"Select the site color mode. With Match device setting, the background "
+"switches to dark or light automatically based on the visitor device."
+msgstr ""
+"サイトのカラーモードを選択します。「デバイス設定に合わせる」を選ぶと、訪問者"
+"のデバイスに応じて背景が自動でダーク／ライトに切り替わります。"
+
+#: admin/admin-page.php:1026
+msgid "Always Dark"
+msgstr "ダークモード固定"
+
+#: admin/admin-page.php:1027
+msgid "Always dark background, white text"
+msgstr "常に黒背景・白文字"
+
+#: admin/admin-page.php:1036
+msgid "Always Light"
+msgstr "ライトモード固定"
+
+#: admin/admin-page.php:1037
+msgid "Always light background, black text"
+msgstr "常に白背景・黒文字"
+
+#: admin/admin-page.php:1046
+msgid "Match device setting (auto)"
+msgstr "端末設定に合わせる（自動）"
+
+#: admin/admin-page.php:1047
+msgid "Automatically follows the visitor dark/light mode setting"
+msgstr "訪問者のダーク／ライトモード設定に自動で追従します"
+
+#: admin/admin-page.php:1055
+msgid "Color Settings"
+msgstr "カラー設定"
+
+#: admin/admin-page.php:1057
+msgid ""
+"Set the overall site colors. No change needed if you keep the default dark "
+"background with white text."
+msgstr ""
+"サイト全体の配色を設定します。デフォルトのダーク背景＋白文字のままで問題なけ"
+"れば変更不要です。"
+
+#: admin/admin-page.php:1060
+msgid "Background Color"
+msgstr "背景色"
+
+#: admin/admin-page.php:1067
+msgid "Text Color"
+msgstr "文字色"
+
+#: admin/admin-page.php:1074
+msgid "Accent Color (buttons, borders, etc.)"
+msgstr "アクセントカラー（ボタン・ボーダーなど）"
+
+#: admin/admin-page.php:1082
+msgid "Font Settings"
+msgstr "フォント設定"
+
+#: admin/admin-page.php:1084
+msgid ""
+"Select the overall site font. Choose a Japanese-capable font if you have a "
+"lot of Japanese content."
+msgstr ""
+"サイト全体のフォントを選択します。日本語のコンテンツが多い場合は、日本語対応"
+"フォントを選んでください。"
+
+#: admin/admin-page.php:1087
+msgid "Font"
+msgstr "フォント"
+
+#: admin/admin-page.php:1097
+msgid ""
+"* Check your site after saving. Google Fonts are loaded automatically; "
+"system fonts require no external load."
+msgstr ""
+"※保存後にサイトをご確認ください。Google Fontsは自動的に読み込まれます。システ"
+"ムフォントは外部読み込みが不要です。"
+
+#: admin/admin-page.php:1101
+msgid "Custom Font Upload"
+msgstr "カスタムフォントのアップロード"
+
+#: admin/admin-page.php:1103
+msgid ""
+"Upload your own font file (.woff2 / .woff / .ttf / .otf). It is added "
+"immediately and appears in the font list above."
+msgstr ""
+"独自のフォントファイル（.woff2 / .woff / .ttf / .otf）をアップロードできま"
+"す。アップロード後すぐに上のフォント一覧に追加されます。"
+
+#: admin/admin-page.php:1117
+msgid "Font name (e.g. Baskerville)"
+msgstr "フォント名（例：Baskerville）"
+
+#: admin/admin-page.php:1119
+msgid "Font file URL"
+msgstr "フォントファイルURL"
+
+#: admin/admin-page.php:1120
+msgid "Select File"
+msgstr "ファイルを選択"
+
+#: admin/admin-page.php:1121
+msgid "Add Font"
+msgstr "フォントを追加"
+
+#: admin/admin-page.php:1141 emerge-mono-portfolio.php:282
+msgid "Please enter a font name and select a file."
+msgstr "フォント名を入力してファイルを選択してください。"
+
+#: admin/admin-page.php:1142
+msgid "Adding..."
+msgstr "追加中..."
+
+#: admin/admin-page.php:1143
+msgid "Font added."
+msgstr "フォントを追加しました。"
+
+#: admin/admin-page.php:1144
+msgid "Delete this font?"
+msgstr "このフォントを削除しますか？"
+
+#: admin/admin-page.php:1158
+msgid "Select Font File"
+msgstr "フォントファイルを選択"
+
+#: admin/admin-page.php:1159
+msgid "Use this font"
+msgstr "このフォントを使う"
+
+#: admin/admin-page.php:1262
+msgid "Preview"
+msgstr "プレビュー"
+
+#: admin/admin-page.php:1278
+msgid "Home"
+msgstr "ホーム"
+
+#: admin/admin-page.php:1279
+msgid ""
+"Top page shortcode showing the logo, site name, and buttons. Paste it into "
+"your front page."
+msgstr ""
+"ロゴ・サイト名・ボタンを表示するトップページ用ショートコード。フロントページ"
+"に貼り付けてください。"
+
+#: admin/admin-page.php:1284
+msgid ""
+"Displays the profile image, name, title, bio, and social links. Reflects the "
+"Profile settings."
+msgstr ""
+"プロフィール画像・名前・肩書き・自己紹介・SNSリンクを表示します。プロフィール"
+"設定が反映されます。"
+
+#: admin/admin-page.php:1289
+msgid ""
+"Displays works in a grid layout with category filtering. Added works appear "
+"automatically."
+msgstr ""
+"作品をグリッドレイアウトで表示し、カテゴリーで絞り込めます。追加した作品は自"
+"動で表示されます。"
+
+#: admin/admin-page.php:1293 includes/estimate/shortcode.php:59
+#: includes/estimate/shortcode.php:110
+msgid "Contact"
+msgstr "お問い合わせ"
+
+#: admin/admin-page.php:1294
+msgid ""
+"Displays the contact form. Reflects the settings in the \"Contact Form\" tab."
+msgstr ""
+"お問い合わせフォームを表示します。「お問い合わせフォーム」タブの設定が反映さ"
+"れます。"
+
+#: admin/admin-page.php:1299
+msgid ""
+"Displays standard WordPress posts. Useful for a blog or news page. You can "
+"set the count with per_page=\"10\", e.g. [emerge_mono_news per_page=\"10\"]"
+msgstr ""
+"WordPressの通常投稿を表示します。ブログやお知らせページに便利です。"
+"per_page=\"10\" で表示件数を指定できます（例：[emerge_mono_news "
+"per_page=\"10\"]）。"
+
+#: admin/admin-page.php:1303
+msgid "Privacy Policy Page"
+msgstr "プライバシーポリシーページ"
+
+#: admin/admin-page.php:1304
+msgid ""
+"Displays the privacy policy. Text is auto-generated from the operator name "
+"and email in the \"Privacy Policy\" settings."
+msgstr ""
+"プライバシーポリシーを表示します。本文は「プライバシーポリシー」設定の運営者"
+"名・メールアドレスから自動生成されます。"
+
+#: admin/admin-page.php:1308
+msgid "Terms of Service Page"
+msgstr "利用規約ページ"
+
+#: admin/admin-page.php:1309
+msgid ""
+"Displays the terms of service. Text is auto-generated from the operator name "
+"and email in the \"Terms of Service\" settings."
+msgstr ""
+"利用規約を表示します。本文は「利用規約」設定の運営者名・メールアドレスから自"
+"動生成されます。"
+
+#: admin/admin-page.php:1317
+msgid ""
+"Paste a shortcode into the WordPress page editor to display its content on "
+"that page."
+msgstr ""
+"WordPressのページエディターにショートコードを貼り付けると、そのページに内容が"
+"表示されます。"
+
+#: admin/admin-page.php:1318
+msgid "Use the Copy button on the right to copy it to your clipboard."
+msgstr "右側のコピーボタンで、クリップボードにコピーできます。"
+
+#: admin/admin-page.php:1341 includes/estimate/admin-page.php:66
+msgid "How to Use"
+msgstr "使い方"
+
+#: admin/admin-page.php:1345
+msgid "WordPress Admin → Pages → Add New"
+msgstr "WordPress管理画面 → 固定ページ → 新規追加"
+
+#: admin/admin-page.php:1349
+msgid "Enter a page title (e.g. About)"
+msgstr "ページタイトルを入力（例：About）"
+
+#: admin/admin-page.php:1353
+msgid "Paste the shortcode in the content area (e.g. [emerge_mono_about])"
+msgstr "本文エリアにショートコードを貼り付け（例：[emerge_mono_about]）"
+
+#: admin/admin-page.php:1357
+msgid "Click Publish to finish"
+msgstr "「公開」をクリックして完了"
+
+#: admin/admin-page.php:1365
+msgid "Copied"
+msgstr "コピーしました"
+
+#: admin/admin-page.php:1393
+msgid "Editor Feature"
+msgstr "エディター機能"
+
+#: admin/admin-page.php:1395
+msgid ""
+"When enabled, a simple non-Gutenberg editor is used for Works and News posts."
+msgstr ""
+"有効にすると、WorksとNewsの投稿にGutenberg不使用のシンプルなエディターが使わ"
+"れます。"
+
+#: admin/admin-page.php:1396
+msgid ""
+"Turn it off if you prefer Gutenberg. Reload the page after changing this "
+"setting."
+msgstr ""
+"Gutenbergを使いたい場合はオフにしてください。設定変更後はページを再読み込みし"
+"てください。"
+
+#: admin/admin-page.php:1401
+msgid "Enable the editor (default: on)"
+msgstr "エディターを有効化（デフォルト：ON）"
+
+#: admin/admin-page.php:1406
+msgid "Standard Posts"
+msgstr "標準投稿"
+
+#: admin/admin-page.php:1408
+msgid ""
+"News is managed as a dedicated post type, so the standard WordPress Posts "
+"menu is hidden by default."
+msgstr ""
+"NewsはWordPress標準とは別の専用投稿タイプで管理されるため、標準の投稿メニュー"
+"はデフォルトで非表示になっています。"
+
+#: admin/admin-page.php:1409
+msgid ""
+"Enable this only if you also want to use the standard blog Posts feature."
+msgstr "標準のブログ投稿機能も併用したい場合のみ有効にしてください。"
+
+#: admin/admin-page.php:1414
+msgid "Show the standard Posts menu (default: off)"
+msgstr "標準投稿メニューを表示（デフォルト：オフ）"
+
+#: admin/admin-save.php:190 admin/admin-save.php:285
+#: includes/estimate/shortcode.php:36 includes/shortcodes.php:197
+msgid "I agree to the Privacy Policy."
+msgstr "プライバシーポリシーに同意します。"
+
+#: admin/setup-wizard.php:70 admin/setup-wizard.php:71
+#: admin/setup-wizard.php:143
+msgid "Emerge Mono Setup"
+msgstr "Emerge Mono セットアップ"
+
+#: admin/setup-wizard.php:118
+msgid "Color"
+msgstr "カラー"
+
+#: admin/setup-wizard.php:120
+msgid "Pages"
+msgstr "ページ"
+
+#: admin/setup-wizard.php:142
+msgid "Welcome"
+msgstr "ようこそ"
+
+#: admin/setup-wizard.php:144
+msgid ""
+"Let's set up the basics. Every step is optional — you can skip anything and "
+"change it later in the settings."
+msgstr ""
+"まずは基本設定から始めましょう。すべての項目は任意です。スキップして後から設"
+"定で変更することもできます。"
+
+#: admin/setup-wizard.php:152
+msgid "Tagline"
+msgstr "キャッチコピー"
+
+#: admin/setup-wizard.php:162
+msgid "Choose how your site looks. Auto follows each visitor's device setting."
+msgstr ""
+"サイトの見た目を選びます。「自動」は訪問者ごとのデバイス設定に追従します。"
+
+#: admin/setup-wizard.php:167
+msgid "Dark"
+msgstr "ダーク"
+
+#: admin/setup-wizard.php:167
+msgid "Dark background, white text"
+msgstr "暗い背景・白い文字"
+
+#: admin/setup-wizard.php:168
+msgid "Light"
+msgstr "ライト"
+
+#: admin/setup-wizard.php:168
+msgid "Light background, black text"
+msgstr "明るい背景・黒い文字"
+
+#: admin/setup-wizard.php:169
+msgid "Auto"
+msgstr "自動"
+
+#: admin/setup-wizard.php:169
+msgid "Match device setting"
+msgstr "デバイスの設定に合わせる"
+
+#: admin/setup-wizard.php:186
+msgid "Upload a logo for the site header. You can skip this and add it later."
+msgstr ""
+"サイトヘッダー用のロゴをアップロードします。スキップして後から追加することも"
+"できます。"
+
+#: admin/setup-wizard.php:197 admin/setup-wizard.php:209
+msgid "Select from Media Library"
+msgstr "メディアライブラリから選択"
+
+#: admin/setup-wizard.php:198 admin/setup-wizard.php:210
+msgid "Remove"
+msgstr "削除"
+
+#: admin/setup-wizard.php:220
+msgid "Create Pages"
+msgstr "ページを作成"
+
+#: admin/setup-wizard.php:221
+msgid ""
+"Select the pages to create. Each is created with its shortcode already "
+"inserted."
+msgstr ""
+"作成するページを選択してください。各ページにはショートコードがあらかじめ挿入"
+"された状態で作成されます。"
+
+#: admin/setup-wizard.php:224
+msgid "Select all"
+msgstr "すべて選択"
+
+#: admin/setup-wizard.php:226
+msgid "Recommended only"
+msgstr "おすすめのみ"
+
+#: admin/setup-wizard.php:249
+msgid "Created"
+msgstr "作成済み"
+
+#: admin/setup-wizard.php:251
+msgid "Recommended"
+msgstr "おすすめ"
+
+#: admin/setup-wizard.php:263
+msgid "Skip setup"
+msgstr "セットアップをスキップ"
+
+#: admin/setup-wizard.php:265
+msgid "← Back"
+msgstr "← 戻る"
+
+#: admin/setup-wizard.php:266
+msgid "Save & Next →"
+msgstr "保存して次へ →"
+
+#: admin/setup-wizard.php:267
+msgid "Finish & create pages"
+msgstr "完了してページを作成"
+
+#: admin/setup-wizard.php:271
+msgid "Everything here can be changed later from the plugin settings."
+msgstr "ここで設定した内容は、後からプラグイン設定でいつでも変更できます。"
+
+#: admin/setup-wizard.php:396
+msgid "Please select at least one page."
+msgstr "ページを1つ以上選択してください。"
+
+#: admin/setup-wizard.php:397
+msgid "Saving settings…"
+msgstr "設定を保存中…"
+
+#: admin/setup-wizard.php:398
+msgid "Saved ✓"
+msgstr "保存しました ✓"
+
+#: admin/setup-wizard.php:399
+msgid "Creating pages…"
+msgstr "ページを作成中…"
+
+#: admin/setup-wizard.php:400
+#, php-format
+msgid "Created: %s"
+msgstr "作成しました：%s"
+
+#: admin/setup-wizard.php:401
+msgid "All set! Redirecting…"
+msgstr "完了しました。移動します…"
+
+#: admin/setup-wizard.php:402
+#, php-format
+msgid "Failed: %s"
+msgstr "失敗しました：%s"
+
+#: admin/setup-wizard.php:403
+msgid "Select Logo"
+msgstr "ロゴを選択"
+
+#: admin/setup-wizard.php:404
+msgid "Use this logo"
+msgstr "このロゴを使用"
+
+#: admin/setup-wizard.php:405
+msgid "Media library could not load. Please reload the page and try again."
+msgstr ""
+"メディアライブラリを読み込めませんでした。ページを再読み込みしてからもう一度"
+"お試しください。"
+
+#: admin/setup-wizard.php:472
+msgid "Dark mode is selected, so only the dark logo is needed."
+msgstr "ダークモードが選択されているため、ダーク用ロゴのみ設定すればOKです。"
+
+#: admin/setup-wizard.php:473
+msgid "Light mode is selected, so only the light logo is needed."
+msgstr "ライトモードが選択されているため、ライト用ロゴのみ設定すればOKです。"
+
+#: admin/setup-wizard.php:474
+msgid ""
+"Auto mode is selected. Set both a dark and a light logo for the best result."
+msgstr ""
+"自動モードが選択されています。ダーク用とライト用の両方のロゴを設定すると最適"
+"です。"
+
+#: includes/single-work.php:36
+msgid "— Duration —"
+msgstr "— 制作期間 —"
+
+#: includes/single-work.php:37
+msgid "— Role —"
+msgstr "— 担当範囲 —"
+
+#: includes/single-work.php:38
+msgid "— Tools —"
+msgstr "— 使用ツール —"
+
+#: includes/single-post.php:51
+msgid "Back to News"
+msgstr "ニュース一覧に戻る"
+
+#: includes/custom-fields.php:6
+msgid "Work Details"
+msgstr "Work 詳細"
+
+#: includes/custom-fields.php:33
+msgid "Private"
+msgstr "非公開"
+
+#: includes/estimate/shortcode.php:9 includes/estimate/admin-save.php:75
+msgid "* The final amount will be provided after inquiry."
+msgstr "※ 正式な金額はお問い合わせ後にご案内します。"
+
+#: includes/estimate/shortcode.php:46
+msgid "The estimate simulator has not been set up."
+msgstr "見積もりシミュレーターが設定されていません。"
+
+#: includes/estimate/shortcode.php:51
+msgid "Service"
+msgstr "サービス"
+
+#: includes/estimate/shortcode.php:53
+msgid "Options"
+msgstr "オプション"
+
+#: includes/estimate/shortcode.php:55
+msgid "How to Order"
+msgstr "依頼方法"
+
+#: includes/estimate/shortcode.php:57
+msgid "Estimate"
+msgstr "金額確認"
+
+#: includes/estimate/shortcode.php:64
+msgid "Select the services you want (multiple allowed)"
+msgstr "ご希望のサービスを選んでください（複数選択可）"
+
+#: includes/estimate/shortcode.php:68
+msgid "Choose options"
+msgstr "オプションを選ぶ"
+
+#: includes/estimate/shortcode.php:74
+msgid "Configure the details for each service"
+msgstr "各サービスの詳細を設定してください"
+
+#: includes/estimate/shortcode.php:78
+msgid "Choose order method"
+msgstr "依頼方法を選ぶ"
+
+#: includes/estimate/shortcode.php:84
+msgid "Choose how to order"
+msgstr "依頼方法を選んでください"
+
+#: includes/estimate/shortcode.php:88
+msgid "Review estimate"
+msgstr "金額を確認する"
+
+#: includes/estimate/shortcode.php:94
+msgid "Review the details and proceed to contact"
+msgstr "内容を確認してお問い合わせへ進んでください"
+
+#: includes/estimate/shortcode.php:96
+msgid "Breakdown"
+msgstr "内訳"
+
+#: includes/estimate/shortcode.php:116
+msgid "Send an inquiry with your estimate details"
+msgstr "見積もり内容を添えてお問い合わせします"
+
+#: includes/estimate/shortcode.php:118
+msgid "Estimate Details"
+msgstr "お見積もり内容"
+
+#: includes/estimate/shortcode.php:174
+msgid "Start over"
+msgstr "最初からやり直す"
+
+#: includes/estimate/shortcode.php:187 includes/estimate/shortcode.php:188
+msgid "each"
+msgstr "1個あたり"
+
+#: includes/estimate/shortcode.php:189
+msgid "¥"
+msgstr "¥"
+
+#: includes/estimate/shortcode.php:190
+msgid "No fee"
+msgstr "手数料なし"
+
+#: includes/estimate/shortcode.php:191
+msgid "Fee"
+msgstr "手数料"
+
+#: includes/estimate/shortcode.php:192
+msgid "fee"
+msgstr "手数料"
+
+#: includes/estimate/shortcode.php:193
+msgid "Method"
+msgstr "依頼方法"
+
+#: includes/estimate/shortcode.php:194
+msgid "Estimated total"
+msgstr "概算合計"
+
+#: includes/estimate/shortcode.php:195
+msgid "Subtotal"
+msgstr "小計"
+
+#: includes/estimate/shortcode.php:196
+msgid ", "
+msgstr "、"
+
+#: includes/estimate/shortcode.php:197
+msgid "• "
+msgstr "・"
+
+#: includes/estimate/shortcode.php:198 includes/contact.php:43
+#: emerge-mono-portfolio.php:88
+msgid "Failed to send."
+msgstr "送信に失敗しました。"
+
+#: includes/estimate/shortcode.php:199
+msgid "A communication error occurred."
+msgstr "通信エラーが発生しました。"
+
+#: includes/estimate/admin-page.php:21
+msgid "Service List"
+msgstr "サービス一覧"
+
+#: includes/estimate/admin-page.php:22
+msgid ""
+"Add the services you offer. You can set estimate items for each service."
+msgstr ""
+"提供するサービスを追加してください。サービスごとに見積もり項目を設定できま"
+"す。"
+
+#: includes/estimate/admin-page.php:30
+msgid "+ Add Service"
+msgstr "＋ サービスを追加"
+
+#: includes/estimate/admin-page.php:34
+msgid "Order Methods"
+msgstr "依頼方法の設定"
+
+#: includes/estimate/admin-page.php:35
+msgid ""
+"Set each order method name and surcharge rate (%). 0% shows as \"no fee\"."
+msgstr ""
+"依頼方法ごとの名称と追加料金率（%）を設定してください。0%の場合は「手数料な"
+"し」と表示されます。"
+
+#: includes/estimate/admin-page.php:39 includes/estimate/admin-page.php:85
+msgid "e.g. Bank transfer"
+msgstr "例：銀行振込"
+
+#: includes/estimate/admin-page.php:46
+msgid "+ Add Order Method"
+msgstr "＋ 依頼方法を追加"
+
+#: includes/estimate/admin-page.php:50
+msgid "General Settings"
+msgstr "全体設定"
+
+#: includes/estimate/admin-page.php:52
+msgid "Note Text"
+msgstr "注意書きテキスト"
+
+#: includes/estimate/admin-page.php:56
+msgid "Contact Button Text"
+msgstr "お問い合わせボタンのテキスト"
+
+#: includes/estimate/admin-page.php:84 includes/estimate/admin-page.php:237
+msgid "Option name"
+msgstr "選択肢名"
+
+#: includes/estimate/admin-page.php:87 includes/estimate/admin-page.php:207
+msgid "Service name (e.g. VTuber illustration)"
+msgstr "サービス名（例：VTuber用立ち絵）"
+
+#: includes/estimate/admin-page.php:88 includes/estimate/admin-page.php:211
+msgid "Description (optional)"
+msgstr "補足テキスト（任意）"
+
+#: includes/estimate/admin-page.php:89 includes/estimate/admin-page.php:217
+msgid "Option"
+msgstr "選択肢"
+
+#: includes/estimate/admin-page.php:90 includes/estimate/admin-page.php:217
+msgid "Check"
+msgstr "チェック"
+
+#: includes/estimate/admin-page.php:91 includes/estimate/admin-page.php:217
+msgid "Quantity"
+msgstr "数量"
+
+#: includes/estimate/admin-page.php:92
+msgid "Item name (e.g. Number of characters)"
+msgstr "項目名（例：キャラクター数）"
+
+#: includes/estimate/admin-page.php:93 includes/estimate/admin-page.php:228
+msgid "Unit price ¥"
+msgstr "単価 ¥"
+
+#: includes/estimate/admin-page.php:94 includes/estimate/admin-page.php:230
+msgid "Min qty"
+msgstr "最小数"
+
+#: includes/estimate/admin-page.php:95 includes/estimate/admin-page.php:244
+msgid "+ Add option"
+msgstr "＋ 選択肢を追加"
+
+#: includes/estimate/admin-page.php:96 includes/estimate/admin-page.php:250
+msgid "+ Option"
+msgstr "＋ 選択肢"
+
+#: includes/estimate/admin-page.php:97 includes/estimate/admin-page.php:251
+msgid "+ Check"
+msgstr "＋ チェック"
+
+#: includes/estimate/admin-page.php:98 includes/estimate/admin-page.php:252
+msgid "+ Quantity"
+msgstr "＋ 数量"
+
+#: includes/estimate/admin-page.php:223
+msgid "Item name"
+msgstr "項目名"
+
+#: includes/estimate/admin-save.php:76
+msgid "Send inquiry with these details"
+msgstr "この内容でお問い合わせする"
+
+#: includes/post-types.php:16 includes/post-types.php:63
+msgid "Add New"
+msgstr "新規追加"
+
+#: includes/post-types.php:17 includes/post-types.php:39
+#: includes/post-types.php:64 includes/post-types.php:86
+#, php-format
+msgid "Add %s"
+msgstr "%sを追加"
+
+#: includes/post-types.php:18 includes/post-types.php:40
+#: includes/post-types.php:65 includes/post-types.php:87
+#, php-format
+msgid "Edit %s"
+msgstr "%sを編集"
+
+#: includes/post-types.php:19 includes/post-types.php:66
+#, php-format
+msgid "New %s"
+msgstr "新しい%s"
+
+#: includes/post-types.php:20 includes/post-types.php:67
+#, php-format
+msgid "View %s"
+msgstr "%sを表示"
+
+#: includes/post-types.php:21 includes/post-types.php:68
+#, php-format
+msgid "Search %s"
+msgstr "%sを検索"
+
+#: includes/post-types.php:22 includes/post-types.php:69
+#, php-format
+msgid "No %s found"
+msgstr "%sが見つかりません"
+
+#: includes/post-types.php:23 includes/post-types.php:70
+#, php-format
+msgid "No %s found in Trash"
+msgstr "ゴミ箱に%sはありません"
+
+#: includes/post-types.php:41 includes/post-types.php:88
+#, php-format
+msgid "New %s Name"
+msgstr "新しい%s名"
+
+#: includes/contact.php:51
+msgid "You have reached the submission limit. Please try again later."
+msgstr "送信回数の上限に達しました。しばらくしてからお試しください。"
+
+#: includes/contact.php:68
+msgid "Detected as spam."
+msgstr "スパムとして検出されました。"
+
+#: includes/contact.php:89
+#, php-format
+msgid "Please enter a valid %s."
+msgstr "%sを正しく入力してください。"
+
+#: includes/contact.php:95
+#, php-format
+msgid "Please select %s."
+msgstr "%sを選択してください。"
+
+#: includes/contact.php:101
+#, php-format
+msgid "Please enter %s."
+msgstr "%sを入力してください。"
+
+#: includes/contact.php:110
+msgid "Email address not found."
+msgstr "メールアドレスが見つかりません。"
+
+#: includes/contact.php:115
+#, php-format
+msgid "[Inquiry] %s"
+msgstr "[お問い合わせ] %s"
+
+#: includes/contact.php:117
+msgid ""
+"You have received a new inquiry:\n"
+"\n"
+msgstr ""
+"新しいお問い合わせを受信しました：\n"
+"\n"
+
+#: includes/contact.php:119
+msgid "■ Estimate Details\n"
+msgstr "■ お見積もり内容\n"
+
+#: includes/contact.php:124
+msgid ""
+"---\n"
+"Sender IP: "
+msgstr ""
+"---\n"
+"送信元IP： "
+
+#: includes/contact.php:124
+msgid ""
+"\n"
+"Sent at: "
+msgstr ""
+"\n"
+"送信日時： "
+
+#: includes/contact.php:135
+#, php-format
+msgid "We received your inquiry | %s"
+msgstr "お問い合わせを受け付けました | %s"
+
+#: includes/contact.php:136
+msgid ""
+"Thank you for your inquiry.\n"
+"We will review your message and get back to you shortly.\n"
+"\n"
+msgstr ""
+"お問い合わせありがとうございます。\n"
+"内容を確認の上、追ってご連絡いたします。\n"
+"\n"
+
+#: includes/contact.php:172
+msgid "e.g. John Smith"
+msgstr "例：山田 太郎"
+
+#: includes/contact.php:174
+msgid "Message"
+msgstr "お問い合わせ内容"
+
+#: includes/contact.php:174
+msgid "Feel free to send us your requests or questions."
+msgstr "ご依頼・ご質問など、お気軽にどうぞ。"
+
+#: includes/terms/shortcode.php:22 includes/privacy/privacy.php:12
+#: emerge-mono-portfolio.php:274 emerge-mono-portfolio.php:311
+msgid "Permission denied"
+msgstr "権限がありません"
+
+#: includes/terms/admin-page.php:21 includes/privacy/admin-page.php:23
+msgid "Basic Info"
+msgstr "基本情報"
+
+#: includes/terms/admin-page.php:22
+msgid "The terms of service text is auto-generated from the info you enter."
+msgstr "入力した情報をもとに、利用規約の本文が自動生成されます。"
+
+#: includes/terms/admin-page.php:25 includes/privacy/admin-page.php:27
+#: includes/privacy/admin-page.php:115
+msgid "Display Language"
+msgstr "表示言語"
+
+#: includes/terms/admin-page.php:29 includes/privacy/admin-page.php:31
+msgid "Japanese"
+msgstr "日本語"
+
+#: includes/terms/admin-page.php:39 includes/privacy/admin-page.php:41
+msgid "Operator Name (personal or business)"
+msgstr "運営者名（個人名または屋号）"
+
+#: includes/terms/admin-page.php:40 includes/privacy/admin-page.php:42
+msgid "e.g. Taro Yamada"
+msgstr "例：山田 太郎 / Taro Yamada"
+
+#: includes/terms/admin-page.php:49 includes/privacy/admin-page.php:51
+msgid "Contact Email"
+msgstr "お問い合わせ用メールアドレス"
+
+#: includes/terms/admin-page.php:55 includes/privacy/admin-page.php:57
+msgid "Sections to Include"
+msgstr "ひな形に含める項目"
+
+#: includes/terms/admin-page.php:59
+msgid "Include a disclaimer"
+msgstr "免責事項を含める"
+
+#: includes/terms/admin-page.php:65 includes/privacy/admin-page.php:76
+msgid "Additional Notes (optional)"
+msgstr "追加記載事項（任意）"
+
+#: includes/terms/admin-page.php:67
+msgid "e.g. Refund policy for paid services, etc. ..."
+msgstr "例：有償サービスの返金ポリシーなど…"
+
+#: includes/privacy/admin-page.php:24
+msgid "The privacy policy text is auto-generated from the info you enter."
+msgstr "入力した情報をもとに、プライバシーポリシーの本文が自動生成されます。"
+
+#: includes/privacy/admin-page.php:58
+msgid "Checked sections are automatically added to the privacy policy."
+msgstr "チェックした項目が、プライバシーポリシーに自動的に追加されます。"
+
+#: includes/privacy/admin-page.php:62
+msgid "Add a section about cookie usage"
+msgstr "Cookieの使用に関する記載を追加する"
+
+#: includes/privacy/admin-page.php:66
+msgid "Add a section about Google Analytics"
+msgstr "Googleアナリティクスに関する記載を追加する"
+
+#: includes/privacy/admin-page.php:70
+msgid "Add a disclaimer section"
+msgstr "免責事項を追加する"
+
+#: includes/privacy/admin-page.php:77
+msgid "Enter any content you want to append to the end of the template."
+msgstr "テンプレートの末尾に追加したい内容を入力してください。"
+
+#: includes/privacy/admin-page.php:79
+msgid "e.g. This site participates in affiliate programs. ..."
+msgstr "例：当サイトはアフィリエイトプログラムに参加しています…"
+
+#: includes/privacy/admin-page.php:84
+msgid "Cookie Banner"
+msgstr "Cookieバナー設定"
+
+#: includes/privacy/admin-page.php:85
+msgid ""
+"Shows a cookie consent banner on the first visit. Required in the EU, UK, "
+"and US."
+msgstr ""
+"初回訪問時にCookie同意バナーを表示します。EU・英国・米国では対応が必須です。"
+
+#: includes/privacy/admin-page.php:90
+msgid "Show cookie banner"
+msgstr "Cookieバナーを表示する"
+
+#: includes/privacy/admin-page.php:95
+msgid "Privacy Policy Page (optional)"
+msgstr "プライバシーポリシーページ（任意）"
+
+#: includes/privacy/admin-page.php:96
+msgid ""
+"This becomes the \"Learn more\" link in the banner. No link if unselected."
+msgstr ""
+"バナー内の「詳しくはこちら」リンク先になります。未選択の場合はリンクなしで表"
+"示されます。"
+
+#: includes/privacy/admin-page.php:112
+msgid "Banner text (auto)"
+msgstr "バナー文言（自動）"
+
+#: includes/privacy/admin-page.php:113
+msgid "Japanese:"
+msgstr "日本語："
+
+#: includes/privacy/admin-page.php:114
+msgid "English:"
+msgstr "英語："
+
+#: includes/privacy/admin-page.php:115
+#, php-format
+msgid "* The display language follows the \"%s\" setting above."
+msgstr "※表示言語は上記の「%s」設定に従います。"
+
+#: includes/privacy/privacy.php:40 includes/privacy/privacy.php:46
+msgid "Learn more"
+msgstr "詳しくはこちら"
+
+#: includes/privacy/privacy.php:41 includes/privacy/privacy.php:47
+msgid "Accept"
+msgstr "同意する"
+
+#: includes/privacy/privacy.php:42 includes/privacy/privacy.php:48
+msgid "Decline"
+msgstr "拒否する"
+
+#: includes/privacy/privacy.php:44
+msgid "This site uses cookies."
+msgstr "このサイトではCookieを使用しています。"
+
+#: includes/shortcodes.php:237 includes/shortcodes.php:302
+msgid "No posts found"
+msgstr "投稿がありません"
+
+#: emerge-mono-portfolio.php:56
+msgid "Post"
+msgstr "投稿する"
+
+#: emerge-mono-portfolio.php:277 emerge-mono-portfolio.php:314
+msgid "Invalid request"
+msgstr "不正なリクエストです"
+
+#~ msgid "プライバシーポリシーに同意します。"
+#~ msgstr "プライバシーポリシーに同意します。"
+
+#~ msgid "カテゴリー"
+#~ msgstr "カテゴリー"
+
+#~ msgid "画像を選択"
+#~ msgstr "画像を選択"
+
+#~ msgid "選択"
+#~ msgstr "選択"
+
+#~ msgid "Next →"
+#~ msgstr "次へ →"
+
+#~ msgid ""
+#~ "Select the pages you want to create. Each page will be created with its "
+#~ "shortcode already inserted, so you can publish a complete portfolio in "
+#~ "seconds."
+#~ msgstr ""
+#~ "作成したいページを選択してください。各ページにはショートコードがあらかじめ"
+#~ "挿入された状態で作成されるため、数秒で完成度の高いポートフォリオを公開でき"
+#~ "ます。"
+
+#~ msgid "Skip for now"
+#~ msgstr "あとで設定する"
+
+#~ msgid "Create selected pages"
+#~ msgstr "選択したページを作成"
+
+#~ msgid ""
+#~ "You can create or delete these pages anytime from the Shortcodes tab."
+#~ msgstr ""
+#~ "これらのページは、ショートコードタブからいつでも作成・削除できます。"
+
+#~ msgid "Navigation"
+#~ msgstr "ナビゲーション"
+
+#~ msgid "Section Title"
+#~ msgstr "セクションタイトル"
