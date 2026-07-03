@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function en_admin_tab_privacy( $opts ) {
-    en_admin_notice();
+function emono_admin_tab_privacy( $opts ) {
+    emono_admin_notice();
     $lang        = isset( $opts['privacy_lang'] )        ? $opts['privacy_lang']        : 'ja';
     $owner       = isset( $opts['legal_owner'] )       ? $opts['legal_owner']       : '';
     $site        = isset( $opts['legal_site'] )        ? $opts['legal_site']        : get_bloginfo('name');
@@ -14,7 +14,7 @@ function en_admin_tab_privacy( $opts ) {
     $banner_enabled = isset( $opts['cookie_banner_enabled'] ) ? $opts['cookie_banner_enabled'] : '1';
     ?>
     <form method="post" action="">
-        <?php wp_nonce_field( 'en_save_privacy', 'en_nonce' ); ?>
+        <?php wp_nonce_field( 'emono_save_privacy', 'en_nonce' ); ?>
         <input type="hidden" name="en_privacy_save" value="1">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
         <div class="en-privacy-settings-col">
@@ -112,7 +112,7 @@ function en_admin_tab_privacy( $opts ) {
                 <strong><?php esc_html_e( 'Banner text (auto)', 'emerge-mono-portfolio' ); ?></strong><br>
                 <?php esc_html_e( 'Japanese:', 'emerge-mono-portfolio' ); ?> "This site uses cookies. See our Privacy Policy for details."<br>
                 <?php esc_html_e( 'English:', 'emerge-mono-portfolio' ); ?> "This site uses cookies. Please see our Privacy Policy for more details."<br>
-                <?php echo esc_html( sprintf( __( '* The display language follows the "%s" setting above.', 'emerge-mono-portfolio' ), __( 'Display Language', 'emerge-mono-portfolio' ) ) ); ?>
+                <?php /* translators: %s: the "Display Language" setting name */ echo esc_html( sprintf( __( '* The display language follows the "%s" setting above.', 'emerge-mono-portfolio' ), __( 'Display Language', 'emerge-mono-portfolio' ) ) ); ?>
             </div>
         </div>
 
@@ -123,7 +123,7 @@ function en_admin_tab_privacy( $opts ) {
             <div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;">Preview</div>
             <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:10px;"><code>[emerge_mono_privacy]</code> Changes are reflected in real time.</div>
             <div id="en-privacy-preview" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:20px;line-height:1.9;font-size:12px;max-height:80vh;overflow-y:auto;">
-                <?php echo en_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie, $use_ga, $use_disclaimer, $custom ); ?>
+                <?php echo wp_kses_post( emono_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie, $use_ga, $use_disclaimer, $custom ) ); ?>
             </div>
         </div>
         </div><!-- /.grid -->
@@ -136,7 +136,7 @@ function en_admin_tab_privacy( $opts ) {
         function updatePreview() {
             var data = new FormData();
             data.append('action', 'en_preview_privacy');
-            data.append('nonce', '<?php echo wp_create_nonce("en_preview_privacy"); ?>');
+            data.append('nonce', '<?php echo esc_attr( wp_create_nonce("en_preview_privacy") ); ?>');
             fields.forEach(function(name) {
                 var els = document.querySelectorAll('[name="' + name + '"]');
                 els.forEach(function(el) {
@@ -173,7 +173,7 @@ function en_admin_tab_privacy( $opts ) {
 /**
  * プライバシーポリシー HTML生成（Article形式）
  */
-function en_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie = '1', $use_ga = '0', $use_disclaimer = '1', $custom = '' ) {
+function emono_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie = '1', $use_ga = '0', $use_disclaimer = '1', $custom = '' ) {
     $owner = $owner ? esc_html( $owner ) : '（運営者名）';
     $site  = $site  ? esc_html( $site )  : '（サイト名）';
     $email = $email ? esc_html( $email ) : '（メールアドレス）';
@@ -205,7 +205,7 @@ function en_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie = '
         $n = count($sections) + 1;
         $sections[] = array( 'num' => 'Contact', 'title' => 'Contact Us', 'body' => '<p>For inquiries regarding this Privacy Policy, please contact:<br>Operator: ' . $owner . '<br>Email: ' . $email . '</p>' );
 
-        $date_str = '<p><small>Last updated: ' . date('F j, Y') . '</small></p>';
+        $date_str = '<p><small>Last updated: ' . date_i18n('F j, Y') . '</small></p>';
 
     } else {
         $intro = '<p>' . $owner . '（以下「運営者」）が運営する ' . $site . '（以下「当サイト」）では、個人情報の取り扱いについて以下のとおり定めます。</p>';
@@ -232,14 +232,14 @@ function en_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie = '
 
         $sections[] = array( 'num' => 'お問い合わせ', 'title' => 'プライバシーポリシーに関するお問い合わせ', 'body' => '<p>本ポリシーに関するお問い合わせは下記までご連絡ください。<br>運営者：' . $owner . '<br>メールアドレス：' . $email . '</p>' );
 
-        $date_str = '<p><small>制定日：' . date('Y年m月j日') . '</small></p>';
+        $date_str = '<p><small>制定日：' . date_i18n('Y年m月j日') . '</small></p>';
     }
 
     // HTML組み立て（Article形式）
     $html  = '<div class="en-privacy-header">';
     $html .= '<div class="en-privacy-label">' . ( $lang === 'en' ? 'Privacy Policy' : 'Privacy Policy' ) . '</div>';
     $html .= '<div class="en-privacy-title">' . ( $lang === 'en' ? 'Privacy Policy' : 'プライバシーポリシー' ) . '</div>';
-    $html .= '<div class="en-privacy-date">' . ( $lang === 'en' ? 'Last updated: ' . date('F j, Y') : '制定日：' . date('Y年m月j日') ) . '</div>';
+    $html .= '<div class="en-privacy-date">' . ( $lang === 'en' ? 'Last updated: ' . date_i18n('F j, Y') : '制定日：' . date_i18n('Y年m月j日') ) . '</div>';
     $html .= '</div>';
     $html .= '<div class="en-privacy-intro">' . $intro . '</div>';
     $html .= '<div class="en-privacy-body">';

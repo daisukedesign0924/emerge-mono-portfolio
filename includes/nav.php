@@ -1,12 +1,12 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'en_header', 'en_render_header' );
-function en_render_header() {
-    $site_name       = en_opt('site_name', get_bloginfo('name'));
-    $logo_url        = en_opt('logo_url', '');
-    $logo_url_light  = en_opt('logo_url_light', '');
-    $nav_items       = en_get_nav_items();
+add_action( 'en_header', 'emono_render_header' );
+function emono_render_header() {
+    $site_name       = emono_opt('site_name', get_bloginfo('name'));
+    $logo_url        = emono_opt('logo_url', '');
+    $logo_url_light  = emono_opt('logo_url_light', '');
+    $nav_items       = emono_get_nav_items();
     $is_top    = is_front_page();
     ?>
     <?php if ( ! $is_top ) : ?>
@@ -45,10 +45,10 @@ function en_render_header() {
     <?php
 }
 
-add_action( 'en_footer', 'en_render_footer' );
-function en_render_footer() {
-    $copyright = en_opt('copyright', '(c) ' . date('Y') . ' ' . get_bloginfo('name'));
-    $footer_nav_items = en_get_footer_nav_items();
+add_action( 'en_footer', 'emono_render_footer' );
+function emono_render_footer() {
+    $copyright = emono_opt('copyright', '(c) ' . wp_date('Y') . ' ' . get_bloginfo('name'));
+    $footer_nav_items = emono_get_footer_nav_items();
     ?>
     <footer class="en-footer">
         <?php if ( ! empty($footer_nav_items) ) : ?>
@@ -63,8 +63,8 @@ function en_render_footer() {
     <?php
 }
 
-function en_get_footer_nav_items() {
-    $saved = en_opt('footer_nav_items', array());
+function emono_get_footer_nav_items() {
+    $saved = emono_opt('footer_nav_items', array());
     if ( ! is_array($saved) ) return array();
     $items = array();
     foreach ( $saved as $item ) {
@@ -87,12 +87,12 @@ function en_get_footer_nav_items() {
     return $items;
 }
 
-function en_get_nav_items() {
-    $mode = en_opt('nav_mode', 'auto');
+function emono_get_nav_items() {
+    $mode = emono_opt('nav_mode', 'auto');
 
     // WPメニュー使用
     if ( $mode === 'wp_menu' ) {
-        $menu_id = (int) en_opt('nav_wp_menu', 0);
+        $menu_id = (int) emono_opt('nav_wp_menu', 0);
         if ( $menu_id ) {
             $items    = array();
             $wp_items = wp_get_nav_menu_items( $menu_id );
@@ -110,7 +110,7 @@ function en_get_nav_items() {
 
     // 手動設定
     if ( $mode === 'manual' ) {
-        $saved = en_opt('nav_items', array());
+        $saved = emono_opt('nav_items', array());
         // 固定ページ選択の場合はURLを動的に取得
         foreach ( $saved as &$item ) {
             if ( isset($item['type']) && $item['type'] === 'page' && ! empty($item['page_id']) ) {

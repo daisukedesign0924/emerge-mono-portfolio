@@ -5,6 +5,10 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// This is a template file loaded via template_include; top-level variables are
+// template-scoped by WordPress convention (same as a theme's single.php).
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+
 get_header();
 
 while ( have_posts() ) : the_post();

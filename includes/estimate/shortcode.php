@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_shortcode( 'emerge_mono_estimate', 'en_shortcode_estimate' );
-function en_shortcode_estimate( $atts ) {
+add_shortcode( 'emerge_mono_estimate', 'emono_shortcode_estimate' );
+function emono_shortcode_estimate( $atts ) {
     $services        = get_option( 'en_estimate_services',        array() );
     $payment_methods = get_option( 'en_estimate_payment_methods', array() );
     $settings        = get_option( 'en_estimate_settings',        array() );
@@ -31,14 +31,14 @@ function en_shortcode_estimate( $atts ) {
     }
 
     // コンタクトフォーム設定を共有
-    $contact_fields  = get_option( 'en_contact_fields', en_default_contact_fields() );
-    $consent_enabled = en_opt('contact_consent_enabled', '0');
-    $consent_text    = en_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ));
-    $consent_page_id = (int)en_opt('contact_consent_page_id', 0);
+    $contact_fields  = get_option( 'en_contact_fields', emono_default_contact_fields() );
+    $consent_enabled = emono_opt('contact_consent_enabled', '0');
+    $consent_text    = emono_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ));
+    $consent_page_id = (int)emono_opt('contact_consent_page_id', 0);
     $consent_url     = $consent_page_id ? get_permalink($consent_page_id) : '';
-    $btn_text        = en_opt('contact_btn_text', __( 'Send', 'emerge-mono-portfolio' ));
-    $recaptcha_key   = en_opt('recaptcha_site_key', '');
-    $success_msg     = en_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono-portfolio' ));
+    $btn_text        = emono_opt('contact_btn_text', __( 'Send', 'emerge-mono-portfolio' ));
+    $recaptcha_key   = emono_opt('recaptcha_site_key', '');
+    $success_msg     = emono_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono-portfolio' ));
 
     ob_start(); ?>
     <div class="en-estimate" id="en-estimate">
@@ -120,7 +120,7 @@ function en_shortcode_estimate( $atts ) {
             </div>
             <form class="en-est-contact-form" id="en-est-contact-form">
                 <input type="hidden" name="action" value="en_send_contact">
-                <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('en_nonce'); ?>">
+                <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce('en_nonce') ); ?>">
                 <input type="hidden" name="en_field_estimate_summary" id="en-est-hidden-summary">
                 <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
                     <input type="text" name="en_hp_field" tabindex="-1" autocomplete="off">
@@ -136,18 +136,18 @@ function en_shortcode_estimate( $atts ) {
                     $req_mark = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono-portfolio' ) . '</span>';
                 ?>
                 <div class="en-est-form-field">
-                    <label class="en-est-form-label"><?php echo esc_html($label); ?> <?php echo $req_mark; ?></label>
+                    <label class="en-est-form-label"><?php echo esc_html($label); ?> <?php echo esc_html( $req_mark ); ?></label>
                     <?php if ( $type === 'textarea' ) : ?>
-                        <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-textarea" placeholder="<?php echo esc_attr($pholder); ?>" <?php echo $req_attr; ?>></textarea>
+                        <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-textarea" placeholder="<?php echo esc_attr($pholder); ?>" <?php echo esc_attr( $req_attr ); ?>></textarea>
                     <?php elseif ( $type === 'select' ) : ?>
-                        <select name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-input" <?php echo $req_attr; ?>>
+                        <select name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-input" <?php echo esc_attr( $req_attr ); ?>>
                             <option value=""><?php esc_html_e( 'Please select', 'emerge-mono-portfolio' ); ?></option>
                             <?php foreach ( $options as $opt ) : ?>
                                 <option value="<?php echo esc_attr($opt); ?>"><?php echo esc_html($opt); ?></option>
                             <?php endforeach; ?>
                         </select>
                     <?php else : ?>
-                        <input type="<?php echo esc_attr($type); ?>" name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-input" placeholder="<?php echo esc_attr($pholder); ?>" <?php echo $req_attr; ?>>
+                        <input type="<?php echo esc_attr($type); ?>" name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-input" placeholder="<?php echo esc_attr($pholder); ?>" <?php echo esc_attr( $req_attr ); ?>>
                     <?php endif; ?>
                 </div>
                 <?php endforeach; ?>

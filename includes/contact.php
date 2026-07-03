@@ -2,8 +2,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ── 送信ログ用テーブル作成 ──
-register_activation_hook( EN_PATH . 'emerge-mono-portfolio.php', 'en_create_contact_log_table' );
-function en_create_contact_log_table() {
+register_activation_hook( EMONO_PATH . 'emerge-mono-portfolio.php', 'emono_create_contact_log_table' );
+function emono_create_contact_log_table() {
     global $wpdb;
     $table = $wpdb->prefix . 'en_contact_log';
     $charset = $wpdb->get_charset_collate();
@@ -23,18 +23,18 @@ function en_create_contact_log_table() {
 add_action( 'plugins_loaded', function() {
     global $wpdb;
     $table = $wpdb->prefix . 'en_contact_log';
-    if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) !== $table ) {
-        en_create_contact_log_table();
+    if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) !== $table ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
+        emono_create_contact_log_table();
     }
 });
 
 // ── Ajax送信処理 ──
-add_action( 'wp_ajax_en_send_contact',        'en_handle_contact' );
-add_action( 'wp_ajax_nopriv_en_send_contact', 'en_handle_contact' );
+add_action( 'wp_ajax_en_send_contact',        'emono_handle_contact' );
+add_action( 'wp_ajax_nopriv_en_send_contact', 'emono_handle_contact' );
 
-function en_handle_contact() {
+function emono_handle_contact() {
     // nonce検証
-    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( $_POST['nonce'], 'en_nonce' ) ) {
+    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'en_nonce' ) ) {
         wp_send_json_error( array( 'message' => __( 'Invalid request.', 'emerge-mono-portfolio' ) ) );
     }
 
@@ -44,7 +44,7 @@ function en_handle_contact() {
     }
 
     // レート制限（同一IPから1時間に5回まで）
-    $ip = en_get_client_ip();
+    $ip = emono_get_client_ip();
     $rate_key = 'en_rate_' . md5( $ip );
     $count = (int) get_transient( $rate_key );
     if ( $count >= 5 ) {
@@ -53,12 +53,12 @@ function en_handle_contact() {
     set_transient( $rate_key, $count + 1, HOUR_IN_SECONDS );
 
     // reCAPTCHA v3検証
-    $recaptcha_secret = en_opt('recaptcha_secret', '');
+    $recaptcha_secret = emono_opt('recaptcha_secret', '');
     if ( $recaptcha_secret && isset($_POST['recaptcha_token']) ) {
         $verify = wp_remote_post('https://www.google.com/recaptcha/api/siteverify', array(
             'body' => array(
                 'secret'   => $recaptcha_secret,
-                'response' => sanitize_text_field( $_POST['recaptcha_token'] ),
+                'response' => sanitize_text_field( wp_unslash( $_POST['recaptcha_token'] ?? '' ) ),
                 'remoteip' => $ip,
             )
         ));
@@ -71,7 +71,7 @@ function en_handle_contact() {
     }
 
     // フィールドのバリデーション・サニタイズ
-    $form_fields = get_option( 'en_contact_fields', en_default_contact_fields() );
+    $form_fields = get_option( 'en_contact_fields', emono_default_contact_fields() );
     $data = array();
     $name_val  = '';
     $email_val = '';
@@ -81,23 +81,26 @@ function en_handle_contact() {
         $label    = sanitize_text_field( $field['label'] );
         $type     = $field['type'];
         $required = ! empty( $field['required'] );
-        $val      = isset($_POST['en_field_' . $key]) ? $_POST['en_field_' . $key] : '';
+        $val      = isset($_POST['en_field_' . $key]) ? sanitize_textarea_field( wp_unslash( $_POST['en_field_' . $key] ) ) : '';
 
         if ( $type === 'email' ) {
             $val = sanitize_email( $val );
             if ( $required && ! is_email($val) ) {
+                /* translators: %s: the field label */
                 wp_send_json_error( array( 'message' => sprintf( __( 'Please enter a valid %s.', 'emerge-mono-portfolio' ), $label ) ) );
             }
             $email_val = $val;
         } elseif ( $type === 'checkbox' ) {
             $val = is_array($val) ? array_map('sanitize_text_field', $val) : array();
             if ( $required && empty($val) ) {
+                /* translators: %s: the field label */
                 wp_send_json_error( array( 'message' => sprintf( __( 'Please select %s.', 'emerge-mono-portfolio' ), $label ) ) );
             }
             $val = implode(', ', $val);
         } else {
             $val = sanitize_textarea_field( $val );
             if ( $required && empty($val) ) {
+                /* translators: %s: the field label */
                 wp_send_json_error( array( 'message' => sprintf( __( 'Please enter %s.', 'emerge-mono-portfolio' ), $label ) ) );
             }
         }
@@ -111,10 +114,11 @@ function en_handle_contact() {
     }
 
     // 管理者へのメール送信
-    $to      = en_opt('contact_email', get_option('admin_email'));
-    $subject = en_opt('contact_mail_subject', sprintf( __( '[Inquiry] %s', 'emerge-mono-portfolio' ), get_bloginfo('name') ));
-    $estimate_summary = isset($_POST['en_field_estimate_summary']) ? sanitize_textarea_field( $_POST['en_field_estimate_summary'] ) : '';
-    $body    = en_opt('contact_mail_body', __( "You have received a new inquiry:\n\n", 'emerge-mono-portfolio' ));
+    $to      = emono_opt('contact_email', get_option('admin_email'));
+    /* translators: %s: the site name */
+    $subject = emono_opt('contact_mail_subject', sprintf( __( '[Inquiry] %s', 'emerge-mono-portfolio' ), get_bloginfo('name') ));
+    $estimate_summary = isset($_POST['en_field_estimate_summary']) ? sanitize_textarea_field( wp_unslash( $_POST['en_field_estimate_summary'] ) ) : '';
+    $body    = emono_opt('contact_mail_body', __( "You have received a new inquiry:\n\n", 'emerge-mono-portfolio' ));
     if ( $estimate_summary ) {
         $body .= __( "■ Estimate Details\n", 'emerge-mono-portfolio' ) . $estimate_summary . "\n\n";
     }
@@ -130,16 +134,17 @@ function en_handle_contact() {
     wp_mail( $to, $subject, $body, $headers );
 
     // 自動返信メール
-    $auto_reply = en_opt('contact_auto_reply', '1');
+    $auto_reply = emono_opt('contact_auto_reply', '1');
     if ( $auto_reply === '1' ) {
-        $reply_subject = en_opt('contact_reply_subject', sprintf( __( 'We received your inquiry | %s', 'emerge-mono-portfolio' ), get_bloginfo('name') ));
-        $reply_body    = en_opt('contact_reply_body', __( "Thank you for your inquiry.\nWe will review your message and get back to you shortly.\n\n", 'emerge-mono-portfolio' ) . get_bloginfo('name'));
+        /* translators: %s: the site name */
+        $reply_subject = emono_opt('contact_reply_subject', sprintf( __( 'We received your inquiry | %s', 'emerge-mono-portfolio' ), get_bloginfo('name') ));
+        $reply_body    = emono_opt('contact_reply_body', __( "Thank you for your inquiry.\nWe will review your message and get back to you shortly.\n\n", 'emerge-mono-portfolio' ) . get_bloginfo('name'));
         wp_mail( $email_val, $reply_subject, $reply_body );
     }
 
     // 送信ログ保存
     global $wpdb;
-    $wpdb->insert(
+    $wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
         $wpdb->prefix . 'en_contact_log',
         array(
             'name'       => $name_val,
@@ -151,15 +156,15 @@ function en_handle_contact() {
         )
     );
 
-    wp_send_json_success( array( 'message' => en_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono-portfolio' )) ) );
+    wp_send_json_success( array( 'message' => emono_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono-portfolio' )) ) );
 }
 
 // ── IPアドレス取得 ──
-function en_get_client_ip() {
+function emono_get_client_ip() {
     $keys = array( 'HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR' );
     foreach ( $keys as $key ) {
         if ( ! empty( $_SERVER[ $key ] ) ) {
-            $ip = trim( explode(',', $_SERVER[$key])[0] );
+            $ip = trim( explode(',', sanitize_text_field( wp_unslash( $_SERVER[$key] ) ))[0] );
             if ( filter_var($ip, FILTER_VALIDATE_IP) ) return $ip;
         }
     }
@@ -167,7 +172,7 @@ function en_get_client_ip() {
 }
 
 // ── デフォルトフィールド ──
-function en_default_contact_fields() {
+function emono_default_contact_fields() {
     return array(
         array( 'key' => 'name',    'label' => __( 'Name', 'emerge-mono-portfolio' ),            'type' => 'text',     'required' => true,  'placeholder' => __( 'e.g. John Smith', 'emerge-mono-portfolio' ) ),
         array( 'key' => 'email',   'label' => __( 'Email', 'emerge-mono-portfolio' ),           'type' => 'email',    'required' => true,  'placeholder' => 'example@email.com' ),
@@ -176,13 +181,22 @@ function en_default_contact_fields() {
 }
 
 // ── reCAPTCHA v3のスクリプト出力 ──
-add_action( 'wp_footer', 'en_recaptcha_script' );
-function en_recaptcha_script() {
-    $site_key = en_opt('recaptcha_site_key', '');
+add_action( 'wp_enqueue_scripts', 'emono_recaptcha_script' );
+function emono_recaptcha_script() {
+    $site_key = emono_opt('recaptcha_site_key', '');
     if ( ! $site_key ) return;
-    ?>
-    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo esc_attr($site_key); ?>"></script>
-    <script>
+
+    // GoogleのreCAPTCHA APIを正式にenqueue
+    wp_enqueue_script(
+        'en-recaptcha-api',
+        'https://www.google.com/recaptcha/api.js?render=' . rawurlencode( $site_key ),
+        array(),
+        null, // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- External Google reCAPTCHA URL is versionless by design.
+        true
+    );
+
+    // フォーム送信時のトークン取得処理をインラインで紐付け
+    $inline = "
     document.addEventListener('DOMContentLoaded', function(){
         var form = document.getElementById('en-contact-form');
         if ( ! form ) return;
@@ -191,7 +205,7 @@ function en_recaptcha_script() {
             var btn = form.querySelector('.en-form-submit');
             btn.disabled = true;
             grecaptcha.ready(function(){
-                grecaptcha.execute('<?php echo esc_js($site_key); ?>', {action:'contact'}).then(function(token){
+                grecaptcha.execute(" . wp_json_encode( $site_key ) . ", {action:'contact'}).then(function(token){
                     var input = document.createElement('input');
                     input.type = 'hidden';
                     input.name = 'recaptcha_token';
@@ -202,6 +216,6 @@ function en_recaptcha_script() {
             });
         });
     });
-    </script>
-    <?php
+    ";
+    wp_add_inline_script( 'en-recaptcha-api', $inline );
 }

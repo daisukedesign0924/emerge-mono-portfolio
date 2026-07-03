@@ -4,7 +4,7 @@ Tags: portfolio, shortcode, contact form, dark mode, creator
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.21.0
+Stable tag: 2.23.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,18 @@ Yes. It includes a honeypot field and rate limiting by default, with optional re
 4. Admin settings screen.
 
 == Changelog ==
+
+= 2.23.0 =
+* Plugin Check hardening (part 2): added wp_unslash()/sanitization to all form input, switched to wp_safe_redirect(), and documented intentional direct DB / read-only query usage. Remaining notices are template-scope variable warnings only.
+
+= 2.22.0 =
+* Renamed all global function names and constants to use the unique "emono_" / "EMONO_" prefix, resolving Plugin Check naming warnings and reducing the risk of conflicts with other plugins. Database option names, custom post types, and CSS classes are unchanged, so existing data and styling are preserved.
+
+= 2.21.2 =
+* Plugin Check: resolved the remaining 8 errors (translators comments placed inside PHP tags, CSS output escaping).
+
+= 2.21.1 =
+* Plugin Check pass (part 1): fixed all output-escaping errors, added translators comments for placeholders, switched date() to timezone-safe functions, and enqueued Google Fonts / reCAPTCHA via the proper WordPress APIs.
 
 = 2.21.0 =
 * Security: added nonce verification (CSRF protection) to the contact log read/delete actions.

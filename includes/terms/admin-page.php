@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function en_admin_tab_terms( $opts ) {
-    en_admin_notice();
+function emono_admin_tab_terms( $opts ) {
+    emono_admin_notice();
     $lang            = isset( $opts['terms_lang'] )            ? $opts['terms_lang']            : 'ja';
     $owner           = isset( $opts['legal_owner'] )           ? $opts['legal_owner']           : '';
     $site            = isset( $opts['legal_site'] )            ? $opts['legal_site']            : get_bloginfo('name');
@@ -11,7 +11,7 @@ function en_admin_tab_terms( $opts ) {
     $custom          = isset( $opts['terms_custom'] )          ? $opts['terms_custom']          : '';
     ?>
     <form method="post" action="">
-        <?php wp_nonce_field( 'en_save_terms', 'en_nonce' ); ?>
+        <?php wp_nonce_field( 'emono_save_terms', 'en_nonce' ); ?>
         <input type="hidden" name="en_terms_save" value="1">
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
@@ -75,7 +75,7 @@ function en_admin_tab_terms( $opts ) {
             <div style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;">Preview</div>
             <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:10px;"><code>[emerge_mono_terms]</code> Changes are reflected in real time.</div>
             <div id="en-terms-preview" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);padding:20px;line-height:1.9;font-size:12px;max-height:80vh;overflow-y:auto;">
-                <?php echo en_terms_generate_html( $lang, $owner, $site, $email, $use_disclaimer, $custom ); ?>
+                <?php echo wp_kses_post( emono_terms_generate_html( $lang, $owner, $site, $email, $use_disclaimer, $custom ) ); ?>
             </div>
         </div>
         </div>
@@ -89,7 +89,7 @@ function en_admin_tab_terms( $opts ) {
         function updatePreview() {
             var data = new FormData();
             data.append('action', 'en_preview_terms');
-            data.append('nonce', '<?php echo wp_create_nonce("en_preview_terms"); ?>');
+            data.append('nonce', '<?php echo esc_attr( wp_create_nonce("en_preview_terms") ); ?>');
             fields.forEach(function(name) {
                 var els = document.querySelectorAll('[name="' + name + '"]');
                 els.forEach(function(el) {
@@ -121,7 +121,7 @@ function en_admin_tab_terms( $opts ) {
     <?php
 }
 
-function en_terms_generate_html( $lang, $owner, $site, $email, $use_disclaimer = '1', $custom = '' ) {
+function emono_terms_generate_html( $lang, $owner, $site, $email, $use_disclaimer = '1', $custom = '' ) {
     $owner = $owner ? esc_html($owner) : '（運営者名）';
     $site  = $site  ? esc_html($site)  : '（サイト名）';
     $email = $email ? esc_html($email) : '（メールアドレス）';
@@ -165,7 +165,7 @@ function en_terms_generate_html( $lang, $owner, $site, $email, $use_disclaimer =
     $html  = '<div class="en-privacy-header">';
     $html .= '<div class="en-privacy-label">Terms of Service</div>';
     $html .= '<div class="en-privacy-title">' . ( $lang === 'en' ? 'Terms of Service' : '利用規約' ) . '</div>';
-    $html .= '<div class="en-privacy-date">' . ( $lang === 'en' ? 'Last updated: '.date('F j, Y') : '制定日：'.date('Y年m月j日') ) . '</div>';
+    $html .= '<div class="en-privacy-date">' . ( $lang === 'en' ? 'Last updated: '.date_i18n('F j, Y') : '制定日：'.date_i18n('Y年m月j日') ) . '</div>';
     $html .= '</div>';
     $html .= '<div class="en-privacy-intro">' . $intro . '</div>';
     $html .= '<div class="en-privacy-body">';

@@ -1,6 +1,10 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// This is a template file loaded via template_include; top-level variables are
+// template-scoped by WordPress convention (same as a theme's single.php).
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+
 get_header();
 
 while ( have_posts() ) : the_post();
@@ -79,7 +83,7 @@ while ( have_posts() ) : the_post();
 
                 <?php if ( $slide_count > 1 ) : ?>
                 <div class="en-slider-ui">
-                    <div class="en-slider-counter"><b id="en-slider-cur">01</b> / <span id="en-slider-tot"><?php echo str_pad($slide_count, 2, '0', STR_PAD_LEFT); ?></span></div>
+                    <div class="en-slider-counter"><b id="en-slider-cur">01</b> / <span id="en-slider-tot"><?php echo esc_html( str_pad( (string) $slide_count, 2, '0', STR_PAD_LEFT ) ); ?></span></div>
                     <div class="en-slider-bar"><i id="en-slider-fill"></i></div>
                     <div class="en-slider-arrows">
                         <button id="en-slider-prev2" aria-label="Previous">&#8592;</button>
@@ -104,7 +108,7 @@ while ( have_posts() ) : the_post();
 
                     <?php if ( $content ) : ?>
                     <div class="en-single-body">
-                        <?php echo wp_kses_post( apply_filters( 'the_content', $content ) ); ?>
+                        <?php echo wp_kses_post( apply_filters( 'the_content', $content ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- 'the_content' is a WordPress core filter. ?>
                     </div>
                     <?php endif; ?>
                 </div>

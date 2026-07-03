@@ -1,13 +1,13 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'add_meta_boxes', 'en_add_work_meta_boxes' );
-function en_add_work_meta_boxes() {
-    add_meta_box( 'en_work_meta', __( 'Work Details', 'emerge-mono-portfolio' ), 'en_work_meta_box_html', 'en_work', 'normal', 'high' );
+add_action( 'add_meta_boxes', 'emono_add_work_meta_boxes' );
+function emono_add_work_meta_boxes() {
+    add_meta_box( 'en_work_meta', __( 'Work Details', 'emerge-mono-portfolio' ), 'emono_work_meta_box_html', 'en_work', 'normal', 'high' );
 
 }
 
-function en_work_meta_box_html( $post ) {
+function emono_work_meta_box_html( $post ) {
     wp_nonce_field( 'en_work_meta_save', 'en_work_meta_nonce' );
     $video   = get_post_meta( $post->ID, 'en_video_url', true );
     $ext_url = get_post_meta( $post->ID, 'en_external_url', true );
@@ -36,17 +36,17 @@ function en_work_meta_box_html( $post ) {
     <?php
 }
 
-add_action( 'save_post_en_work', 'en_save_work_meta' );
-function en_save_work_meta( $post_id ) {
+add_action( 'save_post_en_work', 'emono_save_work_meta' );
+function emono_save_work_meta( $post_id ) {
     if ( ! isset( $_POST['en_work_meta_nonce'] ) ) return;
-    if ( ! wp_verify_nonce( $_POST['en_work_meta_nonce'], 'en_work_meta_save' ) ) return;
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['en_work_meta_nonce'] ?? '' ) ), 'en_work_meta_save' ) ) return;
     if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) return;
     if ( ! current_user_can( 'edit_post', $post_id ) ) return;
 
     $fields = array( 'en_video_url', 'en_external_url', 'en_period', 'en_role', 'en_tools', 'en_status' );
     foreach ( $fields as $f ) {
         if ( isset( $_POST[ $f ] ) ) {
-            update_post_meta( $post_id, $f, sanitize_text_field( $_POST[ $f ] ) );
+            update_post_meta( $post_id, $f, sanitize_text_field( wp_unslash( $_POST[ $f ] ) ) );
         }
     }
 

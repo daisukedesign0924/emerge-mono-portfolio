@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function en_admin_page() {
-    $tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'general';
+function emono_admin_page() {
+    $tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     $tabs = array(
         'general'  => array( 'label' => __( 'Site Settings', 'emerge-mono-portfolio' ),              'icon' => '⚙' ),
         'profile'  => array( 'label' => __( 'Profile', 'emerge-mono-portfolio' ),                'icon' => '👤' ),
@@ -16,19 +16,19 @@ function en_admin_page() {
         'editor'   => array( 'label' => __( 'Editor', 'emerge-mono-portfolio' ),                            'icon' => '✏️' ),
         'shortcodes' => array( 'label' => __( 'Shortcodes', 'emerge-mono-portfolio' ),        'icon' => '📋' ),
     );
-    $opts = en_get_options();
+    $opts = emono_get_options();
     ?>
     <div class="en-admin-wrap">
         <div class="en-admin-header">
             <div class="en-admin-logo">
-                <span class="en-admin-logo-mark"><img src="<?php echo esc_url( EN_URL . 'assets/img/plugin-icon.webp' ); ?>" alt="Emerge Mono" width="36" height="36"></span>
+                <span class="en-admin-logo-mark"><img src="<?php echo esc_url( EMONO_URL . 'assets/img/plugin-icon.webp' ); ?>" alt="Emerge Mono" width="36" height="36"></span>
                 <div>
                     <div class="en-admin-title">Emerge Mono</div>
-                    <div class="en-admin-version">v<?php echo EN_VERSION; ?></div>
+                    <div class="en-admin-version">v<?php echo esc_html( EMONO_VERSION ); ?></div>
                 </div>
             </div>
             <?php
-            $en_theme_url = defined( 'EN_THEME_URL' ) ? EN_THEME_URL : '#';
+            $en_theme_url = defined( 'EMONO_THEME_URL' ) ? EMONO_THEME_URL : '#';
             $en_theme_disabled = ( $en_theme_url === '' || $en_theme_url === '#' );
             ?>
             <a class="en-admin-theme-btn<?php echo $en_theme_disabled ? ' is-disabled' : ''; ?>"
@@ -42,9 +42,9 @@ function en_admin_page() {
         <div class="en-admin-body">
             <nav class="en-admin-sidebar">
                 <?php foreach ( $tabs as $key => $info ) : ?>
-                    <a href="?page=emerge-mono-portfolio&tab=<?php echo $key; ?>"
+                    <a href="?page=emerge-mono-portfolio&tab=<?php echo esc_attr( $key ); ?>"
                        class="en-admin-nav-item <?php echo $tab === $key ? 'active' : ''; ?>">
-                        <span class="en-admin-nav-icon"><?php echo $info['icon']; ?></span>
+                        <span class="en-admin-nav-icon"><?php echo esc_html( $info['icon'] ); ?></span>
                         <?php echo esc_html($info['label']); ?>
                     </a>
                 <?php endforeach; ?>
@@ -52,17 +52,17 @@ function en_admin_page() {
             <div class="en-admin-content">
                 <?php
                 switch ( $tab ) {
-                    case 'shortcodes': en_admin_tab_shortcodes(); break;
-                    case 'general':  en_admin_tab_general($opts);  break;
-                    case 'profile':  en_admin_tab_profile($opts);  break;
-                    case 'nav':      en_admin_tab_nav($opts);      break;
-                    case 'contact':  en_admin_tab_contact($opts);  break;
-                    case 'design':   en_admin_tab_design($opts);  break;
-                    case 'cpt':      en_admin_tab_cpt($opts);      break;
-                    case 'privacy':  en_admin_tab_privacy($opts);  break;
-                    case 'terms':    en_admin_tab_terms($opts);    break;
-                    case 'estimate': en_admin_tab_estimate($opts); break;
-                    case 'editor':   en_admin_tab_editor($opts);   break;
+                    case 'shortcodes': emono_admin_tab_shortcodes(); break;
+                    case 'general':  emono_admin_tab_general($opts);  break;
+                    case 'profile':  emono_admin_tab_profile($opts);  break;
+                    case 'nav':      emono_admin_tab_nav($opts);      break;
+                    case 'contact':  emono_admin_tab_contact($opts);  break;
+                    case 'design':   emono_admin_tab_design($opts);  break;
+                    case 'cpt':      emono_admin_tab_cpt($opts);      break;
+                    case 'privacy':  emono_admin_tab_privacy($opts);  break;
+                    case 'terms':    emono_admin_tab_terms($opts);    break;
+                    case 'estimate': emono_admin_tab_estimate($opts); break;
+                    case 'editor':   emono_admin_tab_editor($opts);   break;
                 }
                 ?>
             </div>
@@ -71,8 +71,8 @@ function en_admin_page() {
     <?php
 }
 
-function en_admin_tab_general($opts) {
-    en_admin_notice();
+function emono_admin_tab_general($opts) {
+    emono_admin_notice();
     $pages = get_pages( array( 'sort_column' => 'menu_order' ) );
     $btn1_label = isset($opts['top_btn1_label']) ? $opts['top_btn1_label'] : 'Profile';
     $btn1_url   = isset($opts['top_btn1_url'])   ? $opts['top_btn1_url']   : '';
@@ -238,8 +238,8 @@ function en_admin_tab_general($opts) {
     <?php
 }
 
-function en_admin_tab_profile($opts) {
-    en_admin_notice();
+function emono_admin_tab_profile($opts) {
+    emono_admin_notice();
     ?>
     <form method="post" action="">
         <?php wp_nonce_field('en_save_profile','en_nonce'); ?>
@@ -348,8 +348,8 @@ function en_admin_tab_profile($opts) {
     <?php
 }
 
-function en_admin_tab_sns_DEPRECATED($opts) {
-    en_admin_notice();
+function emono_admin_tab_sns_DEPRECATED($opts) {
+    emono_admin_notice();
     $sns = isset($opts['sns_links']) ? $opts['sns_links'] : array();
     ?>
     <form method="post" action="">
@@ -375,8 +375,8 @@ function en_admin_tab_sns_DEPRECATED($opts) {
     <?php
 }
 
-function en_admin_tab_nav($opts) {
-    en_admin_notice();
+function emono_admin_tab_nav($opts) {
+    emono_admin_notice();
     $nav     = isset($opts['nav_items'])  ? $opts['nav_items']  : array();
     $nav_mode = isset($opts['nav_mode'])  ? $opts['nav_mode']   : 'auto';
     $footer_nav = isset($opts['footer_nav_items']) ? $opts['footer_nav_items'] : array();
@@ -594,9 +594,9 @@ function en_admin_tab_nav($opts) {
     <?php
 }
 
-function en_admin_tab_contact($opts) {
-    en_admin_notice();
-    $fields = get_option('en_contact_fields', en_default_contact_fields());
+function emono_admin_tab_contact($opts) {
+    emono_admin_notice();
+    $fields = get_option('en_contact_fields', emono_default_contact_fields());
     $field_types = array(
         'text'     => __( 'Text (single line)', 'emerge-mono-portfolio' ),
         'email'    => __( 'Email', 'emerge-mono-portfolio' ),
@@ -610,21 +610,21 @@ function en_admin_tab_contact($opts) {
     global $wpdb;
     $table = $wpdb->prefix . 'en_contact_log';
     $logs = array();
-    if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) === $table ) {
+    if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) ) === $table ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
         // $table is an internal, plugin-generated name ($wpdb->prefix . 'en_contact_log'); no user input.
-        $logs = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY created_at DESC LIMIT 30" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $logs = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY created_at DESC LIMIT 30" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Internal table name; no user input.
         // 既読処理
         if ( isset($_GET['mark_read']) && isset($_GET['_ennonce'])
-            && wp_verify_nonce( sanitize_text_field( wp_unslash($_GET['_ennonce']) ), 'en_log_action' ) ) {
-            $wpdb->update($table, array('status'=>'read'), array('id'=>(int)$_GET['mark_read']));
+            && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_ennonce'] ?? '' ) ), 'en_log_action' ) ) {
+            $wpdb->update($table, array('status'=>'read'), array('id'=>(int)$_GET['mark_read'])); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
         }
         if ( isset($_GET['delete_log']) && isset($_GET['_ennonce'])
-            && wp_verify_nonce( sanitize_text_field( wp_unslash($_GET['_ennonce']) ), 'en_log_action' ) ) {
-            $wpdb->delete($table, array('id'=>(int)$_GET['delete_log']));
+            && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_ennonce'] ?? '' ) ), 'en_log_action' ) ) {
+            $wpdb->delete($table, array('id'=>(int)$_GET['delete_log'])); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
         }
     }
     // $table is an internal, plugin-generated name; no user input.
-    $unread = ( $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='unread'" ) ? (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='unread'" ) : 0 ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+    $unread = ( $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='unread'" ) ? (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table} WHERE status='unread'" ) : 0 ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Internal table name; no user input.
     ?>
     <form method="post" action="">
         <?php wp_nonce_field('en_save_contact','en_nonce'); ?>
@@ -670,7 +670,7 @@ function en_admin_tab_contact($opts) {
                             <div class="en-field-label" style="margin-bottom:4px"><?php esc_html_e( 'Field Type', 'emerge-mono-portfolio' ); ?></div>
                             <select name="cf_type[]" class="en-field-input en-field-select" onchange="enToggleOptions(this)">
                                 <?php foreach ( $field_types as $ft => $fl ) : ?>
-                                    <option value="<?php echo $ft; ?>" <?php selected($type,$ft); ?>><?php echo $fl; ?></option>
+                                    <option value="<?php echo esc_attr( $ft ); ?>" <?php selected($type,$ft); ?>><?php echo esc_html( $fl ); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -901,8 +901,8 @@ We will review your message and get back to you shortly.", 'emerge-mono-portfoli
     <?php
 }
 
-function en_admin_tab_cpt($opts) {
-    en_admin_notice();
+function emono_admin_tab_cpt($opts) {
+    emono_admin_notice();
 
     $work_label    = isset($opts['work_label'])    ? $opts['work_label']    : 'Works';
     $work_singular = isset($opts['work_singular']) ? $opts['work_singular'] : 'Work';
@@ -969,14 +969,14 @@ function en_admin_tab_cpt($opts) {
     <?php
 }
 
-function en_admin_notice() {
-    if ( isset($_GET['saved']) && $_GET['saved'] === '1' ) {
+function emono_admin_notice() {
+    if ( isset($_GET['saved']) && $_GET['saved'] === '1' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
         echo '<div class="en-admin-notice success">✓ ' . esc_html__( 'Saved.', 'emerge-mono-portfolio' ) . '</div>';
     }
 }
 
-function en_admin_tab_design($opts) {
-    en_admin_notice();
+function emono_admin_tab_design($opts) {
+    emono_admin_notice();
     $bg     = isset($opts['design_bg'])    ? $opts['design_bg']    : '#000000';
     $text   = isset($opts['design_text'])  ? $opts['design_text']  : '#ffffff';
     $accent = isset($opts['design_accent'])? $opts['design_accent']: '#ffffff';
@@ -1001,7 +1001,7 @@ function en_admin_tab_design($opts) {
     );
 
     // カスタムフォント（アップロード済み・複数）を選択肢に追加
-    $custom_fonts_list = function_exists('en_get_custom_fonts') ? en_get_custom_fonts() : array();
+    $custom_fonts_list = function_exists('emono_get_custom_fonts') ? emono_get_custom_fonts() : array();
     foreach ( $custom_fonts_list as $cf ) {
         if ( ! empty($cf['name']) && ! isset($fonts[ $cf['name'] ]) ) {
             $fonts[ $cf['name'] ] = $cf['name'] . ' (' . __( 'Custom', 'emerge-mono-portfolio' ) . ')';
@@ -1103,7 +1103,7 @@ function en_admin_tab_design($opts) {
                     <?php esc_html_e( 'Upload your own font file (.woff2 / .woff / .ttf / .otf). It is added immediately and appears in the font list above.', 'emerge-mono-portfolio' ); ?>
                 </div>
                 <?php
-                $custom_fonts = function_exists('en_get_custom_fonts') ? en_get_custom_fonts() : array();
+                $custom_fonts = function_exists('emono_get_custom_fonts') ? emono_get_custom_fonts() : array();
                 // 一覧プレビュー用に@font-faceを管理画面にも読み込む
                 if ( $custom_fonts ) {
                     echo '<style>';
@@ -1260,7 +1260,7 @@ function en_admin_tab_design($opts) {
         </div>
         <div class="en-admin-section">
             <div class="en-admin-section-title"><?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?></div>
-            <div id="en-design-preview" style="background:<?php echo esc_attr($bg); ?>;color:<?php echo esc_attr($text); ?>;padding:24px;border-radius:8px;font-family:<?php echo esc_attr( en_font_stack($font) ); ?>;border:1px solid rgba(255,255,255,.08)">
+            <div id="en-design-preview" style="background:<?php echo esc_attr($bg); ?>;color:<?php echo esc_attr($text); ?>;padding:24px;border-radius:8px;font-family:<?php echo esc_attr( emono_font_stack($font) ); ?>;border:1px solid rgba(255,255,255,.08)">
                 <div style="font-size:20px;font-weight:700;letter-spacing:.1em;margin-bottom:8px">DAISUKE DESIGN</div>
                 <div style="font-size:11px;letter-spacing:.4em;opacity:.5;margin-bottom:16px">WEB CREATOR</div>
                 <div style="display:inline-block;border:1px solid <?php echo esc_attr($accent); ?>;color:<?php echo esc_attr($accent); ?>;font-size:10px;letter-spacing:.3em;padding:8px 20px;opacity:.7">WORKS</div>
@@ -1271,7 +1271,7 @@ function en_admin_tab_design($opts) {
     <?php
 }
 
-function en_admin_tab_shortcodes() {
+function emono_admin_tab_shortcodes() {
     $shortcodes = array(
         array(
             'code'  => '[emerge_mono_top]',
@@ -1381,8 +1381,8 @@ function en_admin_tab_shortcodes() {
     <?php
 }
 
-function en_admin_tab_editor($opts) {
-    en_admin_notice();
+function emono_admin_tab_editor($opts) {
+    emono_admin_notice();
     $enabled = isset($opts['editor_enabled']) ? $opts['editor_enabled'] : '1';
     $show_posts = isset($opts['show_default_posts']) ? $opts['show_default_posts'] : '0';
     ?>

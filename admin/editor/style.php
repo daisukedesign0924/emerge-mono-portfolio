@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'admin_enqueue_scripts', 'ene_admin_enqueue' );
-function ene_admin_enqueue( $hook ) {
+add_action( 'admin_enqueue_scripts', 'emono_ed_admin_enqueue' );
+function emono_ed_admin_enqueue( $hook ) {
     $ene_pages = array(
         'toplevel_page_ene-post',
         'toplevel_page_ene-works',
@@ -16,7 +16,9 @@ function ene_admin_enqueue( $hook ) {
     wp_enqueue_media();
 
     // JS変数をwp_localize_scriptで安全に渡す
-    wp_register_script( 'ene-admin', false );
+    // src=false のダミー登録。localize の ENE 定義を admin_footer の本体JSより先に出すため、
+    // in_footer は false（ヘッダー出力）にする。順序を変えると "ENE is not defined" になる。
+    wp_register_script( 'ene-admin', false, array(), EMONO_VERSION, false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter
     wp_enqueue_script( 'ene-admin' );
     wp_localize_script( 'ene-admin', 'ENE', array(
         'ajax_url'     => admin_url( 'admin-ajax.php' ),
@@ -46,11 +48,11 @@ function ene_admin_enqueue( $hook ) {
         ),
     ));
 
-    add_action( 'admin_head',   'ene_admin_style' );
-    add_action( 'admin_footer', 'ene_admin_script' );
+    add_action( 'admin_head',   'emono_ed_admin_style' );
+    add_action( 'admin_footer', 'emono_ed_admin_script' );
 }
 
-function ene_admin_style() { ?>
+function emono_ed_admin_style() { ?>
 <style>
 #wpcontent { background:#0d0d0d; }
 #wpbody-content { padding-bottom:0; }
@@ -162,7 +164,7 @@ function ene_admin_style() { ?>
 </style>
 <?php }
 
-function ene_admin_script() { ?>
+function emono_ed_admin_script() { ?>
 <script>
 (function() {
     // ENEオブジェクトが読み込まれているか確認

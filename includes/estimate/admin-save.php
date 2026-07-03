@@ -1,11 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'admin_init', 'en_save_estimate' );
-function en_save_estimate() {
+add_action( 'admin_init', 'emono_save_estimate' );
+function emono_save_estimate() {
     if (
         ! isset( $_POST['en_nonce'] ) ||
-        ! wp_verify_nonce( $_POST['en_nonce'], 'en_save_estimate' ) ||
+        ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['en_nonce'] ?? '' ) ), 'emono_save_estimate' ) ||
         ! current_user_can( 'manage_options' )
     ) return;
 
@@ -13,9 +13,9 @@ function en_save_estimate() {
 
     // サービス一覧を保存
     $services = array();
-    $names    = $_POST['service_name']  ?? array();
-    $descs    = $_POST['service_desc']  ?? array();
-    $items_all = $_POST['service_items'] ?? array();
+    $names    = wp_unslash( $_POST['service_name'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+    $descs    = wp_unslash( $_POST['service_desc'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+    $items_all = wp_unslash( $_POST['service_items'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
 
     foreach ( $names as $i => $name ) {
         $name = sanitize_text_field($name);
@@ -60,8 +60,8 @@ function en_save_estimate() {
 
     // 依頼方法を保存
     $payment_methods = array();
-    $pm_names = $_POST['pm_name'] ?? array();
-    $pm_fees  = $_POST['pm_fee']  ?? array();
+    $pm_names = wp_unslash( $_POST['pm_name'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+    $pm_fees  = wp_unslash( $_POST['pm_fee'] ?? array() ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
     foreach ( $pm_names as $i => $pm_name ) {
         $pm_name = sanitize_text_field($pm_name);
         if ( ! $pm_name ) continue;
@@ -72,8 +72,8 @@ function en_save_estimate() {
     }
 
     // 全体設定
-    $note_text = sanitize_text_field( $_POST['estimate_note_text'] ?? __( '* The final amount will be provided after inquiry.', 'emerge-mono-portfolio' ) );
-    $btn_text  = sanitize_text_field( $_POST['estimate_btn_text']  ?? __( 'Send inquiry with these details', 'emerge-mono-portfolio' ) );
+    $note_text = sanitize_text_field( wp_unslash( $_POST['estimate_note_text'] ?? __( '* The final amount will be provided after inquiry.', 'emerge-mono-portfolio' ) ) );
+    $btn_text  = sanitize_text_field( wp_unslash( $_POST['estimate_btn_text'] ?? __( 'Send inquiry with these details', 'emerge-mono-portfolio' ) ) );
 
     update_option( 'en_estimate_services',       $services );
     update_option( 'en_estimate_payment_methods', $payment_methods );
@@ -82,6 +82,6 @@ function en_save_estimate() {
         'btn_text'  => $btn_text,
     ));
 
-    wp_redirect( admin_url('admin.php?page=emerge-mono-portfolio&tab=estimate&saved=1') );
+    wp_safe_redirect( admin_url('admin.php?page=emerge-mono-portfolio&tab=estimate&saved=1') );
     exit;
 }

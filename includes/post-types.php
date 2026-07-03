@@ -1,9 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'init', 'en_register_work_post_type' );
-function en_register_work_post_type() {
-    $opts     = en_get_options();
+add_action( 'init', 'emono_register_work_post_type' );
+function emono_register_work_post_type() {
+    $opts     = emono_get_options();
     $label    = isset($opts['work_label'])    ? $opts['work_label']    : 'Works';
     $singular = isset($opts['work_singular']) ? $opts['work_singular'] : 'Work';
     $cat_lbl  = isset($opts['cat_label'])     ? $opts['cat_label']     : __( 'Category', 'emerge-mono-portfolio' );
@@ -14,12 +14,19 @@ function en_register_work_post_type() {
             'name'               => $label,
             'singular_name'      => $singular,
             'add_new'            => __( 'Add New', 'emerge-mono-portfolio' ),
+            /* translators: %s: the post type or taxonomy label */
             'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'new_item'           => sprintf( __( 'New %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'view_item'          => sprintf( __( 'View %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'search_items'       => sprintf( __( 'Search %s', 'emerge-mono-portfolio' ), $label ),
+            /* translators: %s: the post type or taxonomy label */
             'not_found'          => sprintf( __( 'No %s found', 'emerge-mono-portfolio' ), $label ),
+            /* translators: %s: the post type or taxonomy label */
             'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono-portfolio' ), $label ),
         ),
         'public'       => true,
@@ -36,8 +43,11 @@ function en_register_work_post_type() {
         'labels' => array(
             'name'          => $cat_lbl,
             'singular_name' => $cat_lbl,
+            /* translators: %s: the post type or taxonomy label */
             'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            /* translators: %s: the post type or taxonomy label */
             'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            /* translators: %s: the post type or taxonomy label */
             'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono-portfolio' ), $cat_lbl ),
             'menu_name'     => $cat_lbl,
         ),
@@ -48,9 +58,9 @@ function en_register_work_post_type() {
 }
 
 // ── News（en_news）カスタム投稿タイプ。Worksと対称的な構造 ──
-add_action( 'init', 'en_register_news_post_type' );
-function en_register_news_post_type() {
-    $opts     = en_get_options();
+add_action( 'init', 'emono_register_news_post_type' );
+function emono_register_news_post_type() {
+    $opts     = emono_get_options();
     $label    = isset($opts['news_label'])    ? $opts['news_label']    : 'News';
     $singular = isset($opts['news_singular']) ? $opts['news_singular'] : 'Post';
     $cat_lbl  = isset($opts['news_cat_label'])? $opts['news_cat_label']: __( 'Category', 'emerge-mono-portfolio' );
@@ -61,12 +71,19 @@ function en_register_news_post_type() {
             'name'               => $label,
             'singular_name'      => $singular,
             'add_new'            => __( 'Add New', 'emerge-mono-portfolio' ),
+            /* translators: %s: the post type or taxonomy label */
             'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'new_item'           => sprintf( __( 'New %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'view_item'          => sprintf( __( 'View %s', 'emerge-mono-portfolio' ), $singular ),
+            /* translators: %s: the post type or taxonomy label */
             'search_items'       => sprintf( __( 'Search %s', 'emerge-mono-portfolio' ), $label ),
+            /* translators: %s: the post type or taxonomy label */
             'not_found'          => sprintf( __( 'No %s found', 'emerge-mono-portfolio' ), $label ),
+            /* translators: %s: the post type or taxonomy label */
             'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono-portfolio' ), $label ),
         ),
         'public'       => true,
@@ -83,8 +100,11 @@ function en_register_news_post_type() {
         'labels' => array(
             'name'          => $cat_lbl,
             'singular_name' => $cat_lbl,
+            /* translators: %s: the post type or taxonomy label */
             'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            /* translators: %s: the post type or taxonomy label */
             'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            /* translators: %s: the post type or taxonomy label */
             'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono-portfolio' ), $cat_lbl ),
             'menu_name'     => $cat_lbl,
         ),
@@ -119,8 +139,8 @@ add_action( 'rest_api_init', function() {
 // WordPressのredirect_canonicalは、CPT(/works/slug/ や /news/slug/)と通常post(/slug/)が
 // 同じslugを持つ場合、誤って通常post側へ301リダイレクトしてしまう。
 // CPTの単一ページ表示時はこの正規化リダイレクトを無効化する。
-add_filter( 'redirect_canonical', 'en_prevent_work_canonical_redirect', 10, 2 );
-function en_prevent_work_canonical_redirect( $redirect_url, $requested_url ) {
+add_filter( 'redirect_canonical', 'emono_prevent_work_canonical_redirect', 10, 2 );
+function emono_prevent_work_canonical_redirect( $redirect_url, $requested_url ) {
     if ( is_singular( 'en_work' ) || is_singular( 'en_news' ) ) {
         return false;
     }

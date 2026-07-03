@@ -2,9 +2,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ── 投稿するページ ──
-function ene_page_post() {
-    $type    = isset($_GET['type']) ? sanitize_key($_GET['type']) : 'works';
-    $edit_id = isset($_GET['edit']) ? (int)$_GET['edit'] : 0;
+function emono_ed_page_post() {
+    $type    = isset($_GET['type']) ? sanitize_key($_GET['type']) : 'works'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+    $edit_id = isset($_GET['edit']) ? (int)$_GET['edit'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
 
     // 編集時はデータ取得
     $edit_post = null;
@@ -25,7 +25,7 @@ function ene_page_post() {
         <div class="ene-header">
             <div class="ene-header-inner">
                 <div class="ene-header-title">
-                    <?php echo $edit_id ? __( 'Edit Post', 'emerge-mono-portfolio' ) : __( 'New Post', 'emerge-mono-portfolio' ); ?>
+                    <?php echo $edit_id ? esc_html__( 'Edit Post', 'emerge-mono-portfolio' ) : esc_html__( 'New Post', 'emerge-mono-portfolio' ); ?>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@ function ene_page_post() {
         <?php else : ?>
         <div class="ene-type-bar">
             <div class="ene-type-bar-label">
-                <?php echo $type === 'works' ? __( '📂 Editing Works', 'emerge-mono-portfolio' ) : __( '📰 Editing News', 'emerge-mono-portfolio' ); ?>
+                <?php echo $type === 'works' ? esc_html__( '📂 Editing Works', 'emerge-mono-portfolio' ) : esc_html__( '📰 Editing News', 'emerge-mono-portfolio' ); ?>
             </div>
         </div>
         <?php endif; ?>
@@ -260,7 +260,7 @@ function ene_page_post() {
                     <!-- 送信ボタン -->
                     <div class="ene-actions">
                         <button type="button" id="ene-submit" class="ene-submit-btn" onclick="eneSubmit()">
-                            <?php echo $edit_id ? __( 'Update', 'emerge-mono-portfolio' ) : __( 'Publish', 'emerge-mono-portfolio' ); ?>
+                            <?php echo $edit_id ? esc_html__( 'Update', 'emerge-mono-portfolio' ) : esc_html__( 'Publish', 'emerge-mono-portfolio' ); ?>
                         </button>
                         <?php if ($edit_id) : ?>
                             <a href="?page=ene-post" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono-portfolio' ); ?></a>
@@ -275,8 +275,8 @@ function ene_page_post() {
 }
 
 // ── Works一覧ページ ──
-function ene_page_works() {
-    $paged = isset($_GET['paged']) ? (int)$_GET['paged'] : 1;
+function emono_ed_page_works() {
+    $paged = isset($_GET['paged']) ? (int)$_GET['paged'] : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     $posts = get_posts( array(
         'post_type'      => 'en_work',
         'posts_per_page' => 20,
@@ -302,7 +302,7 @@ function ene_page_works() {
                     <?php foreach ( $work_cats as $cat ) : ?>
                     <span class="ene-cat-tag">
                         <?php echo esc_html($cat->name); ?>
-                        <button type="button" class="ene-cat-delete" onclick="eneDeleteCat(<?php echo $cat->term_id; ?>, 'en_work_category', this)" title="Delete">×</button>
+                        <button type="button" class="ene-cat-delete" onclick="eneDeleteCat(<?php echo (int) $cat->term_id; ?>, 'en_work_category', this)" title="Delete">×</button>
                     </span>
                     <?php endforeach; ?>
                     <?php if ( empty($work_cats) ) : ?>
@@ -347,16 +347,16 @@ function ene_page_works() {
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="?page=ene-post&type=works&edit=<?php echo $post->ID; ?>" class="ene-table-title">
+                            <a href="?page=ene-post&type=works&edit=<?php echo (int) $post->ID; ?>" class="ene-table-title">
                                 <?php echo esc_html($post->post_title ?: __( '(No title)', 'emerge-mono-portfolio' )); ?>
                             </a>
                         </td>
                         <td style="font-size:12px;color:rgba(255,255,255,.4)"><?php echo esc_html($cat); ?></td>
-                        <td><span class="ene-badge <?php echo $status_class; ?>"><?php echo $status_label; ?></span></td>
+                        <td><span class="ene-badge <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_label ); ?></span></td>
                         <td style="font-size:12px;color:rgba(255,255,255,.3)"><?php echo get_the_date('Y.m.d', $post->ID); ?></td>
                         <td>
-                            <a href="?page=ene-post&type=works&edit=<?php echo $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
-                            <button class="ene-table-btn ene-delete-btn" onclick="eneDelete(<?php echo $post->ID; ?>, this)">Delete</button>
+                            <a href="?page=ene-post&type=works&edit=<?php echo (int) $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
+                            <button class="ene-table-btn ene-delete-btn" onclick="eneDelete(<?php echo (int) $post->ID; ?>, this)">Delete</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -369,8 +369,8 @@ function ene_page_works() {
 }
 
 // ── お知らせ一覧ページ ──
-function ene_page_news() {
-    $paged = isset($_GET['paged']) ? (int)$_GET['paged'] : 1;
+function emono_ed_page_news() {
+    $paged = isset($_GET['paged']) ? (int)$_GET['paged'] : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     $posts = get_posts( array(
         'post_type'      => 'en_news',
         'posts_per_page' => 20,
@@ -396,7 +396,7 @@ function ene_page_news() {
                     <?php foreach ( $news_cats as $cat ) : ?>
                     <span class="ene-cat-tag">
                         <?php echo esc_html($cat->name); ?>
-                        <button type="button" class="ene-cat-delete" onclick="eneDeleteCat(<?php echo $cat->term_id; ?>, 'en_news_category', this)" title="Delete">×</button>
+                        <button type="button" class="ene-cat-delete" onclick="eneDeleteCat(<?php echo (int) $cat->term_id; ?>, 'en_news_category', this)" title="Delete">×</button>
                     </span>
                     <?php endforeach; ?>
                     <?php if ( empty($news_cats) ) : ?>
@@ -432,16 +432,16 @@ function ene_page_news() {
                     ?>
                     <tr>
                         <td>
-                            <a href="?page=ene-post&type=news&edit=<?php echo $post->ID; ?>" class="ene-table-title">
+                            <a href="?page=ene-post&type=news&edit=<?php echo (int) $post->ID; ?>" class="ene-table-title">
                                 <?php echo esc_html($post->post_title ?: __( '(No title)', 'emerge-mono-portfolio' )); ?>
                             </a>
                         </td>
                         <td style="font-size:12px;color:rgba(255,255,255,.4)"><?php echo esc_html($cat); ?></td>
-                        <td><span class="ene-badge <?php echo $status_class; ?>"><?php echo $status_label; ?></span></td>
+                        <td><span class="ene-badge <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_label ); ?></span></td>
                         <td style="font-size:12px;color:rgba(255,255,255,.3)"><?php echo get_the_date('Y.m.d', $post->ID); ?></td>
                         <td>
-                            <a href="?page=ene-post&type=news&edit=<?php echo $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
-                            <button class="ene-table-btn ene-delete-btn" onclick="eneDelete(<?php echo $post->ID; ?>, this)">Delete</button>
+                            <a href="?page=ene-post&type=news&edit=<?php echo (int) $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
+                            <button class="ene-table-btn ene-delete-btn" onclick="eneDelete(<?php echo (int) $post->ID; ?>, this)">Delete</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -454,8 +454,8 @@ function ene_page_news() {
 }
 
 // ── ページ管理 ──
-function ene_page_create() {
-    $em_pages = function_exists('en_get_em_page_defs') ? en_get_em_page_defs() : array(
+function emono_ed_page_create() {
+    $em_pages = function_exists('emono_get_em_page_defs') ? emono_get_em_page_defs() : array(
         array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',              'desc' => __( 'Top page — logo, site name, buttons', 'emerge-mono-portfolio' ),      'icon' => '🏠' ),
         array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',         'desc' => __( 'Profile page — bio, social links', 'emerge-mono-portfolio' ),       'icon' => '👤' ),
         array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',         'desc' => __( 'Works page — portfolio grid', 'emerge-mono-portfolio' ),          'icon' => '📂' ),
@@ -480,8 +480,8 @@ function ene_page_create() {
         <div class="ene-header">
             <div class="ene-header-inner">
                 <div class="ene-header-title"><?php esc_html_e( 'Page Manager', 'emerge-mono-portfolio' ); ?></div>
-                <?php if ( function_exists('en_wizard_url') ) : ?>
-                <a href="<?php echo esc_url( en_wizard_url() ); ?>" class="ene-back-btn"><?php esc_html_e( 'Open Setup Wizard', 'emerge-mono-portfolio' ); ?></a>
+                <?php if ( function_exists('emono_wizard_url') ) : ?>
+                <a href="<?php echo esc_url( emono_wizard_url() ); ?>" class="ene-back-btn"><?php esc_html_e( 'Open Setup Wizard', 'emerge-mono-portfolio' ); ?></a>
                 <?php endif; ?>
             </div>
         </div>
@@ -506,18 +506,18 @@ function ene_page_create() {
                         $status_class = $created ? ($page->post_status === 'publish' ? 'ene-badge-pub' : 'ene-badge-draft') : 'ene-badge-none';
                     ?>
                     <tr>
-                        <td style="text-align:center;font-size:16px"><?php echo $def['icon']; ?></td>
+                        <td style="text-align:center;font-size:16px"><?php echo esc_html( $def['icon'] ); ?></td>
                         <td>
                             <div style="font-size:13px;font-weight:500"><?php echo esc_html($def['title']); ?></div>
                             <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:2px"><?php echo esc_html($def['desc']); ?></div>
                         </td>
                         <td><code style="font-size:11px;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:3px"><?php echo esc_html($def['sc']); ?></code></td>
-                        <td><span class="ene-badge <?php echo $status_class; ?>"><?php echo $status_label; ?></span></td>
+                        <td><span class="ene-badge <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_label ); ?></span></td>
                         <td style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
                             <?php if ( $created ) : ?>
                                 <a href="<?php echo esc_url(admin_url('admin.php?page=ene-page-edit&edit='.$page->ID)); ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
                                 <a href="<?php echo esc_url($page_url); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'View', 'emerge-mono-portfolio' ); ?></a>
-                                <button class="ene-table-btn ene-delete-btn" onclick="eneDeleteEmPage(<?php echo $page->ID; ?>, '<?php echo esc_js($def['title']); ?>', this)">Delete</button>
+                                <button class="ene-table-btn ene-delete-btn" onclick="eneDeleteEmPage(<?php echo (int) $page->ID; ?>, '<?php echo esc_js($def['title']); ?>', this)">Delete</button>
                             <?php else : ?>
                                 <button class="ene-table-btn" onclick="eneCreatePage(<?php echo esc_attr(json_encode($def)); ?>, this)">Create</button>
                             <?php endif; ?>
@@ -531,9 +531,9 @@ function ene_page_create() {
     </div>
     <script>
     var enePageI18n = {
-        confirmDelete: <?php echo wp_json_encode( __( 'Delete "%s"?\nThis cannot be undone.', 'emerge-mono-portfolio' ) ); ?>,
+        confirmDelete: <?php /* translators: %s: the page title */ echo wp_json_encode( __( 'Delete "%s"?\nThis cannot be undone.', 'emerge-mono-portfolio' ) ); ?>,
         deleting:   <?php echo wp_json_encode( __( 'Deleting...', 'emerge-mono-portfolio' ) ); ?>,
-        deletedMsg: <?php echo wp_json_encode( '🗑 ' . __( 'Deleted "%s".', 'emerge-mono-portfolio' ) ); ?>,
+        deletedMsg: <?php /* translators: %s: the page title */ echo wp_json_encode( '🗑 ' . __( 'Deleted "%s".', 'emerge-mono-portfolio' ) ); ?>,
         del:        <?php echo wp_json_encode( __( 'Delete', 'emerge-mono-portfolio' ) ); ?>,
         errorPrefix:<?php echo wp_json_encode( __( 'Error: ', 'emerge-mono-portfolio' ) ); ?>,
         couldNotDelete: <?php echo wp_json_encode( __( 'Could not delete', 'emerge-mono-portfolio' ) ); ?>,
@@ -571,7 +571,7 @@ function ene_page_create() {
         btn.textContent = enePageI18n.creating;
         var data = new FormData();
         data.append('action', 'ene_create_em_page');
-        data.append('nonce', '<?php echo wp_create_nonce("ene_create_em_page"); ?>');
+        data.append('nonce', '<?php echo esc_attr( wp_create_nonce("ene_create_em_page") ); ?>');
         data.append('title', def.title);
         data.append('slug',  def.slug);
         data.append('sc',    def.sc);
@@ -595,15 +595,15 @@ function ene_page_create() {
 }
 
 // ── ページ作成 AJAX ──
-add_action( 'wp_ajax_ene_create_em_page', 'ene_ajax_create_em_page' );
-function ene_ajax_create_em_page() {
+add_action( 'wp_ajax_ene_create_em_page', 'emono_ed_ajax_create_em_page' );
+function emono_ed_ajax_create_em_page() {
     global $wpdb;
     if ( ! check_ajax_referer('ene_create_em_page', 'nonce', false) || ! current_user_can('edit_pages') ) {
         wp_send_json_error('Permission denied');
     }
-    $title = sanitize_text_field( $_POST['title'] ?? '' );
-    $slug  = sanitize_title( $_POST['slug']  ?? '' );
-    $sc    = sanitize_text_field( $_POST['sc'] ?? '' );
+    $title = sanitize_text_field( wp_unslash( $_POST['title'] ?? '' ) );
+    $slug  = sanitize_title( wp_unslash( $_POST['slug'] ?? '' ) );
+    $sc    = sanitize_text_field( wp_unslash( $_POST['sc'] ?? '' ) );
     if ( ! $title || ! $sc ) {
         wp_send_json_error('Invalid parameters');
     }
@@ -611,8 +611,8 @@ function ene_ajax_create_em_page() {
     $desired_slug = $slug ?: sanitize_title( $title );
 
     // 希望スラッグがゴミ箱/下書き等の残骸に占有されていれば解放（terms-2 化の防止）
-    if ( function_exists('en_wizard_reclaim_slug') ) {
-        en_wizard_reclaim_slug( $desired_slug, $sc );
+    if ( function_exists('emono_wizard_reclaim_slug') ) {
+        emono_wizard_reclaim_slug( $desired_slug, $sc );
     }
 
     $page_id = wp_insert_post( array(
@@ -627,10 +627,10 @@ function ene_ajax_create_em_page() {
     }
 
     // 挿入後にsuffixが付いていたら、実在する固定ページに使われていない限り直接DBで強制修正
-    if ( function_exists('en_wizard_slug_taken_by_live_page') ) {
+    if ( function_exists('emono_wizard_slug_taken_by_live_page') ) {
         $actual_slug = get_post_field( 'post_name', $page_id );
-        if ( $actual_slug !== $desired_slug && ! en_wizard_slug_taken_by_live_page( $desired_slug, $page_id ) ) {
-            $wpdb->update( $wpdb->posts, array( 'post_name' => $desired_slug ), array( 'ID' => (int) $page_id ) );
+        if ( $actual_slug !== $desired_slug && ! emono_wizard_slug_taken_by_live_page( $desired_slug, $page_id ) ) {
+            $wpdb->update( $wpdb->posts, array( 'post_name' => $desired_slug ), array( 'ID' => (int) $page_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
             clean_post_cache( $page_id );
         }
     }
@@ -643,18 +643,18 @@ function ene_ajax_create_em_page() {
 }
 
 // ── ページ一覧（統合済みのためリダイレクト） ──
-function ene_page_list() {
-    wp_redirect( admin_url('admin.php?page=ene-page-create') );
+function emono_ed_page_list() {
+    wp_safe_redirect( admin_url('admin.php?page=ene-page-create') );
     exit;
 }
 
 // ── ページ編集画面 ──
-function ene_page_edit() {
-    $edit_id   = isset($_GET['edit']) ? (int)$_GET['edit'] : 0;
+function emono_ed_page_edit() {
+    $edit_id   = isset($_GET['edit']) ? (int)$_GET['edit'] : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     $edit_post = $edit_id ? get_post($edit_id) : null;
 
     if ( ! $edit_post ) {
-        wp_redirect( admin_url('admin.php?page=ene-page-create') );
+        wp_safe_redirect( admin_url('admin.php?page=ene-page-create') );
         exit;
     }
 
@@ -667,7 +667,7 @@ function ene_page_edit() {
         <div class="ene-header">
             <div class="ene-header-inner">
                 <div class="ene-header-title"><?php esc_html_e( 'Edit Page', 'emerge-mono-portfolio' ); ?></div>
-                <a href="<?php echo admin_url('admin.php?page=ene-page-create'); ?>" class="ene-back-btn">← Back to Page Manager</a>
+                <a href="<?php echo esc_url( admin_url('admin.php?page=ene-page-create') ); ?>" class="ene-back-btn">← Back to Page Manager</a>
             </div>
         </div>
         <div class="ene-body">
@@ -721,10 +721,10 @@ function ene_page_edit() {
                 </div>
 
                 <div class="ene-actions">
-                    <button type="button" id="enp-submit" class="ene-submit-btn" onclick="enpSubmit(<?php echo $edit_id; ?>)">
+                    <button type="button" id="enp-submit" class="ene-submit-btn" onclick="enpSubmit(<?php echo (int) $edit_id; ?>)">
                         <?php esc_html_e( 'Update', 'emerge-mono-portfolio' ); ?>
                     </button>
-                    <a href="<?php echo admin_url('admin.php?page=ene-page-create'); ?>" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono-portfolio' ); ?></a>
+                    <a href="<?php echo esc_url( admin_url('admin.php?page=ene-page-create') ); ?>" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono-portfolio' ); ?></a>
                 </div>
                 <div id="enp-msg" class="ene-msg"></div>
 

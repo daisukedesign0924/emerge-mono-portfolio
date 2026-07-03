@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Canonical list of Emerge Mono pages + their shortcodes.
  * Single source of truth, reused by both the wizard and the Shortcodes tab.
  */
-function en_get_em_page_defs() {
+function emono_get_em_page_defs() {
     return array(
         array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',               'desc' => __( 'Top page — logo, site name, buttons', 'emerge-mono-portfolio' ), 'icon' => '🏠', 'recommended' => true ),
         array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',          'desc' => __( 'Profile page — bio, social links', 'emerge-mono-portfolio' ),    'icon' => '👤', 'recommended' => true ),
@@ -26,11 +26,11 @@ function en_get_em_page_defs() {
  * Map each shortcode to an already-existing page (publish/draft), if any.
  * Returns array( '[shortcode]' => WP_Post ).
  */
-function en_get_em_sc_page_map() {
+function emono_get_em_sc_page_map() {
     $existing = get_pages( array( 'post_status' => array('publish','draft'), 'sort_column' => 'menu_order' ) );
     $map = array();
     foreach ( $existing as $page ) {
-        foreach ( en_get_em_page_defs() as $def ) {
+        foreach ( emono_get_em_page_defs() as $def ) {
             if ( strpos( $page->post_content, $def['sc'] ) !== false ) {
                 $map[ $def['sc'] ] = $page;
             }
@@ -40,19 +40,19 @@ function en_get_em_sc_page_map() {
 }
 
 // ── 有効化時にウィザード表示フラグを立てる ──
-function en_wizard_set_redirect_flag() {
+function emono_wizard_set_redirect_flag() {
     // 一括有効化（複数プラグイン同時）の場合はリダイレクトしない
     set_transient( 'en_show_setup_wizard', 1, 60 );
 }
 
 // ── 有効化直後、最初の管理画面アクセスでウィザードへ誘導 ──
-add_action( 'admin_init', 'en_wizard_maybe_redirect' );
-function en_wizard_maybe_redirect() {
+add_action( 'admin_init', 'emono_wizard_maybe_redirect' );
+function emono_wizard_maybe_redirect() {
     if ( ! get_transient( 'en_show_setup_wizard' ) ) return;
     delete_transient( 'en_show_setup_wizard' );
 
     // 一括有効化・自動有効化時はリダイレクトを避ける
-    if ( isset($_GET['activate-multi']) || wp_doing_ajax() ) return;
+    if ( isset($_GET['activate-multi']) || wp_doing_ajax() ) return; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     if ( ! current_user_can('manage_options') ) return;
 
     // すでに完了済みなら出さない
@@ -63,44 +63,44 @@ function en_wizard_maybe_redirect() {
 }
 
 // ── ウィザード画面を（メニュー非表示の隠しページとして）登録 ──
-add_action( 'admin_menu', 'en_wizard_register_page', 99 );
-function en_wizard_register_page() {
+add_action( 'admin_menu', 'emono_wizard_register_page', 99 );
+function emono_wizard_register_page() {
     $hook = add_submenu_page(
         null, // 親なし＝メニューに出さない
         __( 'Emerge Mono Setup', 'emerge-mono-portfolio' ),
         __( 'Emerge Mono Setup', 'emerge-mono-portfolio' ),
         'manage_options',
         'en-setup-wizard',
-        'en_wizard_render'
+        'emono_wizard_render'
     );
     // このページが読み込まれる時にだけメディアライブラリをenqueue（確実な方法）
     if ( $hook ) {
-        add_action( 'load-' . $hook, 'en_wizard_load_assets' );
+        add_action( 'load-' . $hook, 'emono_wizard_load_assets' );
     }
 }
-function en_wizard_load_assets() {
-    add_action( 'admin_enqueue_scripts', 'en_wizard_enqueue' );
+function emono_wizard_load_assets() {
+    add_action( 'admin_enqueue_scripts', 'emono_wizard_enqueue' );
 }
 
 // ── ウィザード画面では他プラグインのadmin noticeを抑制（全画面表示のため） ──
-add_action( 'admin_head', 'en_wizard_suppress_notices' );
-function en_wizard_suppress_notices() {
-    if ( ! isset($_GET['page']) || $_GET['page'] !== 'en-setup-wizard' ) return;
+add_action( 'admin_head', 'emono_wizard_suppress_notices' );
+function emono_wizard_suppress_notices() {
+    if ( ! isset($_GET['page']) || $_GET['page'] !== 'en-setup-wizard' ) return; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     remove_all_actions( 'admin_notices' );
     remove_all_actions( 'all_admin_notices' );
 }
 
 // ── メディアライブラリ読み込み（保険として page 判定でも実行） ──
-add_action( 'admin_enqueue_scripts', 'en_wizard_enqueue' );
-function en_wizard_enqueue( $hook = '' ) {
-    if ( ! isset($_GET['page']) || $_GET['page'] !== 'en-setup-wizard' ) return;
+add_action( 'admin_enqueue_scripts', 'emono_wizard_enqueue' );
+function emono_wizard_enqueue( $hook = '' ) {
+    if ( ! isset($_GET['page']) || $_GET['page'] !== 'en-setup-wizard' ) return; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     wp_enqueue_media(); // 重複呼び出しはWP側で無害化される
 }
 
 // ── ウィザード本体描画 ──
-function en_wizard_render() {
-    $defs    = en_get_em_page_defs();
-    $sc_map  = en_get_em_sc_page_map();
+function emono_wizard_render() {
+    $defs    = emono_get_em_page_defs();
+    $sc_map  = emono_get_em_sc_page_map();
     $opts          = get_option('en_options', array());
     $cur_name      = isset($opts['site_name'])      ? $opts['site_name']      : get_bloginfo('name');
     $cur_tagline   = isset($opts['site_tagline'])   ? $opts['site_tagline']   : '';
@@ -126,8 +126,8 @@ function en_wizard_render() {
             <!-- 進捗インジケーター -->
             <div class="en-wiz-steps" id="en-wiz-steps">
                 <?php foreach ( $steps as $i => $label ) : ?>
-                <div class="en-wiz-step<?php echo $i === 0 ? ' active' : ''; ?>" data-step="<?php echo $i; ?>">
-                    <span class="en-wiz-step-num"><?php echo $i + 1; ?></span>
+                <div class="en-wiz-step<?php echo $i === 0 ? ' active' : ''; ?>" data-step="<?php echo (int) $i; ?>">
+                    <span class="en-wiz-step-num"><?php echo (int) ( $i + 1 ); ?></span>
                     <span class="en-wiz-step-label"><?php echo esc_html( $label ); ?></span>
                 </div>
                 <?php if ( $i < count($steps) - 1 ) : ?><span class="en-wiz-step-line"></span><?php endif; ?>
@@ -237,9 +237,9 @@ function en_wizard_render() {
                                    value="<?php echo esc_attr( $def['sc'] ); ?>"
                                    data-title="<?php echo esc_attr( $def['title'] ); ?>"
                                    data-slug="<?php echo esc_attr( $def['slug'] ); ?>"
-                                   <?php echo $checked; ?>
+                                   <?php echo esc_attr( $checked ); ?>
                                    <?php echo $exists ? 'disabled' : ''; ?>>
-                            <span class="en-wiz-icon"><?php echo $def['icon']; // emoji ?></span>
+                            <span class="en-wiz-icon"><?php echo esc_html( $def['icon'] ); // emoji ?></span>
                             <span class="en-wiz-meta">
                                 <span class="en-wiz-name"><?php echo esc_html( $def['title'] ); ?></span>
                                 <span class="en-wiz-desc"><?php echo esc_html( $def['desc'] ); ?></span>
@@ -397,9 +397,9 @@ function en_wizard_render() {
             saving:   <?php echo wp_json_encode( __( 'Saving settings…', 'emerge-mono-portfolio' ) ); ?>,
             saved:    <?php echo wp_json_encode( __( 'Saved ✓', 'emerge-mono-portfolio' ) ); ?>,
             creating: <?php echo wp_json_encode( __( 'Creating pages…', 'emerge-mono-portfolio' ) ); ?>,
-            doneOne:  <?php echo wp_json_encode( __( 'Created: %s', 'emerge-mono-portfolio' ) ); ?>,
+            doneOne:  <?php /* translators: %s: the created page name */ echo wp_json_encode( __( 'Created: %s', 'emerge-mono-portfolio' ) ); ?>,
             allDone:  <?php echo wp_json_encode( __( 'All set! Redirecting…', 'emerge-mono-portfolio' ) ); ?>,
-            failOne:  <?php echo wp_json_encode( __( 'Failed: %s', 'emerge-mono-portfolio' ) ); ?>,
+            failOne:  <?php /* translators: %s: the page name that failed */ echo wp_json_encode( __( 'Failed: %s', 'emerge-mono-portfolio' ) ); ?>,
             mediaTitle: <?php echo wp_json_encode( __( 'Select Logo', 'emerge-mono-portfolio' ) ); ?>,
             mediaBtn:   <?php echo wp_json_encode( __( 'Use this logo', 'emerge-mono-portfolio' ) ); ?>,
             mediaUnavailable: <?php echo wp_json_encode( __( 'Media library could not load. Please reload the page and try again.', 'emerge-mono-portfolio' ) ); ?>
@@ -669,8 +669,8 @@ function en_wizard_render() {
 }
 
 // ── ウィザード完了フラグ保存 AJAX ──
-add_action( 'wp_ajax_en_wizard_done', 'en_wizard_ajax_done' );
-function en_wizard_ajax_done() {
+add_action( 'wp_ajax_en_wizard_done', 'emono_wizard_ajax_done' );
+function emono_wizard_ajax_done() {
     if ( ! check_ajax_referer('en_wizard_done', 'nonce', false) || ! current_user_can('manage_options') ) {
         wp_send_json_error('Permission denied');
     }
@@ -679,8 +679,8 @@ function en_wizard_ajax_done() {
 }
 
 // ── ウィザードの基本設定保存 AJAX（既存タブと同じ en_options キーへ） ──
-add_action( 'wp_ajax_en_wizard_save', 'en_wizard_ajax_save' );
-function en_wizard_ajax_save() {
+add_action( 'wp_ajax_en_wizard_save', 'emono_wizard_ajax_save' );
+function emono_wizard_ajax_save() {
     if ( ! check_ajax_referer('en_wizard_save', 'nonce', false) || ! current_user_can('manage_options') ) {
         wp_send_json_error('Permission denied');
     }
@@ -688,11 +688,11 @@ function en_wizard_ajax_save() {
     if ( ! is_array($opts) ) $opts = array();
 
     // 既存タブ（Site Settings / Design）と同じサニタイズ・同じキー
-    $opts['site_name']      = sanitize_text_field( isset($_POST['site_name'])    ? $_POST['site_name']    : '' );
-    $opts['site_tagline']   = sanitize_text_field( isset($_POST['site_tagline']) ? $_POST['site_tagline'] : '' );
-    $opts['logo_url']       = esc_url_raw(         isset($_POST['logo_url'])       ? $_POST['logo_url']       : '' );
-    $opts['logo_url_light'] = esc_url_raw(         isset($_POST['logo_url_light']) ? $_POST['logo_url_light'] : '' );
-    $mode = isset($_POST['design_mode']) ? $_POST['design_mode'] : 'dark';
+    $opts['site_name']      = sanitize_text_field( isset($_POST['site_name'])    ? wp_unslash($_POST['site_name']) : '' );
+    $opts['site_tagline']   = sanitize_text_field( isset($_POST['site_tagline']) ? wp_unslash($_POST['site_tagline']) : '' );
+    $opts['logo_url']       = esc_url_raw(         isset($_POST['logo_url'])       ? wp_unslash($_POST['logo_url']) : '' );
+    $opts['logo_url_light'] = esc_url_raw(         isset($_POST['logo_url_light']) ? wp_unslash($_POST['logo_url_light']) : '' );
+    $mode = sanitize_key( wp_unslash( $_POST['design_mode'] ?? 'dark' ) );
     $opts['design_mode']  = in_array( $mode, array('dark','light','auto'), true ) ? $mode : 'dark';
 
     update_option( 'en_options', $opts );
@@ -704,24 +704,24 @@ function en_wizard_ajax_save() {
  * editor モジュールの ene_create_em_page に依存せず常に使えるようにする。
  * 既に同じショートコードのページがある場合はスキップして成功扱い。
  */
-add_action( 'wp_ajax_en_create_em_page', 'en_wizard_ajax_create_page' );
-function en_wizard_ajax_create_page() {
+add_action( 'wp_ajax_en_create_em_page', 'emono_wizard_ajax_create_page' );
+function emono_wizard_ajax_create_page() {
     global $wpdb;
     if ( ! check_ajax_referer('ene_create_em_page', 'nonce', false) || ! current_user_can('edit_pages') ) {
         wp_send_json_error('Permission denied');
     }
-    $title = sanitize_text_field( isset($_POST['title']) ? $_POST['title'] : '' );
-    $slug  = sanitize_title( isset($_POST['slug']) ? $_POST['slug'] : '' );
-    $sc    = sanitize_text_field( isset($_POST['sc']) ? $_POST['sc'] : '' );
+    $title = sanitize_text_field( isset($_POST['title']) ? wp_unslash($_POST['title']) : '' );
+    $slug  = sanitize_title( isset($_POST['slug']) ? wp_unslash($_POST['slug']) : '' );
+    $sc    = sanitize_text_field( isset($_POST['sc']) ? wp_unslash($_POST['sc']) : '' );
 
     // ショートコードはホワイトリスト照合（任意文字列の投入を防ぐ）
-    $allowed = wp_list_pluck( en_get_em_page_defs(), 'sc' );
+    $allowed = wp_list_pluck( emono_get_em_page_defs(), 'sc' );
     if ( ! $title || ! $sc || ! in_array( $sc, $allowed, true ) ) {
         wp_send_json_error('Invalid parameters');
     }
 
     // 既存重複チェック（既にあればスキップ＝成功）
-    $existing = en_get_em_sc_page_map();
+    $existing = emono_get_em_sc_page_map();
     if ( isset( $existing[ $sc ] ) ) {
         wp_send_json_success( array( 'page_id' => $existing[ $sc ]->ID, 'skipped' => true ) );
     }
@@ -730,7 +730,7 @@ function en_wizard_ajax_create_page() {
 
     // 希望スラッグが「ゴミ箱・下書き等の残骸」に占有されている場合は解放する。
     // （これがないとWordPressが terms → terms-2 のように自動採番してしまう）
-    en_wizard_reclaim_slug( $desired_slug, $sc );
+    emono_wizard_reclaim_slug( $desired_slug, $sc );
 
     $page_id = wp_insert_post( array(
         'post_title'   => $title,
@@ -748,8 +748,8 @@ function en_wizard_ajax_create_page() {
     // wp_update_post() は再び wp_unique_post_slug() を通すため suffix が戻り得る。
     // そこで衝突が無いと確認できた場合のみ、post_name を直接DBに書き込んで確定させる。
     $actual_slug = get_post_field( 'post_name', $page_id );
-    if ( $actual_slug !== $desired_slug && ! en_wizard_slug_taken_by_live_page( $desired_slug, $page_id ) ) {
-        $wpdb->update(
+    if ( $actual_slug !== $desired_slug && ! emono_wizard_slug_taken_by_live_page( $desired_slug, $page_id ) ) {
+        $wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
             $wpdb->posts,
             array( 'post_name' => $desired_slug ),
             array( 'ID' => (int) $page_id )
@@ -771,9 +771,9 @@ function en_wizard_ajax_create_page() {
  * （post / attachment / term の同名は page のパーマリンクとは衝突しないので無視）
  * ゴミ箱・auto-draft・自分自身は除外。
  */
-function en_wizard_slug_taken_by_live_page( $desired_slug, $exclude_id ) {
+function emono_wizard_slug_taken_by_live_page( $desired_slug, $exclude_id ) {
     global $wpdb;
-    $id = $wpdb->get_var( $wpdb->prepare(
+    $id = $wpdb->get_var( $wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
         "SELECT ID FROM {$wpdb->posts}
           WHERE post_type = 'page'
             AND post_name = %s
@@ -800,12 +800,12 @@ function en_wizard_slug_taken_by_live_page( $desired_slug, $exclude_id ) {
  *   - 本文に同じ Emerge Mono ショートコードを含む下書き（自前生成の残骸）
  * 公開中・他人が作った実コンテンツには一切触れない（その場合は採番を許容）。
  */
-function en_wizard_reclaim_slug( $desired_slug, $sc ) {
+function emono_wizard_reclaim_slug( $desired_slug, $sc ) {
     global $wpdb;
     if ( ! $desired_slug ) return;
 
     // 同一スラッグ（terms / terms-2 / terms__trashed 等の派生含む）を全post_type・全statusから取得
-    $candidates = $wpdb->get_results( $wpdb->prepare(
+    $candidates = $wpdb->get_results( $wpdb->prepare( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom log/table operation; caching not applicable.
         "SELECT ID, post_type, post_status, post_content, post_name
            FROM {$wpdb->posts}
           WHERE post_name = %s
@@ -835,6 +835,6 @@ function en_wizard_reclaim_slug( $desired_slug, $sc ) {
 }
 
 // ── 設定画面からいつでも再表示できるリンク用ヘルパ ──
-function en_wizard_url() {
+function emono_wizard_url() {
     return admin_url('admin.php?page=en-setup-wizard');
 }

@@ -1,32 +1,32 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-require_once EN_PATH . 'includes/privacy/admin-page.php';
-require_once EN_PATH . 'includes/privacy/admin-save.php';
-require_once EN_PATH . 'includes/privacy/shortcode.php';
+require_once EMONO_PATH . 'includes/privacy/admin-page.php';
+require_once EMONO_PATH . 'includes/privacy/admin-save.php';
+require_once EMONO_PATH . 'includes/privacy/shortcode.php';
 
 // ── プライバシープレビュー AJAX ──
-add_action( 'wp_ajax_en_preview_privacy', 'en_ajax_preview_privacy' );
-function en_ajax_preview_privacy() {
+add_action( 'wp_ajax_en_preview_privacy', 'emono_ajax_preview_privacy' );
+function emono_ajax_preview_privacy() {
     if ( ! check_ajax_referer('en_preview_privacy', 'nonce', false) || ! current_user_can('manage_options') ) {
         wp_send_json_error( __( 'Permission denied', 'emerge-mono-portfolio' ) );
     }
-    $lang           = sanitize_key( (isset($_POST['privacy_lang']) ? $_POST['privacy_lang'] : 'ja') );
-    $owner          = sanitize_text_field( (isset($_POST['legal_owner']) ? $_POST['legal_owner'] : '') );
-    $site           = sanitize_text_field( (isset($_POST['legal_site']) ? $_POST['legal_site'] : '') );
-    $email          = sanitize_email( (isset($_POST['legal_email']) ? $_POST['legal_email'] : '') );
+    $lang           = sanitize_key( (isset($_POST['privacy_lang']) ? wp_unslash($_POST['privacy_lang']) : 'ja') );
+    $owner          = sanitize_text_field( (isset($_POST['legal_owner']) ? wp_unslash($_POST['legal_owner']) : '') );
+    $site           = sanitize_text_field( (isset($_POST['legal_site']) ? wp_unslash($_POST['legal_site']) : '') );
+    $email          = sanitize_email( (isset($_POST['legal_email']) ? wp_unslash($_POST['legal_email']) : '') );
     $use_cookie     = isset($_POST['privacy_cookie'])     ? '1' : '0';
     $use_ga         = isset($_POST['privacy_ga'])         ? '1' : '0';
     $use_disclaimer = isset($_POST['privacy_disclaimer']) ? '1' : '0';
-    $custom         = wp_kses_post( (isset($_POST['privacy_custom']) ? $_POST['privacy_custom'] : '') );
+    $custom         = wp_kses_post( (isset($_POST['privacy_custom']) ? wp_unslash($_POST['privacy_custom']) : '') );
 
-    $html = en_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie, $use_ga, $use_disclaimer, $custom );
+    $html = emono_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie, $use_ga, $use_disclaimer, $custom );
     wp_send_json_success( $html );
 }
 
 // ── Cookieバナー出力 ──
-add_action( 'wp_footer', 'en_cookie_banner' );
-function en_cookie_banner() {
+add_action( 'wp_footer', 'emono_cookie_banner' );
+function emono_cookie_banner() {
     $opts = get_option( 'en_options', array() );
     if ( empty($opts['cookie_banner_enabled']) || $opts['cookie_banner_enabled'] !== '1' ) return;
 

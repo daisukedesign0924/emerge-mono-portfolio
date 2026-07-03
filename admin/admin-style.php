@@ -1,10 +1,10 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'admin_enqueue_scripts', 'en_admin_enqueue' );
-function en_admin_enqueue( $hook ) {
+add_action( 'admin_enqueue_scripts', 'emono_admin_enqueue' );
+function emono_admin_enqueue( $hook ) {
     $is_wizard = ( strpos( $hook, 'en-setup-wizard' ) !== false )
-              || ( isset($_GET['page']) && $_GET['page'] === 'en-setup-wizard' );
+              || ( isset($_GET['page']) && $_GET['page'] === 'en-setup-wizard' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     $is_settings = ( strpos( $hook, 'emerge-mono-portfolio' ) !== false );
 
     if ( ! $is_settings && ! $is_wizard ) return;
@@ -16,11 +16,11 @@ function en_admin_enqueue( $hook ) {
     if ( $is_wizard && ! $is_settings ) return;
 
     // インラインでCSS・JS注入
-    add_action( 'admin_head', 'en_admin_inline_style' );
-    add_action( 'admin_footer', 'en_admin_inline_script' );
+    add_action( 'admin_head', 'emono_admin_inline_style' );
+    add_action( 'admin_footer', 'emono_admin_inline_script' );
 }
 
-function en_admin_inline_style() { ?>
+function emono_admin_inline_style() { ?>
 <style>
 /* ── Emerge Mono Admin UI ── */
 #wpcontent { background: #0d0d0d; }
@@ -219,7 +219,7 @@ function en_admin_inline_style() { ?>
 <?php
 }
 
-function en_admin_inline_script() { ?>
+function emono_admin_inline_script() { ?>
 <script>
 // WPメディアライブラリを開く
 function enOpenMedia(targetId) {
@@ -239,8 +239,8 @@ function enOpenMedia(targetId) {
 <?php }
 
 // インラインCSS追加
-add_action('admin_head', 'en_mode_selector_style');
-function en_mode_selector_style() { ?>
+add_action('admin_head', 'emono_mode_selector_style');
+function emono_mode_selector_style() { ?>
 <style>
 .en-mode-label { display:flex; align-items:center; gap:12px; cursor:pointer; }
 .en-mode-label input[type="radio"] { accent-color:#fff; width:16px; height:16px; flex-shrink:0; }

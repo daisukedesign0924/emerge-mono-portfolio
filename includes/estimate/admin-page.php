@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-function en_admin_tab_estimate( $opts ) {
-    en_admin_notice();
+function emono_admin_tab_estimate( $opts ) {
+    emono_admin_notice();
     $services        = get_option( 'en_estimate_services', array() );
     $payment_methods = get_option( 'en_estimate_payment_methods', array() );
     $settings        = get_option( 'en_estimate_settings', array() );
@@ -10,7 +10,7 @@ function en_admin_tab_estimate( $opts ) {
     $btn_text        = isset($settings['btn_text'])  ? $settings['btn_text']  : 'Send inquiry with these details';
     ?>
     <form method="post" action="">
-        <?php wp_nonce_field('en_save_estimate','en_nonce'); ?>
+        <?php wp_nonce_field('emono_save_estimate','en_nonce'); ?>
         <input type="hidden" name="en_estimate_save" value="1">
 
         <div style="display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;">
@@ -23,7 +23,7 @@ function en_admin_tab_estimate( $opts ) {
                 <div id="en-service-list">
                     <?php foreach ( $services as $si => $service ) : ?>
                     <div class="en-service-block" data-index="<?php echo esc_attr( $si ); ?>">
-                        <?php en_estimate_render_service_block($si, $service); ?>
+                        <?php emono_estimate_render_service_block($si, $service); ?>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -197,18 +197,18 @@ function en_admin_tab_estimate( $opts ) {
     <?php
 }
 
-function en_estimate_render_service_block($si, $service) {
+function emono_estimate_render_service_block($si, $service) {
     $name  = isset($service['name']) ? $service['name'] : '';
     $desc  = isset($service['desc']) ? $service['desc'] : '';
     $items = isset($service['items']) ? $service['items'] : array();
     ?>
     <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:16px;margin-bottom:12px">
         <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center">
-            <input type="text" name="service_name[<?php echo $si; ?>]" value="<?php echo esc_attr($name); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Service name (e.g. VTuber illustration)', 'emerge-mono-portfolio' ); ?>" style="flex:1">
+            <input type="text" name="service_name[<?php echo (int) $si; ?>]" value="<?php echo esc_attr($name); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Service name (e.g. VTuber illustration)', 'emerge-mono-portfolio' ); ?>" style="flex:1">
             <button type="button" class="en-remove-btn" onclick="enRemoveService(this)"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
         </div>
         <div style="margin-bottom:8px">
-            <input type="text" name="service_desc[<?php echo $si; ?>]" value="<?php echo esc_attr($desc); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Description (optional)', 'emerge-mono-portfolio' ); ?>">
+            <input type="text" name="service_desc[<?php echo (int) $si; ?>]" value="<?php echo esc_attr($desc); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Description (optional)', 'emerge-mono-portfolio' ); ?>">
         </div>
         <div class="en-item-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px">
             <?php foreach ( $items as $ii => $item ) :
@@ -217,26 +217,26 @@ function en_estimate_render_service_block($si, $service) {
                 $type_label = $type==='sel' ? __( 'Option', 'emerge-mono-portfolio' ) : ($type==='chk' ? __( 'Check', 'emerge-mono-portfolio' ) : __( 'Quantity', 'emerge-mono-portfolio' ));
             ?>
             <div class="en-item-block" style="background:rgba(255,255,255,.06);border-radius:4px;padding:10px">
-                <input type="hidden" name="service_items[<?php echo $si; ?>][<?php echo $ii; ?>][type]" value="<?php echo esc_attr($type); ?>">
+                <input type="hidden" name="service_items[<?php echo (int) $si; ?>][<?php echo (int) $ii; ?>][type]" value="<?php echo esc_attr($type); ?>">
                 <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px">
                     <span style="font-size:10px;letter-spacing:.2em;opacity:.4;white-space:nowrap"><?php echo esc_html($type_label); ?></span>
-                    <input type="text" name="service_items[<?php echo $si; ?>][<?php echo $ii; ?>][label]" value="<?php echo esc_attr($label); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Item name', 'emerge-mono-portfolio' ); ?>" style="flex:1">
+                    <input type="text" name="service_items[<?php echo (int) $si; ?>][<?php echo (int) $ii; ?>][label]" value="<?php echo esc_attr($label); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Item name', 'emerge-mono-portfolio' ); ?>" style="flex:1">
                     <button type="button" class="en-remove-btn" style="padding:4px 8px" onclick="enRemoveItem(this)">×</button>
                 </div>
                 <?php if ( $type === 'qty' ) : ?>
                 <div style="display:flex;gap:6px;align-items:center">
                     <span style="font-size:11px;opacity:.5"><?php esc_html_e( 'Unit price ¥', 'emerge-mono-portfolio' ); ?></span>
-                    <input type="number" name="service_items[<?php echo $si; ?>][<?php echo $ii; ?>][unit]" value="<?php echo esc_attr($item['unit'] ?? 0); ?>" class="en-field-input" style="width:100px">
+                    <input type="number" name="service_items[<?php echo (int) $si; ?>][<?php echo (int) $ii; ?>][unit]" value="<?php echo esc_attr($item['unit'] ?? 0); ?>" class="en-field-input" style="width:100px">
                     <span style="font-size:11px;opacity:.5"><?php esc_html_e( 'Min qty', 'emerge-mono-portfolio' ); ?></span>
-                    <input type="number" name="service_items[<?php echo $si; ?>][<?php echo $ii; ?>][min]" value="<?php echo esc_attr($item['min'] ?? 0); ?>" class="en-field-input" style="width:60px">
+                    <input type="number" name="service_items[<?php echo (int) $si; ?>][<?php echo (int) $ii; ?>][min]" value="<?php echo esc_attr($item['min'] ?? 0); ?>" class="en-field-input" style="width:60px">
                 </div>
                 <?php else : ?>
                 <div class="en-opt-list" style="margin-bottom:6px">
                     <?php foreach ( ($item['opts'] ?? array()) as $oi => $opt ) : ?>
                     <div class="en-opt-row" style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
-                        <input type="text" name="service_items[<?php echo $si; ?>][<?php echo $ii; ?>][opts][<?php echo $oi; ?>][label]" value="<?php echo esc_attr($opt['label'] ?? ''); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Option name', 'emerge-mono-portfolio' ); ?>" style="flex:1">
+                        <input type="text" name="service_items[<?php echo (int) $si; ?>][<?php echo (int) $ii; ?>][opts][<?php echo (int) $oi; ?>][label]" value="<?php echo esc_attr($opt['label'] ?? ''); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'Option name', 'emerge-mono-portfolio' ); ?>" style="flex:1">
                         <span style="font-size:11px;opacity:.5">¥</span>
-                        <input type="number" name="service_items[<?php echo $si; ?>][<?php echo $ii; ?>][opts][<?php echo $oi; ?>][value]" value="<?php echo esc_attr($opt['value'] ?? 0); ?>" class="en-field-input" style="width:90px">
+                        <input type="number" name="service_items[<?php echo (int) $si; ?>][<?php echo (int) $ii; ?>][opts][<?php echo (int) $oi; ?>][value]" value="<?php echo esc_attr($opt['value'] ?? 0); ?>" class="en-field-input" style="width:90px">
                         <button type="button" class="en-remove-btn" style="padding:4px 8px" onclick="this.closest('.en-opt-row').remove()">×</button>
                     </div>
                     <?php endforeach; ?>

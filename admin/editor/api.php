@@ -2,21 +2,21 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ── Ajax: 投稿・更新 ──
-add_action( 'wp_ajax_ene_save_post', 'ene_handle_save_post' );
-function ene_handle_save_post() {
-    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_post_nonce') ) {
+add_action( 'wp_ajax_ene_save_post', 'emono_ed_handle_save_post' );
+function emono_ed_handle_save_post() {
+    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'ene_post_nonce') ) {
         wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('edit_posts') ) {
         wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
 
-    $type    = sanitize_key( $_POST['post_type'] ?? 'works' );
-    $post_id = (int)( $_POST['post_id'] ?? 0 );
-    $title   = sanitize_text_field( $_POST['title'] ?? '' );
-    $content = wp_kses_post( $_POST['content'] ?? '' );
-    $status  = sanitize_key( $_POST['status'] ?? 'publish' );
-    $thumb_id = (int)( $_POST['thumb_id'] ?? 0 );
+    $type    = sanitize_key( wp_unslash( $_POST['post_type'] ?? 'works' ) );
+    $post_id = absint( $_POST['post_id'] ?? 0 );
+    $title   = sanitize_text_field( wp_unslash( $_POST['title'] ?? '' ) );
+    $content = wp_kses_post( wp_unslash( $_POST['content'] ?? '' ) );
+    $status  = sanitize_key( wp_unslash( $_POST['status'] ?? 'publish' ) );
+    $thumb_id = absint( $_POST['thumb_id'] ?? 0 );
 
     if ( ! $title ) {
         wp_send_json_error( array('message' => __( 'Please enter a title.', 'emerge-mono-portfolio' )) );
@@ -53,24 +53,24 @@ function ene_handle_save_post() {
 
     // カテゴリー設定
     if ( $type === 'works' ) {
-        $cat_ids = array_map('intval', json_decode($_POST['work_cats'] ?? '[]', true));
+        $cat_ids = array_map( 'intval', (array) json_decode( wp_unslash( $_POST['work_cats'] ?? '[]' ), true ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- JSON decoded, then each element is cast to int.
         wp_set_post_terms( $saved_id, $cat_ids, 'en_work_category' );
 
         // Worksカスタムフィールド
         $meta_fields = array(
-            'en_video_url'    => sanitize_text_field($_POST['video_url']  ?? ''),
-            'en_external_url' => esc_url_raw($_POST['ext_url']            ?? ''),
-            'en_period'       => sanitize_text_field($_POST['period']     ?? ''),
-            'en_role'         => sanitize_text_field($_POST['role']       ?? ''),
-            'en_tools'        => sanitize_text_field($_POST['tools']      ?? ''),
+            'en_video_url'    => sanitize_text_field(wp_unslash( $_POST['video_url'] ?? '' )),
+            'en_external_url' => esc_url_raw(wp_unslash( $_POST['ext_url'] ?? '' )),
+            'en_period'       => sanitize_text_field(wp_unslash( $_POST['period'] ?? '' )),
+            'en_role'         => sanitize_text_field(wp_unslash( $_POST['role'] ?? '' )),
+            'en_tools'        => sanitize_text_field(wp_unslash( $_POST['tools'] ?? '' )),
         );
         foreach ( $meta_fields as $key => $val ) {
             update_post_meta( $saved_id, $key, $val );
         }
 
         // ギャラリーアイテム（画像・動画）を保存
-        $gallery_raw   = $_POST['gallery_items'] ?? '[]';
-        $gallery_items = json_decode( stripslashes($gallery_raw), true );
+        $gallery_raw   = wp_unslash( $_POST['gallery_items'] ?? '[]' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- JSON string; each decoded element is sanitized in the loop below.
+        $gallery_items = json_decode( $gallery_raw, true );
         if ( ! is_array($gallery_items) ) $gallery_items = array();
         $gallery_clean = array();
         foreach ( $gallery_items as $item ) {
@@ -82,7 +82,7 @@ function ene_handle_save_post() {
         }
         update_post_meta( $saved_id, 'en_gallery_items', wp_json_encode($gallery_clean) );
     } else {
-        $cat_ids = array_map('intval', json_decode($_POST['news_cats'] ?? '[]', true));
+        $cat_ids = array_map( 'intval', (array) json_decode( wp_unslash( $_POST['news_cats'] ?? '[]' ), true ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- JSON decoded, then each element is cast to int.
         wp_set_post_terms( $saved_id, $cat_ids, 'en_news_category' );
     }
 
@@ -94,16 +94,16 @@ function ene_handle_save_post() {
 }
 
 // ── Ajax: 削除 ──
-add_action( 'wp_ajax_ene_delete_post', 'ene_handle_delete_post' );
-function ene_handle_delete_post() {
-    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_delete_nonce') ) {
+add_action( 'wp_ajax_ene_delete_post', 'emono_ed_handle_delete_post' );
+function emono_ed_handle_delete_post() {
+    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'ene_delete_nonce') ) {
         wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('delete_posts') ) {
         wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
 
-    $post_id = (int)( $_POST['post_id'] ?? 0 );
+    $post_id = absint( $_POST['post_id'] ?? 0 );
     if ( ! $post_id ) {
         wp_send_json_error( array('message' => __( 'Invalid ID.', 'emerge-mono-portfolio' )) );
     }
@@ -117,16 +117,16 @@ function ene_handle_delete_post() {
 }
 
 // ── Ajax: カテゴリー追加 ──
-add_action( 'wp_ajax_ene_add_category', 'ene_handle_add_category' );
-function ene_handle_add_category() {
-    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_cat_nonce') ) {
+add_action( 'wp_ajax_ene_add_category', 'emono_ed_handle_add_category' );
+function emono_ed_handle_add_category() {
+    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'ene_cat_nonce') ) {
         wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('manage_categories') ) {
         wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
-    $name     = sanitize_text_field( $_POST['name'] ?? '' );
-    $taxonomy = sanitize_key( $_POST['taxonomy'] ?? 'category' );
+    $name     = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
+    $taxonomy = sanitize_key( wp_unslash( $_POST['taxonomy'] ?? 'category' ) );
     if ( ! $name ) {
         wp_send_json_error( array('message' => __( 'Please enter a category name.', 'emerge-mono-portfolio' )) );
     }
@@ -141,16 +141,16 @@ function ene_handle_add_category() {
 }
 
 // ── Ajax: カテゴリー削除 ──
-add_action( 'wp_ajax_ene_delete_category', 'ene_handle_delete_category' );
-function ene_handle_delete_category() {
-    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_cat_nonce') ) {
+add_action( 'wp_ajax_ene_delete_category', 'emono_ed_handle_delete_category' );
+function emono_ed_handle_delete_category() {
+    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'ene_cat_nonce') ) {
         wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('manage_categories') ) {
         wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
-    $term_id  = (int)( $_POST['term_id'] ?? 0 );
-    $taxonomy = sanitize_key( $_POST['taxonomy'] ?? 'category' );
+    $term_id  = absint( $_POST['term_id'] ?? 0 );
+    $taxonomy = sanitize_key( wp_unslash( $_POST['taxonomy'] ?? 'category' ) );
     if ( ! $term_id ) {
         wp_send_json_error( array('message' => __( 'Invalid ID.', 'emerge-mono-portfolio' )) );
     }
@@ -162,21 +162,21 @@ function ene_handle_delete_category() {
 }
 
 // ── Ajax: ページ保存 ──
-add_action( 'wp_ajax_ene_save_page', 'ene_handle_save_page' );
-function ene_handle_save_page() {
-    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce($_POST['nonce'], 'ene_page_nonce') ) {
+add_action( 'wp_ajax_ene_save_page', 'emono_ed_handle_save_page' );
+function emono_ed_handle_save_page() {
+    if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'ene_page_nonce') ) {
         wp_send_json_error( array('message' => __( 'Invalid request.', 'emerge-mono-portfolio' )) );
     }
     if ( ! current_user_can('edit_pages') ) {
         wp_send_json_error( array('message' => __( 'Permission denied.', 'emerge-mono-portfolio' )) );
     }
 
-    $post_id  = (int)( $_POST['post_id'] ?? 0 );
-    $title    = sanitize_text_field( $_POST['title']   ?? '' );
-    $content  = sanitize_textarea_field( $_POST['content'] ?? '' );
-    $slug     = sanitize_title( $_POST['slug'] ?? '' );
-    $status   = sanitize_key( $_POST['status']  ?? 'publish' );
-    $thumb_id = (int)( $_POST['thumb_id'] ?? 0 );
+    $post_id  = absint( $_POST['post_id'] ?? 0 );
+    $title    = sanitize_text_field( wp_unslash( $_POST['title'] ?? '' ) );
+    $content  = sanitize_textarea_field( wp_unslash( $_POST['content'] ?? '' ) );
+    $slug     = sanitize_title( wp_unslash( $_POST['slug'] ?? '' ) );
+    $status   = sanitize_key( wp_unslash( $_POST['status'] ?? 'publish' ) );
+    $thumb_id = absint( $_POST['thumb_id'] ?? 0 );
 
     if ( ! $title ) {
         wp_send_json_error( array('message' => __( 'Please enter a title.', 'emerge-mono-portfolio' )) );

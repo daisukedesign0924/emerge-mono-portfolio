@@ -1,15 +1,15 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_shortcode( 'emerge_mono_top', 'en_shortcode_top' );
-function en_shortcode_top( $atts ) {
-    $site_name      = en_opt('site_name', get_bloginfo('name'));
-    $tagline        = en_opt('site_tagline', '');
-    $logo_url       = en_opt('logo_url', '');
-    $logo_url_light = en_opt('logo_url_light', '');
+add_shortcode( 'emerge_mono_top', 'emono_shortcode_top' );
+function emono_shortcode_top( $atts ) {
+    $site_name      = emono_opt('site_name', get_bloginfo('name'));
+    $tagline        = emono_opt('site_tagline', '');
+    $logo_url       = emono_opt('logo_url', '');
+    $logo_url_light = emono_opt('logo_url_light', '');
 
     // TOPボタン（複数対応）
-    $top_buttons = en_opt('top_buttons', array());
+    $top_buttons = emono_opt('top_buttons', array());
     if ( empty($top_buttons) ) {
         // 自動検出
         $top_buttons = array();
@@ -47,14 +47,14 @@ function en_shortcode_top( $atts ) {
     <?php return ob_get_clean();
 }
 
-add_shortcode( 'emerge_mono_about', 'en_shortcode_about' );
-function en_shortcode_about( $atts ) {
-    $name    = en_opt('profile_name', '');
-    $role    = en_opt('profile_role', '');
-    $bio     = en_opt('profile_bio', '');
-    $img_url = en_opt('profile_img', '');
-    $skills  = en_opt('profile_skills', '');
-    $sns     = en_opt('sns_links', array());
+add_shortcode( 'emerge_mono_about', 'emono_shortcode_about' );
+function emono_shortcode_about( $atts ) {
+    $name    = emono_opt('profile_name', '');
+    $role    = emono_opt('profile_role', '');
+    $bio     = emono_opt('profile_bio', '');
+    $img_url = emono_opt('profile_img', '');
+    $skills  = emono_opt('profile_skills', '');
+    $sns     = emono_opt('sns_links', array());
 
     // スキルをカンマ分割・トリム
     $skill_list = array();
@@ -121,8 +121,8 @@ function en_shortcode_about( $atts ) {
     <?php return ob_get_clean();
 }
 
-add_shortcode( 'emerge_mono_works', 'en_shortcode_works' );
-function en_shortcode_works( $atts ) {
+add_shortcode( 'emerge_mono_works', 'emono_shortcode_works' );
+function emono_shortcode_works( $atts ) {
     ob_start(); ?>
     <div class="en-works" id="en-works">
         <div class="en-works-header">
@@ -137,21 +137,21 @@ function en_shortcode_works( $atts ) {
     <?php return ob_get_clean();
 }
 
-add_shortcode( 'emerge_mono_contact', 'en_shortcode_contact' );
-function en_shortcode_contact( $atts ) {
-    $fields      = get_option( 'en_contact_fields', en_default_contact_fields() );
-    $btn_text    = en_opt('contact_btn_text', 'Send');
-    $recaptcha_key = en_opt('recaptcha_site_key', '');
+add_shortcode( 'emerge_mono_contact', 'emono_shortcode_contact' );
+function emono_shortcode_contact( $atts ) {
+    $fields      = get_option( 'en_contact_fields', emono_default_contact_fields() );
+    $btn_text    = emono_opt('contact_btn_text', 'Send');
+    $recaptcha_key = emono_opt('recaptcha_site_key', '');
     ob_start(); ?>
     <div class="en-contact" id="en-contact">
         <div class="en-contact-inner">
             <div class="en-contact-label">Contact</div>
-            <?php if ( $msg = en_opt('contact_desc', '') ) : ?>
+            <?php if ( $msg = emono_opt('contact_desc', '') ) : ?>
                 <div class="en-contact-desc"><?php echo esc_html($msg); ?></div>
             <?php endif; ?>
             <form class="en-contact-form" id="en-contact-form" <?php echo $recaptcha_key ? '' : 'data-no-recaptcha="1"'; ?>>
                 <input type="hidden" name="action" value="en_send_contact">
-                <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('en_nonce'); ?>">
+                <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce('en_nonce') ); ?>">
                 <!-- ハニーポット（ボット対策・ユーザーには見えない） -->
                 <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
                     <input type="text" name="en_hp_field" tabindex="-1" autocomplete="off">
@@ -167,11 +167,11 @@ function en_shortcode_contact( $atts ) {
                     $req_mark    = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono-portfolio' ) . '</span>';
                 ?>
                 <div class="en-form-group">
-                    <label class="en-form-label"><?php echo esc_html($label); ?> <?php echo $req_mark; ?></label>
+                    <label class="en-form-label"><?php echo esc_html($label); ?> <?php echo esc_html( $req_mark ); ?></label>
                     <?php if ( $type === 'textarea' ) : ?>
-                        <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-form-textarea" placeholder="<?php echo esc_attr($placeholder); ?>" <?php echo $req_attr; ?>></textarea>
+                        <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-form-textarea" placeholder="<?php echo esc_attr($placeholder); ?>" <?php echo esc_attr( $req_attr ); ?>></textarea>
                     <?php elseif ( $type === 'select' ) : ?>
-                        <select name="en_field_<?php echo esc_attr($key); ?>" class="en-form-input" <?php echo $req_attr; ?>>
+                        <select name="en_field_<?php echo esc_attr($key); ?>" class="en-form-input" <?php echo esc_attr( $req_attr ); ?>>
                             <option value=""><?php esc_html_e( 'Please select', 'emerge-mono-portfolio' ); ?></option>
                             <?php foreach ( $options as $opt ) : ?>
                                 <option value="<?php echo esc_attr($opt); ?>"><?php echo esc_html($opt); ?></option>
@@ -187,15 +187,15 @@ function en_shortcode_contact( $atts ) {
                             <?php endforeach; ?>
                         </div>
                     <?php else : ?>
-                        <input type="<?php echo esc_attr($type); ?>" name="en_field_<?php echo esc_attr($key); ?>" class="en-form-input" placeholder="<?php echo esc_attr($placeholder); ?>" <?php echo $req_attr; ?>>
+                        <input type="<?php echo esc_attr($type); ?>" name="en_field_<?php echo esc_attr($key); ?>" class="en-form-input" placeholder="<?php echo esc_attr($placeholder); ?>" <?php echo esc_attr( $req_attr ); ?>>
                     <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
                 <?php
                 // 同意チェックボックス
-                $consent_enabled  = en_opt('contact_consent_enabled', '0');
-                $consent_text     = en_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ));
-                $consent_page_id  = (int)en_opt('contact_consent_page_id', 0);
+                $consent_enabled  = emono_opt('contact_consent_enabled', '0');
+                $consent_text     = emono_opt('contact_consent_text', __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ));
+                $consent_page_id  = (int)emono_opt('contact_consent_page_id', 0);
                 $consent_page_url = $consent_page_id ? get_permalink($consent_page_id) : '';
                 if ( $consent_enabled === '1' ) : ?>
                 <div class="en-form-group">
@@ -220,8 +220,8 @@ function en_shortcode_contact( $atts ) {
     <?php return ob_get_clean();
 }
 
-add_shortcode( 'emerge_mono_posts', 'en_shortcode_posts' );
-function en_shortcode_posts( $atts ) {
+add_shortcode( 'emerge_mono_posts', 'emono_shortcode_posts' );
+function emono_shortcode_posts( $atts ) {
     $atts = shortcode_atts( array( 'type' => '' ), $atts );
     $type = sanitize_key( $atts['type'] );
     if ( ! $type ) return '';
@@ -266,8 +266,8 @@ function en_shortcode_posts( $atts ) {
     <?php return ob_get_clean();
 }
 
-add_shortcode( 'emerge_mono_news', 'en_shortcode_news' );
-function en_shortcode_news( $atts ) {
+add_shortcode( 'emerge_mono_news', 'emono_shortcode_news' );
+function emono_shortcode_news( $atts ) {
     $atts = shortcode_atts( array(
         'per_page' => 20,
         'category' => '',
@@ -281,7 +281,7 @@ function en_shortcode_news( $atts ) {
         'order'          => 'DESC',
     );
     if ( $atts['category'] ) {
-        $args['tax_query'] = array(
+        $args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Simple category filter for a small news list.
             array(
                 'taxonomy' => 'en_news_category',
                 'field'    => 'slug',

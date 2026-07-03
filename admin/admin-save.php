@@ -1,8 +1,8 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_action( 'admin_init', 'en_handle_save' );
-function en_handle_save() {
+add_action( 'admin_init', 'emono_handle_save' );
+function emono_handle_save() {
     if ( ! isset( $_POST['en_action'] ) ) return;
     if ( ! current_user_can( 'manage_options' ) ) return;
 
@@ -19,26 +19,27 @@ function en_handle_save() {
 
     $nonce_map['editor'] = 'en_save_editor';
     if ( ! isset( $nonce_map[ $action ] ) ) return;
-    if ( ! wp_verify_nonce( $_POST['en_nonce'], $nonce_map[ $action ] ) ) return;
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['en_nonce'] ?? '' ) ), $nonce_map[ $action ] ) ) return;
 
-    $opts = en_get_options();
+    $opts = emono_get_options();
 
     switch ( $action ) {
 
         case 'design':
-            $opts['design_mode']   = in_array( (isset($_POST['design_mode']) ? $_POST['design_mode'] : 'dark'), array('dark','light','auto') ) ? $_POST['design_mode'] : 'dark';
-            $opts['design_bg']     = sanitize_hex_color( isset($_POST['design_bg'])     ? $_POST['design_bg']     : '#000000' );
-            $opts['design_text']   = sanitize_hex_color( isset($_POST['design_text'])   ? $_POST['design_text']   : '#ffffff' );
-            $opts['design_accent'] = sanitize_hex_color( isset($_POST['design_accent']) ? $_POST['design_accent'] : '#ffffff' );
-            $opts['design_font']   = sanitize_text_field( isset($_POST['design_font'])  ? $_POST['design_font']   : 'Space Mono' );
+            $design_mode_in = sanitize_key( wp_unslash( $_POST['design_mode'] ?? 'dark' ) );
+            $opts['design_mode'] = in_array( $design_mode_in, array('dark','light','auto'), true ) ? $design_mode_in : 'dark';
+            $opts['design_bg']     = sanitize_hex_color( isset($_POST['design_bg'])     ? wp_unslash($_POST['design_bg']) : '#000000' );
+            $opts['design_text']   = sanitize_hex_color( isset($_POST['design_text'])   ? wp_unslash($_POST['design_text']) : '#ffffff' );
+            $opts['design_accent'] = sanitize_hex_color( isset($_POST['design_accent']) ? wp_unslash($_POST['design_accent']) : '#ffffff' );
+            $opts['design_font']   = sanitize_text_field( isset($_POST['design_font'])  ? wp_unslash($_POST['design_font']) : 'Space Mono' );
             break;
 
         case 'general':
-            $opts['site_name']    = sanitize_text_field( (isset($_POST['site_name']) ? $_POST['site_name'] : '') );
-            $opts['site_tagline'] = sanitize_text_field( (isset($_POST['site_tagline']) ? $_POST['site_tagline'] : '') );
-            $opts['copyright']    = sanitize_text_field( (isset($_POST['copyright']) ? $_POST['copyright'] : '') );
-            $opts['logo_url']       = esc_url_raw( isset($_POST['logo_url']) ? $_POST['logo_url'] : '' );
-            $opts['logo_url_light'] = esc_url_raw( isset($_POST['logo_url_light']) ? $_POST['logo_url_light'] : '' );
+            $opts['site_name']    = sanitize_text_field( (isset($_POST['site_name']) ? wp_unslash($_POST['site_name']) : '') );
+            $opts['site_tagline'] = sanitize_text_field( (isset($_POST['site_tagline']) ? wp_unslash($_POST['site_tagline']) : '') );
+            $opts['copyright']    = sanitize_text_field( (isset($_POST['copyright']) ? wp_unslash($_POST['copyright']) : '') );
+            $opts['logo_url']       = esc_url_raw( isset($_POST['logo_url']) ? wp_unslash($_POST['logo_url']) : '' );
+            $opts['logo_url_light'] = esc_url_raw( isset($_POST['logo_url_light']) ? wp_unslash($_POST['logo_url_light']) : '' );
             // トップページロゴサイズ（ブレイクポイント別・vw）。空欄/0は継承用に0保存
             $opts['top_logo_size']        = isset($_POST['top_logo_size'])        && (float)$_POST['top_logo_size'] > 0 ? (float)$_POST['top_logo_size'] : 14;
             $opts['top_logo_size_tablet'] = isset($_POST['top_logo_size_tablet']) && (float)$_POST['top_logo_size_tablet'] > 0 ? (float)$_POST['top_logo_size_tablet'] : 0;
@@ -48,9 +49,9 @@ function en_handle_save() {
             $opts['header_logo_size_tablet'] = isset($_POST['header_logo_size_tablet']) && (float)$_POST['header_logo_size_tablet'] > 0 ? (float)$_POST['header_logo_size_tablet'] : 0;
             $opts['header_logo_size_mobile'] = isset($_POST['header_logo_size_mobile']) && (float)$_POST['header_logo_size_mobile'] > 0 ? (float)$_POST['header_logo_size_mobile'] : 0;
             // TOPボタン（複数対応）
-            $btn_labels   = (isset($_POST['top_btn_label']) ? $_POST['top_btn_label'] : array());
-            $btn_urls     = (isset($_POST['top_btn_url']) ? $_POST['top_btn_url'] : array());
-            $btn_manuals  = (isset($_POST['top_btn_url_manual']) ? $_POST['top_btn_url_manual'] : array());
+            $btn_labels   = (isset($_POST['top_btn_label']) ? wp_unslash($_POST['top_btn_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $btn_urls     = (isset($_POST['top_btn_url']) ? wp_unslash($_POST['top_btn_url']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $btn_manuals  = (isset($_POST['top_btn_url_manual']) ? wp_unslash($_POST['top_btn_url_manual']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $top_buttons  = array();
             foreach ( $btn_labels as $i => $label ) {
                 $label = sanitize_text_field( $label );
@@ -63,16 +64,16 @@ function en_handle_save() {
             break;
 
         case 'profile':
-            $opts['profile_name']   = sanitize_text_field( (isset($_POST['profile_name']) ? $_POST['profile_name'] : '') );
-            $opts['profile_role']   = sanitize_text_field( (isset($_POST['profile_role']) ? $_POST['profile_role'] : '') );
-            $opts['profile_bio']    = sanitize_textarea_field( (isset($_POST['profile_bio']) ? $_POST['profile_bio'] : '') );
-            $opts['profile_img']    = esc_url_raw( (isset($_POST['profile_img']) ? $_POST['profile_img'] : '') );
-            $opts['profile_skills'] = sanitize_text_field( (isset($_POST['profile_skills']) ? $_POST['profile_skills'] : '') );
+            $opts['profile_name']   = sanitize_text_field( (isset($_POST['profile_name']) ? wp_unslash($_POST['profile_name']) : '') );
+            $opts['profile_role']   = sanitize_text_field( (isset($_POST['profile_role']) ? wp_unslash($_POST['profile_role']) : '') );
+            $opts['profile_bio']    = sanitize_textarea_field( (isset($_POST['profile_bio']) ? wp_unslash($_POST['profile_bio']) : '') );
+            $opts['profile_img']    = esc_url_raw( (isset($_POST['profile_img']) ? wp_unslash($_POST['profile_img']) : '') );
+            $opts['profile_skills'] = sanitize_text_field( (isset($_POST['profile_skills']) ? wp_unslash($_POST['profile_skills']) : '') );
 
             // SNSリンク（プロフィールに統合）
-            $labels = (isset($_POST['sns_label']) ? $_POST['sns_label'] : array());
-            $urls   = (isset($_POST['sns_url']) ? $_POST['sns_url'] : array());
-            $icons  = (isset($_POST['sns_icon']) ? $_POST['sns_icon'] : array());
+            $labels = (isset($_POST['sns_label']) ? wp_unslash($_POST['sns_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $urls   = (isset($_POST['sns_url']) ? wp_unslash($_POST['sns_url']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $icons  = (isset($_POST['sns_icon']) ? wp_unslash($_POST['sns_icon']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $sns = array();
             if ( is_array($labels) ) {
                 foreach ( $labels as $i => $label ) {
@@ -90,8 +91,8 @@ function en_handle_save() {
             break;
 
         case 'sns':
-            $labels = (isset($_POST['sns_label']) ? $_POST['sns_label'] : array());
-            $urls   = (isset($_POST['sns_url']) ? $_POST['sns_url'] : array());
+            $labels = (isset($_POST['sns_label']) ? wp_unslash($_POST['sns_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $urls   = (isset($_POST['sns_url']) ? wp_unslash($_POST['sns_url']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $sns = array();
             foreach ( $labels as $i => $label ) {
                 $url = esc_url_raw( isset($urls[$i]) ? $urls[$i] : '' );
@@ -106,13 +107,13 @@ function en_handle_save() {
             break;
 
         case 'nav':
-            $opts['nav_mode']    = sanitize_key( (isset($_POST['nav_mode']) ? $_POST['nav_mode'] : 'auto') );
-            $opts['nav_wp_menu'] = (int)( (isset($_POST['nav_wp_menu']) ? $_POST['nav_wp_menu'] : 0) );
+            $opts['nav_mode']    = sanitize_key( (isset($_POST['nav_mode']) ? wp_unslash($_POST['nav_mode']) : 'auto') );
+            $opts['nav_wp_menu'] = absint( $_POST['nav_wp_menu'] ?? 0 );
 
-            $labels   = (isset($_POST['nav_label']) ? $_POST['nav_label'] : array());
-            $types    = (isset($_POST['nav_type']) ? $_POST['nav_type'] : array());
-            $urls     = (isset($_POST['nav_url']) ? $_POST['nav_url'] : array());
-            $page_ids = (isset($_POST['nav_page_id']) ? $_POST['nav_page_id'] : array());
+            $labels   = (isset($_POST['nav_label']) ? wp_unslash($_POST['nav_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $types    = (isset($_POST['nav_type']) ? wp_unslash($_POST['nav_type']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $urls     = (isset($_POST['nav_url']) ? wp_unslash($_POST['nav_url']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $page_ids = (isset($_POST['nav_page_id']) ? wp_unslash($_POST['nav_page_id']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $nav = array();
             foreach ( $labels as $i => $label ) {
                 $type = sanitize_key( (isset($types[$i]) ? $types[$i] : 'url') );
@@ -140,10 +141,10 @@ function en_handle_save() {
             $opts['nav_items'] = $nav;
 
             // フッターメニュー
-            $f_labels   = (isset($_POST['footer_nav_label']) ? $_POST['footer_nav_label'] : array());
-            $f_types    = (isset($_POST['footer_nav_type']) ? $_POST['footer_nav_type'] : array());
-            $f_urls     = (isset($_POST['footer_nav_url']) ? $_POST['footer_nav_url'] : array());
-            $f_page_ids = (isset($_POST['footer_nav_page_id']) ? $_POST['footer_nav_page_id'] : array());
+            $f_labels   = (isset($_POST['footer_nav_label']) ? wp_unslash($_POST['footer_nav_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $f_types    = (isset($_POST['footer_nav_type']) ? wp_unslash($_POST['footer_nav_type']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $f_urls     = (isset($_POST['footer_nav_url']) ? wp_unslash($_POST['footer_nav_url']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $f_page_ids = (isset($_POST['footer_nav_page_id']) ? wp_unslash($_POST['footer_nav_page_id']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $footer_nav = array();
             if ( is_array($f_types) ) {
                 foreach ( $f_types as $i => $f_type ) {
@@ -175,29 +176,29 @@ function en_handle_save() {
             break;
 
         case 'contact':
-            $opts['contact_email']         = sanitize_email( (isset($_POST['contact_email']) ? $_POST['contact_email'] : '') );
-            $opts['contact_desc']          = sanitize_textarea_field( (isset($_POST['contact_desc']) ? $_POST['contact_desc'] : '') );
-            $opts['contact_btn_text']      = sanitize_text_field( (isset($_POST['contact_btn_text']) ? $_POST['contact_btn_text'] : 'Send') );
-            $opts['contact_success']       = sanitize_text_field( (isset($_POST['contact_success']) ? $_POST['contact_success'] : '') );
-            $opts['contact_auto_reply']    = sanitize_text_field( (isset($_POST['contact_auto_reply']) ? $_POST['contact_auto_reply'] : '1') );
-            $opts['contact_reply_subject'] = sanitize_text_field( (isset($_POST['contact_reply_subject']) ? $_POST['contact_reply_subject'] : '') );
-            $opts['contact_reply_body']    = sanitize_textarea_field( (isset($_POST['contact_reply_body']) ? $_POST['contact_reply_body'] : '') );
-            $opts['contact_mail_subject']  = sanitize_text_field( (isset($_POST['contact_mail_subject']) ? $_POST['contact_mail_subject'] : '') );
-            $opts['contact_mail_body']     = sanitize_textarea_field( (isset($_POST['contact_mail_body']) ? $_POST['contact_mail_body'] : '') );
-            $opts['recaptcha_site_key']    = sanitize_text_field( (isset($_POST['recaptcha_site_key']) ? $_POST['recaptcha_site_key'] : '') );
-            $opts['recaptcha_secret']           = sanitize_text_field( (isset($_POST['recaptcha_secret']) ? $_POST['recaptcha_secret'] : '') );
+            $opts['contact_email']         = sanitize_email( (isset($_POST['contact_email']) ? wp_unslash($_POST['contact_email']) : '') );
+            $opts['contact_desc']          = sanitize_textarea_field( (isset($_POST['contact_desc']) ? wp_unslash($_POST['contact_desc']) : '') );
+            $opts['contact_btn_text']      = sanitize_text_field( (isset($_POST['contact_btn_text']) ? wp_unslash($_POST['contact_btn_text']) : 'Send') );
+            $opts['contact_success']       = sanitize_text_field( (isset($_POST['contact_success']) ? wp_unslash($_POST['contact_success']) : '') );
+            $opts['contact_auto_reply']    = sanitize_text_field( (isset($_POST['contact_auto_reply']) ? wp_unslash($_POST['contact_auto_reply']) : '1') );
+            $opts['contact_reply_subject'] = sanitize_text_field( (isset($_POST['contact_reply_subject']) ? wp_unslash($_POST['contact_reply_subject']) : '') );
+            $opts['contact_reply_body']    = sanitize_textarea_field( (isset($_POST['contact_reply_body']) ? wp_unslash($_POST['contact_reply_body']) : '') );
+            $opts['contact_mail_subject']  = sanitize_text_field( (isset($_POST['contact_mail_subject']) ? wp_unslash($_POST['contact_mail_subject']) : '') );
+            $opts['contact_mail_body']     = sanitize_textarea_field( (isset($_POST['contact_mail_body']) ? wp_unslash($_POST['contact_mail_body']) : '') );
+            $opts['recaptcha_site_key']    = sanitize_text_field( (isset($_POST['recaptcha_site_key']) ? wp_unslash($_POST['recaptcha_site_key']) : '') );
+            $opts['recaptcha_secret']           = sanitize_text_field( (isset($_POST['recaptcha_secret']) ? wp_unslash($_POST['recaptcha_secret']) : '') );
             $opts['contact_consent_enabled']    = isset($_POST['contact_consent_enabled']) ? '1' : '0';
-            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? $_POST['contact_consent_text'] : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' )) );
-            $opts['contact_consent_page_id']    = (int)( (isset($_POST['contact_consent_page_id']) ? $_POST['contact_consent_page_id'] : 0) );
+            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? wp_unslash($_POST['contact_consent_text']) : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' )) );
+            $opts['contact_consent_page_id']    = absint( $_POST['contact_consent_page_id'] ?? 0 );
             update_option( 'en_options', $opts );
 
             // フォームフィールド保存
-            $cf_labels       = (isset($_POST['cf_label']) ? $_POST['cf_label'] : array());
-            $cf_keys         = (isset($_POST['cf_key']) ? $_POST['cf_key'] : array());
-            $cf_types        = (isset($_POST['cf_type']) ? $_POST['cf_type'] : array());
-            $cf_placeholders = (isset($_POST['cf_placeholder']) ? $_POST['cf_placeholder'] : array());
-            $cf_requireds    = (isset($_POST['cf_required']) ? $_POST['cf_required'] : array());
-            $cf_options_raw  = (isset($_POST['cf_options']) ? $_POST['cf_options'] : array());
+            $cf_labels       = (isset($_POST['cf_label']) ? wp_unslash($_POST['cf_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_keys         = (isset($_POST['cf_key']) ? wp_unslash($_POST['cf_key']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_types        = (isset($_POST['cf_type']) ? wp_unslash($_POST['cf_type']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_placeholders = (isset($_POST['cf_placeholder']) ? wp_unslash($_POST['cf_placeholder']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_requireds    = (isset($_POST['cf_required']) ? wp_unslash($_POST['cf_required']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_options_raw  = (isset($_POST['cf_options']) ? wp_unslash($_POST['cf_options']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
 
             $contact_fields = array();
             foreach ( $cf_keys as $i => $key ) {
@@ -222,26 +223,26 @@ function en_handle_save() {
                 );
             }
             update_option( 'en_contact_fields', $contact_fields );
-            wp_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=contact&saved=1' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=contact&saved=1' ) );
             exit;
 
         case 'cpt':
-            $opts['work_label']    = sanitize_text_field( isset($_POST['work_label'])    ? $_POST['work_label']    : 'Works' );
-            $opts['work_singular'] = sanitize_text_field( isset($_POST['work_singular']) ? $_POST['work_singular'] : 'Work' );
-            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? $_POST['cat_label']     : __( 'Category', 'emerge-mono-portfolio' ) );
-            $opts['work_icon']     = sanitize_text_field( isset($_POST['work_icon'])     ? $_POST['work_icon']     : 'dashicons-portfolio' );
+            $opts['work_label']    = sanitize_text_field( isset($_POST['work_label'])    ? wp_unslash($_POST['work_label']) : 'Works' );
+            $opts['work_singular'] = sanitize_text_field( isset($_POST['work_singular']) ? wp_unslash($_POST['work_singular']) : 'Work' );
+            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? wp_unslash($_POST['cat_label']) : __( 'Category', 'emerge-mono-portfolio' ) );
+            $opts['work_icon']     = sanitize_text_field( isset($_POST['work_icon'])     ? wp_unslash($_POST['work_icon']) : 'dashicons-portfolio' );
             update_option( 'en_options', $opts );
             flush_rewrite_rules();
             break;
 
         case 'nav':
-            $opts['nav_mode']    = sanitize_key( (isset($_POST['nav_mode']) ? $_POST['nav_mode'] : 'auto') );
-            $opts['nav_wp_menu'] = (int)( (isset($_POST['nav_wp_menu']) ? $_POST['nav_wp_menu'] : 0) );
+            $opts['nav_mode']    = sanitize_key( (isset($_POST['nav_mode']) ? wp_unslash($_POST['nav_mode']) : 'auto') );
+            $opts['nav_wp_menu'] = absint( $_POST['nav_wp_menu'] ?? 0 );
 
-            $labels   = (isset($_POST['nav_label']) ? $_POST['nav_label'] : array());
-            $types    = (isset($_POST['nav_type']) ? $_POST['nav_type'] : array());
-            $urls     = (isset($_POST['nav_url']) ? $_POST['nav_url'] : array());
-            $page_ids = (isset($_POST['nav_page_id']) ? $_POST['nav_page_id'] : array());
+            $labels   = (isset($_POST['nav_label']) ? wp_unslash($_POST['nav_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $types    = (isset($_POST['nav_type']) ? wp_unslash($_POST['nav_type']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $urls     = (isset($_POST['nav_url']) ? wp_unslash($_POST['nav_url']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $page_ids = (isset($_POST['nav_page_id']) ? wp_unslash($_POST['nav_page_id']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $nav = array();
             foreach ( $labels as $i => $label ) {
                 $type = sanitize_key( (isset($types[$i]) ? $types[$i] : 'url') );
@@ -270,29 +271,29 @@ function en_handle_save() {
             break;
 
         case 'contact':
-            $opts['contact_email']         = sanitize_email( (isset($_POST['contact_email']) ? $_POST['contact_email'] : '') );
-            $opts['contact_desc']          = sanitize_textarea_field( (isset($_POST['contact_desc']) ? $_POST['contact_desc'] : '') );
-            $opts['contact_btn_text']      = sanitize_text_field( (isset($_POST['contact_btn_text']) ? $_POST['contact_btn_text'] : 'Send') );
-            $opts['contact_success']       = sanitize_text_field( (isset($_POST['contact_success']) ? $_POST['contact_success'] : '') );
-            $opts['contact_auto_reply']    = sanitize_text_field( (isset($_POST['contact_auto_reply']) ? $_POST['contact_auto_reply'] : '1') );
-            $opts['contact_reply_subject'] = sanitize_text_field( (isset($_POST['contact_reply_subject']) ? $_POST['contact_reply_subject'] : '') );
-            $opts['contact_reply_body']    = sanitize_textarea_field( (isset($_POST['contact_reply_body']) ? $_POST['contact_reply_body'] : '') );
-            $opts['contact_mail_subject']  = sanitize_text_field( (isset($_POST['contact_mail_subject']) ? $_POST['contact_mail_subject'] : '') );
-            $opts['contact_mail_body']     = sanitize_textarea_field( (isset($_POST['contact_mail_body']) ? $_POST['contact_mail_body'] : '') );
-            $opts['recaptcha_site_key']    = sanitize_text_field( (isset($_POST['recaptcha_site_key']) ? $_POST['recaptcha_site_key'] : '') );
-            $opts['recaptcha_secret']           = sanitize_text_field( (isset($_POST['recaptcha_secret']) ? $_POST['recaptcha_secret'] : '') );
+            $opts['contact_email']         = sanitize_email( (isset($_POST['contact_email']) ? wp_unslash($_POST['contact_email']) : '') );
+            $opts['contact_desc']          = sanitize_textarea_field( (isset($_POST['contact_desc']) ? wp_unslash($_POST['contact_desc']) : '') );
+            $opts['contact_btn_text']      = sanitize_text_field( (isset($_POST['contact_btn_text']) ? wp_unslash($_POST['contact_btn_text']) : 'Send') );
+            $opts['contact_success']       = sanitize_text_field( (isset($_POST['contact_success']) ? wp_unslash($_POST['contact_success']) : '') );
+            $opts['contact_auto_reply']    = sanitize_text_field( (isset($_POST['contact_auto_reply']) ? wp_unslash($_POST['contact_auto_reply']) : '1') );
+            $opts['contact_reply_subject'] = sanitize_text_field( (isset($_POST['contact_reply_subject']) ? wp_unslash($_POST['contact_reply_subject']) : '') );
+            $opts['contact_reply_body']    = sanitize_textarea_field( (isset($_POST['contact_reply_body']) ? wp_unslash($_POST['contact_reply_body']) : '') );
+            $opts['contact_mail_subject']  = sanitize_text_field( (isset($_POST['contact_mail_subject']) ? wp_unslash($_POST['contact_mail_subject']) : '') );
+            $opts['contact_mail_body']     = sanitize_textarea_field( (isset($_POST['contact_mail_body']) ? wp_unslash($_POST['contact_mail_body']) : '') );
+            $opts['recaptcha_site_key']    = sanitize_text_field( (isset($_POST['recaptcha_site_key']) ? wp_unslash($_POST['recaptcha_site_key']) : '') );
+            $opts['recaptcha_secret']           = sanitize_text_field( (isset($_POST['recaptcha_secret']) ? wp_unslash($_POST['recaptcha_secret']) : '') );
             $opts['contact_consent_enabled']    = isset($_POST['contact_consent_enabled']) ? '1' : '0';
-            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? $_POST['contact_consent_text'] : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' )) );
-            $opts['contact_consent_page_id']    = (int)( (isset($_POST['contact_consent_page_id']) ? $_POST['contact_consent_page_id'] : 0) );
+            $opts['contact_consent_text']       = sanitize_text_field( (isset($_POST['contact_consent_text']) ? wp_unslash($_POST['contact_consent_text']) : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' )) );
+            $opts['contact_consent_page_id']    = absint( $_POST['contact_consent_page_id'] ?? 0 );
             update_option( 'en_options', $opts );
 
             // フォームフィールド保存
-            $cf_labels       = (isset($_POST['cf_label']) ? $_POST['cf_label'] : array());
-            $cf_keys         = (isset($_POST['cf_key']) ? $_POST['cf_key'] : array());
-            $cf_types        = (isset($_POST['cf_type']) ? $_POST['cf_type'] : array());
-            $cf_placeholders = (isset($_POST['cf_placeholder']) ? $_POST['cf_placeholder'] : array());
-            $cf_requireds    = (isset($_POST['cf_required']) ? $_POST['cf_required'] : array());
-            $cf_options_raw  = (isset($_POST['cf_options']) ? $_POST['cf_options'] : array());
+            $cf_labels       = (isset($_POST['cf_label']) ? wp_unslash($_POST['cf_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_keys         = (isset($_POST['cf_key']) ? wp_unslash($_POST['cf_key']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_types        = (isset($_POST['cf_type']) ? wp_unslash($_POST['cf_type']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_placeholders = (isset($_POST['cf_placeholder']) ? wp_unslash($_POST['cf_placeholder']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_requireds    = (isset($_POST['cf_required']) ? wp_unslash($_POST['cf_required']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $cf_options_raw  = (isset($_POST['cf_options']) ? wp_unslash($_POST['cf_options']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
 
             $contact_fields = array();
             foreach ( $cf_keys as $i => $key ) {
@@ -317,22 +318,22 @@ function en_handle_save() {
                 );
             }
             update_option( 'en_contact_fields', $contact_fields );
-            wp_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=contact&saved=1' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=contact&saved=1' ) );
             exit;
 
         case 'cpt':
-            $opts['work_label']    = sanitize_text_field( isset($_POST['work_label'])    ? $_POST['work_label']    : 'Works' );
-            $opts['work_singular'] = sanitize_text_field( isset($_POST['work_singular']) ? $_POST['work_singular'] : 'Work' );
-            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? $_POST['cat_label']     : __( 'Category', 'emerge-mono-portfolio' ) );
-            $opts['work_icon']     = sanitize_text_field( isset($_POST['work_icon'])     ? $_POST['work_icon']     : 'dashicons-portfolio' );
+            $opts['work_label']    = sanitize_text_field( isset($_POST['work_label'])    ? wp_unslash($_POST['work_label']) : 'Works' );
+            $opts['work_singular'] = sanitize_text_field( isset($_POST['work_singular']) ? wp_unslash($_POST['work_singular']) : 'Work' );
+            $opts['cat_label']     = sanitize_text_field( isset($_POST['cat_label'])     ? wp_unslash($_POST['cat_label']) : __( 'Category', 'emerge-mono-portfolio' ) );
+            $opts['work_icon']     = sanitize_text_field( isset($_POST['work_icon'])     ? wp_unslash($_POST['work_icon']) : 'dashicons-portfolio' );
             update_option( 'en_options', $opts );
             flush_rewrite_rules();
             break;
 
         case 'fields':
-            $labels = (isset($_POST['field_label']) ? $_POST['field_label'] : array());
-            $keys   = (isset($_POST['field_key']) ? $_POST['field_key'] : array());
-            $types  = (isset($_POST['field_type']) ? $_POST['field_type'] : array());
+            $labels = (isset($_POST['field_label']) ? wp_unslash($_POST['field_label']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $keys   = (isset($_POST['field_key']) ? wp_unslash($_POST['field_key']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
+            $types  = (isset($_POST['field_type']) ? wp_unslash($_POST['field_type']) : array()); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
             $fields = array();
             foreach ( $keys as $i => $key ) {
                 $key = sanitize_key( $key );
@@ -359,6 +360,6 @@ function en_handle_save() {
     }
 
     $tab = $action === 'design' ? 'design' : ( $action === 'cpt' ? 'cpt' : ( $action === 'fields' ? 'fields' : $action ) );
-    wp_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=' . $tab . '&saved=1' ) );
+    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=' . $tab . '&saved=1' ) );
     exit;
 }

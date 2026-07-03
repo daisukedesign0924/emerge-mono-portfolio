@@ -1,9 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-add_shortcode( 'emerge_mono_privacy', 'en_shortcode_privacy' );
-function en_shortcode_privacy( $atts ) {
-    $opts           = en_get_options();
+add_shortcode( 'emerge_mono_privacy', 'emono_shortcode_privacy' );
+function emono_shortcode_privacy( $atts ) {
+    $opts           = emono_get_options();
     $lang           = isset( $opts['privacy_lang'] )        ? $opts['privacy_lang']        : 'ja';
     $owner          = isset( $opts['legal_owner'] )       ? $opts['legal_owner']       : '';
     $site           = isset( $opts['legal_site'] )        ? $opts['legal_site']        : get_bloginfo('name');
@@ -13,7 +13,7 @@ function en_shortcode_privacy( $atts ) {
     $use_disclaimer = isset( $opts['privacy_disclaimer'] )  ? $opts['privacy_disclaimer']  : '1';
     $custom         = isset( $opts['privacy_custom'] )      ? $opts['privacy_custom']      : '';
 
-    $html = en_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie, $use_ga, $use_disclaimer, $custom );
+    $html = emono_privacy_generate_html( $lang, $owner, $site, $email, $use_cookie, $use_ga, $use_disclaimer, $custom );
 
     return '<div class="en-privacy">' . $html . '</div>';
 }
