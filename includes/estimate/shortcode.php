@@ -136,7 +136,7 @@ function emono_shortcode_estimate( $atts ) {
                     $req_mark = $required ? '<span class="en-required">*</span>' : '<span class="en-optional">' . esc_html__( 'Optional', 'emerge-mono-portfolio' ) . '</span>';
                 ?>
                 <div class="en-est-form-field">
-                    <label class="en-est-form-label"><?php echo esc_html($label); ?> <?php echo esc_html( $req_mark ); ?></label>
+                    <label class="en-est-form-label"><?php echo esc_html($label); ?> <?php echo wp_kses( $req_mark, array( 'span' => array( 'class' => array() ) ) ); ?></label>
                     <?php if ( $type === 'textarea' ) : ?>
                         <textarea name="en_field_<?php echo esc_attr($key); ?>" class="en-est-form-textarea" placeholder="<?php echo esc_attr($pholder); ?>" <?php echo esc_attr( $req_attr ); ?>></textarea>
                     <?php elseif ( $type === 'select' ) : ?>
@@ -177,29 +177,30 @@ function emono_shortcode_estimate( $atts ) {
         <?php endif; ?>
     </div>
 
-    <script>
-    window.enEstData = <?php echo wp_json_encode( array(
+    <?php
+    // Pass data to the estimate script via wp_add_inline_script instead of raw script output.
+    $en_est_data = wp_json_encode( array(
         'services'       => $svcs,
         'paymentMethods' => $pms,
         'noteText'       => $note_text,
         'recaptchaKey'   => $recaptcha_key,
         'i18n'           => array(
-            'perUnit'       => __( 'each', 'emerge-mono-portfolio' ),          // 「1個あたり ¥」→ prefix前後で使用
+            'perUnit'       => __( 'each', 'emerge-mono-portfolio' ),
             'perUnitPrefix' => __( 'each', 'emerge-mono-portfolio' ),
             'currency'      => __( '¥', 'emerge-mono-portfolio' ),
             'noFee'         => __( 'No fee', 'emerge-mono-portfolio' ),
             'fee'           => __( 'Fee', 'emerge-mono-portfolio' ),
-            'feeLabel'      => __( 'fee', 'emerge-mono-portfolio' ),           // 「{name} 手数料（{x}%）」
-            'method'        => __( 'Method', 'emerge-mono-portfolio' ),        // 依頼方法
-            'estTotal'      => __( 'Estimated total', 'emerge-mono-portfolio' ),// 概算合計
-            'subtotal'      => __( 'Subtotal', 'emerge-mono-portfolio' ),       // 小計
-            'listSep'       => __( ', ', 'emerge-mono-portfolio' ),            // 「、」
-            'bullet'        => __( '• ', 'emerge-mono-portfolio' ),            // 「・」
+            'feeLabel'      => __( 'fee', 'emerge-mono-portfolio' ),
+            'method'        => __( 'Method', 'emerge-mono-portfolio' ),
+            'estTotal'      => __( 'Estimated total', 'emerge-mono-portfolio' ),
+            'subtotal'      => __( 'Subtotal', 'emerge-mono-portfolio' ),
+            'listSep'       => __( ', ', 'emerge-mono-portfolio' ),
+            'bullet'        => __( '• ', 'emerge-mono-portfolio' ),
             'sendFailed'    => __( 'Failed to send.', 'emerge-mono-portfolio' ),
             'commError'     => __( 'A communication error occurred.', 'emerge-mono-portfolio' ),
         ),
-    ) ); ?>;
-    </script>
-    <?php
+    ) );
+    wp_add_inline_script( 'en-estimate', 'window.enEstData = ' . $en_est_data . ';', 'before' );
+
     return ob_get_clean();
 }

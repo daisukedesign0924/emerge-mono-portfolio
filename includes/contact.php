@@ -161,11 +161,13 @@ function emono_handle_contact() {
 
 // ── IPアドレス取得 ──
 function emono_get_client_ip() {
-    $keys = array( 'HTTP_CF_CONNECTING_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REAL_IP', 'REMOTE_ADDR' );
-    foreach ( $keys as $key ) {
-        if ( ! empty( $_SERVER[ $key ] ) ) {
-            $ip = trim( explode(',', sanitize_text_field( wp_unslash( $_SERVER[$key] ) ))[0] );
-            if ( filter_var($ip, FILTER_VALIDATE_IP) ) return $ip;
+    // Only REMOTE_ADDR is used, because it is set by the web server and cannot be
+    // spoofed by the client. Proxy headers such as X-Forwarded-For are attacker-
+    // controlled and would let spammers bypass the rate limit by faking IPs.
+    if ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
+        $ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) );
+        if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+            return $ip;
         }
     }
     return '0.0.0.0';

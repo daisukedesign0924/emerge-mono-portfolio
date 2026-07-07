@@ -465,6 +465,24 @@ function emono_ed_page_create() {
         array( 'sc' => '[emerge_mono_terms]',     'title' => 'Terms of Service', 'slug' => 'terms',         'desc' => __( 'Terms of service page', 'emerge-mono-portfolio' ),                          'icon' => '📋' ),
         array( 'sc' => '[emerge_mono_estimate]',  'title' => 'Estimate',         'slug' => 'estimate',      'desc' => __( 'Estimate simulator page', 'emerge-mono-portfolio' ),            'icon' => '💰' ),
     );
+    wp_localize_script( 'ene-page-manager', 'enePageSettings', array(
+        'createNonce' => wp_create_nonce( 'ene_create_em_page' ),
+        'i18n'        => array(
+            /* translators: %s: the page title */
+            'confirmDelete'  => __( 'Delete "%s"?\nThis cannot be undone.', 'emerge-mono-portfolio' ),
+            'deleting'       => __( 'Deleting...', 'emerge-mono-portfolio' ),
+            /* translators: %s: the page title */
+            'deletedMsg'     => '🗑 ' . __( 'Deleted "%s".', 'emerge-mono-portfolio' ),
+            'del'            => __( 'Delete', 'emerge-mono-portfolio' ),
+            'errorPrefix'    => __( 'Error: ', 'emerge-mono-portfolio' ),
+            'couldNotDelete' => __( 'Could not delete', 'emerge-mono-portfolio' ),
+            'creating'       => __( 'Creating...', 'emerge-mono-portfolio' ),
+            /* translators: %s: the page title */
+            'createdMsg'     => '✅ %s ' . __( 'created.', 'emerge-mono-portfolio' ),
+            'create'         => __( 'Create', 'emerge-mono-portfolio' ),
+            'couldNotCreate' => __( 'Could not create', 'emerge-mono-portfolio' ),
+        ),
+    ) );
 
     $existing_pages = get_pages( array( 'post_status' => array('publish','draft'), 'sort_column' => 'menu_order' ) );
     $sc_page_map = array();
@@ -528,70 +546,7 @@ function emono_ed_page_create() {
             </table>
             <div id="ene-page-msg" style="margin-top:16px;font-size:12px;"></div>
         </div>
-    </div>
-    <script>
-    var enePageI18n = {
-        confirmDelete: <?php /* translators: %s: the page title */ echo wp_json_encode( __( 'Delete "%s"?\nThis cannot be undone.', 'emerge-mono-portfolio' ) ); ?>,
-        deleting:   <?php echo wp_json_encode( __( 'Deleting...', 'emerge-mono-portfolio' ) ); ?>,
-        deletedMsg: <?php /* translators: %s: the page title */ echo wp_json_encode( '🗑 ' . __( 'Deleted "%s".', 'emerge-mono-portfolio' ) ); ?>,
-        del:        <?php echo wp_json_encode( __( 'Delete', 'emerge-mono-portfolio' ) ); ?>,
-        errorPrefix:<?php echo wp_json_encode( __( 'Error: ', 'emerge-mono-portfolio' ) ); ?>,
-        couldNotDelete: <?php echo wp_json_encode( __( 'Could not delete', 'emerge-mono-portfolio' ) ); ?>,
-        creating:   <?php echo wp_json_encode( __( 'Creating...', 'emerge-mono-portfolio' ) ); ?>,
-        createdMsg: <?php echo wp_json_encode( '✅ %s ' . __( 'created.', 'emerge-mono-portfolio' ) ); ?>,
-        create:     <?php echo wp_json_encode( __( 'Create', 'emerge-mono-portfolio' ) ); ?>,
-        couldNotCreate: <?php echo wp_json_encode( __( 'Could not create', 'emerge-mono-portfolio' ) ); ?>
-    };
-    window.eneDeleteEmPage = function(pageId, title, btn) {
-        if ( ! confirm(enePageI18n.confirmDelete.replace('%s', title)) ) return;
-        btn.disabled = true;
-        btn.textContent = enePageI18n.deleting;
-        var data = new FormData();
-        data.append('action', 'ene_delete_post');
-        data.append('nonce',   ENE.nonce_delete);
-        data.append('post_id', pageId);
-        fetch(ajaxurl, { method: 'POST', body: data })
-            .then(function(r){ return r.json(); })
-            .then(function(res){
-                if (res.success) {
-                    document.getElementById('ene-page-msg').style.color = 'rgba(255,255,255,.6)';
-                    document.getElementById('ene-page-msg').textContent = enePageI18n.deletedMsg.replace('%s', title);
-                    setTimeout(function(){ location.reload(); }, 800);
-                } else {
-                    btn.disabled = false;
-                    btn.textContent = enePageI18n.del;
-                    document.getElementById('ene-page-msg').style.color = 'rgba(255,100,100,.7)';
-                    document.getElementById('ene-page-msg').textContent = enePageI18n.errorPrefix + (res.data || enePageI18n.couldNotDelete);
-                }
-            });
-    };
-
-    window.eneCreatePage = function(def, btn) {
-        btn.disabled = true;
-        btn.textContent = enePageI18n.creating;
-        var data = new FormData();
-        data.append('action', 'ene_create_em_page');
-        data.append('nonce', '<?php echo esc_attr( wp_create_nonce("ene_create_em_page") ); ?>');
-        data.append('title', def.title);
-        data.append('slug',  def.slug);
-        data.append('sc',    def.sc);
-        fetch(ajaxurl, { method: 'POST', body: data })
-            .then(function(r){ return r.json(); })
-            .then(function(res){
-                if (res.success) {
-                    document.getElementById('ene-page-msg').style.color = 'rgba(255,255,255,.6)';
-                    document.getElementById('ene-page-msg').textContent = enePageI18n.createdMsg.replace('%s', def.title);
-                    setTimeout(function(){ location.reload(); }, 800);
-                } else {
-                    btn.disabled = false;
-                    btn.textContent = enePageI18n.create;
-                    document.getElementById('ene-page-msg').style.color = 'rgba(255,100,100,.7)';
-                    document.getElementById('ene-page-msg').textContent = enePageI18n.errorPrefix + (res.data || enePageI18n.couldNotCreate);
-                }
-            });
-    };
-    </script>
-    <?php
+    </div>    <?php
 }
 
 // ── ページ作成 AJAX ──

@@ -1,0 +1,107 @@
+#wpcontent { background:#0d0d0d; }
+#wpbody-content { padding-bottom:0; }
+.ene-wrap { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:#e8e8e8; min-height:100vh; background:#0d0d0d; }
+
+/* ── ヘッダー ── */
+.ene-header { background:#111; border-bottom:1px solid rgba(255,255,255,.07); padding:16px 28px; }
+.ene-header-inner { display:flex; align-items:center; justify-content:space-between; }
+.ene-header-title { font-size:16px; font-weight:600; color:#fff; }
+.ene-new-btn { background:#fff; color:#000; font-size:12px; font-weight:600; padding:8px 18px; border-radius:7px; text-decoration:none; transition:opacity .2s; }
+.ene-new-btn:hover { opacity:.85; color:#000; }
+.ene-back-btn { font-size:12px; color:rgba(255,255,255,.35); text-decoration:none; transition:color .2s; }
+.ene-back-btn:hover { color:rgba(255,255,255,.7); }
+
+/* ── 投稿タイプ切替バー ── */
+.ene-type-bar { background:#111; border-bottom:1px solid rgba(255,255,255,.07); padding:20px 28px; }
+.ene-type-bar-label { font-size:11px; letter-spacing:.1em; color:rgba(255,255,255,.25); text-transform:uppercase; margin-bottom:14px; }
+.ene-type-bar-btns { display:flex; gap:12px; }
+.ene-type-bar-btn { display:flex; align-items:center; gap:12px; padding:16px 24px; border-radius:10px; border:1px solid rgba(255,255,255,.1); text-decoration:none; color:rgba(255,255,255,.4); font-size:15px; font-weight:600; transition:all .2s; min-width:200px; background:rgba(255,255,255,.02); }
+.ene-type-bar-btn:hover { border-color:rgba(255,255,255,.3); color:rgba(255,255,255,.8); background:rgba(255,255,255,.05); }
+.ene-type-bar-btn.active { border-color:rgba(255,255,255,.5); color:#fff; background:rgba(255,255,255,.08); }
+.ene-type-bar-btn .dashicons { font-size:22px; width:22px; height:22px; color:inherit; }
+.ene-type-desc { font-size:11px; font-weight:400; color:rgba(255,255,255,.25); margin-left:auto; white-space:nowrap; }
+.ene-type-bar-btn.active .ene-type-desc { color:rgba(255,255,255,.4); }
+
+/* ── ボディ ── */
+.ene-body { display:grid; grid-template-columns:1fr 280px; gap:24px; padding:28px; max-width:1100px; }
+.ene-form { display:contents; }
+.ene-main { display:flex; flex-direction:column; gap:20px; }
+.ene-field { display:flex; flex-direction:column; gap:8px; }
+.ene-label { font-size:11px; font-weight:600; color:rgba(255,255,255,.45); letter-spacing:.06em; text-transform:uppercase; }
+.ene-req { color:rgba(255,100,100,.7); }
+.ene-input, .ene-textarea, .ene-select { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:8px; color:#e8e8e8; font-size:14px; padding:11px 14px; outline:none; transition:border-color .2s; font-family:inherit; width:100%; }
+.ene-input:focus, .ene-textarea:focus, .ene-select:focus { border-color:rgba(255,255,255,.35); }
+.ene-textarea { height:240px; resize:vertical; line-height:1.7; }
+.ene-select { cursor:pointer; }
+.ene-field-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+
+/* ── サイドバー ── */
+.ene-sidebar { display:flex; flex-direction:column; gap:16px; }
+.ene-side-section { background:#161616; border:1px solid rgba(255,255,255,.07); border-radius:10px; padding:18px; }
+.ene-side-title { font-size:10px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.3); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid rgba(255,255,255,.05); }
+
+/* ── アイキャッチ ── */
+.ene-thumb-preview { width:100%; aspect-ratio:16/9; background:rgba(255,255,255,.04); border:1px dashed rgba(255,255,255,.12); border-radius:8px; cursor:pointer; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; transition:border-color .2s; }
+.ene-thumb-preview:hover { border-color:rgba(255,255,255,.3); }
+.ene-thumb-preview img { width:100%; height:100%; object-fit:cover; }
+.ene-thumb-overlay { position:absolute; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; font-size:12px; color:#fff; opacity:0; transition:opacity .2s; }
+.ene-thumb-preview:hover .ene-thumb-overlay { opacity:1; }
+.ene-thumb-placeholder { display:flex; flex-direction:column; align-items:center; gap:8px; color:rgba(255,255,255,.2); }
+.ene-thumb-placeholder .dashicons { font-size:32px; width:32px; height:32px; }
+.ene-thumb-placeholder div { font-size:11px; letter-spacing:.05em; }
+.ene-remove-thumb { margin-top:8px; background:none; border:none; color:rgba(255,100,100,.5); font-size:11px; cursor:pointer; padding:0; }
+.ene-remove-thumb:hover { color:rgba(255,100,100,.8); }
+
+/* ── チェックボックス ── */
+.ene-check-label { display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,.55); cursor:pointer; margin-bottom:8px; }
+.ene-check-label input { accent-color:#fff; width:14px; height:14px; }
+.ene-no-cat { font-size:12px; color:rgba(255,255,255,.2); line-height:1.7; }
+
+/* ── アクション ── */
+.ene-actions { display:flex; flex-direction:column; gap:8px; }
+.ene-submit-btn { background:#fff; color:#000; border:none; border-radius:8px; font-size:13px; font-weight:600; padding:13px; cursor:pointer; transition:opacity .2s; width:100%; }
+.ene-submit-btn:hover { opacity:.85; }
+.ene-submit-btn:disabled { opacity:.4; cursor:not-allowed; }
+.ene-cancel-btn { display:block; text-align:center; font-size:12px; color:rgba(255,255,255,.3); text-decoration:none; padding:8px; }
+.ene-cancel-btn:hover { color:rgba(255,255,255,.6); }
+.ene-msg { font-size:12px; text-align:center; min-height:20px; border-radius:6px; padding:8px; }
+.ene-msg.success { background:rgba(100,200,100,.08); color:rgba(150,230,150,.8); border:1px solid rgba(100,200,100,.2); }
+.ene-msg.error   { background:rgba(255,100,100,.08); color:rgba(255,150,150,.8); border:1px solid rgba(255,100,100,.2); }
+
+/* ── テーブル ── */
+.ene-table { width:100%; border-collapse:collapse; font-size:13px; }
+.ene-table th { padding:12px 14px; text-align:left; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.25); font-weight:normal; border-bottom:1px solid rgba(255,255,255,.07); }
+.ene-table td { padding:14px; border-bottom:1px solid rgba(255,255,255,.04); vertical-align:middle; }
+.ene-table tr:hover td { background:rgba(255,255,255,.02); }
+.ene-table-title { color:rgba(255,255,255,.75); text-decoration:none; font-size:13px; transition:color .2s; }
+.ene-table-title:hover { color:#fff; }
+.ene-table-btn { background:none; border:1px solid rgba(255,255,255,.12); border-radius:5px; color:rgba(255,255,255,.4); font-size:11px; padding:5px 12px; cursor:pointer; text-decoration:none; transition:all .2s; margin-right:4px; display:inline-block; }
+.ene-table-btn:hover { border-color:rgba(255,255,255,.35); color:#fff; }
+.ene-delete-btn:hover { border-color:rgba(255,100,100,.4); color:rgba(255,100,100,.7); }
+.ene-badge { font-size:10px; letter-spacing:.1em; padding:3px 8px; border-radius:4px; }
+.ene-badge-pub   { background:rgba(100,200,100,.1); color:rgba(150,230,150,.8); border:1px solid rgba(100,200,100,.2); }
+.ene-badge-draft { background:rgba(255,255,255,.05); color:rgba(255,255,255,.3); border:1px solid rgba(255,255,255,.1); }
+.ene-badge-none  { background:rgba(255,150,50,.08); color:rgba(255,180,80,.6); border:1px solid rgba(255,150,50,.15); }
+.ene-empty { padding:60px 28px; text-align:center; font-size:13px; color:rgba(255,255,255,.2); line-height:2; }
+
+/* ── カテゴリーバー ── */
+.ene-cat-bar { background:#111; border-bottom:1px solid rgba(255,255,255,.07); padding:16px 28px; }
+.ene-cat-bar-inner { max-width:1100px; }
+.ene-cat-bar-title { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.25); margin-bottom:12px; }
+.ene-cat-list { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; min-height:28px; }
+.ene-cat-tag { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:20px; padding:4px 12px; font-size:12px; color:rgba(255,255,255,.6); }
+.ene-cat-delete { background:none; border:none; color:rgba(255,255,255,.25); cursor:pointer; font-size:14px; padding:0; line-height:1; transition:color .2s; }
+.ene-cat-delete:hover { color:rgba(255,100,100,.7); }
+.ene-cat-empty { font-size:12px; color:rgba(255,255,255,.2); align-self:center; }
+.ene-cat-add { display:flex; gap:8px; align-items:center; }
+.ene-cat-input { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); border-radius:6px; color:#e8e8e8; font-size:13px; padding:7px 12px; outline:none; transition:border-color .2s; width:220px; }
+.ene-cat-input:focus { border-color:rgba(255,255,255,.35); }
+.ene-cat-add-btn { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:6px; color:rgba(255,255,255,.6); font-size:12px; padding:7px 16px; cursor:pointer; transition:all .2s; white-space:nowrap; }
+.ene-cat-add-btn:hover { background:rgba(255,255,255,.14); color:#fff; }
+
+/* ── ページ作成 ── */
+.enp-sc-wrap { display:flex; gap:8px; margin-bottom:12px; }
+.enp-sc-list { display:flex; flex-direction:column; gap:8px; min-height:20px; }
+.enp-sc-tag { display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:6px; padding:10px 14px; }
+.enp-sc-tag code { font-family:monospace; font-size:13px; color:rgba(255,255,255,.7); background:none; padding:0; }
+.enp-sc-empty { font-size:12px; color:rgba(255,255,255,.2); padding:8px 0; }

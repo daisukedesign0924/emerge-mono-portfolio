@@ -3,7 +3,7 @@
  * Plugin Name:       Emerge Mono - Portfolio
  * Plugin URI:        https://github.com/daisukedesign0924/emerge-mono-portfolio
  * Description:       A monochrome portfolio toolkit for creators. Build a full portfolio site with shortcodes: hero, works gallery, profile, news, contact form, estimate simulator, and auto-generated privacy policy / terms pages.
- * Version:           2.23.7
+ * Version:           2.24.17
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            DAISUKE DESIGN
@@ -15,18 +15,13 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'EMONO_VERSION', '2.23.7' );
+define( 'EMONO_VERSION', '2.24.17' );
 define( 'EMONO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EMONO_URL',  plugin_dir_url( __FILE__ ) );
 
 // テーマ紹介ページのURL。公式テーマページが用意できたらここを差し替える。
 // '#' のときはボタンは表示されるがクリックしても遷移しない（準備中）。
 define( 'EMONO_THEME_URL', '#' );
-
-add_action( 'plugins_loaded', function() {
-    // Kept for reliable loading when distributed outside WordPress.org (e.g. GitHub).
-    load_plugin_textdomain( 'emerge-mono-portfolio', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
-}, 1 );
 
 require_once EMONO_PATH . 'includes/post-types.php';
 require_once EMONO_PATH . 'includes/custom-fields.php';
@@ -80,12 +75,15 @@ add_action( 'wp_enqueue_scripts', 'emono_enqueue_assets' );
 function emono_enqueue_assets() {
     wp_enqueue_style( 'emerge-mono-portfolio', EMONO_URL . 'assets/css/en-style.css', array(), EMONO_VERSION );
 
-    // Google Fonts（選択フォントがGoogle Fontsのときのみ）
-    $font = emono_opt( 'design_font', 'Space Mono' );
-    if ( emono_font_is_google( $font ) ) {
-        $font_url = 'https://fonts.googleapis.com/css2?family=' . rawurlencode( $font ) . ':wght@400;700&display=swap';
-        wp_enqueue_style( 'emerge-mono-portfolio-font', $font_url, array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- External Google Fonts URL is versionless by design.
+    // Design variables (colors, font, logo sizes) are generated from user settings
+    // and attached as inline CSS to the main stylesheet handle (WordPress best practice).
+    $inline_css = emono_build_design_css() . emono_build_logo_size_css();
+    if ( $inline_css !== '' ) {
+        wp_add_inline_style( 'emerge-mono-portfolio', $inline_css );
     }
+
+    // Fonts are system fonts or user-uploaded files only. No external font
+    // service (e.g. Google Fonts) is loaded, so no visitor data is sent out.
     wp_enqueue_script( 'emerge-mono-portfolio', EMONO_URL . 'assets/js/en-script.js', array(), EMONO_VERSION, true );
     wp_localize_script( 'emerge-mono-portfolio', 'EN', array(
         'ajax_url' => admin_url( 'admin-ajax.php' ),
@@ -158,12 +156,13 @@ function emono_fix_svg_filetype( $data, $file, $filename, $mimes ) {
 }
 
 // メディアライブラリでSVGをプレビュー表示
-add_action( 'admin_head', 'emono_svg_media_preview' );
+add_action( 'admin_enqueue_scripts', 'emono_svg_media_preview' );
 function emono_svg_media_preview() {
-    echo '<style>
-    .attachment-preview .thumbnail img[src$=".svg"],
-    img[src$=".svg"].attachment-thumb { width:100%; height:auto; }
-    </style>';
+    $css = '.attachment-preview .thumbnail img[src$=".svg"],'
+         . 'img[src$=".svg"].attachment-thumb { width:100%; height:auto; }';
+    wp_register_style( 'emerge-mono-admin-svg', false, array(), EMONO_VERSION );
+    wp_enqueue_style( 'emerge-mono-admin-svg' );
+    wp_add_inline_style( 'emerge-mono-admin-svg', $css );
 }
 
 // フォントファイルのアップロードを許可（カスタムフォント機能用）
@@ -195,31 +194,19 @@ function emono_fix_font_filetype( $data, $file, $filename, $mimes ) {
     return $data;
 }
 
-// ── デザイン設定をCSS変数として出力 ──
-add_action( 'wp_head', 'emono_output_design_vars' );
-
 /**
  * フォント定義の一元管理
- * 'google' => Google Fontsから読み込むフォント（値はfallback種別）
  * 'system' => システムフォント（外部読み込み不要・font-family文字列）
+ * 外部フォントサービス（Google Fonts等）は使用しない。ユーザーは独自フォントのアップロードも可能。
  */
 function emono_font_registry() {
     return array(
-        // key => array( 'type' => google|system, 'stack' => CSS font-family )
-        'Space Mono'          => array( 'type' => 'google', 'stack' => "'Space Mono', monospace" ),
-        'Inter'               => array( 'type' => 'google', 'stack' => "'Inter', sans-serif" ),
-        'DM Sans'             => array( 'type' => 'google', 'stack' => "'DM Sans', sans-serif" ),
-        'Outfit'              => array( 'type' => 'google', 'stack' => "'Outfit', sans-serif" ),
-        'Syne'                => array( 'type' => 'google', 'stack' => "'Syne', sans-serif" ),
-        'Josefin Sans'        => array( 'type' => 'google', 'stack' => "'Josefin Sans', sans-serif" ),
-        'Bebas Neue'          => array( 'type' => 'google', 'stack' => "'Bebas Neue', sans-serif" ),
-        'Noto Sans JP'        => array( 'type' => 'google', 'stack' => "'Noto Sans JP', sans-serif" ),
-        'M PLUS 1p'           => array( 'type' => 'google', 'stack' => "'M PLUS 1p', sans-serif" ),
-        'Zen Kaku Gothic New' => array( 'type' => 'google', 'stack' => "'Zen Kaku Gothic New', sans-serif" ),
-        // システムフォント（WP標準・外部読み込みなし）
-        'System Sans'         => array( 'type' => 'system', 'stack' => "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif" ),
-        'System Serif'        => array( 'type' => 'system', 'stack' => "Georgia, 'Times New Roman', 'YuMincho', 'Hiragino Mincho ProN', 'MS PMincho', serif" ),
-        'System Mono'         => array( 'type' => 'system', 'stack' => "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Courier New', monospace" ),
+        // key => array( 'type' => system, 'stack' => CSS font-family )
+        // System fonts only. No external font services are loaded, so no visitor
+        // data is sent to third parties. Users can also upload their own font files.
+        'System Sans'  => array( 'type' => 'system', 'stack' => "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif" ),
+        'System Serif' => array( 'type' => 'system', 'stack' => "Georgia, 'Times New Roman', 'YuMincho', 'Hiragino Mincho ProN', 'MS PMincho', serif" ),
+        'System Mono'  => array( 'type' => 'system', 'stack' => "ui-monospace, SFMono-Regular, Menlo, Consolas, 'Courier New', monospace" ),
     );
 }
 
@@ -259,20 +246,21 @@ function emono_custom_font_url( $name ) {
 function emono_font_stack( $font_key ) {
     $reg = emono_font_registry();
     if ( isset( $reg[ $font_key ] ) ) {
+        // Registry stacks are fixed internal strings, safe to use as-is.
         return $reg[ $font_key ]['stack'];
     }
-    // カスタムフォント（プラグインでアップロードしたフォント）
-    if ( emono_custom_font_url( $font_key ) ) {
-        return "'" . $font_key . "', sans-serif";
+    // Custom or unknown font: the key may come from options, so strip characters
+    // that could break out of the CSS value. Keep letters, numbers, spaces, hyphens.
+    $safe = preg_replace( '/[^A-Za-z0-9 ._-]/', '', (string) $font_key );
+    $safe = trim( $safe );
+    if ( $safe === '' ) {
+        return "ui-monospace, monospace";
     }
-    // 未知の値はそのまま使い、monospaceでfallback
-    return "'" . $font_key . "', monospace";
-}
-
-/** 選択フォントがGoogle Fontsかどうか */
-function emono_font_is_google( $font_key ) {
-    $reg = emono_font_registry();
-    return isset( $reg[ $font_key ] ) && $reg[ $font_key ]['type'] === 'google';
+    if ( emono_custom_font_url( $font_key ) ) {
+        return "'" . $safe . "', sans-serif";
+    }
+    // Unknown value: use it with a monospace fallback.
+    return "'" . $safe . "', monospace";
 }
 
 /** Ajax: カスタムフォントを追加 */
@@ -324,10 +312,25 @@ function emono_ajax_delete_custom_font() {
     $name = isset($_POST['name']) ? sanitize_text_field( wp_unslash($_POST['name']) ) : '';
 
     $opts = get_option( 'en_options', array() );
+    $changed = false;
+
+    // Remove from the current (multi) storage.
     if ( isset($opts['en_custom_fonts']) && is_array($opts['en_custom_fonts']) ) {
         $opts['en_custom_fonts'] = array_values( array_filter( $opts['en_custom_fonts'], function($f) use ($name) {
             return ! ( isset($f['name']) && $f['name'] === $name );
         } ) );
+        $changed = true;
+    }
+
+    // Also remove the legacy single-font option if it matches, otherwise
+    // emono_get_custom_fonts() would keep re-adding it (font reappears after delete).
+    if ( isset($opts['design_custom_font_name']) && $opts['design_custom_font_name'] === $name ) {
+        $opts['design_custom_font_name'] = '';
+        $opts['design_custom_font_url']  = '';
+        $changed = true;
+    }
+
+    if ( $changed ) {
         update_option( 'en_options', $opts );
     }
 
@@ -336,53 +339,56 @@ function emono_ajax_delete_custom_font() {
     ) );
 }
 
-function emono_output_design_vars() {
+/**
+ * Build the design CSS (custom font @font-face + CSS variables) as a string.
+ * Returned value is attached via wp_add_inline_style(). No raw style tag here.
+ */
+function emono_build_design_css() {
     $bg     = emono_opt('design_bg',    '#000000');
     $text   = emono_opt('design_text',  '#ffffff');
     $accent = emono_opt('design_accent','#ffffff');
-    $font   = emono_opt('design_font',  'Space Mono');
+    $font   = emono_opt('design_font',  'System Mono');
     $mode   = emono_opt('design_mode',  'dark');
 
-    // Google Fontsの場合のみ外部読み込み（システムフォントは読み込まない）
-    // 実際の読み込みは wp_enqueue_scripts フックの en_enqueue_google_font() で行う。
-    if ( ! emono_font_is_google( $font ) ) {
-        // カスタムフォント（プラグインでアップロード）なら @font-face を出力
-        $custom_url = emono_custom_font_url( $font );
-        if ( $custom_url ) {
-            echo '<style id="en-custom-font-face">';
-            echo "@font-face{font-family:'" . esc_attr( $font ) . "';font-weight:400 700;font-style:normal;font-display:swap;src:url('" . esc_url( $custom_url ) . "');}";
-            echo '</style>' . "\n";
+    $css = '';
+
+    // If a user-uploaded custom font is selected, output its @font-face.
+    // System fonts need nothing here; no external font service is used.
+    $custom_url = emono_custom_font_url( $font );
+    if ( $custom_url ) {
+        // Sanitize the font name for safe use inside the CSS value (no quotes/braces).
+        $font_name = trim( preg_replace( '/[^A-Za-z0-9 ._-]/', '', (string) $font ) );
+        if ( $font_name !== '' ) {
+            $css .= "@font-face{font-family:'" . $font_name . "';font-weight:400 700;font-style:normal;font-display:swap;src:url('" . esc_url( $custom_url ) . "');}\n";
         }
     }
 
+    // Font stack is a safe internal/sanitized string (see emono_font_stack()).
+    // Do NOT esc_attr() it: that would turn quotes into &#039; and break the CSS.
     $font_stack = emono_font_stack( $font );
-    $a = esc_attr($accent);
-
-    // Color values are sanitized via esc_attr()/sanitize below; font stack is a fixed internal string.
-    $font_stack = esc_attr( $font_stack );
+    $a = esc_attr( $accent );
 
     if ( $mode === 'auto' ) {
-        // auto: ダーク基準 + メディアクエリでライスト上書きはCSSファイル側で処理
-        // アクセントカラーだけPHPで制御
         $a_light = ( $accent === '#ffffff' ) ? '#000000' : $a;
-        $css = "<style id=\"en-design-vars\">\n:root {\n    --en-font: {$font_stack};\n    --en-accent: {$a};\n}\n@media (prefers-color-scheme: light) {\n    body.en-mode-auto { --en-accent: {$a_light}; }\n}\n</style>\n";
-        echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS with pre-sanitized values.
+        $css .= ":root {\n    --en-font: {$font_stack};\n    --en-accent: {$a};\n}\n@media (prefers-color-scheme: light) {\n    body.en-mode-auto { --en-accent: {$a_light}; }\n}\n";
     } elseif ( $mode === 'light' ) {
         $a_light = ( $accent === '#ffffff' ) ? '#000000' : $a;
-        $css = "<style id=\"en-design-vars\">\n:root {\n    --en-font: {$font_stack};\n    --en-accent: {$a_light};\n}\n</style>\n";
-        echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS with pre-sanitized values.
+        $css .= ":root {\n    --en-font: {$font_stack};\n    --en-accent: {$a_light};\n}\n";
     } else {
-        // dark固定 or カスタムカラー
-        $t = esc_attr($text);
-        $b = esc_attr($bg);
-        $css = "<style id=\"en-design-vars\">\n:root {\n    --en-bg:     {$b};\n    --en-text:   {$t};\n    --en-accent: {$a};\n    --en-muted:  {$t}40;\n    --en-border: {$t}20;\n    --en-font:   {$font_stack};\n}\n</style>\n";
-        echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS with pre-sanitized values.
+        $t = esc_attr( $text );
+        $b = esc_attr( $bg );
+        $css .= ":root {\n    --en-bg:     {$b};\n    --en-text:   {$t};\n    --en-accent: {$a};\n    --en-muted:  {$t}40;\n    --en-border: {$t}20;\n    --en-font:   {$font_stack};\n}\n";
     }
+
+    return $css;
 }
 
 // ── ロゴサイズ（ブレイクポイント別）をCSS変数として出力 ──
-add_action( 'wp_head', 'emono_output_logo_size_vars', 11 );
-function emono_output_logo_size_vars() {
+/**
+ * Build the logo-size CSS variables (per breakpoint) as a string.
+ * Returned value is attached via wp_add_inline_style(). No raw style tag here.
+ */
+function emono_build_logo_size_css() {
     // トップページロゴ（vw）。desktop / tablet(<=768px) / mobile(<=480px)
     $top_d = (float) emono_opt( 'top_logo_size',        14 );
     $top_t = (float) emono_opt( 'top_logo_size_tablet', 0 );
@@ -400,12 +406,11 @@ function emono_output_logo_size_vars() {
     if ( $hdr_t <= 0 ) $hdr_t = $hdr_d;
     if ( $hdr_m <= 0 ) $hdr_m = $hdr_t;
 
-    // All values below are cast to (float) above, so they are safe to interpolate into CSS.
-    echo "<style id=\"en-logo-size-vars\">\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo ":root { --en-top-logo: {$top_d}vw; --en-header-logo: {$hdr_d}vw; }\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo "@media (max-width: 768px) { :root { --en-top-logo: {$top_t}vw; --en-header-logo: {$hdr_t}vw; } }\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo "@media (max-width: 480px) { :root { --en-top-logo: {$top_m}vw; --en-header-logo: {$hdr_m}vw; } }\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    echo "</style>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    // All values are cast to (float) above, so they are safe to interpolate into CSS.
+    $css  = ":root { --en-top-logo: {$top_d}vw; --en-header-logo: {$hdr_d}vw; }\n";
+    $css .= "@media (max-width: 768px) { :root { --en-top-logo: {$top_t}vw; --en-header-logo: {$hdr_t}vw; } }\n";
+    $css .= "@media (max-width: 480px) { :root { --en-top-logo: {$top_m}vw; --en-header-logo: {$hdr_m}vw; } }\n";
+    return $css;
 }
 
 // ── bodyにカラーモードクラスを付与 ──

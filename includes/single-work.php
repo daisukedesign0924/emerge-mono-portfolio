@@ -50,7 +50,7 @@ while ( have_posts() ) : the_post();
             <a href="<?php echo esc_url( $works_url ); ?>" class="en-single-back">← Works</a>
 
             <?php if ( $slide_count > 0 ) : ?>
-            <div class="en-slider<?php echo $slide_count > 1 ? ' has-multiple' : ''; ?>" id="en-slider">
+            <div class="en-slider<?php echo $slide_count > 1 ? ' has-multiple' : ''; ?>" id="en-slider" data-total="<?php echo (int) $slide_count; ?>">
                 <div class="en-slider-stage" id="en-slider-stage">
                     <?php foreach ( $gallery_items as $i => $item ) : ?>
                     <div class="en-slide<?php echo $i === 0 ? ' active' : ''; ?>">
@@ -131,68 +131,9 @@ while ( have_posts() ) : the_post();
         </div>
     </div>
 
-    <?php if ( $slide_count > 1 ) : ?>
-    <script>
-    (function(){
-        var stage  = document.getElementById('en-slider-stage');
-        var slides = stage.querySelectorAll('.en-slide');
-        var fill   = document.getElementById('en-slider-fill');
-        var curEl  = document.getElementById('en-slider-cur');
-        var cur    = 0;
-        var total  = <?php echo (int)$slide_count; ?>;
-
-        function pad(n){ return n < 10 ? '0' + n : '' + n; }
-
-        function goTo(n) {
-            cur = (n + total) % total;
-            slides.forEach(function(s, i){ s.classList.toggle('active', i === cur); });
-            if (fill)  fill.style.width = ((cur + 1) / total * 100) + '%';
-            if (curEl) curEl.textContent = pad(cur + 1);
-        }
-
-        // 矢印（画像上の左右エッジ＋下部UI、両方）
-        ['en-slider-prev','en-slider-prev2'].forEach(function(id){
-            var el = document.getElementById(id);
-            if (el) el.addEventListener('click', function(){ goTo(cur - 1); });
-        });
-        ['en-slider-next','en-slider-next2'].forEach(function(id){
-            var el = document.getElementById(id);
-            if (el) el.addEventListener('click', function(){ goTo(cur + 1); });
-        });
-
-        // スワイプ（スマホ）
-        var startX = 0, startY = 0, swiping = false;
-        stage.addEventListener('touchstart', function(e){
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            swiping = true;
-        }, {passive:true});
-        stage.addEventListener('touchend', function(e){
-            if (!swiping) return;
-            swiping = false;
-            var dx = startX - e.changedTouches[0].clientX;
-            var dy = startY - e.changedTouches[0].clientY;
-            // 横方向の動きが縦より大きいときだけ反応（縦スクロール誤爆防止）
-            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-                goTo(dx > 0 ? cur + 1 : cur - 1);
-            }
-        }, {passive:true});
-
-        // キーボード（PCでスライダーにフォーカス／ホバー時）
-        var hovering = false;
-        var sliderEl = document.getElementById('en-slider');
-        sliderEl.addEventListener('mouseenter', function(){ hovering = true; });
-        sliderEl.addEventListener('mouseleave', function(){ hovering = false; });
-        document.addEventListener('keydown', function(e){
-            if (!hovering) return;
-            if (e.key === 'ArrowLeft')  goTo(cur - 1);
-            if (e.key === 'ArrowRight') goTo(cur + 1);
-        });
-
-        goTo(0);
-    })();
-    </script>
-    <?php endif; ?>
+    <?php if ( $slide_count > 1 ) {
+        wp_enqueue_script( 'emerge-mono-slider', EMONO_URL . 'assets/js/en-slider.js', array(), EMONO_VERSION, true );
+    } ?>
 
     <?php
 endwhile;

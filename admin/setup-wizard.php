@@ -95,6 +95,8 @@ add_action( 'admin_enqueue_scripts', 'emono_wizard_enqueue' );
 function emono_wizard_enqueue( $hook = '' ) {
     if ( ! isset($_GET['page']) || $_GET['page'] !== 'en-setup-wizard' ) return; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
     wp_enqueue_media(); // 重複呼び出しはWP側で無害化される
+    wp_enqueue_style( 'emerge-mono-wizard', EMONO_URL . 'admin/assets/setup-wizard.css', array(), EMONO_VERSION );
+    wp_enqueue_script( 'emerge-mono-wizard', EMONO_URL . 'admin/assets/setup-wizard.js', array(), EMONO_VERSION, true );
 }
 
 // ── ウィザード本体描画 ──
@@ -119,6 +121,37 @@ function emono_wizard_render() {
         __( 'Logo', 'emerge-mono-portfolio' ),
         __( 'Pages', 'emerge-mono-portfolio' ),
     );
+    wp_localize_script( 'emerge-mono-wizard', 'emonoWizardSettings', array(
+        'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+        'createNonce' => wp_create_nonce( 'ene_create_em_page' ),
+        'doneNonce'   => wp_create_nonce( 'en_wizard_done' ),
+        'saveNonce'   => wp_create_nonce( 'en_wizard_save' ),
+        'dashUrl'     => $dash_url,
+        'i18n'        => array(
+            'none'             => __( 'Please select at least one page.', 'emerge-mono-portfolio' ),
+            'saving'           => __( 'Saving settings…', 'emerge-mono-portfolio' ),
+            'saved'            => __( 'Saved ✓', 'emerge-mono-portfolio' ),
+            'creating'         => __( 'Creating pages…', 'emerge-mono-portfolio' ),
+            /* translators: %s: the created page name */
+            'doneOne'          => __( 'Created: %s', 'emerge-mono-portfolio' ),
+            'allDone'          => __( 'All set! Redirecting…', 'emerge-mono-portfolio' ),
+            /* translators: %s: the page name that failed */
+            'failOne'          => __( 'Failed: %s', 'emerge-mono-portfolio' ),
+            'mediaTitle'       => __( 'Select Logo', 'emerge-mono-portfolio' ),
+            'mediaBtn'         => __( 'Use this logo', 'emerge-mono-portfolio' ),
+            'mediaUnavailable' => __( 'Media library could not load. Please reload the page and try again.', 'emerge-mono-portfolio' ),
+        ),
+        'logoLabels'  => array(
+            'dark'   => __( 'Logo (Dark Mode)', 'emerge-mono-portfolio' ),
+            'light'  => __( 'Logo (Light Mode)', 'emerge-mono-portfolio' ),
+            'single' => __( 'Logo', 'emerge-mono-portfolio' ),
+        ),
+        'logoHints'   => array(
+            'dark'  => __( 'Dark mode is selected, so only the dark logo is needed.', 'emerge-mono-portfolio' ),
+            'light' => __( 'Light mode is selected, so only the light logo is needed.', 'emerge-mono-portfolio' ),
+            'auto'  => __( 'Auto mode is selected. Set both a dark and a light logo for the best result.', 'emerge-mono-portfolio' ),
+        ),
+    ) );
     ?>
     <div class="en-wiz-overlay">
         <div class="en-wiz-modal">
@@ -272,399 +305,6 @@ function emono_wizard_render() {
 
         </div>
     </div>
-
-    <style>
-    /* WP管理画面のスクロール抑制＆管理バーより前面に */
-    html.wp-toolbar { padding-top: 0 !important; }
-    body.en-wiz-active { overflow: hidden !important; }
-    #wpadminbar { display: none !important; }
-    .en-wiz-overlay { position: fixed; inset: 0; background: rgba(10,10,12,.92); display: flex; align-items: stretch; justify-content: center; z-index: 2147483646; overflow: hidden; }
-    /* WPメディアライブラリ：オーバーレイより前面に。ただし背景(backdrop)は本体より下げてクリックを通す */
-    body .media-modal-backdrop { z-index: 2147483640 !important; }
-    body .media-modal { z-index: 2147483647 !important; }
-    .en-wiz-modal { width: 100vw; height: 100vh; max-width: 100vw; display: flex; flex-direction: column; background: #16161a; border: none; border-radius: 0; box-shadow: none; padding: 0; color: #eaeaea; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-
-    /* 進捗インジケーター */
-    .en-wiz-steps { display: flex; align-items: center; justify-content: center; gap: 0; padding: 3.5vh 24px 0; flex: none; }
-    .en-wiz-step { display: flex; align-items: center; gap: 8px; opacity: .4; transition: opacity .2s; }
-    .en-wiz-step.active { opacity: 1; }
-    .en-wiz-step.done { opacity: .7; }
-    .en-wiz-step-num { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex: none; }
-    .en-wiz-step.active .en-wiz-step-num { background: #fff; color: #16161a; border-color: #fff; }
-    .en-wiz-step.done .en-wiz-step-num { border-color: rgba(120,230,150,.6); color: rgba(120,230,150,.9); }
-    .en-wiz-step-label { font-size: 12px; letter-spacing: .05em; white-space: nowrap; }
-    .en-wiz-step-line { width: 40px; height: 1px; background: rgba(255,255,255,.15); margin: 0 10px; flex: none; }
-
-    /* 本体（ペイン切替領域） */
-    .en-wiz-body { flex: 1 1 auto; overflow-y: auto; display: flex; flex-direction: column; min-height: 0; }
-    .en-wiz-pane { display: none; flex-direction: column; flex: 1 1 auto; min-height: 0; }
-    .en-wiz-pane.active { display: flex; }
-
-    .en-wiz-head { text-align: center; padding: 4vh 24px 0; flex: none; }
-    .en-wiz-badge { display: inline-block; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.5); border: 1px solid rgba(255,255,255,.15); border-radius: 999px; padding: 4px 14px; margin-bottom: 12px; }
-    .en-wiz-title { font-size: 26px; font-weight: 700; margin: 0 0 8px; color: #fff; }
-    .en-wiz-lead { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,.6); margin: 0 auto; max-width: 520px; }
-
-    /* フォーム（Step1/2） */
-    .en-wiz-form { width: 100%; max-width: 520px; margin: 3vh auto 0; padding: 0 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; }
-    .en-wiz-field { display: flex; flex-direction: column; gap: 7px; }
-    .en-wiz-flabel { font-size: 12px; letter-spacing: .08em; color: rgba(255,255,255,.6); text-transform: uppercase; }
-    .en-wiz-input { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 8px; color: #fff; font-size: 14px; padding: 12px 14px; outline: none; box-sizing: border-box; transition: border-color .15s; }
-    .en-wiz-input:focus { border-color: rgba(255,255,255,.4); }
-
-    /* ロゴ（Step3：ダーク/ライトのスロット） */
-    .en-wiz-logos { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin: 3vh auto 0; padding: 0 24px; max-width: 620px; box-sizing: border-box; }
-    .en-wiz-logo-slot { flex: 1; min-width: 220px; max-width: 280px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .en-wiz-logo-slot.is-hidden { display: none; }
-    .en-wiz-logo-slot-label { font-size: 12px; letter-spacing: .08em; color: rgba(255,255,255,.6); text-transform: uppercase; }
-    .en-wiz-logo-preview { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 10px; padding: 16px; text-align: center; min-height: 80px; display: flex; align-items: center; justify-content: center; }
-    .en-wiz-logo-prev-light { background: #f4f4f4; }
-    .en-wiz-logo-preview img { max-width: 100%; max-height: 120px; object-fit: contain; }
-    .en-wiz-logo-btns { display: flex; align-items: center; justify-content: center; gap: 14px; }
-    .en-wiz-media-btn { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.18); border-radius: 8px; padding: 11px 18px; font-size: 12.5px; cursor: pointer; transition: background .15s; }
-    .en-wiz-media-btn:hover { background: rgba(255,255,255,.14); }
-    .en-wiz-logo-hint { text-align: center; font-size: 12px; color: rgba(255,255,255,.4); margin: 2.5vh auto 0; max-width: 520px; padding: 0 24px; }
-
-    /* カラーモード（Step3） */
-    .en-wiz-modes { width: 100%; max-width: 620px; margin: 3vh auto 0; padding: 0 24px; box-sizing: border-box; display: flex; gap: 12px; }
-    .en-wiz-mode { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 14px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; cursor: pointer; text-align: center; transition: border-color .15s, background .15s; }
-    .en-wiz-mode:hover { border-color: rgba(255,255,255,.25); }
-    .en-wiz-mode.active { border-color: #fff; background: rgba(255,255,255,.06); }
-    .en-wiz-mode input { position: absolute; opacity: 0; pointer-events: none; }
-    .en-wiz-mode-swatch { width: 100%; height: 54px; border-radius: 8px; border: 1px solid rgba(255,255,255,.12); }
-    .en-wiz-swatch-dark { background: #111; }
-    .en-wiz-swatch-light { background: #fff; }
-    .en-wiz-swatch-auto { background: linear-gradient(90deg, #111 50%, #fff 50%); }
-    .en-wiz-mode-name { font-size: 14px; font-weight: 600; color: #fff; }
-    .en-wiz-mode-desc { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.4; }
-
-    .en-wiz-toolbar { display: flex; align-items: center; gap: 8px; justify-content: flex-end; width: 100%; max-width: 720px; margin: 18px auto 10px; padding: 0 24px; flex: none; box-sizing: border-box; }
-    .en-wiz-link { background: none; border: none; color: rgba(255,255,255,.55); font-size: 12px; cursor: pointer; padding: 2px 4px; text-decoration: underline; text-underline-offset: 2px; }
-    .en-wiz-link:hover { color: #fff; }
-    .en-wiz-sep { color: rgba(255,255,255,.25); font-size: 12px; }
-    .en-wiz-list { display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; overflow-y: auto; width: 100%; max-width: 720px; margin: 0 auto; padding: 2px 24px; box-sizing: border-box; }
-    .en-wiz-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); border-radius: 10px; cursor: pointer; transition: border-color .15s, background .15s; }
-    .en-wiz-item:hover { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.05); }
-    .en-wiz-item.is-exists { opacity: .5; cursor: default; }
-    .en-wiz-item.is-exists:hover { border-color: rgba(255,255,255,.06); background: rgba(255,255,255,.03); }
-    .en-wiz-check { width: 18px; height: 18px; flex: none; accent-color: #fff; cursor: pointer; }
-    .en-wiz-item.is-exists .en-wiz-check { cursor: default; }
-    .en-wiz-icon { font-size: 20px; flex: none; width: 24px; text-align: center; }
-    .en-wiz-meta { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
-    .en-wiz-name { font-size: 14px; font-weight: 600; color: #fff; }
-    .en-wiz-desc { font-size: 12px; color: rgba(255,255,255,.45); }
-    .en-wiz-sc { font-size: 11px; color: rgba(255,255,255,.4); background: rgba(255,255,255,.06); padding: 1px 6px; border-radius: 4px; align-self: flex-start; margin-top: 2px; }
-    .en-wiz-tag { font-size: 10px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; flex: none; }
-    .en-wiz-tag-rec { color: rgba(120,200,255,.9); border: 1px solid rgba(120,200,255,.3); }
-    .en-wiz-tag-done { color: rgba(120,230,150,.9); border: 1px solid rgba(120,230,150,.3); }
-    .en-wiz-msg { min-height: 18px; font-size: 13px; text-align: center; margin: 10px auto 0; color: rgba(255,255,255,.6); flex: none; }
-    .en-wiz-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; max-width: 720px; margin: 10px auto 0; padding: 0 24px; flex: none; box-sizing: border-box; }
-    .en-wiz-skip { color: rgba(255,255,255,.45); font-size: 13px; text-decoration: none; }
-    .en-wiz-skip:hover { color: rgba(255,255,255,.7); }
-    .en-wiz-nav { display: flex; align-items: center; gap: 12px; }
-    .en-wiz-back { background: none; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.7); border-radius: 10px; padding: 12px 22px; font-size: 14px; cursor: pointer; transition: border-color .15s, color .15s; }
-    .en-wiz-back:hover { border-color: rgba(255,255,255,.4); color: #fff; }
-    .en-wiz-next { background: #fff; color: #16161a; border: none; border-radius: 10px; padding: 13px 30px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
-    .en-wiz-next:hover { opacity: .85; }
-    .en-wiz-create { background: #fff; color: #16161a; border: none; border-radius: 10px; padding: 13px 28px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .15s; }
-    .en-wiz-create:hover { opacity: .85; }
-    .en-wiz-create:disabled { opacity: .5; cursor: default; }
-    .en-wiz-foot { text-align: center; font-size: 12px; color: rgba(255,255,255,.35); margin: 0 auto; padding: 14px 24px 3vh; flex: none; }
-    @media (max-width: 600px) {
-        .en-wiz-steps { padding: 2.5vh 12px 0; }
-        .en-wiz-step-label { display: none; }
-        .en-wiz-step-line { width: 20px; margin: 0 6px; }
-        .en-wiz-head { padding: 3vh 16px 0; }
-        .en-wiz-title { font-size: 22px; }
-        .en-wiz-form, .en-wiz-modes, .en-wiz-toolbar, .en-wiz-list, .en-wiz-actions, .en-wiz-foot { padding-left: 16px; padding-right: 16px; }
-        .en-wiz-modes { flex-direction: column; }
-        .en-wiz-sc { display: none; }
-        .en-wiz-actions { flex-direction: column-reverse; align-items: stretch; gap: 10px; }
-        .en-wiz-nav { width: 100%; }
-        .en-wiz-next, .en-wiz-create { flex: 1; }
-        .en-wiz-skip { text-align: center; }
-    }
-    </style>
-
-    <script>
-    (function(){
-        document.body.classList.add('en-wiz-active');
-        var checks = function(){ return Array.prototype.slice.call(document.querySelectorAll('.en-wiz-check:not([disabled])')); };
-        var msg    = document.getElementById('en-wiz-msg');
-
-        var i18n = {
-            none:     <?php echo wp_json_encode( __( 'Please select at least one page.', 'emerge-mono-portfolio' ) ); ?>,
-            saving:   <?php echo wp_json_encode( __( 'Saving settings…', 'emerge-mono-portfolio' ) ); ?>,
-            saved:    <?php echo wp_json_encode( __( 'Saved ✓', 'emerge-mono-portfolio' ) ); ?>,
-            creating: <?php echo wp_json_encode( __( 'Creating pages…', 'emerge-mono-portfolio' ) ); ?>,
-            doneOne:  <?php /* translators: %s: the created page name */ echo wp_json_encode( __( 'Created: %s', 'emerge-mono-portfolio' ) ); ?>,
-            allDone:  <?php echo wp_json_encode( __( 'All set! Redirecting…', 'emerge-mono-portfolio' ) ); ?>,
-            failOne:  <?php /* translators: %s: the page name that failed */ echo wp_json_encode( __( 'Failed: %s', 'emerge-mono-portfolio' ) ); ?>,
-            mediaTitle: <?php echo wp_json_encode( __( 'Select Logo', 'emerge-mono-portfolio' ) ); ?>,
-            mediaBtn:   <?php echo wp_json_encode( __( 'Use this logo', 'emerge-mono-portfolio' ) ); ?>,
-            mediaUnavailable: <?php echo wp_json_encode( __( 'Media library could not load. Please reload the page and try again.', 'emerge-mono-portfolio' ) ); ?>
-        };
-        var ajaxurl     = <?php echo wp_json_encode( admin_url('admin-ajax.php') ); ?>;
-        var nonce       = <?php echo wp_json_encode( wp_create_nonce('ene_create_em_page') ); ?>;
-        var doneNonce   = <?php echo wp_json_encode( wp_create_nonce('en_wizard_done') ); ?>;
-        var saveNonce   = <?php echo wp_json_encode( wp_create_nonce('en_wizard_save') ); ?>;
-        var dashUrl     = <?php echo wp_json_encode( $dash_url ); ?>;
-
-        /* ===== ステップ移動 ===== */
-        var panes   = Array.prototype.slice.call(document.querySelectorAll('.en-wiz-pane'));
-        var stepEls = Array.prototype.slice.call(document.querySelectorAll('.en-wiz-step'));
-        var total   = panes.length;
-        var cur     = 0;
-        var backBtn   = document.getElementById('en-wiz-back');
-        var nextBtn   = document.getElementById('en-wiz-next');
-        var finishBtn = document.getElementById('en-wiz-finish');
-
-        function render(){
-            panes.forEach(function(p, i){ p.classList.toggle('active', i === cur); });
-            stepEls.forEach(function(s, i){
-                s.classList.toggle('active', i === cur);
-                s.classList.toggle('done', i < cur);
-            });
-            backBtn.style.display   = cur === 0 ? 'none' : '';
-            var last = ( cur === total - 1 );
-            nextBtn.style.display   = last ? 'none' : '';
-            finishBtn.style.display = last ? '' : 'none';
-            msg.textContent = '';
-        }
-        // 「保存して次へ」：現在の入力を保存してから次のステップへ
-        nextBtn.addEventListener('click', function(){
-            if ( cur >= total - 1 ) return;
-            nextBtn.disabled = true;
-            msg.textContent = i18n.saving;
-            saveSettings().then(function(){
-                nextBtn.disabled = false;
-                msg.textContent = i18n.saved;
-                cur++;
-                render();
-            });
-        });
-        backBtn.addEventListener('click', function(){ if ( cur > 0 ) { cur--; render(); } });
-        render();
-
-        /* ===== ページ選択ツールバー ===== */
-        document.getElementById('en-wiz-select-all').addEventListener('click', function(){
-            checks().forEach(function(c){ c.checked = true; });
-        });
-        document.getElementById('en-wiz-clear').addEventListener('click', function(){
-            checks().forEach(function(c){ c.checked = false; });
-        });
-        document.getElementById('en-wiz-select-recommended').addEventListener('click', function(){
-            checks().forEach(function(c){ c.checked = (c.closest('.en-wiz-item').querySelector('.en-wiz-tag-rec') !== null); });
-        });
-
-        /* ===== ロゴスロット要素 ===== */
-        var slotDark    = document.querySelector('.en-wiz-logo-slot[data-slot="dark"]');
-        var slotLight   = document.querySelector('.en-wiz-logo-slot[data-slot="light"]');
-        var labelDark   = document.getElementById('en-wiz-logo-label-dark');
-        var labelLight  = document.getElementById('en-wiz-logo-label-light');
-        var logoHint    = document.getElementById('en-wiz-logo-hint');
-        var logoLabels = {
-            dark:   <?php echo wp_json_encode( __( 'Logo (Dark Mode)', 'emerge-mono-portfolio' ) ); ?>,
-            light:  <?php echo wp_json_encode( __( 'Logo (Light Mode)', 'emerge-mono-portfolio' ) ); ?>,
-            single: <?php echo wp_json_encode( __( 'Logo', 'emerge-mono-portfolio' ) ); ?>
-        };
-        var logoHints = {
-            dark:  <?php echo wp_json_encode( __( 'Dark mode is selected, so only the dark logo is needed.', 'emerge-mono-portfolio' ) ); ?>,
-            light: <?php echo wp_json_encode( __( 'Light mode is selected, so only the light logo is needed.', 'emerge-mono-portfolio' ) ); ?>,
-            auto:  <?php echo wp_json_encode( __( 'Auto mode is selected. Set both a dark and a light logo for the best result.', 'emerge-mono-portfolio' ) ); ?>
-        };
-
-        // カラーモードに応じてロゴスロットの表示を切り替える
-        function syncLogoSlots(){
-            var modeEl = document.querySelector('input[name="en-wiz-mode"]:checked');
-            var mode = modeEl ? modeEl.value : 'dark';
-            if ( mode === 'dark' ) {
-                slotDark.classList.remove('is-hidden');
-                slotLight.classList.add('is-hidden');
-                labelDark.textContent = logoLabels.single;
-                logoHint.textContent = logoHints.dark;
-            } else if ( mode === 'light' ) {
-                slotDark.classList.add('is-hidden');
-                slotLight.classList.remove('is-hidden');
-                labelLight.textContent = logoLabels.single;
-                logoHint.textContent = logoHints.light;
-            } else { // auto
-                slotDark.classList.remove('is-hidden');
-                slotLight.classList.remove('is-hidden');
-                labelDark.textContent = logoLabels.dark;
-                labelLight.textContent = logoLabels.light;
-                logoHint.textContent = logoHints.auto;
-            }
-        }
-
-        /* ===== カラーモード選択 ===== */
-        Array.prototype.slice.call(document.querySelectorAll('.en-wiz-mode')).forEach(function(m){
-            m.addEventListener('click', function(){
-                document.querySelectorAll('.en-wiz-mode').forEach(function(x){ x.classList.remove('active'); });
-                m.classList.add('active');
-                m.querySelector('input').checked = true;
-                syncLogoSlots();
-            });
-        });
-        syncLogoSlots(); // 初期表示を反映
-
-        /* ===== ロゴ：メディアライブラリ（スロットごと） ===== */
-        var logoEls = {
-            dark:  { url: document.getElementById('en-wiz-logo-url'),       img: document.getElementById('en-wiz-logo-img-dark'),  prev: document.getElementById('en-wiz-logo-preview-dark') },
-            light: { url: document.getElementById('en-wiz-logo-url-light'), img: document.getElementById('en-wiz-logo-img-light'), prev: document.getElementById('en-wiz-logo-preview-light') }
-        };
-        var mediaFrames = {};
-        function bindMediaButtons(){
-            Array.prototype.slice.call(document.querySelectorAll('.en-wiz-media-btn')).forEach(function(btn){
-                btn.addEventListener('click', function(e){
-                    e.preventDefault();
-                    if ( typeof wp === 'undefined' || ! wp.media ) {
-                        msg.textContent = i18n.mediaUnavailable;
-                        return;
-                    }
-                    var target = btn.dataset.target;
-                    if ( ! mediaFrames[target] ) {
-                        var frame = wp.media({
-                            title: i18n.mediaTitle,
-                            button: { text: i18n.mediaBtn },
-                            library: { type: 'image' },
-                            multiple: false
-                        });
-                        // メディアモーダル表示中はウィザードの暗い背景を透明化（二重暗転を防ぐ）
-                        frame.on('open', function(){
-                            var ov = document.querySelector('.en-wiz-overlay');
-                            if ( ov ) ov.style.background = 'transparent';
-                        });
-                        frame.on('close', function(){
-                            var ov = document.querySelector('.en-wiz-overlay');
-                            if ( ov ) ov.style.background = '';
-                        });
-                        frame.on('select', function(){
-                            var att = frame.state().get('selection').first().toJSON();
-                            var el = logoEls[target];
-                            el.url.value = att.url;
-                            el.img.src = att.url;
-                            el.prev.style.display = '';
-                            var rm = document.querySelector('.en-wiz-logo-remove[data-target="' + target + '"]');
-                            if ( rm ) rm.style.display = '';
-                            msg.textContent = '';
-                        });
-                        mediaFrames[target] = frame;
-                    }
-                    mediaFrames[target].open();
-                });
-            });
-        }
-        // wp.media が未読込でも、読み込まれ次第バインドする（隠しページでの読み込み遅延対策）
-        if ( typeof wp !== 'undefined' && wp.media ) {
-            bindMediaButtons();
-        } else {
-            var mediaWait = 0;
-            var mediaTimer = setInterval(function(){
-                mediaWait++;
-                if ( typeof wp !== 'undefined' && wp.media ) {
-                    clearInterval(mediaTimer);
-                    bindMediaButtons();
-                } else if ( mediaWait > 40 ) { // 約10秒待っても来なければ諦めてバインド（クリック時にメッセージ表示）
-                    clearInterval(mediaTimer);
-                    bindMediaButtons();
-                }
-            }, 250);
-        }
-        Array.prototype.slice.call(document.querySelectorAll('.en-wiz-logo-remove')).forEach(function(rm){
-            rm.addEventListener('click', function(){
-                var t = rm.dataset.target;
-                var el = logoEls[t];
-                el.url.value = '';
-                el.img.src = '';
-                el.prev.style.display = 'none';
-                rm.style.display = 'none';
-            });
-        });
-
-        /* ===== 完了フラグ ===== */
-        function markDone(){
-            var d = new FormData();
-            d.append('action', 'en_wizard_done');
-            d.append('nonce', doneNonce);
-            return fetch(ajaxurl, { method:'POST', body:d }).catch(function(){});
-        }
-        document.getElementById('en-wiz-skip-all').addEventListener('click', function(e){
-            // スキップ時も現在の入力を保存してから離脱（入力済みを失わない）
-            e.preventDefault();
-            var href = this.getAttribute('href');
-            saveSettings().then(function(){
-                markDone().then(function(){ location.href = href; });
-            });
-        });
-
-        /* ===== 設定保存 ===== */
-        function saveSettings(){
-            var d = new FormData();
-            d.append('action', 'en_wizard_save');
-            d.append('nonce', saveNonce);
-            d.append('site_name',    document.getElementById('en-wiz-site-name').value);
-            d.append('site_tagline', document.getElementById('en-wiz-tagline').value);
-            d.append('logo_url',       logoEls.dark.url.value);
-            d.append('logo_url_light', logoEls.light.url.value);
-            var modeEl = document.querySelector('input[name="en-wiz-mode"]:checked');
-            d.append('design_mode',  modeEl ? modeEl.value : 'dark');
-            return fetch(ajaxurl, { method:'POST', body:d }).then(function(r){ return r.json(); }).catch(function(){});
-        }
-
-        /* ===== ページ作成 ===== */
-        function createOne(def){
-            var data = new FormData();
-            data.append('action', 'en_create_em_page');
-            data.append('nonce', nonce);
-            data.append('title', def.title);
-            data.append('slug',  def.slug);
-            data.append('sc',    def.sc);
-            return fetch(ajaxurl, { method:'POST', body:data }).then(function(r){ return r.json(); });
-        }
-
-        /* ===== 完了処理（保存→ページ作成→遷移） ===== */
-        finishBtn.addEventListener('click', function(){
-            finishBtn.disabled = true;
-            backBtn.disabled = true;
-            msg.textContent = i18n.saving;
-
-            saveSettings().then(function(){
-                var selected = checks().filter(function(c){ return c.checked; }).map(function(c){
-                    return { sc: c.value, title: c.dataset.title, slug: c.dataset.slug };
-                });
-
-                if ( ! selected.length ) {
-                    // ページ未選択でも設定だけ保存して完了
-                    msg.textContent = i18n.allDone;
-                    markDone().then(function(){ setTimeout(function(){ location.href = dashUrl; }, 700); });
-                    return;
-                }
-
-                msg.textContent = i18n.creating;
-                var idx = 0;
-                function next(){
-                    if ( idx >= selected.length ) {
-                        msg.textContent = i18n.allDone;
-                        markDone().then(function(){ setTimeout(function(){ location.href = dashUrl; }, 700); });
-                        return;
-                    }
-                    var def = selected[idx++];
-                    createOne(def).then(function(res){
-                        msg.textContent = ( res && res.success )
-                            ? i18n.doneOne.replace('%s', def.title)
-                            : i18n.failOne.replace('%s', def.title);
-                        next();
-                    }).catch(function(){
-                        msg.textContent = i18n.failOne.replace('%s', def.title);
-                        next();
-                    });
-                }
-                next();
-            });
-        });
-    })();
-    </script>
     <?php
 }
 

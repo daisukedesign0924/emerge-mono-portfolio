@@ -63,30 +63,6 @@ function emono_cookie_banner() {
             </div>
         </div>
     </div>
-    <script>
-    (function(){
-        function getCookie(name) {
-            var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-            return v ? v[2] : null;
-        }
-        function setCookie(name, value, days) {
-            var d = new Date();
-            d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-            document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
-        }
-        var consent = getCookie('en_cookie_consent');
-        if ( ! consent ) {
-            document.getElementById('en-cookie-banner').style.display = 'block';
-        }
-        window.enCookieAccept = function() {
-            setCookie('en_cookie_consent', 'accepted', 182);
-            document.getElementById('en-cookie-banner').style.display = 'none';
-        };
-        window.enCookieDecline = function() {
-            setCookie('en_cookie_consent', 'declined', 182);
-            document.getElementById('en-cookie-banner').style.display = 'none';
-        };
-    })();
-    </script>
     <?php
+    wp_enqueue_script( 'emerge-mono-cookie', EMONO_URL . 'assets/js/en-cookie.js', array(), EMONO_VERSION, true );
 }

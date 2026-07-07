@@ -15,13 +15,39 @@ function emono_admin_enqueue( $hook ) {
     // 管理画面タブ用のCSS/JSはウィザードには注入しない（ウィザードは独自スタイル）
     if ( $is_wizard && ! $is_settings ) return;
 
-    // インラインでCSS・JS注入
-    add_action( 'admin_head', 'emono_admin_inline_style' );
-    add_action( 'admin_footer', 'emono_admin_inline_script' );
+    // Admin CSS: register an empty style handle and attach our CSS inline.
+    wp_register_style( 'emerge-mono-admin', false, array(), EMONO_VERSION );
+    wp_enqueue_style( 'emerge-mono-admin' );
+    wp_add_inline_style( 'emerge-mono-admin', emono_admin_get_style() );
+    wp_add_inline_style( 'emerge-mono-admin', emono_mode_selector_get_style() );
+
+    // Custom font @font-face rules (for the font list and the live preview).
+    // Names use the same sanitization as emono_font_stack() so they match.
+    if ( function_exists( 'emono_get_custom_fonts' ) ) {
+        $ff_css = '';
+        foreach ( emono_get_custom_fonts() as $cf ) {
+            if ( empty($cf['name']) || empty($cf['url']) ) continue;
+            $ff_name = trim( preg_replace( '/[^A-Za-z0-9 ._-]/', '', (string) $cf['name'] ) );
+            if ( $ff_name === '' ) continue;
+            $ff_css .= "@font-face{font-family:'" . $ff_name . "';font-display:swap;src:url('" . esc_url( $cf['url'] ) . "');}";
+        }
+        if ( $ff_css !== '' ) {
+            wp_add_inline_style( 'emerge-mono-admin', $ff_css );
+        }
+    }
+
+    // Admin JS: register an empty script handle, localize translations, attach inline.
+    wp_register_script( 'emerge-mono-admin', false, array( 'jquery' ), EMONO_VERSION, true );
+    wp_enqueue_script( 'emerge-mono-admin' );
+    wp_localize_script( 'emerge-mono-admin', 'emonoAdminL10n', array(
+        'selectImage' => __( 'Select Image', 'emerge-mono-portfolio' ),
+        'select'      => __( 'Select', 'emerge-mono-portfolio' ),
+    ) );
+    wp_add_inline_script( 'emerge-mono-admin', emono_admin_get_script() );
 }
 
-function emono_admin_inline_style() { ?>
-<style>
+function emono_admin_get_style() {
+    return <<<'EMONO_ADMIN_CSS'
 /* ── Emerge Mono Admin UI ── */
 #wpcontent { background: #0d0d0d; }
 #wpbody-content { padding-bottom: 0; }
@@ -215,17 +241,17 @@ function emono_admin_inline_style() { ?>
     border: 1px solid rgba(100,200,100,.2);
     color: rgba(150,230,150,.8);
 }
-</style>
-<?php
+EMONO_ADMIN_CSS;
 }
 
-function emono_admin_inline_script() { ?>
-<script>
+function emono_admin_get_script() {
+    return <<<'EMONO_ADMIN_JS'
 // WPメディアライブラリを開く
 function enOpenMedia(targetId) {
+    var L = window.emonoAdminL10n || {};
     var frame = wp.media({
-        title: '<?php echo esc_js( __( 'Select Image', 'emerge-mono-portfolio' ) ); ?>',
-        button: { text: '<?php echo esc_js( __( 'Select', 'emerge-mono-portfolio' ) ); ?>' },
+        title: L.selectImage || 'Select Image',
+        button: { text: L.select || 'Select' },
         multiple: false,
         library: { type: 'image' }
     });
@@ -235,13 +261,35 @@ function enOpenMedia(targetId) {
     });
     frame.open();
 }
-</script>
-<?php }
+
+// Design preview: apply the selected font immediately, and update it live
+// when the font dropdown changes (before saving).
+document.addEventListener('DOMContentLoaded', function() {
+    var preview = document.getElementById('en-design-preview');
+    if (!preview) { return; }
+
+    // Apply the initially saved font stack.
+    var initial = preview.getAttribute('data-font-stack');
+    if (initial) { preview.style.fontFamily = initial; }
+
+    // Parse the key -> stack map.
+    var map = {};
+    try { map = JSON.parse(preview.getAttribute('data-font-map') || '{}'); } catch (e) { map = {}; }
+
+    var sel = document.querySelector('select[name="design_font"]');
+    if (sel) {
+        sel.addEventListener('change', function() {
+            var stack = map[sel.value];
+            if (stack) { preview.style.fontFamily = stack; }
+        });
+    }
+});
+EMONO_ADMIN_JS;
+}
 
 // インラインCSS追加
-add_action('admin_head', 'emono_mode_selector_style');
-function emono_mode_selector_style() { ?>
-<style>
+function emono_mode_selector_get_style() {
+    return <<<'EMONO_MODE_CSS'
 .en-mode-label { display:flex; align-items:center; gap:12px; cursor:pointer; }
 .en-mode-label input[type="radio"] { accent-color:#fff; width:16px; height:16px; flex-shrink:0; }
 .en-mode-preview { display:flex; align-items:center; gap:14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); border-radius:8px; padding:12px 16px; flex:1; transition:all .2s; }
@@ -251,5 +299,5 @@ function emono_mode_selector_style() { ?>
 .en-mode-desc  { font-size:11px; color:rgba(255,255,255,.3); }
 .en-mode-light .en-mode-icon { color:rgba(255,255,255,.7); }
 .en-mode-auto  .en-mode-icon { color:rgba(255,255,255,.6); }
-</style>
-<?php }
+EMONO_MODE_CSS;
+}

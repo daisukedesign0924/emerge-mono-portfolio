@@ -2,6 +2,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once EMONO_PATH . 'admin/admin-page.php';
+require_once EMONO_PATH . 'admin/admin-page-general.php';
+require_once EMONO_PATH . 'admin/admin-page-nav.php';
+require_once EMONO_PATH . 'admin/admin-page-contact.php';
+require_once EMONO_PATH . 'admin/admin-page-design.php';
+require_once EMONO_PATH . 'admin/admin-page-portfolio.php';
+require_once EMONO_PATH . 'admin/admin-page-shortcodes.php';
+require_once EMONO_PATH . 'admin/admin-page-editor.php';
 require_once EMONO_PATH . 'admin/admin-save.php';
 require_once EMONO_PATH . 'admin/admin-style.php';
 require_once EMONO_PATH . 'admin/setup-wizard.php';
