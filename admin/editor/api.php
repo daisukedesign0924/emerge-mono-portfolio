@@ -90,6 +90,7 @@ function emono_ed_handle_save_post() {
         'message' => $post_id ? __( 'Updated.', 'emerge-mono-portfolio' ) : __( 'Published.', 'emerge-mono-portfolio' ),
         'post_id' => $saved_id,
         'edit_url' => admin_url('admin.php?page=ene-post&type=' . $type . '&edit=' . $saved_id),
+        'list_url' => admin_url( 'admin.php?page=' . ( $type === 'works' ? 'ene-works' : 'ene-news' ) ),
     ));
 }
 

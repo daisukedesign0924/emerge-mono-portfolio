@@ -3,7 +3,7 @@
  * Plugin Name:       Emerge Mono - Portfolio
  * Plugin URI:        https://github.com/daisukedesign0924/emerge-mono-portfolio
  * Description:       A monochrome portfolio toolkit for creators. Build a full portfolio site with shortcodes: hero, works gallery, profile, news, contact form, estimate simulator, and auto-generated privacy policy / terms pages.
- * Version:           2.24.17
+ * Version:           2.24.18
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            DAISUKE DESIGN
@@ -15,7 +15,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'EMONO_VERSION', '2.24.17' );
+define( 'EMONO_VERSION', '2.24.18' );
 define( 'EMONO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EMONO_URL',  plugin_dir_url( __FILE__ ) );
 

@@ -130,7 +130,8 @@
         if (!btn || !typeEl || !postIdEl) return;
 
         var type   = typeEl.value;
-        var postId = postIdEl.value;
+        var postId = parseInt(postIdEl.value, 10) || 0;
+        var isNewPost = postId === 0;
         var titleEl = document.getElementById('ene-title');
         if (!titleEl) return;
         var title = titleEl.value.trim();
@@ -184,8 +185,8 @@
                     msg.className = 'ene-msg success';
                     msg.textContent = res.data.message;
                     window.eneShowBanner(res.data.message, 'success');
-                    if (!postId && res.data.edit_url) {
-                        setTimeout(function() { window.location.href = res.data.edit_url; }, 1200);
+                    if (isNewPost && res.data.list_url) {
+                        setTimeout(function() { window.location.href = res.data.list_url; }, 800);
                     }
                 } else {
                     msg.className = 'ene-msg error';
