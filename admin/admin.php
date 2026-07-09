@@ -11,6 +11,7 @@ require_once EMONO_PATH . 'admin/admin-page-shortcodes.php';
 require_once EMONO_PATH . 'admin/admin-page-editor.php';
 require_once EMONO_PATH . 'admin/admin-save.php';
 require_once EMONO_PATH . 'admin/admin-style.php';
+require_once EMONO_PATH . 'admin/design-editor.php';
 require_once EMONO_PATH . 'admin/setup-wizard.php';
 
 add_action( 'admin_menu', 'emono_register_admin_menu' );

@@ -453,10 +453,234 @@ function emono_ed_page_news() {
     <?php
 }
 
+// ── TOP編集 ──
+function emono_ed_page_top() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    $opts        = emono_get_options();
+    $top_layout  = isset( $opts['top_layout'] ) ? sanitize_key( $opts['top_layout'] ) : 'mono';
+    $top_layouts = function_exists( 'emono_get_top_layouts' ) ? emono_get_top_layouts() : array(
+        'mono' => array(
+            'label'       => __( 'Minimal Top', 'emerge-mono-portfolio' ),
+            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono-portfolio' ),
+        ),
+    );
+
+    if ( ! isset( $top_layouts[ $top_layout ] ) ) {
+        $top_layout = 'mono';
+    }
+
+    $front_url = home_url( '/' );
+    $saved     = isset( $_GET['saved'] ) ? sanitize_key( wp_unslash( $_GET['saved'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only success flag.
+    ?>
+    <div class="ene-wrap ene-top-editor">
+        <div class="ene-header">
+            <div class="ene-header-inner">
+                <div class="ene-header-title"><?php esc_html_e( 'TOP Editor', 'emerge-mono-portfolio' ); ?></div>
+                <div class="ene-header-actions">
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono-portfolio' ) ); ?>" class="ene-back-btn"><?php esc_html_e( 'Back to Settings', 'emerge-mono-portfolio' ); ?></a>
+                    <a href="<?php echo esc_url( $front_url ); ?>" target="_blank" class="ene-new-btn"><?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?></a>
+                </div>
+            </div>
+        </div>
+
+        <?php if ( $saved === '1' ) : ?>
+            <div class="ene-top-editor-notice"><?php esc_html_e( 'Saved.', 'emerge-mono-portfolio' ); ?></div>
+        <?php endif; ?>
+
+        <form method="post" action="" class="ene-top-editor-form">
+            <?php wp_nonce_field( 'en_save_top_editor', 'en_nonce' ); ?>
+            <input type="hidden" name="en_action" value="top_editor">
+
+            <div class="ene-top-editor-grid">
+                <main class="ene-top-editor-main">
+                    <section class="ene-type-bar ene-top-editor-layouts">
+                        <div class="ene-type-bar-label"><?php esc_html_e( 'Top Page Layout', 'emerge-mono-portfolio' ); ?></div>
+                        <div class="ene-type-bar-btns">
+                            <?php foreach ( $top_layouts as $layout_key => $layout ) : ?>
+                                <?php
+                                $layout_key  = sanitize_key( $layout_key );
+                                $label       = isset( $layout['label'] ) ? $layout['label'] : $layout_key;
+                                $description = isset( $layout['description'] ) ? $layout['description'] : '';
+                                ?>
+                                <label class="ene-type-bar-btn ene-top-layout-card <?php echo esc_attr( $top_layout === $layout_key ? 'active' : '' ); ?>">
+                                    <input type="radio" name="top_layout" value="<?php echo esc_attr( $layout_key ); ?>" <?php checked( $top_layout, $layout_key ); ?>>
+                                    <span class="dashicons dashicons-layout"></span>
+                                    <span>
+                                        <span class="ene-top-layout-title"><?php echo esc_html( $label ); ?></span>
+                                        <?php if ( $description ) : ?>
+                                            <span class="ene-type-desc"><?php echo esc_html( $description ); ?></span>
+                                        <?php endif; ?>
+                                    </span>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+
+                    <section class="ene-top-editor-empty" data-top-layout-settings="mono" <?php if ( $top_layout !== 'mono' ) : ?>hidden<?php endif; ?>>
+                        <div class="ene-side-section">
+                            <div class="ene-side-title"><?php esc_html_e( 'Minimal Top', 'emerge-mono-portfolio' ); ?></div>
+                            <p><?php esc_html_e( 'Minimal Top uses the shared site name, logo, tagline, and top buttons from Site Settings.', 'emerge-mono-portfolio' ); ?></p>
+                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono-portfolio' ) ); ?>" class="ene-table-btn"><?php esc_html_e( 'Edit shared settings', 'emerge-mono-portfolio' ); ?></a>
+                        </div>
+                    </section>
+
+                    <?php do_action( 'emono_top_layout_settings', $top_layout, $opts ); ?>
+                </main>
+
+                <aside class="ene-top-editor-sidebar">
+                    <div class="ene-side-section">
+                        <div class="ene-side-title">
+                            <?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?>
+                            <span class="ene-top-preview-status" data-preview-status hidden></span>
+                        </div>
+                        <div class="ene-top-preview-frame">
+                            <iframe id="ene-top-preview-iframe" src="<?php echo esc_url( $front_url ); ?>" title="<?php echo esc_attr__( 'Top page preview', 'emerge-mono-portfolio' ); ?>"></iframe>
+                        </div>
+                        <div class="ene-field-desc"><?php esc_html_e( 'The preview updates automatically as you edit. Your changes are not saved until you press Save.', 'emerge-mono-portfolio' ); ?></div>
+                        <a href="<?php echo esc_url( $front_url ); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'Open in new tab', 'emerge-mono-portfolio' ); ?></a>
+                    </div>
+
+                    <div class="ene-actions">
+                        <button type="submit" class="ene-submit-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
+                    </div>
+                </aside>
+            </div>
+        </form>
+    </div>
+    <?php
+    $preview_nonce = wp_create_nonce( EMONO_TOP_PREVIEW_NONCE );
+    wp_localize_script( 'emerge-mono-admin', 'emonoTopPreview', array(
+        'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+        'action'      => 'emono_top_preview',
+        'nonce'       => $preview_nonce,
+        'previewBase' => $front_url,
+        'i18n'        => array(
+            'updating' => __( 'Updating…', 'emerge-mono-portfolio' ),
+            'live'     => __( 'Live', 'emerge-mono-portfolio' ),
+            'error'    => __( 'Preview failed', 'emerge-mono-portfolio' ),
+        ),
+    ) );
+    wp_add_inline_script( 'emerge-mono-admin', <<<'EMONO_TOP_EDITOR_JS'
+(function() {
+    var root = document.querySelector('.ene-top-editor');
+    if (!root) { return; }
+    var form = root.querySelector('.ene-top-editor-form');
+
+    function updateTopEditor() {
+        var selected = root.querySelector('input[name="top_layout"]:checked');
+        var layout = selected ? selected.value : '';
+
+        root.querySelectorAll('.ene-top-layout-card').forEach(function(card) {
+            var input = card.querySelector('input[name="top_layout"]');
+            card.classList.toggle('active', input && input.value === layout);
+        });
+
+        root.querySelectorAll('[data-top-layout-settings]').forEach(function(section) {
+            section.hidden = section.getAttribute('data-top-layout-settings') !== layout;
+        });
+    }
+
+    root.querySelectorAll('input[name="top_layout"]').forEach(function(input) {
+        input.addEventListener('change', updateTopEditor);
+    });
+    updateTopEditor();
+
+    // ── ライブプレビュー ──
+    var cfg = window.emonoTopPreview;
+    var iframe = document.getElementById('ene-top-preview-iframe');
+    if (!cfg || !form || !iframe || typeof window.fetch === 'undefined' || typeof FormData === 'undefined') {
+        return;
+    }
+    var i18n = cfg.i18n || {};
+    var statusEl = root.querySelector('[data-preview-status]');
+    var frame = root.querySelector('.ene-top-preview-frame');
+    var timer = null;
+    var reqToken = 0;
+
+    // デスクトップ幅（1280px）で描画し、枠幅に合わせて縮小表示する。
+    var BASE_W = 1280, BASE_H = 800;
+    function fitPreview() {
+        if (!frame) { return; }
+        var w = frame.clientWidth;
+        if (!w) { return; }
+        var scale = w / BASE_W;
+        iframe.style.transform = 'scale(' + scale + ')';
+        frame.style.height = (BASE_H * scale) + 'px';
+    }
+    window.addEventListener('resize', fitPreview);
+    iframe.addEventListener('load', fitPreview);
+    fitPreview();
+
+    function setStatus(text, state) {
+        if (!statusEl) { return; }
+        if (!text) { statusEl.hidden = true; statusEl.textContent = ''; return; }
+        statusEl.hidden = false;
+        statusEl.textContent = text;
+        statusEl.setAttribute('data-state', state || '');
+    }
+
+    function previewUrl() {
+        var base = cfg.previewBase || '/';
+        var sep = base.indexOf('?') === -1 ? '?' : '&';
+        return base + sep + 'emono_top_preview=1&emono_preview_nonce=' +
+            encodeURIComponent(cfg.nonce) + '&t=' + Date.now();
+    }
+
+    function reloadPreview() {
+        try { iframe.src = previewUrl(); } catch (e) {}
+    }
+
+    function pushPreview() {
+        var token = ++reqToken;
+        setStatus(i18n.updating || 'Updating…', 'busy');
+        var data = new FormData(form);
+        // フォームの保存トリガーは絶対に送らない（誤保存＆リダイレクト防止）。
+        data.delete('en_action');
+        data.delete('en_nonce');
+        data.append('action', cfg.action);
+        data.append('nonce', cfg.nonce);
+        window.fetch(cfg.ajaxUrl, {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: data
+        }).then(function(res) {
+            return res.json();
+        }).then(function(json) {
+            if (token !== reqToken) { return; }
+            if (json && json.success) {
+                reloadPreview();
+                setStatus(i18n.live || 'Live', 'ok');
+            } else {
+                setStatus(i18n.error || 'Preview failed', 'error');
+            }
+        }).catch(function() {
+            if (token !== reqToken) { return; }
+            setStatus(i18n.error || 'Preview failed', 'error');
+        });
+    }
+
+    function schedulePreview() {
+        if (timer) { clearTimeout(timer); }
+        timer = setTimeout(pushPreview, 700);
+    }
+
+    form.addEventListener('input', schedulePreview);
+    form.addEventListener('change', schedulePreview);
+
+    // 初期表示も保存前状態を反映しておく。
+    pushPreview();
+}());
+EMONO_TOP_EDITOR_JS
+    );
+}
+
 // ── ページ管理 ──
 function emono_ed_page_create() {
     $em_pages = function_exists('emono_get_em_page_defs') ? emono_get_em_page_defs() : array(
-        array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',              'desc' => __( 'Top page — logo, site name, buttons', 'emerge-mono-portfolio' ),      'icon' => '🏠' ),
+        array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',              'desc' => __( 'Top page — Minimal Top or another selected layout', 'emerge-mono-portfolio' ),      'icon' => '🏠' ),
         array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',         'desc' => __( 'Profile page — bio, social links', 'emerge-mono-portfolio' ),       'icon' => '👤' ),
         array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',         'desc' => __( 'Works page — portfolio grid', 'emerge-mono-portfolio' ),          'icon' => '📂' ),
         array( 'sc' => '[emerge_mono_news]',      'title' => 'News',             'slug' => 'news',          'desc' => __( 'News page — post list', 'emerge-mono-portfolio' ),               'icon' => '📰' ),

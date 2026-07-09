@@ -105,3 +105,218 @@
 .enp-sc-tag { display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:6px; padding:10px 14px; }
 .enp-sc-tag code { font-family:monospace; font-size:13px; color:rgba(255,255,255,.7); background:none; padding:0; }
 .enp-sc-empty { font-size:12px; color:rgba(255,255,255,.2); padding:8px 0; }
+
+/* ── TOP編集 ── */
+.ene-header-actions { display:flex; align-items:center; gap:14px; }
+.ene-top-editor-notice {
+    margin:18px 28px 0;
+    max-width:1180px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:8px;
+    color:rgba(255,255,255,.85);
+    font-size:12px;
+    padding:12px 14px;
+}
+.ene-top-editor-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 520px;
+    gap:24px;
+    padding:28px;
+    max-width:1680px;
+}
+.ene-top-editor-main { min-width:0; }
+.ene-top-editor-sidebar {
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    position:sticky;
+    top:46px;
+    align-self:start;
+}
+.ene-top-editor-layouts {
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:10px;
+    margin-bottom:20px;
+}
+.ene-top-editor-layouts .ene-type-bar-btns {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.ene-top-layout-card {
+    position:relative;
+    min-width:0;
+    cursor:pointer;
+}
+.ene-top-layout-card input {
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+.ene-top-layout-card .ene-type-desc {
+    display:block;
+    margin:4px 0 0;
+    white-space:normal;
+    line-height:1.5;
+}
+.ene-top-layout-title {
+    display:block;
+    color:inherit;
+}
+.ene-top-editor-empty p {
+    color:rgba(255,255,255,.45);
+    font-size:13px;
+    line-height:1.8;
+    margin:0 0 14px;
+}
+.ene-top-preview-frame {
+    position:relative;
+    width:100%;
+    height:0; /* 高さはJSがPC幅スケールに合わせて設定 */
+    min-height:200px;
+    background:#050505;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:12px;
+}
+.ene-top-preview-frame iframe {
+    position:absolute;
+    top:0;
+    left:0;
+    width:1280px;   /* デスクトップ論理幅で描画 */
+    height:800px;
+    border:0;
+    background:#000;
+    transform-origin:0 0;
+}
+.ene-top-preview-status {
+    display:inline-block;
+    margin-left:8px;
+    padding:2px 8px;
+    border-radius:999px;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    vertical-align:middle;
+    border:1px solid rgba(255,255,255,.14);
+    color:rgba(255,255,255,.55);
+}
+.ene-top-preview-status[data-state="busy"] { color:rgba(255,255,255,.75); border-color:rgba(255,255,255,.3); }
+.ene-top-preview-status[data-state="ok"]    { color:#fff; border-color:rgba(255,255,255,.4); }
+.ene-top-preview-status[data-state="error"] { color:#ff8a8a; border-color:rgba(255,138,138,.5); }
+
+.ene-live-editor-scope-title {
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.45);
+    margin:0 0 14px;
+}
+
+.ene-design-scope-nav {
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    padding:16px 28px 0;
+}
+.ene-design-scope-btn {
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-decoration:none;
+    color:rgba(255,255,255,.55);
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.02);
+    transition:background .15s, color .15s, border-color .15s;
+}
+.ene-design-scope-btn:hover { color:#fff; border-color:rgba(255,255,255,.3); }
+.ene-design-scope-btn.active {
+    color:#0d0d0d;
+    background:#fff;
+    border-color:#fff;
+}
+
+/* MONO TOP セクション・ビルダー */
+.emono-section-card {
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:8px;
+    background:rgba(255,255,255,.02);
+    margin-bottom:10px;
+    overflow:hidden;
+}
+.emono-section-card-head {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    background:rgba(255,255,255,.03);
+}
+.emono-section-handle {
+    cursor:grab;
+    color:rgba(255,255,255,.4);
+}
+.emono-section-handle:active { cursor:grabbing; }
+.emono-section-type {
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:rgba(255,255,255,.85);
+    flex:1;
+}
+.emono-section-enable {
+    font-size:11px;
+    color:rgba(255,255,255,.6);
+    display:flex;
+    align-items:center;
+    gap:4px;
+    white-space:nowrap;
+}
+.emono-section-toggle,
+.emono-section-remove {
+    background:none;
+    border:0;
+    color:rgba(255,255,255,.45);
+    cursor:pointer;
+    padding:4px;
+    line-height:1;
+}
+.emono-section-toggle:hover { color:#fff; }
+.emono-section-remove:hover { color:#ff8a8a; }
+.emono-section-card-body {
+    padding:14px 12px;
+}
+.emono-section-card.is-collapsed .emono-section-card-body { display:none; }
+.emono-section-card.is-collapsed .emono-section-toggle .dashicons { transform:rotate(-90deg); }
+.emono-sections-add {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:12px;
+}
+.en-media-clear { opacity:.7; }
+.en-media-clear:hover { opacity:1; }
+.ui-sortable-helper { box-shadow:0 8px 24px rgba(0,0,0,.4); }
+.ui-sortable-placeholder { visibility:visible !important; border:1px dashed rgba(255,255,255,.25); border-radius:8px; background:rgba(255,255,255,.03); }
+.ene-top-editor .en-admin-section {
+    margin-bottom:20px;
+}
+.ene-top-editor .en-admin-section [style*="grid-template-columns:repeat(3"] {
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+
+@media (max-width: 1180px) {
+    .ene-top-editor-grid { grid-template-columns:1fr; }
+    .ene-top-editor-sidebar { position:static; max-width:none; }
+}
+
+@media (max-width: 782px) {
+    .ene-top-editor-grid { padding:20px; }
+    .ene-top-editor-layouts .ene-type-bar-btns { grid-template-columns:1fr; }
+    .ene-header-actions { flex-wrap:wrap; justify-content:flex-end; }
+}

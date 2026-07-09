@@ -6,7 +6,9 @@ Just place a shortcode, and the section renders.
 
 ## Features
 
-- **Hero section** — Logo, site name, tagline, and customizable navigation buttons that reflow responsively (4 columns on desktop, 2 on tablet and mobile).
+- **Minimal Top** — Minimal portfolio top page with logo, site name, tagline, and customizable navigation buttons.
+- **MONO TOP** — Editorial top page with hero, about, post slider, news grid, and CTA sections.
+- **Extension-ready pages** — Custom extensions can register their own list shortcode pages and connect them to MONO TOP links.
 - **Works gallery** — A filterable gallery with category tabs. Supports images and video embeds (YouTube / Vimeo).
 - **Profile** — Name, title, bio, profile image, skills, and SNS links with per-icon images.
 - **News** — A lightweight news / blog section powered by a custom post type.
@@ -20,7 +22,9 @@ Just place a shortcode, and the section renders.
 
 | Shortcode | Section |
 |---|---|
-| `[emerge_mono_top]` | Hero section |
+| `[emerge_mono_top]` | Selected top layout |
+| `[emerge_mono_minimal_top]` | Minimal Top |
+| `[emerge_mono_mono_top]` | MONO TOP |
 | `[emerge_mono_about]` | Profile / about |
 | `[emerge_mono_works]` | Works gallery |
 | `[emerge_mono_news]` | News list |

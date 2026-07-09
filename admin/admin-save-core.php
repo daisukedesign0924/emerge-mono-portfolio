@@ -13,6 +13,7 @@ function emono_handle_save() {
         'nav'     => 'en_save_nav',
         'contact' => 'en_save_contact',
         'editor'  => 'en_save_editor',
+        'top_editor' => 'en_save_top_editor',
     );
 
     if ( function_exists( 'emono_admin_save_portfolio_nonce_map' ) ) {
@@ -26,111 +27,34 @@ function emono_handle_save() {
     $tab = $action;
     $should_update = true;
 
+    // Design Editor（page=ene-top）から保存された場合は、そこへ戻す。
+    $ref = wp_get_referer();
+    $from_design = ( $ref && strpos( $ref, 'page=ene-top' ) !== false );
+
     switch ( $action ) {
 
         case 'design':
-            $design_mode_in = sanitize_key( wp_unslash( isset( $_POST['design_mode'] ) ? $_POST['design_mode'] : 'dark' ) );
-            $opts['design_mode'] = in_array( $design_mode_in, array( 'dark', 'light', 'auto' ), true ) ? $design_mode_in : 'dark';
-            $opts['design_bg']     = sanitize_hex_color( isset( $_POST['design_bg'] )     ? wp_unslash( $_POST['design_bg'] )     : '#000000' );
-            $opts['design_text']   = sanitize_hex_color( isset( $_POST['design_text'] )   ? wp_unslash( $_POST['design_text'] )   : '#ffffff' );
-            $opts['design_accent'] = sanitize_hex_color( isset( $_POST['design_accent'] ) ? wp_unslash( $_POST['design_accent'] ) : '#ffffff' );
-            $opts['design_font']   = sanitize_text_field( isset( $_POST['design_font'] )  ? wp_unslash( $_POST['design_font'] )  : 'System Mono' );
+            // Nonce verified above; sanitization happens per-field inside the helper.
+            $opts = emono_apply_design_from_post( $opts, wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             break;
 
         case 'general':
-            $opts['site_name']    = sanitize_text_field( isset( $_POST['site_name'] ) ? wp_unslash( $_POST['site_name'] ) : '' );
-            $opts['site_tagline'] = sanitize_text_field( isset( $_POST['site_tagline'] ) ? wp_unslash( $_POST['site_tagline'] ) : '' );
-            $opts['copyright']    = sanitize_text_field( isset( $_POST['copyright'] ) ? wp_unslash( $_POST['copyright'] ) : '' );
-            $opts['logo_url']       = esc_url_raw( isset( $_POST['logo_url'] ) ? wp_unslash( $_POST['logo_url'] ) : '' );
-            $opts['logo_url_light'] = esc_url_raw( isset( $_POST['logo_url_light'] ) ? wp_unslash( $_POST['logo_url_light'] ) : '' );
-
-            $opts['top_logo_size']        = isset( $_POST['top_logo_size'] )        && (float) $_POST['top_logo_size'] > 0 ? (float) $_POST['top_logo_size'] : 14;
-            $opts['top_logo_size_tablet'] = isset( $_POST['top_logo_size_tablet'] ) && (float) $_POST['top_logo_size_tablet'] > 0 ? (float) $_POST['top_logo_size_tablet'] : 0;
-            $opts['top_logo_size_mobile'] = isset( $_POST['top_logo_size_mobile'] ) && (float) $_POST['top_logo_size_mobile'] > 0 ? (float) $_POST['top_logo_size_mobile'] : 0;
-            $opts['header_logo_size']        = isset( $_POST['header_logo_size'] )        && (float) $_POST['header_logo_size'] > 0 ? (float) $_POST['header_logo_size'] : 3.2;
-            $opts['header_logo_size_tablet'] = isset( $_POST['header_logo_size_tablet'] ) && (float) $_POST['header_logo_size_tablet'] > 0 ? (float) $_POST['header_logo_size_tablet'] : 0;
-            $opts['header_logo_size_mobile'] = isset( $_POST['header_logo_size_mobile'] ) && (float) $_POST['header_logo_size_mobile'] > 0 ? (float) $_POST['header_logo_size_mobile'] : 0;
-
-            $btn_labels   = isset( $_POST['top_btn_label'] ) ? wp_unslash( $_POST['top_btn_label'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $btn_urls     = isset( $_POST['top_btn_url'] ) ? wp_unslash( $_POST['top_btn_url'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $btn_manuals  = isset( $_POST['top_btn_url_manual'] ) ? wp_unslash( $_POST['top_btn_url_manual'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $top_buttons  = array();
-            foreach ( $btn_labels as $i => $label ) {
-                $label = sanitize_text_field( $label );
-                if ( ! $label ) continue;
-                $sel = isset( $btn_urls[ $i ] ) ? $btn_urls[ $i ] : '';
-                $url = $sel ? esc_url_raw( $sel ) : esc_url_raw( isset( $btn_manuals[ $i ] ) ? $btn_manuals[ $i ] : '' );
-                $top_buttons[] = array( 'label' => $label, 'url' => $url );
-            }
-            $opts['top_buttons'] = $top_buttons;
+            // Nonce verified above; sanitization happens per-field inside the helper.
+            $opts = emono_apply_general_from_post( $opts, wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             break;
 
+        case 'top_editor':
+            $top_layout = sanitize_key( isset( $_POST['top_layout'] ) ? wp_unslash( $_POST['top_layout'] ) : emono_get_top_layout() );
+            $top_layouts = function_exists( 'emono_get_top_layouts' ) ? emono_get_top_layouts() : array( 'mono' => array() );
+            $opts['top_layout'] = isset( $top_layouts[ $top_layout ] ) ? $top_layout : 'mono';
+            $opts = apply_filters( 'emono_save_top_layout_settings', $opts, $opts['top_layout'] );
+            update_option( 'en_options', $opts );
+            wp_safe_redirect( admin_url( 'admin.php?page=ene-top&scope=top&saved=1' ) );
+            exit;
+
         case 'nav':
-            $opts['nav_mode']    = sanitize_key( isset( $_POST['nav_mode'] ) ? wp_unslash( $_POST['nav_mode'] ) : 'auto' );
-            $opts['nav_wp_menu'] = absint( isset( $_POST['nav_wp_menu'] ) ? $_POST['nav_wp_menu'] : 0 );
-
-            $labels   = isset( $_POST['nav_label'] ) ? wp_unslash( $_POST['nav_label'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $types    = isset( $_POST['nav_type'] ) ? wp_unslash( $_POST['nav_type'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $urls     = isset( $_POST['nav_url'] ) ? wp_unslash( $_POST['nav_url'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $page_ids = isset( $_POST['nav_page_id'] ) ? wp_unslash( $_POST['nav_page_id'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $nav = array();
-            foreach ( $labels as $i => $label ) {
-                $type = sanitize_key( isset( $types[ $i ] ) ? $types[ $i ] : 'url' );
-                if ( $type === 'page' ) {
-                    $page_id = (int) ( isset( $page_ids[ $i ] ) ? $page_ids[ $i ] : 0 );
-                    if ( $page_id ) {
-                        $nav[] = array(
-                            'label'   => sanitize_text_field( $label ),
-                            'type'    => 'page',
-                            'page_id' => $page_id,
-                            'url'     => get_permalink( $page_id ),
-                        );
-                    }
-                } else {
-                    $url = esc_url_raw( isset( $urls[ $i ] ) ? $urls[ $i ] : '' );
-                    if ( $label && $url ) {
-                        $nav[] = array(
-                            'label' => sanitize_text_field( $label ),
-                            'type'  => 'url',
-                            'url'   => $url,
-                        );
-                    }
-                }
-            }
-            $opts['nav_items'] = $nav;
-
-            $f_labels   = isset( $_POST['footer_nav_label'] ) ? wp_unslash( $_POST['footer_nav_label'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $f_types    = isset( $_POST['footer_nav_type'] ) ? wp_unslash( $_POST['footer_nav_type'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $f_urls     = isset( $_POST['footer_nav_url'] ) ? wp_unslash( $_POST['footer_nav_url'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $f_page_ids = isset( $_POST['footer_nav_page_id'] ) ? wp_unslash( $_POST['footer_nav_page_id'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $footer_nav = array();
-            if ( is_array( $f_types ) ) {
-                foreach ( $f_types as $i => $f_type ) {
-                    $f_type = sanitize_key( $f_type );
-                    $f_label = isset( $f_labels[ $i ] ) ? sanitize_text_field( $f_labels[ $i ] ) : '';
-                    if ( $f_type === 'page' ) {
-                        $f_page_id = (int) ( isset( $f_page_ids[ $i ] ) ? $f_page_ids[ $i ] : 0 );
-                        if ( $f_page_id ) {
-                            $footer_nav[] = array(
-                                'label'   => $f_label,
-                                'type'    => 'page',
-                                'page_id' => $f_page_id,
-                                'url'     => get_permalink( $f_page_id ),
-                            );
-                        }
-                    } else {
-                        $f_url = esc_url_raw( isset( $f_urls[ $i ] ) ? $f_urls[ $i ] : '' );
-                        if ( $f_label && $f_url ) {
-                            $footer_nav[] = array(
-                                'label' => $f_label,
-                                'type'  => 'url',
-                                'url'   => $f_url,
-                            );
-                        }
-                    }
-                }
-            }
-            $opts['footer_nav_items'] = $footer_nav;
+            // Nonce verified above; sanitization happens per-field inside the helper.
+            $opts = emono_apply_nav_from_post( $opts, wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             break;
 
         case 'contact':
@@ -201,6 +125,155 @@ function emono_handle_save() {
         update_option( 'en_options', $opts );
     }
 
+    if ( $from_design ) {
+        $scope_map = array( 'general' => 'general', 'nav' => 'nav', 'design' => 'design', 'profile' => 'profile' );
+        $sc = isset( $scope_map[ $action ] ) ? $scope_map[ $action ] : 'top';
+        wp_safe_redirect( admin_url( 'admin.php?page=ene-top&scope=' . $sc . '&saved=1' ) );
+        exit;
+    }
+
     wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=' . $tab . '&saved=1' ) );
     exit;
+}
+
+/**
+ * Design 設定を（すでに unslash 済みの）入力配列から $opts に反映する。
+ *
+ * 本番保存（design ケース）とライブプレビュー（top-preview.php）で
+ * 同一のサニタイズ規則を共有するための関数。update_option は行わない。
+ *
+ * @param array $opts 既存オプション。
+ * @param array $src  wp_unslash 済みの入力配列（$_POST 由来）。
+ * @return array 反映後のオプション。
+ */
+function emono_apply_design_from_post( $opts, $src ) {
+    $src = is_array( $src ) ? $src : array();
+
+    $design_mode_in = sanitize_key( isset( $src['design_mode'] ) ? $src['design_mode'] : 'dark' );
+    $opts['design_mode'] = in_array( $design_mode_in, array( 'dark', 'light', 'auto' ), true ) ? $design_mode_in : 'dark';
+
+    $opts['design_bg']     = sanitize_hex_color( isset( $src['design_bg'] )     ? $src['design_bg']     : '#000000' );
+    $opts['design_text']   = sanitize_hex_color( isset( $src['design_text'] )   ? $src['design_text']   : '#ffffff' );
+    $opts['design_accent'] = sanitize_hex_color( isset( $src['design_accent'] ) ? $src['design_accent'] : '#ffffff' );
+    $opts['design_font']   = sanitize_text_field( isset( $src['design_font'] )  ? $src['design_font']  : 'System Mono' );
+
+    return $opts;
+}
+
+/**
+ * Branding / Site 設定（サイト名・ロゴ・トップボタン・トップレイアウト）を反映。
+ * 保存とライブプレビューで共有。$src は unslash 済み配列。
+ */
+function emono_apply_general_from_post( $opts, $src ) {
+    $src = is_array( $src ) ? $src : array();
+
+    // top_layout フィールドが送られてきた場合のみ更新（未送信なら既存値を維持）。
+    if ( isset( $src['top_layout'] ) ) {
+        $top_layout  = sanitize_key( $src['top_layout'] );
+        $top_layouts = function_exists( 'emono_get_top_layouts' ) ? emono_get_top_layouts() : array( 'mono' => array() );
+        $opts['top_layout'] = isset( $top_layouts[ $top_layout ] ) ? $top_layout : 'mono';
+    }
+
+    $opts['site_name']    = sanitize_text_field( isset( $src['site_name'] ) ? $src['site_name'] : '' );
+    $opts['site_tagline'] = sanitize_text_field( isset( $src['site_tagline'] ) ? $src['site_tagline'] : '' );
+    $opts['copyright']    = sanitize_text_field( isset( $src['copyright'] ) ? $src['copyright'] : '' );
+    $opts['logo_url']       = esc_url_raw( isset( $src['logo_url'] ) ? $src['logo_url'] : '' );
+    $opts['logo_url_light'] = esc_url_raw( isset( $src['logo_url_light'] ) ? $src['logo_url_light'] : '' );
+
+    $opts['top_logo_size']        = isset( $src['top_logo_size'] )        && (float) $src['top_logo_size'] > 0 ? (float) $src['top_logo_size'] : 14;
+    $opts['top_logo_size_tablet'] = isset( $src['top_logo_size_tablet'] ) && (float) $src['top_logo_size_tablet'] > 0 ? (float) $src['top_logo_size_tablet'] : 0;
+    $opts['top_logo_size_mobile'] = isset( $src['top_logo_size_mobile'] ) && (float) $src['top_logo_size_mobile'] > 0 ? (float) $src['top_logo_size_mobile'] : 0;
+    $opts['header_logo_size']        = isset( $src['header_logo_size'] )        && (float) $src['header_logo_size'] > 0 ? (float) $src['header_logo_size'] : 3.2;
+    $opts['header_logo_size_tablet'] = isset( $src['header_logo_size_tablet'] ) && (float) $src['header_logo_size_tablet'] > 0 ? (float) $src['header_logo_size_tablet'] : 0;
+    $opts['header_logo_size_mobile'] = isset( $src['header_logo_size_mobile'] ) && (float) $src['header_logo_size_mobile'] > 0 ? (float) $src['header_logo_size_mobile'] : 0;
+
+    $btn_labels  = isset( $src['top_btn_label'] ) && is_array( $src['top_btn_label'] ) ? $src['top_btn_label'] : array();
+    $btn_urls    = isset( $src['top_btn_url'] ) && is_array( $src['top_btn_url'] ) ? $src['top_btn_url'] : array();
+    $btn_manuals = isset( $src['top_btn_url_manual'] ) && is_array( $src['top_btn_url_manual'] ) ? $src['top_btn_url_manual'] : array();
+    $top_buttons = array();
+    foreach ( $btn_labels as $i => $label ) {
+        $label = sanitize_text_field( $label );
+        if ( ! $label ) continue;
+        $sel = isset( $btn_urls[ $i ] ) ? $btn_urls[ $i ] : '';
+        $url = $sel ? esc_url_raw( $sel ) : esc_url_raw( isset( $btn_manuals[ $i ] ) ? $btn_manuals[ $i ] : '' );
+        $top_buttons[] = array( 'label' => $label, 'url' => $url );
+    }
+    $opts['top_buttons'] = $top_buttons;
+    $opts = apply_filters( 'emono_save_top_layout_settings', $opts, $opts['top_layout'] );
+
+    return $opts;
+}
+
+/**
+ * ナビ（ヘッダー/フッターメニュー）を反映。保存とライブプレビューで共有。
+ * $src は unslash 済み配列。
+ */
+function emono_apply_nav_from_post( $opts, $src ) {
+    $src = is_array( $src ) ? $src : array();
+
+    $opts['nav_mode']    = sanitize_key( isset( $src['nav_mode'] ) ? $src['nav_mode'] : 'auto' );
+    $opts['nav_wp_menu'] = absint( isset( $src['nav_wp_menu'] ) ? $src['nav_wp_menu'] : 0 );
+
+    $labels   = isset( $src['nav_label'] ) && is_array( $src['nav_label'] ) ? $src['nav_label'] : array();
+    $types    = isset( $src['nav_type'] ) && is_array( $src['nav_type'] ) ? $src['nav_type'] : array();
+    $urls     = isset( $src['nav_url'] ) && is_array( $src['nav_url'] ) ? $src['nav_url'] : array();
+    $page_ids = isset( $src['nav_page_id'] ) && is_array( $src['nav_page_id'] ) ? $src['nav_page_id'] : array();
+    $nav = array();
+    foreach ( $labels as $i => $label ) {
+        $type = sanitize_key( isset( $types[ $i ] ) ? $types[ $i ] : 'url' );
+        if ( $type === 'page' ) {
+            $page_id = (int) ( isset( $page_ids[ $i ] ) ? $page_ids[ $i ] : 0 );
+            if ( $page_id ) {
+                $nav[] = array(
+                    'label'   => sanitize_text_field( $label ),
+                    'type'    => 'page',
+                    'page_id' => $page_id,
+                    'url'     => get_permalink( $page_id ),
+                );
+            }
+        } else {
+            $url = esc_url_raw( isset( $urls[ $i ] ) ? $urls[ $i ] : '' );
+            if ( $label && $url ) {
+                $nav[] = array(
+                    'label' => sanitize_text_field( $label ),
+                    'type'  => 'url',
+                    'url'   => $url,
+                );
+            }
+        }
+    }
+    $opts['nav_items'] = $nav;
+
+    $f_labels   = isset( $src['footer_nav_label'] ) && is_array( $src['footer_nav_label'] ) ? $src['footer_nav_label'] : array();
+    $f_types    = isset( $src['footer_nav_type'] ) && is_array( $src['footer_nav_type'] ) ? $src['footer_nav_type'] : array();
+    $f_urls     = isset( $src['footer_nav_url'] ) && is_array( $src['footer_nav_url'] ) ? $src['footer_nav_url'] : array();
+    $f_page_ids = isset( $src['footer_nav_page_id'] ) && is_array( $src['footer_nav_page_id'] ) ? $src['footer_nav_page_id'] : array();
+    $footer_nav = array();
+    foreach ( $f_types as $i => $f_type ) {
+        $f_type = sanitize_key( $f_type );
+        $f_label = isset( $f_labels[ $i ] ) ? sanitize_text_field( $f_labels[ $i ] ) : '';
+        if ( $f_type === 'page' ) {
+            $f_page_id = (int) ( isset( $f_page_ids[ $i ] ) ? $f_page_ids[ $i ] : 0 );
+            if ( $f_page_id ) {
+                $footer_nav[] = array(
+                    'label'   => $f_label,
+                    'type'    => 'page',
+                    'page_id' => $f_page_id,
+                    'url'     => get_permalink( $f_page_id ),
+                );
+            }
+        } else {
+            $f_url = esc_url_raw( isset( $f_urls[ $i ] ) ? $f_urls[ $i ] : '' );
+            if ( $f_label && $f_url ) {
+                $footer_nav[] = array(
+                    'label' => $f_label,
+                    'type'  => 'url',
+                    'url'   => $f_url,
+                );
+            }
+        }
+    }
+    $opts['footer_nav_items'] = $footer_nav;
+
+    return $opts;
 }

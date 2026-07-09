@@ -5,7 +5,8 @@ add_action( 'admin_enqueue_scripts', 'emono_admin_enqueue' );
 function emono_admin_enqueue( $hook ) {
     $is_wizard = ( strpos( $hook, 'en-setup-wizard' ) !== false )
               || ( isset($_GET['page']) && $_GET['page'] === 'en-setup-wizard' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-    $is_settings = ( strpos( $hook, 'emerge-mono-portfolio' ) !== false );
+    $is_settings = ( strpos( $hook, 'emerge-mono-portfolio' ) !== false )
+                || ( strpos( $hook, 'ene-top' ) !== false );
 
     if ( ! $is_settings && ! $is_wizard ) return;
 
@@ -257,9 +258,23 @@ function enOpenMedia(targetId) {
     });
     frame.on('select', function() {
         var att = frame.state().get('selection').first().toJSON();
-        document.getElementById(targetId).value = att.url;
+        var el = document.getElementById(targetId);
+        if (!el) { return; }
+        el.value = att.url;
+        // ライブプレビュー等が反応できるよう、値変更を通知する。
+        el.dispatchEvent(new Event('input', { bubbles: true }));
+        el.dispatchEvent(new Event('change', { bubbles: true }));
     });
     frame.open();
+}
+
+// メディア入力欄をクリア（画像の解除）。値変更を通知してプレビューを更新。
+function enClearMedia(targetId) {
+    var el = document.getElementById(targetId);
+    if (!el) { return; }
+    el.value = '';
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
 // Design preview: apply the selected font immediately, and update it live

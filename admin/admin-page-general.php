@@ -4,6 +4,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function emono_admin_tab_general($opts) {
     emono_admin_notice();
     $pages = get_pages( array( 'sort_column' => 'menu_order' ) );
+    $top_layout = isset( $opts['top_layout'] ) ? sanitize_key( $opts['top_layout'] ) : 'mono';
+    $top_layouts = function_exists( 'emono_get_top_layouts' ) ? emono_get_top_layouts() : array(
+        'mono' => array(
+            'label'       => __( 'Minimal Top', 'emerge-mono-portfolio' ),
+            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono-portfolio' ),
+        ),
+    );
     $btn1_label = isset($opts['top_btn1_label']) ? $opts['top_btn1_label'] : 'Profile';
     $btn1_url   = isset($opts['top_btn1_url'])   ? $opts['top_btn1_url']   : '';
     $btn2_label = isset($opts['top_btn2_label']) ? $opts['top_btn2_label'] : 'Works';
@@ -12,6 +19,32 @@ function emono_admin_tab_general($opts) {
     <form method="post" action="" enctype="multipart/form-data">
         <?php wp_nonce_field('en_save_general','en_nonce'); ?>
         <input type="hidden" name="en_action" value="general">
+        <div class="en-admin-section">
+            <div class="en-admin-section-title"><?php esc_html_e( 'Top Page Layout', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Keep [emerge_mono_top] on your home page. Detailed top page editing has moved to the TOP Editor.', 'emerge-mono-portfolio' ); ?></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+                <?php foreach ( $top_layouts as $layout_key => $layout ) : ?>
+                    <?php
+                    $layout_key = sanitize_key( $layout_key );
+                    $label = isset( $layout['label'] ) ? $layout['label'] : $layout_key;
+                    $description = isset( $layout['description'] ) ? $layout['description'] : '';
+                    ?>
+                    <label style="display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;cursor:pointer">
+                        <input type="radio" name="top_layout" value="<?php echo esc_attr( $layout_key ); ?>" <?php checked( $top_layout, $layout_key ); ?> style="margin-top:2px">
+                        <span>
+                            <span style="display:block;font-size:13px;font-weight:700;color:rgba(255,255,255,.85)"><?php echo esc_html( $label ); ?></span>
+                            <?php if ( $description ) : ?>
+                                <span style="display:block;font-size:12px;line-height:1.7;color:rgba(255,255,255,.36);margin-top:3px"><?php echo esc_html( $description ); ?></span>
+                            <?php endif; ?>
+                        </span>
+                    </label>
+                <?php endforeach; ?>
+            </div>
+            <a href="<?php echo esc_url( admin_url( 'admin.php?page=ene-top' ) ); ?>" class="en-admin-theme-btn" style="margin-top:16px">
+                <span class="dashicons dashicons-layout" style="font-size:14px;width:14px;height:14px"></span>
+                <span class="en-admin-theme-btn-label"><?php esc_html_e( 'Open TOP Editor', 'emerge-mono-portfolio' ); ?></span>
+            </a>
+        </div>
         <div class="en-admin-section">
             <div class="en-admin-section-title"><?php esc_html_e( 'Site Info', 'emerge-mono-portfolio' ); ?></div>
             <div class="en-field-group">
@@ -163,6 +196,7 @@ window.enAddTopBtn = function() {
     var tpl  = document.getElementById('en-top-btn-template');
     if (tpl) list.appendChild(tpl.content.cloneNode(true));
 };
+
 EMONO_TOP_BUTTON_JS
         );
         ?>

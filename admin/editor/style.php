@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 add_action( 'admin_enqueue_scripts', 'emono_ed_admin_enqueue' );
 function emono_ed_admin_enqueue( $hook ) {
     $ene_pages = array(
+        'toplevel_page_ene-top',
         'toplevel_page_ene-post',
         'toplevel_page_ene-works',
         'toplevel_page_ene-news',

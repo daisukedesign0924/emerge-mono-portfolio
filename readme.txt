@@ -4,7 +4,7 @@ Tags: portfolio, shortcode, contact form, dark mode, creator
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.24.18
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,9 @@ Every section is a shortcode, so you can combine them freely on any page.
 
 **Key features**
 
-* **Hero section** - Logo, site name, tagline, and customizable navigation buttons that reflow responsively (4 columns on desktop, 2 on tablet and mobile).
+* **Minimal Top** - A curated, minimal monochrome top page with logo, site name, tagline, and customizable navigation buttons.
+* **Design Editor** - A dedicated screen to edit the front-end (top page, design, branding, menu, profile) with a live preview.
+* **Extensible top layouts** - Additional top layouts (such as the composable "MONO TOP" builder) are provided by free extensions via the `emono_top_layouts` filter.
 * **Works gallery** - A filterable gallery with category tabs. Supports images and video embeds (YouTube / Vimeo).
 * **Profile** - Name, title, bio, profile image, skills, and SNS links with per-icon images.
 * **News** - A lightweight news / blog section powered by a custom post type.
@@ -30,7 +32,8 @@ Every section is a shortcode, so you can combine them freely on any page.
 
 **Shortcodes**
 
-* `[emerge_mono_top]` - Hero section
+* `[emerge_mono_top]` - Selected top layout
+* `[emerge_mono_minimal_top]` - Minimal Top
 * `[emerge_mono_about]` - Profile / about
 * `[emerge_mono_works]` - Works gallery
 * `[emerge_mono_news]` - News list
@@ -96,6 +99,105 @@ Yes. It includes a honeypot field and rate limiting by default, with optional re
 5. Admin settings screen.
 
 == Changelog ==
+
+= 3.0.0 =
+* The base plugin now ships the curated **Minimal Top** as its single built-in top layout, for a focused, finished monochrome product.
+* **MONO TOP** (the composable editorial section builder) has moved to a separate free extension, "Emerge Mono - MONO TOP". Install it to keep using MONO TOP; your existing MONO TOP content is preserved.
+* Top layouts are now fully extension-driven via the `emono_top_layouts` filter. If a selected layout's extension is not active, the top page falls back to Minimal Top.
+
+= 2.29.1 =
+* Code quality: resolved the remaining Plugin Check warnings (nonce-verification annotations on the MONO TOP save filter; documented the standard DONOTCACHEPAGE constant). No functional change.
+
+= 2.29.0 =
+* Feature: added a Contact form section to the MONO TOP builder. Embed the contact form directly on the top page (with an optional kicker, heading, and intro text) — useful for one-page sites.
+
+= 2.28.3 =
+* UI: right-aligned the copyright text in the MONO TOP footer.
+
+= 2.28.2 =
+* Fix: removing all MONO TOP sections and saving now stays empty (the default sections no longer come back). An empty section list is kept as-is; migration only runs when no section list has ever been saved.
+
+= 2.28.1 =
+* Fix: selecting an image in the MONO TOP builder now updates the live preview immediately, without saving.
+* Added a Clear button to each image field so you can remove a set image directly.
+
+= 2.28.0 =
+* Feature: MONO TOP is now a section builder. Add, remove, and drag to reorder sections, and place the same section type more than once.
+* Sections are provided by a registry (Hero, About, Slider, News, CTA) that extension plugins can extend via the `emono_mono_top_sections` filter.
+* Existing MONO TOP settings are migrated automatically to the new section list. The live preview and non-destructive save behavior are unchanged.
+
+= 2.27.0 =
+* Feature: consolidated all front-end (visual) editing into a single "Design Editor" screen (renamed and merged from the former TOP Editor and Live Editor).
+* Design Editor has a scope sub-nav: Top Page, Design, Branding, Menu, and Profile — each with a live preview.
+* The main plugin settings screen now focuses on back-end features (Contact Form, Post Type, Privacy, Terms, Estimate, Editor, Shortcodes).
+* Saves made inside the Design Editor return to it. Preview remains non-destructive (changes are only stored when you press Save).
+
+= 2.26.0 =
+* Feature: added a new Live Editor screen that shows a live front-end preview while you edit. The first supported scope is Design settings (color mode, colors, and font).
+* The preview reuses the same non-destructive mechanism as the TOP Editor: changes are only stored when you press Save.
+
+= 2.25.13 =
+* Fix: the WordPress admin toolbar no longer reappears when navigating to other pages inside the TOP Editor preview (preview mode is now carried across internal links).
+
+= 2.25.12 =
+* Feature: added an image ratio setting for the MONO TOP News section (Landscape 16:9, Portrait 3:4, Square 1:1, Standard 4:3).
+* i18n: clarified the Japanese labels in the TOP Editor (Kicker and section Title were renamed to clearer terms).
+
+= 2.25.11 =
+* UI: widened the TOP Editor preview panel to use the available space for a larger preview.
+
+= 2.25.10 =
+* Fix: the TOP Editor live preview no longer accidentally saved settings or failed with a "Preview failed" error (the preview request no longer submits the save trigger).
+* The preview now renders at desktop width (scaled to fit the panel) instead of a narrow mobile view.
+* The WordPress admin toolbar is hidden inside the preview frame for a clean front-end view.
+
+= 2.25.9 =
+* UI: the TOP Editor preview now updates live as you edit, without saving.
+* Unsaved top layout changes are rendered through the real front-end template via a per-user temporary preview (visible only to the logged-in administrator).
+* No change to the save behavior; edits are still only stored when you press Save.
+
+= 2.25.8 =
+* UI: added a dedicated TOP Editor screen using the Emerge Mono editor-style interface.
+* UI: moved detailed top layout settings out of the main Site Settings screen.
+* UI: added a saved front-page preview panel to the TOP Editor.
+
+= 2.25.7 =
+* UI: show the site header on the front page when MONO TOP is selected.
+* UI: align the footer styling with the MONO TOP full-page layout.
+
+= 2.25.6 =
+* Feature: added an image ratio setting for the MONO TOP selectable slider section.
+* UI: slider cards can now be shown as Landscape 16:9, Portrait 3:4, Square 1:1, or Standard 4:3.
+
+= 2.25.5 =
+* Fix: changed MONO TOP VIEW ALL links to use fixed pages containing list shortcodes instead of post type archive URLs.
+* UI: fixed the MONO TOP News section to the standard News post type and News list page.
+* Feature: added a VIEW ALL page setting for the selectable MONO TOP slider section.
+* Developer: added `emono_mono_top_list_shortcodes` and `emono_page_defs` filters so extension plugins can register their list shortcode pages.
+
+= 2.25.4 =
+* Fix: kept MONO TOP settings when switching between top page layouts.
+* Fix: MONO TOP settings now appear immediately when the layout is selected.
+* Fix: restored MONO TOP default sections to enabled and recovered empty all-disabled saved states.
+* UI: changed MONO TOP default abstract backgrounds to monochrome dark/light friendly styling.
+
+= 2.25.3 =
+* Feature: added `MONO TOP` as a built-in selectable top page layout.
+* Feature: added the `[emerge_mono_mono_top]` shortcode for directly rendering MONO TOP.
+* Feature: added MONO TOP settings for hero, about, slider, news, and CTA sections.
+
+= 2.25.2 =
+* Feature: added the `[emerge_mono_minimal_top]` shortcode for directly rendering the default Minimal Top layout.
+* Developer: top layouts can now declare their own direct shortcode through the `emono_top_layouts` filter.
+* Developer: added hooks for layout-specific settings UI and saving: `emono_top_layout_settings` and `emono_save_top_layout_settings`.
+
+= 2.25.1 =
+* UI: renamed the default top layout to `Minimal Top` to make it clear that it is the standard minimal portfolio top.
+
+= 2.25.0 =
+* Architecture: introduced selectable top page layouts and registered the current minimal top page.
+* Developer: added the `emono_top_layouts` filter so extension plugins can provide additional top page layouts.
+* UI: added a Top Page Layout selector to the general settings screen.
 
 = 2.24.18 =
 * Bug fix: redirect newly published Works and News posts from the custom editor to their matching list screens to prevent duplicate submissions.

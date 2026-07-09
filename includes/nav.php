@@ -7,9 +7,10 @@ function emono_render_header() {
     $logo_url        = emono_opt('logo_url', '');
     $logo_url_light  = emono_opt('logo_url_light', '');
     $nav_items       = emono_get_nav_items();
-    $is_top    = is_front_page();
+    $is_top = is_front_page();
+    $show_header_on_top = $is_top && function_exists( 'emono_get_top_layout' ) && emono_get_top_layout() === 'mono_top';
     ?>
-    <?php if ( ! $is_top ) : ?>
+    <?php if ( ! $is_top || $show_header_on_top ) : ?>
     <header class="en-header en-header-inner" id="en-header">
         <a href="<?php echo esc_url( home_url('/') ); ?>" class="en-header-logo">
             <?php if ( $logo_url || $logo_url_light ) : ?>

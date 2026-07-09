@@ -20,29 +20,7 @@ function emono_admin_save_portfolio_action( $action, $opts ) {
 
     switch ( $action ) {
         case 'profile':
-            $opts['profile_name']   = sanitize_text_field( isset( $_POST['profile_name'] ) ? wp_unslash( $_POST['profile_name'] ) : '' );
-            $opts['profile_role']   = sanitize_text_field( isset( $_POST['profile_role'] ) ? wp_unslash( $_POST['profile_role'] ) : '' );
-            $opts['profile_bio']    = sanitize_textarea_field( isset( $_POST['profile_bio'] ) ? wp_unslash( $_POST['profile_bio'] ) : '' );
-            $opts['profile_img']    = esc_url_raw( isset( $_POST['profile_img'] ) ? wp_unslash( $_POST['profile_img'] ) : '' );
-            $opts['profile_skills'] = sanitize_text_field( isset( $_POST['profile_skills'] ) ? wp_unslash( $_POST['profile_skills'] ) : '' );
-
-            $labels = isset( $_POST['sns_label'] ) ? wp_unslash( $_POST['sns_label'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $urls   = isset( $_POST['sns_url'] ) ? wp_unslash( $_POST['sns_url'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $icons  = isset( $_POST['sns_icon'] ) ? wp_unslash( $_POST['sns_icon'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Array elements are individually sanitized in the loop below.
-            $sns = array();
-            if ( is_array( $labels ) ) {
-                foreach ( $labels as $i => $label ) {
-                    $url = esc_url_raw( isset( $urls[ $i ] ) ? $urls[ $i ] : '' );
-                    if ( $url ) {
-                        $sns[] = array(
-                            'label' => sanitize_text_field( $label ),
-                            'url'   => $url,
-                            'icon'  => esc_url_raw( isset( $icons[ $i ] ) ? $icons[ $i ] : '' ),
-                        );
-                    }
-                }
-            }
-            $opts['sns_links'] = $sns;
+            $opts = emono_apply_profile_from_post( $opts, wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Nonce verified above; each field sanitized in helper.
 
             return array(
                 'handled'        => true,
@@ -90,4 +68,36 @@ function emono_admin_save_portfolio_action( $action, $opts ) {
     }
 
     return array( 'handled' => false );
+}
+
+/**
+ * プロフィール（名前・肩書き・自己紹介・画像・スキル・SNS）を反映。
+ * 保存とライブプレビューで共有。$src は unslash 済み配列。
+ */
+function emono_apply_profile_from_post( $opts, $src ) {
+    $src = is_array( $src ) ? $src : array();
+
+    $opts['profile_name']   = sanitize_text_field( isset( $src['profile_name'] ) ? $src['profile_name'] : '' );
+    $opts['profile_role']   = sanitize_text_field( isset( $src['profile_role'] ) ? $src['profile_role'] : '' );
+    $opts['profile_bio']    = sanitize_textarea_field( isset( $src['profile_bio'] ) ? $src['profile_bio'] : '' );
+    $opts['profile_img']    = esc_url_raw( isset( $src['profile_img'] ) ? $src['profile_img'] : '' );
+    $opts['profile_skills'] = sanitize_text_field( isset( $src['profile_skills'] ) ? $src['profile_skills'] : '' );
+
+    $labels = isset( $src['sns_label'] ) && is_array( $src['sns_label'] ) ? $src['sns_label'] : array();
+    $urls   = isset( $src['sns_url'] ) && is_array( $src['sns_url'] ) ? $src['sns_url'] : array();
+    $icons  = isset( $src['sns_icon'] ) && is_array( $src['sns_icon'] ) ? $src['sns_icon'] : array();
+    $sns = array();
+    foreach ( $labels as $i => $label ) {
+        $url = esc_url_raw( isset( $urls[ $i ] ) ? $urls[ $i ] : '' );
+        if ( $url ) {
+            $sns[] = array(
+                'label' => sanitize_text_field( $label ),
+                'url'   => $url,
+                'icon'  => esc_url_raw( isset( $icons[ $i ] ) ? $icons[ $i ] : '' ),
+            );
+        }
+    }
+    $opts['sns_links'] = $sns;
+
+    return $opts;
 }

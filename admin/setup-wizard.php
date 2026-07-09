@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Single source of truth, reused by both the wizard and the Shortcodes tab.
  */
 function emono_get_em_page_defs() {
-    return array(
+    $defs = array(
         array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',               'desc' => __( 'Top page — logo, site name, buttons', 'emerge-mono-portfolio' ), 'icon' => '🏠', 'recommended' => true ),
         array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',          'desc' => __( 'Profile page — bio, social links', 'emerge-mono-portfolio' ),    'icon' => '👤', 'recommended' => true ),
         array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',          'desc' => __( 'Works page — portfolio grid', 'emerge-mono-portfolio' ),         'icon' => '📂', 'recommended' => true ),
@@ -20,6 +20,8 @@ function emono_get_em_page_defs() {
         array( 'sc' => '[emerge_mono_terms]',     'title' => 'Terms of Service', 'slug' => 'terms',          'desc' => __( 'Terms of service page', 'emerge-mono-portfolio' ),               'icon' => '📋', 'recommended' => false ),
         array( 'sc' => '[emerge_mono_estimate]',  'title' => 'Estimate',         'slug' => 'estimate',       'desc' => __( 'Estimate simulator page', 'emerge-mono-portfolio' ),             'icon' => '💰', 'recommended' => false ),
     );
+
+    return apply_filters( 'emono_page_defs', $defs );
 }
 
 /**

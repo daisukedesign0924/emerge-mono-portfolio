@@ -529,6 +529,34 @@ body.en-mode-light .en-logo-light { display: block; }
 .en-footer-menu-item:hover { opacity: 1; }
 .en-footer-copy { letter-spacing: .3em; color: var(--en-text); }
 
+body.en-top-layout-mono_top .en-footer {
+    padding: 44px clamp(22px, 5vw, 82px);
+    text-align: left;
+    background: var(--en-bg);
+    border-top: var(--en-border-w) solid var(--en-border-dim4);
+}
+
+body.en-top-layout-mono_top .en-footer-menu {
+    justify-content: flex-start;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+body.en-top-layout-mono_top .en-footer-menu-item {
+    opacity: .58;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .22em;
+}
+
+body.en-top-layout-mono_top .en-footer-copy {
+    color: var(--en-text);
+    opacity: .46;
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-align: right;
+}
+
 /* ── コーナー飾りをモバイルで非表示 ── */
 @media (max-width: 768px) {
     .en-corner { display: none; }

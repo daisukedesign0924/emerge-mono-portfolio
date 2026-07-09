@@ -1,8 +1,84 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+function emono_get_top_layouts() {
+    $layouts = array(
+        'mono' => array(
+            'label'       => __( 'Minimal Top', 'emerge-mono-portfolio' ),
+            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono-portfolio' ),
+            'callback'    => 'emono_render_top_layout_mono',
+            'shortcode'   => 'emerge_mono_minimal_top',
+        ),
+    );
+
+    // MONO TOP など追加レイアウトは拡張プラグインが emono_top_layouts で登録する。
+    return apply_filters( 'emono_top_layouts', $layouts );
+}
+
+function emono_get_top_layout() {
+    $layout = sanitize_key( emono_opt( 'top_layout', 'mono' ) );
+    $layouts = emono_get_top_layouts();
+    return isset( $layouts[ $layout ] ) ? $layout : 'mono';
+}
+
 add_shortcode( 'emerge_mono_top', 'emono_shortcode_top' );
 function emono_shortcode_top( $atts ) {
+    $atts = shortcode_atts( array(
+        'layout' => '',
+    ), $atts, 'emerge_mono_top' );
+
+    $layout = sanitize_key( $atts['layout'] );
+    if ( $layout === '' ) {
+        $layout = emono_get_top_layout();
+    }
+
+    return emono_render_top_layout( $layout, $atts );
+}
+
+function emono_render_top_layout( $layout, $atts = array() ) {
+    $layout = sanitize_key( $layout );
+    $layouts = emono_get_top_layouts();
+    if ( ! isset( $layouts[ $layout ] ) ) {
+        $layout = 'mono';
+    }
+
+    $callback = isset( $layouts[ $layout ]['callback'] ) ? $layouts[ $layout ]['callback'] : '';
+    if ( is_callable( $callback ) ) {
+        return call_user_func( $callback, $atts );
+    }
+
+    return emono_render_top_layout_mono( $atts );
+}
+
+add_action( 'init', 'emono_register_top_layout_shortcodes', 20 );
+function emono_register_top_layout_shortcodes() {
+    foreach ( emono_get_top_layouts() as $layout_key => $layout ) {
+        if ( empty( $layout['shortcode'] ) ) {
+            continue;
+        }
+
+        $shortcode = sanitize_key( $layout['shortcode'] );
+        if ( $shortcode === '' || shortcode_exists( $shortcode ) ) {
+            continue;
+        }
+
+        add_shortcode( $shortcode, 'emono_shortcode_fixed_top_layout' );
+    }
+}
+
+function emono_shortcode_fixed_top_layout( $atts, $content = null, $tag = '' ) {
+    $tag = sanitize_key( $tag );
+    foreach ( emono_get_top_layouts() as $layout_key => $layout ) {
+        $shortcode = isset( $layout['shortcode'] ) ? sanitize_key( $layout['shortcode'] ) : '';
+        if ( $shortcode === $tag ) {
+            return emono_render_top_layout( $layout_key, is_array( $atts ) ? $atts : array() );
+        }
+    }
+
+    return '';
+}
+
+function emono_render_top_layout_mono( $atts = array() ) {
     $site_name      = emono_opt('site_name', get_bloginfo('name'));
     $tagline        = emono_opt('site_tagline', '');
     $logo_url       = emono_opt('logo_url', '');
@@ -19,7 +95,7 @@ function emono_shortcode_top( $atts ) {
         if ( $p2 ) $top_buttons[] = array( 'label' => 'Works',   'url' => get_permalink($p2->ID) );
     }
     ob_start(); ?>
-    <div class="en-top" id="en-top">
+    <div class="en-top en-top-layout-mono" id="en-top" data-top-layout="mono">
         <?php if ( $logo_url || $logo_url_light ) :
             $dark_src  = $logo_url       ? $logo_url       : $logo_url_light;
             $light_src = $logo_url_light ? $logo_url_light : $logo_url;

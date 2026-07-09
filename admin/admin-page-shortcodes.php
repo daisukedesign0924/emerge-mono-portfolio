@@ -5,9 +5,25 @@ function emono_admin_tab_shortcodes() {
     $shortcodes = array(
         array(
             'code'  => '[emerge_mono_top]',
-            'title' => __( 'Home', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Top page shortcode showing the logo, site name, and buttons. Paste it into your front page.', 'emerge-mono-portfolio' ),
+            'title' => __( 'Selected Top Layout', 'emerge-mono-portfolio' ),
+            'desc'  => __( 'Displays the top page layout selected in the plugin settings.', 'emerge-mono-portfolio' ),
         ),
+    );
+
+    if ( function_exists( 'emono_get_top_layouts' ) ) {
+        foreach ( emono_get_top_layouts() as $layout ) {
+            if ( empty( $layout['shortcode'] ) ) {
+                continue;
+            }
+            $shortcodes[] = array(
+                'code'  => '[' . sanitize_key( $layout['shortcode'] ) . ']',
+                'title' => isset( $layout['label'] ) ? $layout['label'] : sanitize_key( $layout['shortcode'] ),
+                'desc'  => isset( $layout['description'] ) ? $layout['description'] : __( 'Displays this top layout directly, regardless of the selected top page layout setting.', 'emerge-mono-portfolio' ),
+            );
+        }
+    }
+
+    $shortcodes = array_merge( $shortcodes, array(
         array(
             'code'  => '[emerge_mono_about]',
             'title' => __( 'Profile', 'emerge-mono-portfolio' ),
@@ -38,8 +54,7 @@ function emono_admin_tab_shortcodes() {
             'title' => __( 'Terms of Service Page', 'emerge-mono-portfolio' ),
             'desc'  => __( 'Displays the terms of service. Text is auto-generated from the operator name and email in the "Terms of Service" settings.', 'emerge-mono-portfolio' ),
         ),
-
-    );
+    ) );
     ?>
     <div class="en-admin-section">
         <div class="en-admin-section-title"><?php esc_html_e( 'Shortcodes', 'emerge-mono-portfolio' ); ?></div>

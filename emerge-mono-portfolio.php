@@ -3,7 +3,7 @@
  * Plugin Name:       Emerge Mono - Portfolio
  * Plugin URI:        https://github.com/daisukedesign0924/emerge-mono-portfolio
  * Description:       A monochrome portfolio toolkit for creators. Build a full portfolio site with shortcodes: hero, works gallery, profile, news, contact form, estimate simulator, and auto-generated privacy policy / terms pages.
- * Version:           2.24.18
+ * Version:           3.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            DAISUKE DESIGN
@@ -15,7 +15,7 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'EMONO_VERSION', '2.24.18' );
+define( 'EMONO_VERSION', '3.0.0' );
 define( 'EMONO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EMONO_URL',  plugin_dir_url( __FILE__ ) );
 
@@ -31,6 +31,7 @@ require_once EMONO_PATH . 'includes/contact.php';
 require_once EMONO_PATH . 'includes/privacy/privacy.php';
 require_once EMONO_PATH . 'includes/terms/terms.php';
 require_once EMONO_PATH . 'includes/estimate/estimate.php';
+require_once EMONO_PATH . 'includes/top-preview.php';
 require_once EMONO_PATH . 'admin/admin.php';
 // ── エディター機能 ──
 add_action( 'plugins_loaded', 'emono_load_editor' );
@@ -49,6 +50,7 @@ function emono_load_editor() {
 }
 
 function emono_editor_menus() {
+    add_menu_page( __( 'Design Editor', 'emerge-mono-portfolio' ), __( 'Design Editor', 'emerge-mono-portfolio' ), 'manage_options', 'ene-top', 'emono_design_editor_page', 'dashicons-art', 31 );
     add_menu_page( __( 'Post', 'emerge-mono-portfolio' ),     __( 'Post', 'emerge-mono-portfolio' ),     'edit_posts',  'ene-post',        'emono_ed_page_post',   'dashicons-edit-page',  32 );
     add_menu_page( __( 'All Works', 'emerge-mono-portfolio' ),   __( 'All Works', 'emerge-mono-portfolio' ),    'edit_posts',  'ene-works',       'emono_ed_page_works',  'dashicons-portfolio',  33 );
     add_menu_page( __( 'All News', 'emerge-mono-portfolio' ), __( 'All News', 'emerge-mono-portfolio' ), 'edit_posts',  'ene-news',        'emono_ed_page_news',   'dashicons-megaphone',  34 );
@@ -97,7 +99,7 @@ function emono_enqueue_assets() {
 }
 
 function emono_get_options() {
-    return get_option( 'en_options', array() );
+    return apply_filters( 'emono_options', get_option( 'en_options', array() ) );
 }
 function emono_opt( $key, $default = '' ) {
     $opts = emono_get_options();
@@ -119,6 +121,7 @@ function emono_activate() {
             'site_name'    => get_bloginfo('name'),
             'site_tagline' => 'Web Creator',
             'copyright'    => '(c) ' . wp_date('Y') . ' ' . get_bloginfo('name'),
+            'top_layout'   => 'mono',
         ));
     }
     // セットアップウィザードを初回のみ表示するためのフラグ
@@ -424,6 +427,11 @@ function emono_add_mode_body_class( $classes ) {
     } else {
         $classes[] = 'en-mode-dark';
     }
+
+    if ( is_front_page() && function_exists( 'emono_get_top_layout' ) ) {
+        $classes[] = 'en-top-layout-' . sanitize_html_class( emono_get_top_layout() );
+    }
+
     return $classes;
 }
 

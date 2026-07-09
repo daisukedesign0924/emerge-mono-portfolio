@@ -2,13 +2,11 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 function emono_admin_page() {
-    $tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'general'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+    $tab = isset($_GET['tab']) ? sanitize_key($_GET['tab']) : 'contact'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
+    // フロント（見た目）の編集は「Design Editor」へ集約したため、ここには
+    // バックエンド寄りの機能設定のみを残す。
     $tabs = array(
-        'general'  => array( 'label' => __( 'Site Settings', 'emerge-mono-portfolio' ),              'icon' => '⚙' ),
-        'profile'  => array( 'label' => __( 'Profile', 'emerge-mono-portfolio' ),                'icon' => '👤' ),
-        'nav'      => array( 'label' => __( 'Menu Settings', 'emerge-mono-portfolio' ),              'icon' => '☰' ),
         'contact'  => array( 'label' => __( 'Contact Form', 'emerge-mono-portfolio' ),        'icon' => '✉' ),
-        'design'   => array( 'label' => __( 'Design', 'emerge-mono-portfolio' ),                'icon' => '🎨' ),
         'cpt'      => array( 'label' => __( 'Post Type (Works)', 'emerge-mono-portfolio' ),     'icon' => '📂' ),
         'privacy'  => array( 'label' => __( 'Privacy Policy', 'emerge-mono-portfolio' ),               'icon' => '🔒' ),
         'terms'    => array( 'label' => __( 'Terms of Service', 'emerge-mono-portfolio' ),                           'icon' => '📋' ),
