@@ -24,6 +24,6 @@ function emono_save_privacy() {
     $opts['cookie_banner_page_id']  = absint( $_POST['cookie_banner_page_id'] ?? 0 );
 
     update_option( 'en_options', $opts );
-    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=privacy&saved=1' ) );
+    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono&tab=privacy&saved=1' ) );
     exit;
 }

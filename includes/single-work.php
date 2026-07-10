@@ -37,9 +37,9 @@ while ( have_posts() ) : the_post();
     $works_url  = $works_page ? get_permalink( $works_page->ID ) : home_url('/');
 
     $meta_rows = array();
-    if ( $period ) $meta_rows[ __( '— Duration —', 'emerge-mono-portfolio' ) ] = $period;
-    if ( $role   ) $meta_rows[ __( '— Role —', 'emerge-mono-portfolio' ) ] = $role;
-    if ( $tools  ) $meta_rows[ __( '— Tools —', 'emerge-mono-portfolio' ) ] = $tools;
+    if ( $period ) $meta_rows[ __( '— Duration —', 'emerge-mono' ) ] = $period;
+    if ( $role   ) $meta_rows[ __( '— Role —', 'emerge-mono' ) ] = $role;
+    if ( $tools  ) $meta_rows[ __( '— Tools —', 'emerge-mono' ) ] = $tools;
 
 
     $slide_count = count($gallery_items);

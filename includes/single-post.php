@@ -52,7 +52,7 @@ while ( have_posts() ) : the_post();
             </div>
 
             <footer class="en-post-single-footer">
-                <a href="<?php echo esc_url( $news_url ); ?>" class="en-post-single-back-bottom">← <?php esc_html_e( 'Back to News', 'emerge-mono-portfolio' ); ?></a>
+                <a href="<?php echo esc_url( $news_url ); ?>" class="en-post-single-back-bottom">← <?php esc_html_e( 'Back to News', 'emerge-mono' ); ?></a>
             </footer>
 
         </div>

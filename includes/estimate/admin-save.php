@@ -72,8 +72,8 @@ function emono_save_estimate() {
     }
 
     // 全体設定
-    $note_text = sanitize_text_field( wp_unslash( $_POST['estimate_note_text'] ?? __( '* The final amount will be provided after inquiry.', 'emerge-mono-portfolio' ) ) );
-    $btn_text  = sanitize_text_field( wp_unslash( $_POST['estimate_btn_text'] ?? __( 'Send inquiry with these details', 'emerge-mono-portfolio' ) ) );
+    $note_text = sanitize_text_field( wp_unslash( $_POST['estimate_note_text'] ?? __( '* The final amount will be provided after inquiry.', 'emerge-mono' ) ) );
+    $btn_text  = sanitize_text_field( wp_unslash( $_POST['estimate_btn_text'] ?? __( 'Send inquiry with these details', 'emerge-mono' ) ) );
 
     update_option( 'en_estimate_services',       $services );
     update_option( 'en_estimate_payment_methods', $payment_methods );
@@ -82,6 +82,6 @@ function emono_save_estimate() {
         'btn_text'  => $btn_text,
     ));
 
-    wp_safe_redirect( admin_url('admin.php?page=emerge-mono-portfolio&tab=estimate&saved=1') );
+    wp_safe_redirect( admin_url('admin.php?page=emerge-mono&tab=estimate&saved=1') );
     exit;
 }

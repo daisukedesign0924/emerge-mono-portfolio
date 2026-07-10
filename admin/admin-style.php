@@ -5,7 +5,7 @@ add_action( 'admin_enqueue_scripts', 'emono_admin_enqueue' );
 function emono_admin_enqueue( $hook ) {
     $is_wizard = ( strpos( $hook, 'en-setup-wizard' ) !== false )
               || ( isset($_GET['page']) && $_GET['page'] === 'en-setup-wizard' ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-    $is_settings = ( strpos( $hook, 'emerge-mono-portfolio' ) !== false )
+    $is_settings = ( strpos( $hook, 'emerge-mono' ) !== false )
                 || ( strpos( $hook, 'ene-top' ) !== false );
 
     if ( ! $is_settings && ! $is_wizard ) return;
@@ -41,8 +41,8 @@ function emono_admin_enqueue( $hook ) {
     wp_register_script( 'emerge-mono-admin', false, array( 'jquery' ), EMONO_VERSION, true );
     wp_enqueue_script( 'emerge-mono-admin' );
     wp_localize_script( 'emerge-mono-admin', 'emonoAdminL10n', array(
-        'selectImage' => __( 'Select Image', 'emerge-mono-portfolio' ),
-        'select'      => __( 'Select', 'emerge-mono-portfolio' ),
+        'selectImage' => __( 'Select Image', 'emerge-mono' ),
+        'select'      => __( 'Select', 'emerge-mono' ),
     ) );
     wp_add_inline_script( 'emerge-mono-admin', emono_admin_get_script() );
 }

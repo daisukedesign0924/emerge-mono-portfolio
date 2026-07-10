@@ -22,23 +22,40 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Design Editor が扱う scope の定義。
  */
 function emono_design_editor_scopes() {
-	return array(
-		'top'     => array( 'label' => __( 'Top Page', 'emerge-mono-portfolio' ),   'preview' => 'home' ),
-		'design'  => array( 'label' => __( 'Design', 'emerge-mono-portfolio' ),     'preview' => 'home' ),
-		'general' => array( 'label' => __( 'Branding', 'emerge-mono-portfolio' ),   'preview' => 'home' ),
-		'nav'     => array( 'label' => __( 'Menu', 'emerge-mono-portfolio' ),       'preview' => 'home' ),
-		'profile' => array( 'label' => __( 'Profile', 'emerge-mono-portfolio' ),    'preview' => 'about' ),
+	$scopes = array(
+		'top'     => array( 'label' => __( 'Top Page', 'emerge-mono' ),   'preview' => 'home' ),
+		'design'  => array( 'label' => __( 'Colors & Fonts', 'emerge-mono' ), 'preview' => 'home' ),
+		'general' => array( 'label' => __( 'Branding', 'emerge-mono' ),   'preview' => 'home' ),
+		'nav'     => array( 'label' => __( 'Menu', 'emerge-mono' ),       'preview' => 'home' ),
+		'profile' => array( 'label' => __( 'Profile', 'emerge-mono' ),    'preview' => 'about' ),
 	);
+	// 拡張プラグイン（MONO TOP 等）がタブ（Header/Footer 等）を追加できる。
+	// 各要素は array( 'label' => ..., 'preview' => 'home'|'about' )。
+	$scopes = apply_filters( 'emono_design_editor_scopes', $scopes );
+
+	// タブの表示順を固定（存在するものだけ、この順に）。未知のものは末尾へ。
+	$order   = array( 'top', 'about', 'profile', 'nav', 'header', 'footer', 'general', 'contact', 'design' );
+	$ordered = array();
+	foreach ( $order as $key ) {
+		if ( isset( $scopes[ $key ] ) ) {
+			$ordered[ $key ] = $scopes[ $key ];
+			unset( $scopes[ $key ] );
+		}
+	}
+	foreach ( $scopes as $key => $info ) {
+		$ordered[ $key ] = $info;
+	}
+	return $ordered;
 }
 
 /**
- * [emerge_mono_about] を含む公開ページの URL（プロフィールプレビュー用）。
+ * [emerge_mono_profile] を含む公開ページの URL（プロフィールプレビュー用）。
  * 無ければトップページ。
  */
 function emono_design_editor_about_url() {
 	$pages = get_pages( array( 'post_status' => 'publish' ) );
 	foreach ( $pages as $page ) {
-		if ( strpos( $page->post_content, '[emerge_mono_about]' ) !== false ) {
+		if ( strpos( $page->post_content, '[emerge_mono_profile]' ) !== false ) {
 			return get_permalink( $page->ID );
 		}
 	}
@@ -59,15 +76,17 @@ function emono_design_editor_page() {
 
 	$home_url    = home_url( '/' );
 	$preview_url = ( $scopes[ $scope ]['preview'] === 'about' ) ? emono_design_editor_about_url() : $home_url;
+	// 拡張スコープ（About 等）は独自のプレビューURLを指定できる。
+	$preview_url = apply_filters( 'emono_design_editor_preview_url', $preview_url, $scope );
 	$saved       = isset( $_GET['saved'] ) ? sanitize_key( wp_unslash( $_GET['saved'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only success flag.
 	?>
 	<div class="ene-wrap ene-top-editor ene-design-editor">
 		<div class="ene-header">
 			<div class="ene-header-inner">
-				<div class="ene-header-title"><?php esc_html_e( 'Design Editor', 'emerge-mono-portfolio' ); ?></div>
+				<div class="ene-header-title"><?php esc_html_e( 'Design Editor', 'emerge-mono' ); ?></div>
 				<div class="ene-header-actions">
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono-portfolio' ) ); ?>" class="ene-back-btn"><?php esc_html_e( 'Back to Settings', 'emerge-mono-portfolio' ); ?></a>
-					<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" class="ene-new-btn"><?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?></a>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono' ) ); ?>" class="ene-back-btn"><?php esc_html_e( 'Back to Settings', 'emerge-mono' ); ?></a>
+					<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" class="ene-new-btn"><?php esc_html_e( 'Preview', 'emerge-mono' ); ?></a>
 				</div>
 			</div>
 		</div>
@@ -89,14 +108,14 @@ function emono_design_editor_page() {
 			<aside class="ene-top-editor-sidebar">
 				<div class="ene-side-section">
 					<div class="ene-side-title">
-						<?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?>
+						<?php esc_html_e( 'Preview', 'emerge-mono' ); ?>
 						<span class="ene-top-preview-status" data-preview-status hidden></span>
 					</div>
 					<div class="ene-top-preview-frame">
-						<iframe id="ene-design-preview-iframe" src="<?php echo esc_url( $preview_url ); ?>" title="<?php echo esc_attr__( 'Live preview', 'emerge-mono-portfolio' ); ?>"></iframe>
+						<iframe id="ene-design-preview-iframe" src="<?php echo esc_url( $preview_url ); ?>" title="<?php echo esc_attr__( 'Live preview', 'emerge-mono' ); ?>"></iframe>
 					</div>
-					<div class="ene-field-desc"><?php esc_html_e( 'The preview updates automatically as you edit. Your changes are not saved until you press Save.', 'emerge-mono-portfolio' ); ?></div>
-					<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'Open in new tab', 'emerge-mono-portfolio' ); ?></a>
+					<div class="ene-field-desc"><?php esc_html_e( 'The preview updates automatically as you edit. Your changes are not saved until you press Save.', 'emerge-mono' ); ?></div>
+					<a href="<?php echo esc_url( $preview_url ); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'Open in new tab', 'emerge-mono' ); ?></a>
 				</div>
 			</aside>
 		</div>
@@ -110,9 +129,9 @@ function emono_design_editor_page() {
 		'nonce'       => $preview_nonce,
 		'previewBase' => $preview_url,
 		'i18n'        => array(
-			'updating' => __( 'Updating…', 'emerge-mono-portfolio' ),
-			'live'     => __( 'Live', 'emerge-mono-portfolio' ),
-			'error'    => __( 'Preview failed', 'emerge-mono-portfolio' ),
+			'updating' => __( 'Updating…', 'emerge-mono' ),
+			'live'     => __( 'Live', 'emerge-mono' ),
+			'error'    => __( 'Preview failed', 'emerge-mono' ),
 		),
 	) );
 	wp_add_inline_script( 'emerge-mono-admin', <<<'EMONO_DESIGN_EDITOR_JS'
@@ -123,6 +142,9 @@ function emono_design_editor_page() {
 
     // トップレイアウト選択（top scope）で、選択レイアウトの設定欄を切り替える。
     function updateTopLayout() {
+        // top_layout セレクタが無い scope（About 等でセクションビルダーを単独表示する場合）は
+        // 何もしない。さもないと data-top-layout-settings のビルダーが誤って隠れてしまう。
+        if (!root.querySelector('input[name="top_layout"]')) { return; }
         var selected = root.querySelector('input[name="top_layout"]:checked');
         var layout = selected ? selected.value : '';
         root.querySelectorAll('.ene-top-layout-card').forEach(function(card) {
@@ -252,8 +274,16 @@ function emono_design_editor_render_scope( $scope, $opts ) {
 			break;
 
 		case 'top':
-		default:
 			emono_design_editor_render_top( $opts );
+			break;
+
+		default:
+			// 拡張が登録した scope（Header/Footer 等）を描画。
+			if ( has_action( 'emono_design_editor_render_scope' ) ) {
+				do_action( 'emono_design_editor_render_scope', $scope, $opts );
+			} else {
+				emono_design_editor_render_top( $opts );
+			}
 			break;
 	}
 }
@@ -264,7 +294,7 @@ function emono_design_editor_render_scope( $scope, $opts ) {
 function emono_design_editor_render_top( $opts ) {
 	$top_layout  = isset( $opts['top_layout'] ) ? sanitize_key( $opts['top_layout'] ) : 'mono';
 	$top_layouts = function_exists( 'emono_get_top_layouts' ) ? emono_get_top_layouts() : array(
-		'mono' => array( 'label' => __( 'Minimal Top', 'emerge-mono-portfolio' ), 'description' => '' ),
+		'mono' => array( 'label' => __( 'Minimal Top', 'emerge-mono' ), 'description' => '' ),
 	);
 	if ( ! isset( $top_layouts[ $top_layout ] ) ) {
 		$top_layout = 'mono';
@@ -275,7 +305,7 @@ function emono_design_editor_render_top( $opts ) {
 		<input type="hidden" name="en_action" value="top_editor">
 
 		<section class="ene-type-bar ene-top-editor-layouts">
-			<div class="ene-type-bar-label"><?php esc_html_e( 'Top Page Layout', 'emerge-mono-portfolio' ); ?></div>
+			<div class="ene-type-bar-label"><?php esc_html_e( 'Top Page Layout', 'emerge-mono' ); ?></div>
 			<div class="ene-type-bar-btns">
 				<?php foreach ( $top_layouts as $layout_key => $layout ) : ?>
 					<?php
@@ -299,15 +329,15 @@ function emono_design_editor_render_top( $opts ) {
 
 		<section class="ene-top-editor-empty" data-top-layout-settings="mono" <?php if ( $top_layout !== 'mono' ) : ?>hidden<?php endif; ?>>
 			<div class="ene-side-section">
-				<div class="ene-side-title"><?php esc_html_e( 'Minimal Top', 'emerge-mono-portfolio' ); ?></div>
-				<p><?php esc_html_e( 'Minimal Top uses the shared site name, logo, tagline, and top buttons from Branding.', 'emerge-mono-portfolio' ); ?></p>
+				<div class="ene-side-title"><?php esc_html_e( 'Minimal Top', 'emerge-mono' ); ?></div>
+				<p><?php esc_html_e( 'Minimal Top uses the shared site name, logo, tagline, and top buttons from Branding.', 'emerge-mono' ); ?></p>
 			</div>
 		</section>
 
 		<?php do_action( 'emono_top_layout_settings', $top_layout, $opts ); ?>
 
 		<div class="ene-actions" style="margin-top:20px">
-			<button type="submit" class="ene-submit-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
+			<button type="submit" class="ene-submit-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
 		</div>
 	</form>
 	<?php

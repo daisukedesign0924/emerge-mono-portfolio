@@ -20,6 +20,6 @@ function emono_save_terms() {
     $opts['terms_custom']      = wp_kses_post( (isset($_POST['terms_custom']) ? wp_unslash($_POST['terms_custom']) : '') );
 
     update_option( 'en_options', $opts );
-    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=terms&saved=1' ) );
+    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono&tab=terms&saved=1' ) );
     exit;
 }

@@ -18,15 +18,15 @@ function emono_admin_tab_terms( $opts ) {
         <div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Basic Info', 'emerge-mono-portfolio' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'The terms of service text is auto-generated from the info you enter.', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Basic Info', 'emerge-mono' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'The terms of service text is auto-generated from the info you enter.', 'emerge-mono' ); ?></div>
 
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Display Language', 'emerge-mono-portfolio' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Display Language', 'emerge-mono' ); ?></label>
                 <div style="display:flex;gap:12px;">
                     <label style="display:flex;align-items:center;gap:6px;font-size:13px">
                         <input type="radio" name="terms_lang" value="ja" <?php checked( $lang, 'ja' ); ?>>
-                        <?php esc_html_e( 'Japanese', 'emerge-mono-portfolio' ); ?>
+                        <?php esc_html_e( 'Japanese', 'emerge-mono' ); ?>
                     </label>
                     <label style="display:flex;align-items:center;gap:6px;font-size:13px">
                         <input type="radio" name="terms_lang" value="en" <?php checked( $lang, 'en' ); ?>>
@@ -36,39 +36,39 @@ function emono_admin_tab_terms( $opts ) {
             </div>
 
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Operator Name (personal or business)', 'emerge-mono-portfolio' ); ?></label>
-                <input type="text" name="legal_owner" value="<?php echo esc_attr( $owner ); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'e.g. Taro Yamada', 'emerge-mono-portfolio' ); ?>">
+                <label class="en-field-label"><?php esc_html_e( 'Operator Name (personal or business)', 'emerge-mono' ); ?></label>
+                <input type="text" name="legal_owner" value="<?php echo esc_attr( $owner ); ?>" class="en-field-input" placeholder="<?php echo esc_attr__( 'e.g. Taro Yamada', 'emerge-mono' ); ?>">
             </div>
 
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Site Name', 'emerge-mono-portfolio' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Site Name', 'emerge-mono' ); ?></label>
                 <input type="text" name="legal_site" value="<?php echo esc_attr( $site ); ?>" class="en-field-input">
             </div>
 
             <div class="en-field-group">
-                <label class="en-field-label"><?php esc_html_e( 'Contact Email', 'emerge-mono-portfolio' ); ?></label>
+                <label class="en-field-label"><?php esc_html_e( 'Contact Email', 'emerge-mono' ); ?></label>
                 <input type="email" name="legal_email" value="<?php echo esc_attr( $email ); ?>" class="en-field-input">
             </div>
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Sections to Include', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Sections to Include', 'emerge-mono' ); ?></div>
             <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="checkbox" name="terms_use_disclaimer" value="1" <?php checked( $use_disclaimer, '1' ); ?>>
-                    <span><?php esc_html_e( 'Include a disclaimer', 'emerge-mono-portfolio' ); ?></span>
+                    <span><?php esc_html_e( 'Include a disclaimer', 'emerge-mono' ); ?></span>
                 </label>
             </div>
         </div>
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Additional Notes (optional)', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Additional Notes (optional)', 'emerge-mono' ); ?></div>
             <div class="en-field-group">
-                <textarea name="terms_custom" rows="5" class="en-field-input" style="width:100%;resize:vertical" placeholder="<?php echo esc_attr__( 'e.g. Refund policy for paid services, etc. ...', 'emerge-mono-portfolio' ); ?>"><?php echo esc_textarea( $custom ); ?></textarea>
+                <textarea name="terms_custom" rows="5" class="en-field-input" style="width:100%;resize:vertical" placeholder="<?php echo esc_attr__( 'e.g. Refund policy for paid services, etc. ...', 'emerge-mono' ); ?>"><?php echo esc_textarea( $custom ); ?></textarea>
             </div>
         </div>
 
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
         </div>
 
         <div style="position:sticky;top:32px;">

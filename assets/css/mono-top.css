@@ -1,0 +1,502 @@
+.emono-mono-top {
+    --mono-top-bg: var(--en-bg, #000);
+    --mono-top-text: var(--en-text, #fff);
+    --mono-top-muted: var(--en-muted, rgba(255,255,255,.58));
+    --mono-top-faint: var(--en-border, rgba(255,255,255,.18));
+    --mono-top-line: var(--en-border, rgba(255,255,255,.11));
+    --mono-top-pad: clamp(22px, 5vw, 82px);
+    --mono-top-radius: 22px;
+    overflow: hidden;
+    background: var(--mono-top-bg);
+    color: var(--mono-top-text);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0;
+}
+
+.emono-mono-top *,
+.emono-mono-top *::before,
+.emono-mono-top *::after {
+    box-sizing: border-box;
+}
+
+.emono-mono-top a {
+    color: inherit;
+}
+
+.emono-mono-top-hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: end;
+    padding: clamp(120px, 16vh, 190px) var(--mono-top-pad) clamp(70px, 10vh, 120px);
+    overflow: hidden;
+}
+
+.emono-mono-top-hero-bg,
+.emono-mono-top-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.emono-mono-top-hero-bg {
+    background:
+        linear-gradient(to bottom, color-mix(in srgb, var(--mono-top-bg) 18%, transparent), color-mix(in srgb, var(--mono-top-bg) 74%, transparent)),
+        var(--mono-top-hero-image, var(--mono-top-bg));
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.04);
+}
+
+.emono-mono-top-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--mono-top-bg) 8%, transparent), color-mix(in srgb, var(--mono-top-bg) 84%, transparent));
+}
+
+.emono-mono-top-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1040px;
+}
+
+.emono-mono-top-kicker {
+    margin: 0 0 18px;
+    color: var(--mono-top-muted);
+    font-size: clamp(11px, 1.1vw, 14px);
+    font-weight: 800;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+}
+
+.emono-mono-top-hero h1 {
+    max-width: 11ch;
+    margin: 0;
+    font-size: clamp(64px, 13vw, 188px);
+    line-height: .82;
+    font-weight: 900;
+    letter-spacing: 0;
+}
+
+.emono-mono-top-scroll {
+    position: absolute;
+    right: var(--mono-top-pad);
+    bottom: clamp(34px, 5vh, 58px);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--mono-top-muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .36em;
+    z-index: 2;
+}
+
+.emono-mono-top-scroll span {
+    display: block;
+    width: clamp(42px, 8vw, 120px);
+    height: 1px;
+    background: var(--mono-top-line);
+}
+
+.emono-mono-top-about {
+    display: grid;
+    grid-template-columns: minmax(260px, 46vw) minmax(280px, 1fr);
+    gap: clamp(30px, 6vw, 110px);
+    align-items: center;
+    padding: clamp(88px, 13vw, 170px) var(--mono-top-pad);
+}
+
+.emono-mono-top-about-visual {
+    min-height: clamp(360px, 56vw, 720px);
+    border-radius: var(--mono-top-radius);
+    background:
+        linear-gradient(to bottom, transparent, color-mix(in srgb, var(--mono-top-bg) 32%, transparent)),
+        var(--mono-top-about-image, color-mix(in srgb, var(--mono-top-text) 6%, var(--mono-top-bg)));
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--mono-top-line);
+}
+
+.emono-mono-top-about-copy {
+    max-width: 620px;
+}
+
+.emono-mono-top-about-copy h2,
+.emono-mono-top-slider-section h2,
+.emono-mono-top-news-section h2,
+.emono-mono-top-cta h2 {
+    margin: 0;
+    font-size: clamp(42px, 7vw, 112px);
+    line-height: .9;
+    font-weight: 900;
+    letter-spacing: 0;
+}
+
+.emono-mono-top-about-copy p:not(.emono-mono-top-kicker),
+.emono-mono-top-cta-content p:not(.emono-mono-top-kicker) {
+    margin: 24px 0 0;
+    max-width: 540px;
+    color: var(--mono-top-muted);
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.9;
+}
+
+.emono-mono-top-link,
+.emono-mono-top-view-all,
+.emono-mono-top-primary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 24px;
+    border-radius: 999px;
+    border: 1px solid var(--mono-top-line);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .24em;
+    transition: transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.emono-mono-top-link,
+.emono-mono-top-primary-link {
+    margin-top: 32px;
+}
+
+.emono-mono-top-link:hover,
+.emono-mono-top-view-all:hover,
+.emono-mono-top-primary-link:hover {
+    transform: translateY(-2px);
+    background: var(--mono-top-text);
+    color: var(--mono-top-bg);
+    border-color: var(--mono-top-text);
+}
+
+.emono-mono-top-slider-section,
+.emono-mono-top-news-section {
+    padding: clamp(78px, 11vw, 150px) 0;
+}
+
+.emono-mono-top-section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 28px;
+    padding: 0 var(--mono-top-pad);
+    margin-bottom: clamp(30px, 5vw, 58px);
+}
+
+.emono-mono-top-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 var(--mono-top-pad);
+    margin-bottom: 28px;
+}
+
+.emono-mono-top-tab {
+    min-height: 38px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid var(--mono-top-line);
+    background: transparent;
+    color: var(--mono-top-muted);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .18em;
+    cursor: pointer;
+}
+
+.emono-mono-top-tab.is-active {
+    border-color: var(--mono-top-text);
+    color: var(--mono-top-bg);
+    background: var(--mono-top-text);
+}
+
+.emono-mono-top-slider-wrap {
+    overflow: hidden;
+    width: 100%;
+}
+
+.emono-mono-top-slider-track {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(14px, 2vw, 26px);
+    width: max-content;
+    padding: 0 var(--mono-top-pad);
+    will-change: transform;
+}
+
+.emono-mono-top-card {
+    position: relative;
+    width: var(--mono-top-card-width, clamp(260px, 34vw, 520px));
+    aspect-ratio: var(--mono-top-card-ratio, 16 / 9);
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: clamp(18px, 2vw, 30px);
+    background: color-mix(in srgb, var(--mono-top-text) 6%, var(--mono-top-bg));
+    border: 1px solid var(--mono-top-line);
+    text-decoration: none;
+    isolation: isolate;
+}
+
+.emono-mono-top-slider-section.is-ratio-landscape {
+    --mono-top-card-width: clamp(260px, 34vw, 520px);
+    --mono-top-card-ratio: 16 / 9;
+}
+
+.emono-mono-top-slider-section.is-ratio-portrait {
+    --mono-top-card-width: clamp(210px, 24vw, 360px);
+    --mono-top-card-ratio: 3 / 4;
+}
+
+.emono-mono-top-slider-section.is-ratio-square {
+    --mono-top-card-width: clamp(220px, 28vw, 420px);
+    --mono-top-card-ratio: 1 / 1;
+}
+
+.emono-mono-top-slider-section.is-ratio-standard {
+    --mono-top-card-width: clamp(240px, 30vw, 460px);
+    --mono-top-card-ratio: 4 / 3;
+}
+
+.emono-mono-top-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    transform: scale(1.02);
+}
+
+.emono-mono-top-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, color-mix(in srgb, var(--mono-top-bg) 82%, transparent), transparent 55%);
+    z-index: 1;
+}
+
+.emono-mono-top-card span {
+    position: absolute;
+    left: 22px;
+    right: 22px;
+    bottom: 20px;
+    z-index: 2;
+    font-size: clamp(18px, 2vw, 30px);
+    font-weight: 900;
+    line-height: 1;
+    overflow-wrap: anywhere;
+}
+
+.emono-mono-top-news-section {
+    background: color-mix(in srgb, var(--mono-top-text) 3%, var(--mono-top-bg));
+    border-top: 1px solid var(--mono-top-line);
+    border-bottom: 1px solid var(--mono-top-line);
+}
+
+.emono-mono-top-news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 28px);
+    padding: 0 var(--mono-top-pad);
+}
+
+.emono-mono-top-news-card {
+    min-width: 0;
+}
+
+.emono-mono-top-news-card.is-hidden,
+.emono-mono-top-card.is-hidden {
+    display: none;
+}
+
+.emono-mono-top-news-card a {
+    display: grid;
+    gap: 16px;
+    text-decoration: none;
+}
+
+.emono-mono-top-news-section.is-ratio-landscape { --mono-top-news-ratio: 16 / 9; }
+.emono-mono-top-news-section.is-ratio-portrait  { --mono-top-news-ratio: 3 / 4; }
+.emono-mono-top-news-section.is-ratio-square    { --mono-top-news-ratio: 1 / 1; }
+.emono-mono-top-news-section.is-ratio-standard  { --mono-top-news-ratio: 4 / 3; }
+
+.emono-mono-top-news-thumb {
+    aspect-ratio: var(--mono-top-news-ratio, 16 / 10);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--mono-top-text) 6%, var(--mono-top-bg));
+    overflow: hidden;
+    border: 1px solid var(--mono-top-line);
+}
+
+.emono-mono-top-news-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.emono-mono-top-news-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: var(--mono-top-muted);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .16em;
+}
+
+.emono-mono-top-news-meta span {
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--mono-top-line);
+}
+
+.emono-mono-top-news-card h3 {
+    margin: 0;
+    font-size: clamp(17px, 1.8vw, 24px);
+    line-height: 1.45;
+    letter-spacing: 0;
+}
+
+.emono-mono-top-cta {
+    position: relative;
+    min-height: clamp(560px, 80vh, 820px);
+    display: grid;
+    place-items: center;
+    padding: clamp(90px, 12vw, 170px) var(--mono-top-pad);
+    overflow: hidden;
+    text-align: center;
+}
+
+.emono-mono-top-cta-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to bottom, color-mix(in srgb, var(--mono-top-bg) 18%, transparent), color-mix(in srgb, var(--mono-top-bg) 86%, transparent)),
+        var(--mono-top-cta-image, var(--mono-top-bg));
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.04);
+}
+
+.emono-mono-top-cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+}
+
+.emono-mono-top-primary-link {
+    border-color: var(--mono-top-text);
+    background: var(--mono-top-text);
+    color: var(--mono-top-bg);
+}
+
+.emono-mono-top-empty {
+    width: 100%;
+    margin: 0;
+    padding: 64px var(--mono-top-pad);
+    color: var(--mono-top-muted);
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .emono-mono-top-about {
+        grid-template-columns: 1fr;
+    }
+
+    .emono-mono-top-about-visual {
+        min-height: 440px;
+    }
+
+    .emono-mono-top-news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .emono-mono-top [style*="grid-template-columns:repeat(4"],
+    .emono-mono-top [style*="grid-template-columns:repeat(2"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .emono-mono-top-hero {
+        min-height: 92svh;
+    }
+
+    .emono-mono-top-hero h1 {
+        font-size: clamp(58px, 18vw, 92px);
+    }
+
+    .emono-mono-top-section-head {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .emono-mono-top-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 6px;
+    }
+
+    .emono-mono-top-tab {
+        flex: 0 0 auto;
+    }
+
+    .emono-mono-top-news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .emono-mono-top-about-visual {
+        min-height: 340px;
+    }
+
+    .emono-mono-top-scroll {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .emono-mono-top-slider-track {
+        width: auto;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+    }
+
+    .emono-mono-top-card {
+        scroll-snap-align: start;
+    }
+}
+
+/* ── Contact section ── */
+.emono-mono-top-contact-section {
+    padding: clamp(48px, 9vw, 130px) var(--mono-top-pad);
+    border-top: 1px solid var(--mono-top-line);
+}
+.emono-mono-top-contact-head {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto clamp(24px, 4vw, 48px);
+}
+.emono-mono-top-contact-head h2 {
+    font-size: clamp(28px, 4vw, 54px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 6px 0 0;
+}
+.emono-mono-top-contact-lead {
+    opacity: .68;
+    margin-top: 14px;
+    line-height: 1.9;
+}
+.emono-mono-top-contact-form {
+    max-width: 720px;
+    margin: 0 auto;
+}

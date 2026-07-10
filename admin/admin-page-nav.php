@@ -19,27 +19,27 @@ function emono_admin_tab_nav($opts) {
         <input type="hidden" name="en_action" value="nav">
 
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Mode', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Mode', 'emerge-mono' ); ?></div>
             <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="radio" name="nav_mode" value="auto" <?php checked($nav_mode,'auto'); ?>>
-                    <span><?php esc_html_e( 'Auto (show published pages automatically)', 'emerge-mono-portfolio' ); ?></span>
+                    <span><?php esc_html_e( 'Auto (show published pages automatically)', 'emerge-mono' ); ?></span>
                 </label>
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="radio" name="nav_mode" value="manual" <?php checked($nav_mode,'manual'); ?>>
-                    <span><?php esc_html_e( 'Manual (choose pages/URLs yourself)', 'emerge-mono-portfolio' ); ?></span>
+                    <span><?php esc_html_e( 'Manual (choose pages/URLs yourself)', 'emerge-mono' ); ?></span>
                 </label>
                 <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;">
                     <input type="radio" name="nav_mode" value="wp_menu" <?php checked($nav_mode,'wp_menu'); ?>>
-                    <span><?php esc_html_e( 'Use WordPress menu (manage via Appearance → Menus)', 'emerge-mono-portfolio' ); ?></span>
+                    <span><?php esc_html_e( 'Use WordPress menu (manage via Appearance → Menus)', 'emerge-mono' ); ?></span>
                 </label>
             </div>
         </div>
 
         <!-- 手動設定エリア -->
         <div class="en-admin-section" id="en-nav-manual-section" style="<?php echo $nav_mode !== 'manual' ? 'display:none' : ''; ?>">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Items', 'emerge-mono-portfolio' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Select a page or enter a URL directly. Drag to reorder.', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Navigation Items', 'emerge-mono' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Select a page or enter a URL directly. Drag to reorder.', 'emerge-mono' ); ?></div>
             <div id="en-nav-list">
                 <?php foreach ( $nav as $item ) :
                     $item_type = isset($item['type']) ? $item['type'] : 'url';
@@ -49,10 +49,10 @@ function emono_admin_tab_nav($opts) {
                     <div style="display:flex;gap:8px;align-items:center;">
                         <select name="nav_type[]" class="en-field-input" style="width:140px" onchange="enNavTypeChange(this)">
                             <option value="page" <?php selected($item_type,'page'); ?>>Page</option>
-                            <option value="url"  <?php selected($item_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono-portfolio' ); ?></option>
+                            <option value="url"  <?php selected($item_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono' ); ?></option>
                         </select>
-                        <input type="text" name="nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (e.g. About)', 'emerge-mono-portfolio' ); ?>" style="width:140px">
-                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
+                        <input type="text" name="nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (e.g. About)', 'emerge-mono' ); ?>" style="width:140px">
+                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
                     </div>
                     <div class="en-nav-page-wrap" style="<?php echo $item_type !== 'page' ? 'display:none' : ''; ?>">
                         <select name="nav_page_id[]" class="en-field-input">
@@ -75,13 +75,13 @@ function emono_admin_tab_nav($opts) {
 
         <!-- WPメニューSelectエリア -->
         <div class="en-admin-section" id="en-nav-wpmenu-section" style="<?php echo $nav_mode !== 'wp_menu' ? 'display:none' : ''; ?>">
-            <div class="en-admin-section-title"><?php esc_html_e( 'WordPress Menu to Use', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'WordPress Menu to Use', 'emerge-mono' ); ?></div>
             <?php if ( empty($wp_menus) ) : ?>
                 <div class="en-field-desc"><?php
                     printf(
                         /* translators: %s is a link to the WordPress menus screen */
-                        esc_html__( 'No WordPress menu has been created. Go to %s to create a menu.', 'emerge-mono-portfolio' ),
-                        '<a href="' . esc_url( admin_url('nav-menus.php') ) . '" style="color:inherit;text-decoration:underline">' . esc_html__( 'Appearance → Menus', 'emerge-mono-portfolio' ) . '</a>'
+                        esc_html__( 'No WordPress menu has been created. Go to %s to create a menu.', 'emerge-mono' ),
+                        '<a href="' . esc_url( admin_url('nav-menus.php') ) . '" style="color:inherit;text-decoration:underline">' . esc_html__( 'Appearance → Menus', 'emerge-mono' ) . '</a>'
                     );
                 ?></div>
             <?php else : ?>
@@ -98,8 +98,8 @@ function emono_admin_tab_nav($opts) {
 
         <!-- フッターメニュー設定 -->
         <div class="en-admin-section">
-            <div class="en-admin-section-title"><?php esc_html_e( 'Footer Menu', 'emerge-mono-portfolio' ); ?></div>
-            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Links shown above the copyright in the footer. For Page type, the page title is displayed (label is ignored). For Direct URL, the label is displayed.', 'emerge-mono-portfolio' ); ?></div>
+            <div class="en-admin-section-title"><?php esc_html_e( 'Footer Menu', 'emerge-mono' ); ?></div>
+            <div class="en-field-desc" style="margin-bottom:16px"><?php esc_html_e( 'Links shown above the copyright in the footer. For Page type, the page title is displayed (label is ignored). For Direct URL, the label is displayed.', 'emerge-mono' ); ?></div>
             <div id="en-footer-nav-list">
                 <?php foreach ( $footer_nav as $item ) :
                     $fitem_type = isset($item['type']) ? $item['type'] : 'page';
@@ -109,10 +109,10 @@ function emono_admin_tab_nav($opts) {
                     <div style="display:flex;gap:8px;align-items:center;">
                         <select name="footer_nav_type[]" class="en-field-input" style="width:140px" onchange="enFooterNavTypeChange(this)">
                             <option value="page" <?php selected($fitem_type,'page'); ?>>Page</option>
-                            <option value="url"  <?php selected($fitem_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono-portfolio' ); ?></option>
+                            <option value="url"  <?php selected($fitem_type,'url');  ?>><?php esc_html_e( 'Direct URL', 'emerge-mono' ); ?></option>
                         </select>
-                        <input type="text" name="footer_nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (URL only)', 'emerge-mono-portfolio' ); ?>" style="width:140px">
-                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-footer-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono-portfolio' ); ?></button>
+                        <input type="text" name="footer_nav_label[]" value="<?php echo esc_attr(isset($item['label']) ? $item['label'] : ''); ?>" class="en-field-input" placeholder="<?php esc_attr_e( 'Label (URL only)', 'emerge-mono' ); ?>" style="width:140px">
+                        <button type="button" class="en-remove-btn" onclick="this.closest('.en-footer-nav-row').remove()"><?php esc_html_e( 'Delete', 'emerge-mono' ); ?></button>
                     </div>
                     <div class="en-footer-nav-page-wrap" style="<?php echo $fitem_type !== 'page' ? 'display:none' : ''; ?>">
                         <select name="footer_nav_page_id[]" class="en-field-input">
@@ -133,7 +133,7 @@ function emono_admin_tab_nav($opts) {
             <button type="button" class="en-add-btn" onclick="enAddFooterNav()">+ Add Item</button>
         </div>
 
-        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
+        <button type="submit" class="en-save-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
     </form>
 
     <?php
@@ -147,12 +147,12 @@ function emono_admin_tab_nav($opts) {
     wp_localize_script( 'emerge-mono-admin', 'emonoNavSettings', array(
         'pages' => $en_nav_pages,
         'i18n'  => array(
-            'selectPage'             => __( '— Select a page —', 'emerge-mono-portfolio' ),
-            'page'                   => __( 'Page', 'emerge-mono-portfolio' ),
-            'directUrl'              => __( 'Direct URL', 'emerge-mono-portfolio' ),
-            'labelPlaceholder'       => esc_attr__( 'Label (e.g. About)', 'emerge-mono-portfolio' ),
-            'footerLabelPlaceholder' => esc_attr__( 'Label (URL only)', 'emerge-mono-portfolio' ),
-            'del'                    => __( 'Delete', 'emerge-mono-portfolio' ),
+            'selectPage'             => __( '— Select a page —', 'emerge-mono' ),
+            'page'                   => __( 'Page', 'emerge-mono' ),
+            'directUrl'              => __( 'Direct URL', 'emerge-mono' ),
+            'labelPlaceholder'       => esc_attr__( 'Label (e.g. About)', 'emerge-mono' ),
+            'footerLabelPlaceholder' => esc_attr__( 'Label (URL only)', 'emerge-mono' ),
+            'del'                    => __( 'Delete', 'emerge-mono' ),
         ),
     ) );
     wp_add_inline_script( 'emerge-mono-admin', <<<'EMONO_NAV_JS'

@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // ── 送信ログ用テーブル作成 ──
-register_activation_hook( EMONO_PATH . 'emerge-mono-portfolio.php', 'emono_create_contact_log_table' );
+register_activation_hook( EMONO_PATH . 'emerge-mono.php', 'emono_create_contact_log_table' );
 function emono_create_contact_log_table() {
     global $wpdb;
     $table = $wpdb->prefix . 'en_contact_log';
@@ -35,12 +35,12 @@ add_action( 'wp_ajax_nopriv_en_send_contact', 'emono_handle_contact' );
 function emono_handle_contact() {
     // nonce検証
     if ( ! isset($_POST['nonce']) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ?? '' ) ), 'en_nonce' ) ) {
-        wp_send_json_error( array( 'message' => __( 'Invalid request.', 'emerge-mono-portfolio' ) ) );
+        wp_send_json_error( array( 'message' => __( 'Invalid request.', 'emerge-mono' ) ) );
     }
 
     // ハニーポット（ボット対策）
     if ( ! empty( $_POST['en_hp_field'] ) ) {
-        wp_send_json_error( array( 'message' => __( 'Failed to send.', 'emerge-mono-portfolio' ) ) );
+        wp_send_json_error( array( 'message' => __( 'Failed to send.', 'emerge-mono' ) ) );
     }
 
     // レート制限（同一IPから1時間に5回まで）
@@ -48,7 +48,7 @@ function emono_handle_contact() {
     $rate_key = 'en_rate_' . md5( $ip );
     $count = (int) get_transient( $rate_key );
     if ( $count >= 5 ) {
-        wp_send_json_error( array( 'message' => __( 'You have reached the submission limit. Please try again later.', 'emerge-mono-portfolio' ) ) );
+        wp_send_json_error( array( 'message' => __( 'You have reached the submission limit. Please try again later.', 'emerge-mono' ) ) );
     }
     set_transient( $rate_key, $count + 1, HOUR_IN_SECONDS );
 
@@ -65,7 +65,7 @@ function emono_handle_contact() {
         if ( ! is_wp_error($verify) ) {
             $result = json_decode( wp_remote_retrieve_body($verify), true );
             if ( empty($result['success']) || ( isset($result['score']) && $result['score'] < 0.5 ) ) {
-                wp_send_json_error( array( 'message' => __( 'Detected as spam.', 'emerge-mono-portfolio' ) ) );
+                wp_send_json_error( array( 'message' => __( 'Detected as spam.', 'emerge-mono' ) ) );
             }
         }
     }
@@ -87,21 +87,21 @@ function emono_handle_contact() {
             $val = sanitize_email( $val );
             if ( $required && ! is_email($val) ) {
                 /* translators: %s: the field label */
-                wp_send_json_error( array( 'message' => sprintf( __( 'Please enter a valid %s.', 'emerge-mono-portfolio' ), $label ) ) );
+                wp_send_json_error( array( 'message' => sprintf( __( 'Please enter a valid %s.', 'emerge-mono' ), $label ) ) );
             }
             $email_val = $val;
         } elseif ( $type === 'checkbox' ) {
             $val = is_array($val) ? array_map('sanitize_text_field', $val) : array();
             if ( $required && empty($val) ) {
                 /* translators: %s: the field label */
-                wp_send_json_error( array( 'message' => sprintf( __( 'Please select %s.', 'emerge-mono-portfolio' ), $label ) ) );
+                wp_send_json_error( array( 'message' => sprintf( __( 'Please select %s.', 'emerge-mono' ), $label ) ) );
             }
             $val = implode(', ', $val);
         } else {
             $val = sanitize_textarea_field( $val );
             if ( $required && empty($val) ) {
                 /* translators: %s: the field label */
-                wp_send_json_error( array( 'message' => sprintf( __( 'Please enter %s.', 'emerge-mono-portfolio' ), $label ) ) );
+                wp_send_json_error( array( 'message' => sprintf( __( 'Please enter %s.', 'emerge-mono' ), $label ) ) );
             }
         }
 
@@ -110,22 +110,22 @@ function emono_handle_contact() {
     }
 
     if ( ! $email_val ) {
-        wp_send_json_error( array( 'message' => __( 'Email address not found.', 'emerge-mono-portfolio' ) ) );
+        wp_send_json_error( array( 'message' => __( 'Email address not found.', 'emerge-mono' ) ) );
     }
 
     // 管理者へのメール送信
     $to      = emono_opt('contact_email', get_option('admin_email'));
     /* translators: %s: the site name */
-    $subject = emono_opt('contact_mail_subject', sprintf( __( '[Inquiry] %s', 'emerge-mono-portfolio' ), get_bloginfo('name') ));
+    $subject = emono_opt('contact_mail_subject', sprintf( __( '[Inquiry] %s', 'emerge-mono' ), get_bloginfo('name') ));
     $estimate_summary = isset($_POST['en_field_estimate_summary']) ? sanitize_textarea_field( wp_unslash( $_POST['en_field_estimate_summary'] ) ) : '';
-    $body    = emono_opt('contact_mail_body', __( "You have received a new inquiry:\n\n", 'emerge-mono-portfolio' ));
+    $body    = emono_opt('contact_mail_body', __( "You have received a new inquiry:\n\n", 'emerge-mono' ));
     if ( $estimate_summary ) {
-        $body .= __( "■ Estimate Details\n", 'emerge-mono-portfolio' ) . $estimate_summary . "\n\n";
+        $body .= __( "■ Estimate Details\n", 'emerge-mono' ) . $estimate_summary . "\n\n";
     }
     foreach ( $data as $d ) {
         $body .= '■ ' . $d['label'] . "\n" . $d['value'] . "\n\n";
     }
-    $body .= __( "---\nSender IP: ", 'emerge-mono-portfolio' ) . $ip . __( "\nSent at: ", 'emerge-mono-portfolio' ) . current_time('Y-m-d H:i:s');
+    $body .= __( "---\nSender IP: ", 'emerge-mono' ) . $ip . __( "\nSent at: ", 'emerge-mono' ) . current_time('Y-m-d H:i:s');
 
     $headers = array(
         'Content-Type: text/plain; charset=UTF-8',
@@ -137,8 +137,8 @@ function emono_handle_contact() {
     $auto_reply = emono_opt('contact_auto_reply', '1');
     if ( $auto_reply === '1' ) {
         /* translators: %s: the site name */
-        $reply_subject = emono_opt('contact_reply_subject', sprintf( __( 'We received your inquiry | %s', 'emerge-mono-portfolio' ), get_bloginfo('name') ));
-        $reply_body    = emono_opt('contact_reply_body', __( "Thank you for your inquiry.\nWe will review your message and get back to you shortly.\n\n", 'emerge-mono-portfolio' ) . get_bloginfo('name'));
+        $reply_subject = emono_opt('contact_reply_subject', sprintf( __( 'We received your inquiry | %s', 'emerge-mono' ), get_bloginfo('name') ));
+        $reply_body    = emono_opt('contact_reply_body', __( "Thank you for your inquiry.\nWe will review your message and get back to you shortly.\n\n", 'emerge-mono' ) . get_bloginfo('name'));
         wp_mail( $email_val, $reply_subject, $reply_body );
     }
 
@@ -156,7 +156,7 @@ function emono_handle_contact() {
         )
     );
 
-    wp_send_json_success( array( 'message' => emono_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono-portfolio' )) ) );
+    wp_send_json_success( array( 'message' => emono_opt('contact_success', __( 'Your message has been sent.', 'emerge-mono' )) ) );
 }
 
 // ── IPアドレス取得 ──
@@ -176,9 +176,9 @@ function emono_get_client_ip() {
 // ── デフォルトフィールド ──
 function emono_default_contact_fields() {
     return array(
-        array( 'key' => 'name',    'label' => __( 'Name', 'emerge-mono-portfolio' ),            'type' => 'text',     'required' => true,  'placeholder' => __( 'e.g. John Smith', 'emerge-mono-portfolio' ) ),
-        array( 'key' => 'email',   'label' => __( 'Email', 'emerge-mono-portfolio' ),           'type' => 'email',    'required' => true,  'placeholder' => 'example@email.com' ),
-        array( 'key' => 'message', 'label' => __( 'Message', 'emerge-mono-portfolio' ),         'type' => 'textarea', 'required' => true,  'placeholder' => __( 'Feel free to send us your requests or questions.', 'emerge-mono-portfolio' ) ),
+        array( 'key' => 'name',    'label' => __( 'Name', 'emerge-mono' ),            'type' => 'text',     'required' => true,  'placeholder' => __( 'e.g. John Smith', 'emerge-mono' ) ),
+        array( 'key' => 'email',   'label' => __( 'Email', 'emerge-mono' ),           'type' => 'email',    'required' => true,  'placeholder' => 'example@email.com' ),
+        array( 'key' => 'message', 'label' => __( 'Message', 'emerge-mono' ),         'type' => 'textarea', 'required' => true,  'placeholder' => __( 'Feel free to send us your requests or questions.', 'emerge-mono' ) ),
     );
 }
 

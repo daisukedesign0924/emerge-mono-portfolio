@@ -172,7 +172,7 @@ function emono_top_preview_enqueue_persist() {
 	if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
-	if ( ! wp_script_is( 'emerge-mono-portfolio', 'enqueued' ) ) {
+	if ( ! wp_script_is( 'emerge-mono', 'enqueued' ) ) {
 		return;
 	}
 
@@ -191,7 +191,7 @@ function emono_top_preview_enqueue_persist() {
 		. "    a.href=url.toString();\n"
 		. "  }, true);\n"
 		. "}());";
-	wp_add_inline_script( 'emerge-mono-portfolio', $js );
+	wp_add_inline_script( 'emerge-mono', $js );
 }
 
 /**

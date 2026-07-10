@@ -25,32 +25,32 @@ function emono_ed_page_post() {
         <div class="ene-header">
             <div class="ene-header-inner">
                 <div class="ene-header-title">
-                    <?php echo $edit_id ? esc_html__( 'Edit Post', 'emerge-mono-portfolio' ) : esc_html__( 'New Post', 'emerge-mono-portfolio' ); ?>
+                    <?php echo $edit_id ? esc_html__( 'Edit Post', 'emerge-mono' ) : esc_html__( 'New Post', 'emerge-mono' ); ?>
                 </div>
             </div>
         </div>
         <?php if ( ! $edit_id ) : ?>
         <div class="ene-type-bar">
-            <div class="ene-type-bar-label"><?php esc_html_e( 'Where would you like to post?', 'emerge-mono-portfolio' ); ?></div>
+            <div class="ene-type-bar-label"><?php esc_html_e( 'Where would you like to post?', 'emerge-mono' ); ?></div>
             <div class="ene-type-bar-btns">
                 <a href="?page=ene-post&type=works"
                    class="ene-type-bar-btn <?php echo $type === 'works' ? 'active' : ''; ?>">
                     <span class="dashicons dashicons-portfolio"></span>
                     Works
-                    <span class="ene-type-desc"><?php esc_html_e( 'Works / Portfolio', 'emerge-mono-portfolio' ); ?></span>
+                    <span class="ene-type-desc"><?php esc_html_e( 'Works / Portfolio', 'emerge-mono' ); ?></span>
                 </a>
                 <a href="?page=ene-post&type=news"
                    class="ene-type-bar-btn <?php echo $type === 'news' ? 'active' : ''; ?>">
                     <span class="dashicons dashicons-megaphone"></span>
-                    <?php esc_html_e( 'News', 'emerge-mono-portfolio' ); ?>
-                    <span class="ene-type-desc"><?php esc_html_e( 'Blog / News posts', 'emerge-mono-portfolio' ); ?></span>
+                    <?php esc_html_e( 'News', 'emerge-mono' ); ?>
+                    <span class="ene-type-desc"><?php esc_html_e( 'Blog / News posts', 'emerge-mono' ); ?></span>
                 </a>
             </div>
         </div>
         <?php else : ?>
         <div class="ene-type-bar">
             <div class="ene-type-bar-label">
-                <?php echo $type === 'works' ? esc_html__( '📂 Editing Works', 'emerge-mono-portfolio' ) : esc_html__( '📰 Editing News', 'emerge-mono-portfolio' ); ?>
+                <?php echo $type === 'works' ? esc_html__( '📂 Editing Works', 'emerge-mono' ) : esc_html__( '📰 Editing News', 'emerge-mono' ); ?>
             </div>
         </div>
         <?php endif; ?>
@@ -64,15 +64,15 @@ function emono_ed_page_post() {
                 <div class="ene-main">
                     <!-- タイトル -->
                     <div class="ene-field">
-                        <label class="ene-label"><?php esc_html_e( 'Title', 'emerge-mono-portfolio' ); ?> <span class="ene-req">*</span></label>
-                        <input type="text" id="ene-title" class="ene-input" placeholder="<?php echo esc_attr__( 'Enter a title', 'emerge-mono-portfolio' ); ?>"
+                        <label class="ene-label"><?php esc_html_e( 'Title', 'emerge-mono' ); ?> <span class="ene-req">*</span></label>
+                        <input type="text" id="ene-title" class="ene-input" placeholder="<?php echo esc_attr__( 'Enter a title', 'emerge-mono' ); ?>"
                                value="<?php echo $edit_post ? esc_attr($edit_post->post_title) : ''; ?>">
                     </div>
 
                     <!-- 本文 -->
                     <div class="ene-field">
-                        <label class="ene-label"><?php esc_html_e( 'Content', 'emerge-mono-portfolio' ); ?></label>
-                        <textarea id="ene-content" class="ene-textarea" placeholder="<?php echo esc_attr__( 'Enter content (optional)', 'emerge-mono-portfolio' ); ?>"><?php echo $edit_post ? esc_textarea($edit_post->post_content) : ''; ?></textarea>
+                        <label class="ene-label"><?php esc_html_e( 'Content', 'emerge-mono' ); ?></label>
+                        <textarea id="ene-content" class="ene-textarea" placeholder="<?php echo esc_attr__( 'Enter content (optional)', 'emerge-mono' ); ?>"><?php echo $edit_post ? esc_textarea($edit_post->post_content) : ''; ?></textarea>
                     </div>
 
                     <!-- Works専用フィールド -->
@@ -89,36 +89,36 @@ function emono_ed_page_post() {
                         <div class="ene-field-grid">
                             <?php if ( $ene_wf_video ) : ?>
                             <div class="ene-field">
-                                <label class="ene-label"><?php esc_html_e( 'Video URL', 'emerge-mono-portfolio' ); ?></label>
-                                <input type="url" id="ene-video-url" class="ene-input" placeholder="<?php echo esc_attr__( 'YouTube / Vimeo URL', 'emerge-mono-portfolio' ); ?>"
+                                <label class="ene-label"><?php esc_html_e( 'Video URL', 'emerge-mono' ); ?></label>
+                                <input type="url" id="ene-video-url" class="ene-input" placeholder="<?php echo esc_attr__( 'YouTube / Vimeo URL', 'emerge-mono' ); ?>"
                                        value="<?php echo $edit_post ? esc_attr(get_post_meta($edit_post->ID,'en_video_url',true)) : ''; ?>">
                             </div>
                             <?php endif; ?>
                             <?php if ( $ene_wf_ext ) : ?>
                             <div class="ene-field">
-                                <label class="ene-label"><?php esc_html_e( 'External Link', 'emerge-mono-portfolio' ); ?></label>
+                                <label class="ene-label"><?php esc_html_e( 'External Link', 'emerge-mono' ); ?></label>
                                 <input type="url" id="ene-ext-url" class="ene-input" placeholder="https://"
                                        value="<?php echo $edit_post ? esc_attr(get_post_meta($edit_post->ID,'en_external_url',true)) : ''; ?>">
                             </div>
                             <?php endif; ?>
                             <?php if ( $ene_wf_period ) : ?>
                             <div class="ene-field">
-                                <label class="ene-label"><?php esc_html_e( 'Duration', 'emerge-mono-portfolio' ); ?></label>
+                                <label class="ene-label"><?php esc_html_e( 'Duration', 'emerge-mono' ); ?></label>
                                 <input type="text" id="ene-period" class="ene-input" placeholder="2024.01 – 2024.03"
                                        value="<?php echo $edit_post ? esc_attr(get_post_meta($edit_post->ID,'en_period',true)) : ''; ?>">
                             </div>
                             <?php endif; ?>
                             <?php if ( $ene_wf_role ) : ?>
                             <div class="ene-field">
-                                <label class="ene-label"><?php esc_html_e( 'Role', 'emerge-mono-portfolio' ); ?></label>
-                                <input type="text" id="ene-role" class="ene-input" placeholder="<?php echo esc_attr__( 'Design / Development', 'emerge-mono-portfolio' ); ?>"
+                                <label class="ene-label"><?php esc_html_e( 'Role', 'emerge-mono' ); ?></label>
+                                <input type="text" id="ene-role" class="ene-input" placeholder="<?php echo esc_attr__( 'Design / Development', 'emerge-mono' ); ?>"
                                        value="<?php echo $edit_post ? esc_attr(get_post_meta($edit_post->ID,'en_role',true)) : ''; ?>">
                             </div>
                             <?php endif; ?>
                             <?php if ( $ene_wf_tools ) : ?>
                             <div class="ene-field">
-                                <label class="ene-label"><?php esc_html_e( 'Tools Used', 'emerge-mono-portfolio' ); ?></label>
-                                <input type="text" id="ene-tools" class="ene-input" placeholder="<?php echo esc_attr__( 'Figma, Swift', 'emerge-mono-portfolio' ); ?>"
+                                <label class="ene-label"><?php esc_html_e( 'Tools Used', 'emerge-mono' ); ?></label>
+                                <input type="text" id="ene-tools" class="ene-input" placeholder="<?php echo esc_attr__( 'Figma, Swift', 'emerge-mono' ); ?>"
                                        value="<?php echo $edit_post ? esc_attr(get_post_meta($edit_post->ID,'en_tools',true)) : ''; ?>">
                             </div>
                             <?php endif; ?>
@@ -130,7 +130,7 @@ function emono_ed_page_post() {
                 <div class="ene-sidebar">
                     <!-- アイキャッチ画像 -->
                     <div class="ene-side-section">
-                        <div class="ene-side-title"><?php esc_html_e( 'Featured Image', 'emerge-mono-portfolio' ); ?></div>
+                        <div class="ene-side-title"><?php esc_html_e( 'Featured Image', 'emerge-mono' ); ?></div>
                         <div id="ene-thumb-preview" class="ene-thumb-preview" onclick="eneOpenMedia()">
                             <?php
                             $thumb_id  = $edit_post ? get_post_thumbnail_id($edit_post->ID) : 0;
@@ -138,24 +138,24 @@ function emono_ed_page_post() {
                             ?>
                             <?php if ($thumb_url) : ?>
                                 <img src="<?php echo esc_url($thumb_url); ?>" id="ene-thumb-img">
-                                <div class="ene-thumb-overlay"><?php esc_html_e( 'Change', 'emerge-mono-portfolio' ); ?></div>
+                                <div class="ene-thumb-overlay"><?php esc_html_e( 'Change', 'emerge-mono' ); ?></div>
                             <?php else : ?>
                                 <div class="ene-thumb-placeholder">
                                     <span class="dashicons dashicons-format-image"></span>
-                                    <div><?php esc_html_e( 'Click to select an image', 'emerge-mono-portfolio' ); ?></div>
+                                    <div><?php esc_html_e( 'Click to select an image', 'emerge-mono' ); ?></div>
                                 </div>
                             <?php endif; ?>
                         </div>
                         <input type="hidden" id="ene-thumb-id" value="<?php echo esc_attr($thumb_id); ?>">
                         <?php if ($thumb_url) : ?>
-                            <button type="button" class="ene-remove-thumb" onclick="eneRemoveThumb()"><?php esc_html_e( 'Remove image', 'emerge-mono-portfolio' ); ?></button>
+                            <button type="button" class="ene-remove-thumb" onclick="eneRemoveThumb()"><?php esc_html_e( 'Remove image', 'emerge-mono' ); ?></button>
                         <?php endif; ?>
                     </div>
 
                     <!-- ギャラリー画像 -->
                     <div class="ene-side-section" id="ene-gallery-section" style="<?php echo $type !== 'works' ? 'display:none' : ''; ?>">
-                        <div class="ene-side-title"><?php esc_html_e( 'Gallery', 'emerge-mono-portfolio' ); ?></div>
-                        <div class="ene-field-desc" style="font-size:11px;opacity:.6;margin-bottom:10px"><?php esc_html_e( 'Add images and videos. Drag to reorder.', 'emerge-mono-portfolio' ); ?></div>
+                        <div class="ene-side-title"><?php esc_html_e( 'Gallery', 'emerge-mono' ); ?></div>
+                        <div class="ene-field-desc" style="font-size:11px;opacity:.6;margin-bottom:10px"><?php esc_html_e( 'Add images and videos. Drag to reorder.', 'emerge-mono' ); ?></div>
                         <?php
                         $gallery_json = $edit_post ? get_post_meta($edit_post->ID, 'en_gallery_items', true) : '';
                         // 旧形式（en_gallery_ids）からの移行
@@ -194,22 +194,22 @@ function emono_ed_page_post() {
                             endforeach; ?>
                         </div>
                         <div style="display:flex;gap:6px">
-                            <button type="button" class="ene-cat-add-btn" onclick="eneAddGalleryImage()" style="flex:1"><?php esc_html_e( '+ Image', 'emerge-mono-portfolio' ); ?></button>
-                            <button type="button" class="ene-cat-add-btn" onclick="eneAddGalleryVideo()" style="flex:1"><?php esc_html_e( '+ Video', 'emerge-mono-portfolio' ); ?></button>
+                            <button type="button" class="ene-cat-add-btn" onclick="eneAddGalleryImage()" style="flex:1"><?php esc_html_e( '+ Image', 'emerge-mono' ); ?></button>
+                            <button type="button" class="ene-cat-add-btn" onclick="eneAddGalleryVideo()" style="flex:1"><?php esc_html_e( '+ Video', 'emerge-mono' ); ?></button>
                         </div>
                         <!-- 動画URL入力エリア（非表示） -->
                         <div id="ene-video-input-wrap" style="display:none;margin-top:8px">
-                            <input type="text" id="ene-video-url-input" class="ene-input" placeholder="<?php echo esc_attr__( 'YouTube / Vimeo URL', 'emerge-mono-portfolio' ); ?>" style="margin-bottom:6px">
+                            <input type="text" id="ene-video-url-input" class="ene-input" placeholder="<?php echo esc_attr__( 'YouTube / Vimeo URL', 'emerge-mono' ); ?>" style="margin-bottom:6px">
                             <div style="display:flex;gap:6px">
-                                <button type="button" class="ene-cat-add-btn" onclick="eneConfirmGalleryVideo()" style="flex:1"><?php esc_html_e( 'Add', 'emerge-mono-portfolio' ); ?></button>
-                                <button type="button" class="ene-cat-add-btn" onclick="eneCancelGalleryVideo()" style="flex:1;opacity:.5"><?php esc_html_e( 'Cancel', 'emerge-mono-portfolio' ); ?></button>
+                                <button type="button" class="ene-cat-add-btn" onclick="eneConfirmGalleryVideo()" style="flex:1"><?php esc_html_e( 'Add', 'emerge-mono' ); ?></button>
+                                <button type="button" class="ene-cat-add-btn" onclick="eneCancelGalleryVideo()" style="flex:1;opacity:.5"><?php esc_html_e( 'Cancel', 'emerge-mono' ); ?></button>
                             </div>
                         </div>
                     </div>
 
                     <!-- カテゴリー -->
                     <div class="ene-side-section">
-                        <div class="ene-side-title"><?php esc_html_e( 'Category', 'emerge-mono-portfolio' ); ?></div>
+                        <div class="ene-side-title"><?php esc_html_e( 'Category', 'emerge-mono' ); ?></div>
 
                         <!-- Works カテゴリー -->
                         <div id="ene-cat-works" style="<?php echo $type !== 'works' ? 'display:none' : ''; ?>">
@@ -250,7 +250,7 @@ function emono_ed_page_post() {
 
                     <!-- 公開設定 -->
                     <div class="ene-side-section">
-                        <div class="ene-side-title"><?php esc_html_e( 'Visibility', 'emerge-mono-portfolio' ); ?></div>
+                        <div class="ene-side-title"><?php esc_html_e( 'Visibility', 'emerge-mono' ); ?></div>
                         <select id="ene-status" class="ene-select">
                             <option value="publish" <?php echo ($edit_post && $edit_post->post_status==='publish') ? 'selected' : ''; ?>>Published</option>
                             <option value="draft"   <?php echo ($edit_post && $edit_post->post_status==='draft')   ? 'selected' : ''; ?>>Draft</option>
@@ -260,10 +260,10 @@ function emono_ed_page_post() {
                     <!-- 送信ボタン -->
                     <div class="ene-actions">
                         <button type="button" id="ene-submit" class="ene-submit-btn" onclick="eneSubmit()">
-                            <?php echo $edit_id ? esc_html__( 'Update', 'emerge-mono-portfolio' ) : esc_html__( 'Publish', 'emerge-mono-portfolio' ); ?>
+                            <?php echo $edit_id ? esc_html__( 'Update', 'emerge-mono' ) : esc_html__( 'Publish', 'emerge-mono' ); ?>
                         </button>
                         <?php if ($edit_id) : ?>
-                            <a href="?page=ene-post" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono-portfolio' ); ?></a>
+                            <a href="?page=ene-post" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono' ); ?></a>
                         <?php endif; ?>
                     </div>
                     <div id="ene-msg" class="ene-msg"></div>
@@ -291,13 +291,13 @@ function emono_ed_page_works() {
     <div class="ene-wrap">
         <div class="ene-header">
             <div class="ene-header-inner">
-                <div class="ene-header-title"><?php esc_html_e( 'All Works', 'emerge-mono-portfolio' ); ?></div>
-                <a href="?page=ene-post&type=works" class="ene-new-btn"><?php esc_html_e( '+ Add New Work', 'emerge-mono-portfolio' ); ?></a>
+                <div class="ene-header-title"><?php esc_html_e( 'All Works', 'emerge-mono' ); ?></div>
+                <a href="?page=ene-post&type=works" class="ene-new-btn"><?php esc_html_e( '+ Add New Work', 'emerge-mono' ); ?></a>
             </div>
         </div>
         <div class="ene-cat-bar">
             <div class="ene-cat-bar-inner">
-                <div class="ene-cat-bar-title"><?php esc_html_e( 'Works Categories', 'emerge-mono-portfolio' ); ?></div>
+                <div class="ene-cat-bar-title"><?php esc_html_e( 'Works Categories', 'emerge-mono' ); ?></div>
                 <div class="ene-cat-list" id="ene-work-cat-list">
                     <?php foreach ( $work_cats as $cat ) : ?>
                     <span class="ene-cat-tag">
@@ -310,7 +310,7 @@ function emono_ed_page_works() {
                     <?php endif; ?>
                 </div>
                 <div class="ene-cat-add">
-                    <input type="text" id="ene-work-cat-input" class="ene-cat-input" placeholder="<?php echo esc_attr__( 'Enter a new category name', 'emerge-mono-portfolio' ); ?>">
+                    <input type="text" id="ene-work-cat-input" class="ene-cat-input" placeholder="<?php echo esc_attr__( 'Enter a new category name', 'emerge-mono' ); ?>">
                     <button type="button" class="ene-cat-add-btn" onclick="eneAddCat('en_work_category', 'ene-work-cat-input', 'ene-work-cat-list')">Add</button>
                 </div>
             </div>
@@ -322,12 +322,12 @@ function emono_ed_page_works() {
             <table class="ene-table">
                 <thead>
                     <tr>
-                        <th style="width:80px"><?php esc_html_e( 'Image', 'emerge-mono-portfolio' ); ?></th>
-                        <th><?php esc_html_e( 'Title', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:100px"><?php esc_html_e( 'Category', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:80px"><?php esc_html_e( 'Status', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:120px"><?php esc_html_e( 'Date', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:120px"><?php esc_html_e( 'Actions', 'emerge-mono-portfolio' ); ?></th>
+                        <th style="width:80px"><?php esc_html_e( 'Image', 'emerge-mono' ); ?></th>
+                        <th><?php esc_html_e( 'Title', 'emerge-mono' ); ?></th>
+                        <th style="width:100px"><?php esc_html_e( 'Category', 'emerge-mono' ); ?></th>
+                        <th style="width:80px"><?php esc_html_e( 'Status', 'emerge-mono' ); ?></th>
+                        <th style="width:120px"><?php esc_html_e( 'Date', 'emerge-mono' ); ?></th>
+                        <th style="width:120px"><?php esc_html_e( 'Actions', 'emerge-mono' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -335,7 +335,7 @@ function emono_ed_page_works() {
                         $thumb = get_the_post_thumbnail_url($post->ID,'thumbnail');
                         $cats  = get_the_terms($post->ID,'en_work_category');
                         $cat   = ($cats && !is_wp_error($cats)) ? implode(', ', wp_list_pluck($cats,'name')) : '—';
-                        $status_label = $post->post_status === 'publish' ? __( 'Published', 'emerge-mono-portfolio' ) : __( 'Draft', 'emerge-mono-portfolio' );
+                        $status_label = $post->post_status === 'publish' ? __( 'Published', 'emerge-mono' ) : __( 'Draft', 'emerge-mono' );
                         $status_class = $post->post_status === 'publish' ? 'ene-badge-pub' : 'ene-badge-draft';
                     ?>
                     <tr>
@@ -348,14 +348,14 @@ function emono_ed_page_works() {
                         </td>
                         <td>
                             <a href="?page=ene-post&type=works&edit=<?php echo (int) $post->ID; ?>" class="ene-table-title">
-                                <?php echo esc_html($post->post_title ?: __( '(No title)', 'emerge-mono-portfolio' )); ?>
+                                <?php echo esc_html($post->post_title ?: __( '(No title)', 'emerge-mono' )); ?>
                             </a>
                         </td>
                         <td style="font-size:12px;color:rgba(255,255,255,.4)"><?php echo esc_html($cat); ?></td>
                         <td><span class="ene-badge <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_label ); ?></span></td>
                         <td style="font-size:12px;color:rgba(255,255,255,.3)"><?php echo get_the_date('Y.m.d', $post->ID); ?></td>
                         <td>
-                            <a href="?page=ene-post&type=works&edit=<?php echo (int) $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
+                            <a href="?page=ene-post&type=works&edit=<?php echo (int) $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono' ); ?></a>
                             <button class="ene-table-btn ene-delete-btn" onclick="eneDelete(<?php echo (int) $post->ID; ?>, this)">Delete</button>
                         </td>
                     </tr>
@@ -385,13 +385,13 @@ function emono_ed_page_news() {
     <div class="ene-wrap">
         <div class="ene-header">
             <div class="ene-header-inner">
-                <div class="ene-header-title"><?php esc_html_e( 'All News', 'emerge-mono-portfolio' ); ?></div>
-                <a href="?page=ene-post&type=news" class="ene-new-btn"><?php esc_html_e( '+ Add New Post', 'emerge-mono-portfolio' ); ?></a>
+                <div class="ene-header-title"><?php esc_html_e( 'All News', 'emerge-mono' ); ?></div>
+                <a href="?page=ene-post&type=news" class="ene-new-btn"><?php esc_html_e( '+ Add New Post', 'emerge-mono' ); ?></a>
             </div>
         </div>
         <div class="ene-cat-bar">
             <div class="ene-cat-bar-inner">
-                <div class="ene-cat-bar-title"><?php esc_html_e( 'News Categories', 'emerge-mono-portfolio' ); ?></div>
+                <div class="ene-cat-bar-title"><?php esc_html_e( 'News Categories', 'emerge-mono' ); ?></div>
                 <div class="ene-cat-list" id="ene-news-cat-list">
                     <?php foreach ( $news_cats as $cat ) : ?>
                     <span class="ene-cat-tag">
@@ -404,7 +404,7 @@ function emono_ed_page_news() {
                     <?php endif; ?>
                 </div>
                 <div class="ene-cat-add">
-                    <input type="text" id="ene-news-cat-input" class="ene-cat-input" placeholder="<?php echo esc_attr__( 'Enter a new category name', 'emerge-mono-portfolio' ); ?>">
+                    <input type="text" id="ene-news-cat-input" class="ene-cat-input" placeholder="<?php echo esc_attr__( 'Enter a new category name', 'emerge-mono' ); ?>">
                     <button type="button" class="ene-cat-add-btn" onclick="eneAddCat('en_news_category', 'ene-news-cat-input', 'ene-news-cat-list')">Add</button>
                 </div>
             </div>
@@ -416,31 +416,31 @@ function emono_ed_page_news() {
             <table class="ene-table">
                 <thead>
                     <tr>
-                        <th><?php esc_html_e( 'Title', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:100px"><?php esc_html_e( 'Category', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:80px"><?php esc_html_e( 'Status', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:120px"><?php esc_html_e( 'Date', 'emerge-mono-portfolio' ); ?></th>
-                        <th style="width:120px"><?php esc_html_e( 'Actions', 'emerge-mono-portfolio' ); ?></th>
+                        <th><?php esc_html_e( 'Title', 'emerge-mono' ); ?></th>
+                        <th style="width:100px"><?php esc_html_e( 'Category', 'emerge-mono' ); ?></th>
+                        <th style="width:80px"><?php esc_html_e( 'Status', 'emerge-mono' ); ?></th>
+                        <th style="width:120px"><?php esc_html_e( 'Date', 'emerge-mono' ); ?></th>
+                        <th style="width:120px"><?php esc_html_e( 'Actions', 'emerge-mono' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ( $posts as $post ) :
                         $cats  = get_the_terms($post->ID, 'en_news_category');
                         $cat   = ( $cats && ! is_wp_error($cats) ) ? $cats[0]->name : '—';
-                        $status_label = $post->post_status === 'publish' ? __( 'Published', 'emerge-mono-portfolio' ) : __( 'Draft', 'emerge-mono-portfolio' );
+                        $status_label = $post->post_status === 'publish' ? __( 'Published', 'emerge-mono' ) : __( 'Draft', 'emerge-mono' );
                         $status_class = $post->post_status === 'publish' ? 'ene-badge-pub' : 'ene-badge-draft';
                     ?>
                     <tr>
                         <td>
                             <a href="?page=ene-post&type=news&edit=<?php echo (int) $post->ID; ?>" class="ene-table-title">
-                                <?php echo esc_html($post->post_title ?: __( '(No title)', 'emerge-mono-portfolio' )); ?>
+                                <?php echo esc_html($post->post_title ?: __( '(No title)', 'emerge-mono' )); ?>
                             </a>
                         </td>
                         <td style="font-size:12px;color:rgba(255,255,255,.4)"><?php echo esc_html($cat); ?></td>
                         <td><span class="ene-badge <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_label ); ?></span></td>
                         <td style="font-size:12px;color:rgba(255,255,255,.3)"><?php echo get_the_date('Y.m.d', $post->ID); ?></td>
                         <td>
-                            <a href="?page=ene-post&type=news&edit=<?php echo (int) $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
+                            <a href="?page=ene-post&type=news&edit=<?php echo (int) $post->ID; ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono' ); ?></a>
                             <button class="ene-table-btn ene-delete-btn" onclick="eneDelete(<?php echo (int) $post->ID; ?>, this)">Delete</button>
                         </td>
                     </tr>
@@ -463,8 +463,8 @@ function emono_ed_page_top() {
     $top_layout  = isset( $opts['top_layout'] ) ? sanitize_key( $opts['top_layout'] ) : 'mono';
     $top_layouts = function_exists( 'emono_get_top_layouts' ) ? emono_get_top_layouts() : array(
         'mono' => array(
-            'label'       => __( 'Minimal Top', 'emerge-mono-portfolio' ),
-            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono-portfolio' ),
+            'label'       => __( 'Minimal Top', 'emerge-mono' ),
+            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono' ),
         ),
     );
 
@@ -478,16 +478,16 @@ function emono_ed_page_top() {
     <div class="ene-wrap ene-top-editor">
         <div class="ene-header">
             <div class="ene-header-inner">
-                <div class="ene-header-title"><?php esc_html_e( 'TOP Editor', 'emerge-mono-portfolio' ); ?></div>
+                <div class="ene-header-title"><?php esc_html_e( 'TOP Editor', 'emerge-mono' ); ?></div>
                 <div class="ene-header-actions">
-                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono-portfolio' ) ); ?>" class="ene-back-btn"><?php esc_html_e( 'Back to Settings', 'emerge-mono-portfolio' ); ?></a>
-                    <a href="<?php echo esc_url( $front_url ); ?>" target="_blank" class="ene-new-btn"><?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?></a>
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono' ) ); ?>" class="ene-back-btn"><?php esc_html_e( 'Back to Settings', 'emerge-mono' ); ?></a>
+                    <a href="<?php echo esc_url( $front_url ); ?>" target="_blank" class="ene-new-btn"><?php esc_html_e( 'Preview', 'emerge-mono' ); ?></a>
                 </div>
             </div>
         </div>
 
         <?php if ( $saved === '1' ) : ?>
-            <div class="ene-top-editor-notice"><?php esc_html_e( 'Saved.', 'emerge-mono-portfolio' ); ?></div>
+            <div class="ene-top-editor-notice"><?php esc_html_e( 'Saved.', 'emerge-mono' ); ?></div>
         <?php endif; ?>
 
         <form method="post" action="" class="ene-top-editor-form">
@@ -497,7 +497,7 @@ function emono_ed_page_top() {
             <div class="ene-top-editor-grid">
                 <main class="ene-top-editor-main">
                     <section class="ene-type-bar ene-top-editor-layouts">
-                        <div class="ene-type-bar-label"><?php esc_html_e( 'Top Page Layout', 'emerge-mono-portfolio' ); ?></div>
+                        <div class="ene-type-bar-label"><?php esc_html_e( 'Top Page Layout', 'emerge-mono' ); ?></div>
                         <div class="ene-type-bar-btns">
                             <?php foreach ( $top_layouts as $layout_key => $layout ) : ?>
                                 <?php
@@ -521,9 +521,9 @@ function emono_ed_page_top() {
 
                     <section class="ene-top-editor-empty" data-top-layout-settings="mono" <?php if ( $top_layout !== 'mono' ) : ?>hidden<?php endif; ?>>
                         <div class="ene-side-section">
-                            <div class="ene-side-title"><?php esc_html_e( 'Minimal Top', 'emerge-mono-portfolio' ); ?></div>
-                            <p><?php esc_html_e( 'Minimal Top uses the shared site name, logo, tagline, and top buttons from Site Settings.', 'emerge-mono-portfolio' ); ?></p>
-                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono-portfolio' ) ); ?>" class="ene-table-btn"><?php esc_html_e( 'Edit shared settings', 'emerge-mono-portfolio' ); ?></a>
+                            <div class="ene-side-title"><?php esc_html_e( 'Minimal Top', 'emerge-mono' ); ?></div>
+                            <p><?php esc_html_e( 'Minimal Top uses the shared site name, logo, tagline, and top buttons from Site Settings.', 'emerge-mono' ); ?></p>
+                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=emerge-mono' ) ); ?>" class="ene-table-btn"><?php esc_html_e( 'Edit shared settings', 'emerge-mono' ); ?></a>
                         </div>
                     </section>
 
@@ -533,18 +533,18 @@ function emono_ed_page_top() {
                 <aside class="ene-top-editor-sidebar">
                     <div class="ene-side-section">
                         <div class="ene-side-title">
-                            <?php esc_html_e( 'Preview', 'emerge-mono-portfolio' ); ?>
+                            <?php esc_html_e( 'Preview', 'emerge-mono' ); ?>
                             <span class="ene-top-preview-status" data-preview-status hidden></span>
                         </div>
                         <div class="ene-top-preview-frame">
-                            <iframe id="ene-top-preview-iframe" src="<?php echo esc_url( $front_url ); ?>" title="<?php echo esc_attr__( 'Top page preview', 'emerge-mono-portfolio' ); ?>"></iframe>
+                            <iframe id="ene-top-preview-iframe" src="<?php echo esc_url( $front_url ); ?>" title="<?php echo esc_attr__( 'Top page preview', 'emerge-mono' ); ?>"></iframe>
                         </div>
-                        <div class="ene-field-desc"><?php esc_html_e( 'The preview updates automatically as you edit. Your changes are not saved until you press Save.', 'emerge-mono-portfolio' ); ?></div>
-                        <a href="<?php echo esc_url( $front_url ); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'Open in new tab', 'emerge-mono-portfolio' ); ?></a>
+                        <div class="ene-field-desc"><?php esc_html_e( 'The preview updates automatically as you edit. Your changes are not saved until you press Save.', 'emerge-mono' ); ?></div>
+                        <a href="<?php echo esc_url( $front_url ); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'Open in new tab', 'emerge-mono' ); ?></a>
                     </div>
 
                     <div class="ene-actions">
-                        <button type="submit" class="ene-submit-btn"><?php esc_html_e( 'Save', 'emerge-mono-portfolio' ); ?></button>
+                        <button type="submit" class="ene-submit-btn"><?php esc_html_e( 'Save', 'emerge-mono' ); ?></button>
                     </div>
                 </aside>
             </div>
@@ -558,9 +558,9 @@ function emono_ed_page_top() {
         'nonce'       => $preview_nonce,
         'previewBase' => $front_url,
         'i18n'        => array(
-            'updating' => __( 'Updating…', 'emerge-mono-portfolio' ),
-            'live'     => __( 'Live', 'emerge-mono-portfolio' ),
-            'error'    => __( 'Preview failed', 'emerge-mono-portfolio' ),
+            'updating' => __( 'Updating…', 'emerge-mono' ),
+            'live'     => __( 'Live', 'emerge-mono' ),
+            'error'    => __( 'Preview failed', 'emerge-mono' ),
         ),
     ) );
     wp_add_inline_script( 'emerge-mono-admin', <<<'EMONO_TOP_EDITOR_JS'
@@ -680,31 +680,31 @@ EMONO_TOP_EDITOR_JS
 // ── ページ管理 ──
 function emono_ed_page_create() {
     $em_pages = function_exists('emono_get_em_page_defs') ? emono_get_em_page_defs() : array(
-        array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',              'desc' => __( 'Top page — Minimal Top or another selected layout', 'emerge-mono-portfolio' ),      'icon' => '🏠' ),
-        array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',         'desc' => __( 'Profile page — bio, social links', 'emerge-mono-portfolio' ),       'icon' => '👤' ),
-        array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',         'desc' => __( 'Works page — portfolio grid', 'emerge-mono-portfolio' ),          'icon' => '📂' ),
-        array( 'sc' => '[emerge_mono_news]',      'title' => 'News',             'slug' => 'news',          'desc' => __( 'News page — post list', 'emerge-mono-portfolio' ),               'icon' => '📰' ),
-        array( 'sc' => '[emerge_mono_contact]',   'title' => 'Contact',          'slug' => 'contact',       'desc' => __( 'Contact page — form', 'emerge-mono-portfolio' ),           'icon' => '✉' ),
-        array( 'sc' => '[emerge_mono_privacy]',   'title' => 'Privacy Policy',   'slug' => 'privacy-policy','desc' => __( 'Privacy policy page', 'emerge-mono-portfolio' ),               'icon' => '🔒' ),
-        array( 'sc' => '[emerge_mono_terms]',     'title' => 'Terms of Service', 'slug' => 'terms',         'desc' => __( 'Terms of service page', 'emerge-mono-portfolio' ),                          'icon' => '📋' ),
-        array( 'sc' => '[emerge_mono_estimate]',  'title' => 'Estimate',         'slug' => 'estimate',      'desc' => __( 'Estimate simulator page', 'emerge-mono-portfolio' ),            'icon' => '💰' ),
+        array( 'sc' => '[emerge_mono_top]',      'title' => 'Home',             'slug' => '',              'desc' => __( 'Top page — Minimal Top or another selected layout', 'emerge-mono' ),      'icon' => '🏠' ),
+        array( 'sc' => '[emerge_mono_about]',     'title' => 'Profile',          'slug' => 'about',         'desc' => __( 'Profile page — bio, social links', 'emerge-mono' ),       'icon' => '👤' ),
+        array( 'sc' => '[emerge_mono_works]',     'title' => 'Works',            'slug' => 'works',         'desc' => __( 'Works page — portfolio grid', 'emerge-mono' ),          'icon' => '📂' ),
+        array( 'sc' => '[emerge_mono_news]',      'title' => 'News',             'slug' => 'news',          'desc' => __( 'News page — post list', 'emerge-mono' ),               'icon' => '📰' ),
+        array( 'sc' => '[emerge_mono_contact]',   'title' => 'Contact',          'slug' => 'contact',       'desc' => __( 'Contact page — form', 'emerge-mono' ),           'icon' => '✉' ),
+        array( 'sc' => '[emerge_mono_privacy]',   'title' => 'Privacy Policy',   'slug' => 'privacy-policy','desc' => __( 'Privacy policy page', 'emerge-mono' ),               'icon' => '🔒' ),
+        array( 'sc' => '[emerge_mono_terms]',     'title' => 'Terms of Service', 'slug' => 'terms',         'desc' => __( 'Terms of service page', 'emerge-mono' ),                          'icon' => '📋' ),
+        array( 'sc' => '[emerge_mono_estimate]',  'title' => 'Estimate',         'slug' => 'estimate',      'desc' => __( 'Estimate simulator page', 'emerge-mono' ),            'icon' => '💰' ),
     );
     wp_localize_script( 'ene-page-manager', 'enePageSettings', array(
         'createNonce' => wp_create_nonce( 'ene_create_em_page' ),
         'i18n'        => array(
             /* translators: %s: the page title */
-            'confirmDelete'  => __( 'Delete "%s"?\nThis cannot be undone.', 'emerge-mono-portfolio' ),
-            'deleting'       => __( 'Deleting...', 'emerge-mono-portfolio' ),
+            'confirmDelete'  => __( 'Delete "%s"?\nThis cannot be undone.', 'emerge-mono' ),
+            'deleting'       => __( 'Deleting...', 'emerge-mono' ),
             /* translators: %s: the page title */
-            'deletedMsg'     => '🗑 ' . __( 'Deleted "%s".', 'emerge-mono-portfolio' ),
-            'del'            => __( 'Delete', 'emerge-mono-portfolio' ),
-            'errorPrefix'    => __( 'Error: ', 'emerge-mono-portfolio' ),
-            'couldNotDelete' => __( 'Could not delete', 'emerge-mono-portfolio' ),
-            'creating'       => __( 'Creating...', 'emerge-mono-portfolio' ),
+            'deletedMsg'     => '🗑 ' . __( 'Deleted "%s".', 'emerge-mono' ),
+            'del'            => __( 'Delete', 'emerge-mono' ),
+            'errorPrefix'    => __( 'Error: ', 'emerge-mono' ),
+            'couldNotDelete' => __( 'Could not delete', 'emerge-mono' ),
+            'creating'       => __( 'Creating...', 'emerge-mono' ),
             /* translators: %s: the page title */
-            'createdMsg'     => '✅ %s ' . __( 'created.', 'emerge-mono-portfolio' ),
-            'create'         => __( 'Create', 'emerge-mono-portfolio' ),
-            'couldNotCreate' => __( 'Could not create', 'emerge-mono-portfolio' ),
+            'createdMsg'     => '✅ %s ' . __( 'created.', 'emerge-mono' ),
+            'create'         => __( 'Create', 'emerge-mono' ),
+            'couldNotCreate' => __( 'Could not create', 'emerge-mono' ),
         ),
     ) );
 
@@ -721,22 +721,22 @@ function emono_ed_page_create() {
     <div class="ene-wrap">
         <div class="ene-header">
             <div class="ene-header-inner">
-                <div class="ene-header-title"><?php esc_html_e( 'Page Manager', 'emerge-mono-portfolio' ); ?></div>
+                <div class="ene-header-title"><?php esc_html_e( 'Page Manager', 'emerge-mono' ); ?></div>
                 <?php if ( function_exists('emono_wizard_url') ) : ?>
-                <a href="<?php echo esc_url( emono_wizard_url() ); ?>" class="ene-back-btn"><?php esc_html_e( 'Open Setup Wizard', 'emerge-mono-portfolio' ); ?></a>
+                <a href="<?php echo esc_url( emono_wizard_url() ); ?>" class="ene-back-btn"><?php esc_html_e( 'Open Setup Wizard', 'emerge-mono' ); ?></a>
                 <?php endif; ?>
             </div>
         </div>
         <div class="ene-body" style="display:block;padding:24px;">
-            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;"><?php esc_html_e( 'Create and manage Emerge Mono pages. Clicking "Create" generates a page with the shortcode already set.', 'emerge-mono-portfolio' ); ?></div>
+            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px;"><?php esc_html_e( 'Create and manage Emerge Mono pages. Clicking "Create" generates a page with the shortcode already set.', 'emerge-mono' ); ?></div>
             <table class="ene-table">
                 <thead>
                     <tr>
                         <th style="width:40px"></th>
-                        <th><?php esc_html_e( 'Page Name', 'emerge-mono-portfolio' ); ?></th>
-                        <th><?php esc_html_e( 'Shortcode', 'emerge-mono-portfolio' ); ?></th>
+                        <th><?php esc_html_e( 'Page Name', 'emerge-mono' ); ?></th>
+                        <th><?php esc_html_e( 'Shortcode', 'emerge-mono' ); ?></th>
                         <th style="width:100px">Status</th>
-                        <th style="width:150px"><?php esc_html_e( 'Actions', 'emerge-mono-portfolio' ); ?></th>
+                        <th style="width:150px"><?php esc_html_e( 'Actions', 'emerge-mono' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -744,7 +744,7 @@ function emono_ed_page_create() {
                         $page         = isset($sc_page_map[$def['sc']]) ? $sc_page_map[$def['sc']] : null;
                         $created      = ! is_null($page);
                         $page_url     = $created ? get_permalink($page->ID) : '';
-                        $status_label = $created ? ($page->post_status === 'publish' ? __( 'Published', 'emerge-mono-portfolio' ) : __( 'Draft', 'emerge-mono-portfolio' )) : __( 'Not created', 'emerge-mono-portfolio' );
+                        $status_label = $created ? ($page->post_status === 'publish' ? __( 'Published', 'emerge-mono' ) : __( 'Draft', 'emerge-mono' )) : __( 'Not created', 'emerge-mono' );
                         $status_class = $created ? ($page->post_status === 'publish' ? 'ene-badge-pub' : 'ene-badge-draft') : 'ene-badge-none';
                     ?>
                     <tr>
@@ -757,8 +757,8 @@ function emono_ed_page_create() {
                         <td><span class="ene-badge <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $status_label ); ?></span></td>
                         <td style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
                             <?php if ( $created ) : ?>
-                                <a href="<?php echo esc_url(admin_url('admin.php?page=ene-page-edit&edit='.$page->ID)); ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono-portfolio' ); ?></a>
-                                <a href="<?php echo esc_url($page_url); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'View', 'emerge-mono-portfolio' ); ?></a>
+                                <a href="<?php echo esc_url(admin_url('admin.php?page=ene-page-edit&edit='.$page->ID)); ?>" class="ene-table-btn"><?php esc_html_e( 'Edit', 'emerge-mono' ); ?></a>
+                                <a href="<?php echo esc_url($page_url); ?>" target="_blank" class="ene-table-btn"><?php esc_html_e( 'View', 'emerge-mono' ); ?></a>
                                 <button class="ene-table-btn ene-delete-btn" onclick="eneDeleteEmPage(<?php echo (int) $page->ID; ?>, '<?php echo esc_js($def['title']); ?>', this)">Delete</button>
                             <?php else : ?>
                                 <button class="ene-table-btn" onclick="eneCreatePage(<?php echo esc_attr(json_encode($def)); ?>, this)">Create</button>
@@ -845,7 +845,7 @@ function emono_ed_page_edit() {
     <div class="ene-wrap">
         <div class="ene-header">
             <div class="ene-header-inner">
-                <div class="ene-header-title"><?php esc_html_e( 'Edit Page', 'emerge-mono-portfolio' ); ?></div>
+                <div class="ene-header-title"><?php esc_html_e( 'Edit Page', 'emerge-mono' ); ?></div>
                 <a href="<?php echo esc_url( admin_url('admin.php?page=ene-page-create') ); ?>" class="ene-back-btn">← Back to Page Manager</a>
             </div>
         </div>
@@ -853,13 +853,13 @@ function emono_ed_page_edit() {
             <div class="ene-main">
 
                 <div class="ene-field">
-                    <label class="ene-label"><?php esc_html_e( 'Page Title', 'emerge-mono-portfolio' ); ?> <span class="ene-req">*</span></label>
+                    <label class="ene-label"><?php esc_html_e( 'Page Title', 'emerge-mono' ); ?> <span class="ene-req">*</span></label>
                     <input type="text" id="enp-title" class="ene-input"
                            value="<?php echo esc_attr($edit_post->post_title); ?>">
                 </div>
 
                 <div class="ene-field">
-                    <label class="ene-label"><?php esc_html_e( 'URL (slug)', 'emerge-mono-portfolio' ); ?></label>
+                    <label class="ene-label"><?php esc_html_e( 'URL (slug)', 'emerge-mono' ); ?></label>
                     <div style="display:flex;align-items:center;gap:8px">
                         <span style="font-size:12px;opacity:.3"><?php echo esc_url(home_url('/')); ?></span>
                         <input type="text" id="enp-slug" class="ene-input"
@@ -873,26 +873,26 @@ function emono_ed_page_edit() {
             <div class="ene-sidebar">
 
                 <div class="ene-side-section">
-                    <div class="ene-side-title"><?php esc_html_e( 'Featured Image', 'emerge-mono-portfolio' ); ?></div>
+                    <div class="ene-side-title"><?php esc_html_e( 'Featured Image', 'emerge-mono' ); ?></div>
                     <div id="enp-thumb-preview" class="ene-thumb-preview" onclick="enpOpenMedia()">
                         <?php if ($thumb_url) : ?>
                             <img src="<?php echo esc_url($thumb_url); ?>">
-                            <div class="ene-thumb-overlay"><?php esc_html_e( 'Change', 'emerge-mono-portfolio' ); ?></div>
+                            <div class="ene-thumb-overlay"><?php esc_html_e( 'Change', 'emerge-mono' ); ?></div>
                         <?php else : ?>
                             <div class="ene-thumb-placeholder">
                                 <span class="dashicons dashicons-format-image"></span>
-                                <div><?php esc_html_e( 'Click to select an image', 'emerge-mono-portfolio' ); ?></div>
+                                <div><?php esc_html_e( 'Click to select an image', 'emerge-mono' ); ?></div>
                             </div>
                         <?php endif; ?>
                     </div>
                     <input type="hidden" id="enp-thumb-id" value="<?php echo esc_attr($thumb_id); ?>">
                     <?php if ($thumb_url) : ?>
-                        <button type="button" class="ene-remove-thumb" onclick="enpRemoveThumb()"><?php esc_html_e( 'Remove image', 'emerge-mono-portfolio' ); ?></button>
+                        <button type="button" class="ene-remove-thumb" onclick="enpRemoveThumb()"><?php esc_html_e( 'Remove image', 'emerge-mono' ); ?></button>
                     <?php endif; ?>
                 </div>
 
                 <div class="ene-side-section">
-                    <div class="ene-side-title"><?php esc_html_e( 'Visibility', 'emerge-mono-portfolio' ); ?></div>
+                    <div class="ene-side-title"><?php esc_html_e( 'Visibility', 'emerge-mono' ); ?></div>
                     <select id="enp-status" class="ene-select">
                         <option value="publish" <?php selected($status,'publish'); ?>>Published</option>
                         <option value="draft"   <?php selected($status,'draft'); ?>>Draft</option>
@@ -901,9 +901,9 @@ function emono_ed_page_edit() {
 
                 <div class="ene-actions">
                     <button type="button" id="enp-submit" class="ene-submit-btn" onclick="enpSubmit(<?php echo (int) $edit_id; ?>)">
-                        <?php esc_html_e( 'Update', 'emerge-mono-portfolio' ); ?>
+                        <?php esc_html_e( 'Update', 'emerge-mono' ); ?>
                     </button>
-                    <a href="<?php echo esc_url( admin_url('admin.php?page=ene-page-create') ); ?>" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono-portfolio' ); ?></a>
+                    <a href="<?php echo esc_url( admin_url('admin.php?page=ene-page-create') ); ?>" class="ene-cancel-btn"><?php esc_html_e( 'Cancel', 'emerge-mono' ); ?></a>
                 </div>
                 <div id="enp-msg" class="ene-msg"></div>
 

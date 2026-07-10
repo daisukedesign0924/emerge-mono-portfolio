@@ -54,8 +54,15 @@ function emono_admin_save_portfolio_action( $action, $opts ) {
         case 'cpt':
             $opts['work_label']    = sanitize_text_field( isset( $_POST['work_label'] )    ? wp_unslash( $_POST['work_label'] )    : 'Works' );
             $opts['work_singular'] = sanitize_text_field( isset( $_POST['work_singular'] ) ? wp_unslash( $_POST['work_singular'] ) : 'Work' );
-            $opts['cat_label']     = sanitize_text_field( isset( $_POST['cat_label'] )     ? wp_unslash( $_POST['cat_label'] )     : __( 'Category', 'emerge-mono-portfolio' ) );
+            $opts['cat_label']     = sanitize_text_field( isset( $_POST['cat_label'] )     ? wp_unslash( $_POST['cat_label'] )     : __( 'Category', 'emerge-mono' ) );
             $opts['work_icon']     = sanitize_text_field( isset( $_POST['work_icon'] )     ? wp_unslash( $_POST['work_icon'] )     : 'dashicons-portfolio' );
+
+            // 投稿タイプの表示/非表示。
+            if ( function_exists( 'emono_post_type_visibility_from_post' ) ) {
+                // Nonce verified before this switch; values are sanitized in the helper.
+                $opts['hidden_post_types'] = emono_post_type_visibility_from_post( wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Helper sanitizes each value.
+            }
+
             update_option( 'en_options', $opts );
             flush_rewrite_rules();
 

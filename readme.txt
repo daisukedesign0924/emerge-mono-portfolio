@@ -1,20 +1,20 @@
-=== Emerge Mono - Portfolio ===
+=== Emerge Mono ===
 Contributors: daisukedesign
-Tags: portfolio, shortcode, contact form, dark mode, creator
+Tags: site builder, sections, shortcode, contact form, dark mode
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A monochrome portfolio toolkit for creators. Build a full portfolio site with shortcodes, no page builder required.
+A monochrome, section-based site builder for creators. Compose pages by stacking sections in a live-preview Design Editor.
 
 == Description ==
 
-Emerge Mono - Portfolio is a shortcode-driven toolkit for building a clean, monochrome portfolio site. It is designed so that beginners can assemble a complete portfolio without touching the block editor: place a shortcode, and the section renders.
+Emerge Mono is a monochrome, section-based site builder. Compose your top page and content pages by stacking sections in a live-preview Design Editor — no external page builder or block editor required. Pick a section, arrange it, preview it live, and publish.
 
-Every section is a shortcode, so you can combine them freely on any page.
+Sections are also available as shortcodes, so you can combine them freely on any page.
 
 **Key features**
 
@@ -67,9 +67,9 @@ Vimeo Privacy Policy: https://vimeo.com/privacy
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/emerge-mono-portfolio` directory, or install the plugin through the WordPress plugins screen directly.
+1. Upload the plugin files to the `/wp-content/plugins/emerge-mono` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the "Plugins" screen in WordPress.
-3. Open the "Emerge Mono - Portfolio" menu in the admin sidebar to configure your profile, design, and other settings.
+3. Open the "Emerge Mono" menu in the admin sidebar to configure your profile, design, and other settings.
 4. Create a page and place the shortcodes you need (for example, `[emerge_mono_top]`), then publish.
 
 == Frequently Asked Questions ==
@@ -80,7 +80,7 @@ No. Every section is a shortcode. You can place them on any page or post without
 
 = Does it work with any theme? =
 
-Emerge Mono - Portfolio is designed to work standalone. For the intended full-screen monochrome look, it pairs best with the companion "Emerge Mono Zero" theme, but the shortcodes render on any theme.
+Emerge Mono is designed to work standalone. For the intended full-screen monochrome look, it pairs best with the companion "Emerge Mono Zero" theme, but the shortcodes render on any theme.
 
 = Is it translation-ready? =
 

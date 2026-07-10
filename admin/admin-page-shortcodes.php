@@ -5,8 +5,8 @@ function emono_admin_tab_shortcodes() {
     $shortcodes = array(
         array(
             'code'  => '[emerge_mono_top]',
-            'title' => __( 'Selected Top Layout', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays the top page layout selected in the plugin settings.', 'emerge-mono-portfolio' ),
+            'title' => __( 'Selected Top Layout', 'emerge-mono' ),
+            'desc'  => __( 'Displays the top page layout selected in the plugin settings.', 'emerge-mono' ),
         ),
     );
 
@@ -18,49 +18,54 @@ function emono_admin_tab_shortcodes() {
             $shortcodes[] = array(
                 'code'  => '[' . sanitize_key( $layout['shortcode'] ) . ']',
                 'title' => isset( $layout['label'] ) ? $layout['label'] : sanitize_key( $layout['shortcode'] ),
-                'desc'  => isset( $layout['description'] ) ? $layout['description'] : __( 'Displays this top layout directly, regardless of the selected top page layout setting.', 'emerge-mono-portfolio' ),
+                'desc'  => isset( $layout['description'] ) ? $layout['description'] : __( 'Displays this top layout directly, regardless of the selected top page layout setting.', 'emerge-mono' ),
             );
         }
     }
 
     $shortcodes = array_merge( $shortcodes, array(
         array(
+            'code'  => '[emerge_mono_profile]',
+            'title' => __( 'Profile', 'emerge-mono' ),
+            'desc'  => __( 'Displays the profile image, name, title, bio, and social links. Reflects the Profile settings.', 'emerge-mono' ),
+        ),
+        array(
             'code'  => '[emerge_mono_about]',
-            'title' => __( 'Profile', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays the profile image, name, title, bio, and social links. Reflects the Profile settings.', 'emerge-mono-portfolio' ),
+            'title' => __( 'About', 'emerge-mono' ),
+            'desc'  => __( 'About page built from sections in the Design Editor. Shows nothing until you add sections.', 'emerge-mono' ),
         ),
         array(
             'code'  => '[emerge_mono_works]',
-            'title' => __( 'Works', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays works in a grid layout with category filtering. Added works appear automatically.', 'emerge-mono-portfolio' ),
+            'title' => __( 'Works', 'emerge-mono' ),
+            'desc'  => __( 'Displays works in a grid layout with category filtering. Added works appear automatically.', 'emerge-mono' ),
         ),
         array(
             'code'  => '[emerge_mono_contact]',
-            'title' => __( 'Contact', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays the contact form. Reflects the settings in the "Contact Form" tab.', 'emerge-mono-portfolio' ),
+            'title' => __( 'Contact', 'emerge-mono' ),
+            'desc'  => __( 'Displays the contact form. Reflects the settings in the "Contact Form" tab.', 'emerge-mono' ),
         ),
         array(
             'code'  => '[emerge_mono_news]',
-            'title' => __( 'News', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays standard WordPress posts. Useful for a blog or news page. You can set the count with per_page="10", e.g. [emerge_mono_news per_page="10"]', 'emerge-mono-portfolio' ),
+            'title' => __( 'News', 'emerge-mono' ),
+            'desc'  => __( 'Displays standard WordPress posts. Useful for a blog or news page. You can set the count with per_page="10", e.g. [emerge_mono_news per_page="10"]', 'emerge-mono' ),
         ),
         array(
             'code'  => '[emerge_mono_privacy]',
-            'title' => __( 'Privacy Policy Page', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays the privacy policy. Text is auto-generated from the operator name and email in the "Privacy Policy" settings.', 'emerge-mono-portfolio' ),
+            'title' => __( 'Privacy Policy Page', 'emerge-mono' ),
+            'desc'  => __( 'Displays the privacy policy. Text is auto-generated from the operator name and email in the "Privacy Policy" settings.', 'emerge-mono' ),
         ),
         array(
             'code'  => '[emerge_mono_terms]',
-            'title' => __( 'Terms of Service Page', 'emerge-mono-portfolio' ),
-            'desc'  => __( 'Displays the terms of service. Text is auto-generated from the operator name and email in the "Terms of Service" settings.', 'emerge-mono-portfolio' ),
+            'title' => __( 'Terms of Service Page', 'emerge-mono' ),
+            'desc'  => __( 'Displays the terms of service. Text is auto-generated from the operator name and email in the "Terms of Service" settings.', 'emerge-mono' ),
         ),
     ) );
     ?>
     <div class="en-admin-section">
-        <div class="en-admin-section-title"><?php esc_html_e( 'Shortcodes', 'emerge-mono-portfolio' ); ?></div>
+        <div class="en-admin-section-title"><?php esc_html_e( 'Shortcodes', 'emerge-mono' ); ?></div>
         <div class="en-field-desc" style="margin-bottom:20px;line-height:1.9">
-            <?php esc_html_e( 'Paste a shortcode into the WordPress page editor to display its content on that page.', 'emerge-mono-portfolio' ); ?><br>
-            <?php esc_html_e( 'Use the Copy button on the right to copy it to your clipboard.', 'emerge-mono-portfolio' ); ?>
+            <?php esc_html_e( 'Paste a shortcode into the WordPress page editor to display its content on that page.', 'emerge-mono' ); ?><br>
+            <?php esc_html_e( 'Use the Copy button on the right to copy it to your clipboard.', 'emerge-mono' ); ?>
         </div>
         <?php foreach ( $shortcodes as $sc ) : ?>
         <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:20px;margin-bottom:16px">
@@ -83,30 +88,30 @@ function emono_admin_tab_shortcodes() {
     </div>
 
     <div class="en-admin-section">
-        <div class="en-admin-section-title"><?php esc_html_e( 'How to Use', 'emerge-mono-portfolio' ); ?></div>
+        <div class="en-admin-section-title"><?php esc_html_e( 'How to Use', 'emerge-mono' ); ?></div>
         <div style="font-size:13px;color:rgba(255,255,255,.4);line-height:2">
             <div style="margin-bottom:12px">
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 1</span>
-                <?php esc_html_e( 'WordPress Admin → Pages → Add New', 'emerge-mono-portfolio' ); ?>
+                <?php esc_html_e( 'WordPress Admin → Pages → Add New', 'emerge-mono' ); ?>
             </div>
             <div style="margin-bottom:12px">
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 2</span>
-                <?php esc_html_e( 'Enter a page title (e.g. About)', 'emerge-mono-portfolio' ); ?>
+                <?php esc_html_e( 'Enter a page title (e.g. About)', 'emerge-mono' ); ?>
             </div>
             <div style="margin-bottom:12px">
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 3</span>
-                <?php esc_html_e( 'Paste the shortcode in the content area (e.g. [emerge_mono_about])', 'emerge-mono-portfolio' ); ?>
+                <?php esc_html_e( 'Paste the shortcode in the content area (e.g. [emerge_mono_about])', 'emerge-mono' ); ?>
             </div>
             <div>
                 <span style="background:rgba(255,255,255,.08);border-radius:4px;padding:2px 8px;font-size:11px;margin-right:8px;color:rgba(255,255,255,.6)">STEP 4</span>
-                <?php esc_html_e( 'Click Publish to finish', 'emerge-mono-portfolio' ); ?>
+                <?php esc_html_e( 'Click Publish to finish', 'emerge-mono' ); ?>
             </div>
         </div>
     </div>
 
     <?php
     wp_localize_script( 'emerge-mono-admin', 'emonoShortcodeSettings', array(
-        'copiedLabel' => '✓ ' . __( 'Copied', 'emerge-mono-portfolio' ),
+        'copiedLabel' => '✓ ' . __( 'Copied', 'emerge-mono' ),
     ) );
     wp_add_inline_script( 'emerge-mono-admin', <<<'EMONO_SHORTCODE_COPY_JS'
 window.enCopyShortcode = function(btn) {

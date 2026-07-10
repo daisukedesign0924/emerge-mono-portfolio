@@ -6,28 +6,28 @@ function emono_register_work_post_type() {
     $opts     = emono_get_options();
     $label    = isset($opts['work_label'])    ? $opts['work_label']    : 'Works';
     $singular = isset($opts['work_singular']) ? $opts['work_singular'] : 'Work';
-    $cat_lbl  = isset($opts['cat_label'])     ? $opts['cat_label']     : __( 'Category', 'emerge-mono-portfolio' );
+    $cat_lbl  = isset($opts['cat_label'])     ? $opts['cat_label']     : __( 'Category', 'emerge-mono' );
     $icon     = isset($opts['work_icon'])     ? $opts['work_icon']     : 'dashicons-portfolio';
 
     register_post_type( 'en_work', array(
         'labels' => array(
             'name'               => $label,
             'singular_name'      => $singular,
-            'add_new'            => __( 'Add New', 'emerge-mono-portfolio' ),
+            'add_new'            => __( 'Add New', 'emerge-mono' ),
             /* translators: %s: the post type or taxonomy label */
-            'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $singular ),
+            'add_new_item'       => sprintf( __( 'Add %s', 'emerge-mono' ), $singular ),
             /* translators: %s: the post type or taxonomy label */
-            'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $singular ),
+            'edit_item'          => sprintf( __( 'Edit %s', 'emerge-mono' ), $singular ),
             /* translators: %s: the post type or taxonomy label */
-            'new_item'           => sprintf( __( 'New %s', 'emerge-mono-portfolio' ), $singular ),
+            'new_item'           => sprintf( __( 'New %s', 'emerge-mono' ), $singular ),
             /* translators: %s: the post type or taxonomy label */
-            'view_item'          => sprintf( __( 'View %s', 'emerge-mono-portfolio' ), $singular ),
+            'view_item'          => sprintf( __( 'View %s', 'emerge-mono' ), $singular ),
             /* translators: %s: the post type or taxonomy label */
-            'search_items'       => sprintf( __( 'Search %s', 'emerge-mono-portfolio' ), $label ),
+            'search_items'       => sprintf( __( 'Search %s', 'emerge-mono' ), $label ),
             /* translators: %s: the post type or taxonomy label */
-            'not_found'          => sprintf( __( 'No %s found', 'emerge-mono-portfolio' ), $label ),
+            'not_found'          => sprintf( __( 'No %s found', 'emerge-mono' ), $label ),
             /* translators: %s: the post type or taxonomy label */
-            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono-portfolio' ), $label ),
+            'not_found_in_trash' => sprintf( __( 'No %s found in Trash', 'emerge-mono' ), $label ),
         ),
         'public'       => true,
         'has_archive'  => false,
@@ -44,11 +44,11 @@ function emono_register_work_post_type() {
             'name'          => $cat_lbl,
             'singular_name' => $cat_lbl,
             /* translators: %s: the post type or taxonomy label */
-            'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'add_new_item'  => sprintf( __( 'Add %s', 'emerge-mono' ), $cat_lbl ),
             /* translators: %s: the post type or taxonomy label */
-            'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'edit_item'     => sprintf( __( 'Edit %s', 'emerge-mono' ), $cat_lbl ),
             /* translators: %s: the post type or taxonomy label */
-            'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono-portfolio' ), $cat_lbl ),
+            'new_item_name' => sprintf( __( 'New %s Name', 'emerge-mono' ), $cat_lbl ),
             'menu_name'     => $cat_lbl,
         ),
         'hierarchical'      => true,

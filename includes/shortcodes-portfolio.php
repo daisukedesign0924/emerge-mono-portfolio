@@ -4,8 +4,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function emono_get_top_layouts() {
     $layouts = array(
         'mono' => array(
-            'label'       => __( 'Minimal Top', 'emerge-mono-portfolio' ),
-            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono-portfolio' ),
+            'label'       => __( 'Minimal Top', 'emerge-mono' ),
+            'description' => __( 'Minimal portfolio top page with logo, site name, tagline, and buttons.', 'emerge-mono' ),
             'callback'    => 'emono_render_top_layout_mono',
             'shortcode'   => 'emerge_mono_minimal_top',
         ),
@@ -123,8 +123,11 @@ function emono_render_top_layout_mono( $atts = array() ) {
     <?php return ob_get_clean();
 }
 
-add_shortcode( 'emerge_mono_about', 'emono_shortcode_about' );
-function emono_shortcode_about( $atts ) {
+// プロフィール（厳選デザイン固定）。旧ショートコード [emerge_mono_about] は
+// About ページに付け替えたため、プロフィールは [emerge_mono_profile] を使う。
+// 既存ページ内の [emerge_mono_about] は emono_profile_about_migrate() で自動置換される。
+add_shortcode( 'emerge_mono_profile', 'emono_shortcode_profile' );
+function emono_shortcode_profile( $atts ) {
     $name    = emono_opt('profile_name', '');
     $role    = emono_opt('profile_role', '');
     $bio     = emono_opt('profile_bio', '');
@@ -192,6 +195,55 @@ function emono_shortcode_about( $atts ) {
         </div>
     </div>
     <?php return ob_get_clean();
+}
+
+/**
+ * About ページ（業種ごとにカスタムしたい人向け）。
+ * デザイン編集でセクションを組み、その結果を描画する。データは
+ * en_options['about_sections']（MONO TOP と同じセクション配列形）。
+ * 未設定なら何も出さない（About が不要な人には空）。
+ */
+add_shortcode( 'emerge_mono_about', 'emono_shortcode_about_page' );
+function emono_shortcode_about_page( $atts ) {
+    if ( ! function_exists( 'emono_mono_top_render_sections' ) ) {
+        return '';
+    }
+    $opts     = emono_get_options();
+    $sections = isset( $opts['about_sections'] ) && is_array( $opts['about_sections'] ) ? $opts['about_sections'] : array();
+    if ( empty( $sections ) ) {
+        return '';
+    }
+    return emono_mono_top_render_sections( array( 'mono_top_sections' => $sections ) );
+}
+
+/**
+ * 後方互換の一度きり移行：
+ * 旧仕様では [emerge_mono_about] が「プロフィール」だった。プロフィールを
+ * [emerge_mono_profile] に移したので、既存ページ内の [emerge_mono_about] を
+ * [emerge_mono_profile] に自動置換し、見た目を維持する。置換後 [emerge_mono_about]
+ * は空くので、新しい About（セクション型）に使える。
+ */
+add_action( 'admin_init', 'emono_profile_about_migrate' );
+function emono_profile_about_migrate() {
+    if ( get_option( 'emono_profile_about_migrated' ) ) {
+        return;
+    }
+    $pages = get_posts( array(
+        'post_type'      => 'page',
+        'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+        'posts_per_page' => -1,
+        's'              => '[emerge_mono_about]',
+        'fields'         => 'ids',
+    ) );
+    foreach ( $pages as $pid ) {
+        $content = get_post_field( 'post_content', $pid );
+        if ( strpos( $content, '[emerge_mono_about]' ) === false ) {
+            continue;
+        }
+        $new = str_replace( '[emerge_mono_about]', '[emerge_mono_profile]', $content );
+        wp_update_post( array( 'ID' => $pid, 'post_content' => $new ) );
+    }
+    update_option( 'emono_profile_about_migrated', 1 );
 }
 
 add_shortcode( 'emerge_mono_works', 'emono_shortcode_works' );

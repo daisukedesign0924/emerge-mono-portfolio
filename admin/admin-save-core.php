@@ -20,6 +20,9 @@ function emono_handle_save() {
         $nonce_map = array_merge( $nonce_map, emono_admin_save_portfolio_nonce_map() );
     }
 
+    // 拡張が保存アクション（Header/Footer 等）の nonce を登録できる。
+    $nonce_map = apply_filters( 'emono_admin_save_nonce_map', $nonce_map );
+
     if ( ! isset( $nonce_map[ $action ] ) ) return;
     if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( isset( $_POST['en_nonce'] ) ? $_POST['en_nonce'] : '' ) ), $nonce_map[ $action ] ) ) return;
 
@@ -70,7 +73,7 @@ function emono_handle_save() {
             $opts['recaptcha_site_key']    = sanitize_text_field( isset( $_POST['recaptcha_site_key'] ) ? wp_unslash( $_POST['recaptcha_site_key'] ) : '' );
             $opts['recaptcha_secret']      = sanitize_text_field( isset( $_POST['recaptcha_secret'] ) ? wp_unslash( $_POST['recaptcha_secret'] ) : '' );
             $opts['contact_consent_enabled'] = isset( $_POST['contact_consent_enabled'] ) ? '1' : '0';
-            $opts['contact_consent_text']    = sanitize_text_field( isset( $_POST['contact_consent_text'] ) ? wp_unslash( $_POST['contact_consent_text'] ) : __( 'I agree to the Privacy Policy.', 'emerge-mono-portfolio' ) );
+            $opts['contact_consent_text']    = sanitize_text_field( isset( $_POST['contact_consent_text'] ) ? wp_unslash( $_POST['contact_consent_text'] ) : __( 'I agree to the Privacy Policy.', 'emerge-mono' ) );
             $opts['contact_consent_page_id'] = absint( isset( $_POST['contact_consent_page_id'] ) ? $_POST['contact_consent_page_id'] : 0 );
             update_option( 'en_options', $opts );
 
@@ -103,7 +106,7 @@ function emono_handle_save() {
                 );
             }
             update_option( 'en_contact_fields', $contact_fields );
-            wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=contact&saved=1' ) );
+            wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono&tab=contact&saved=1' ) );
             exit;
 
         case 'editor':
@@ -112,8 +115,12 @@ function emono_handle_save() {
             break;
 
         default:
-            if ( ! function_exists( 'emono_admin_save_portfolio_action' ) ) return;
-            $result = emono_admin_save_portfolio_action( $action, $opts );
+            // 拡張の保存アクション（Header/Footer 等）。返り値 array( 'handled'=>true, 'opts'=>..., 'tab'=>..., 'update_options'=>bool )。
+            // Nonce verified above; the handler sanitizes each field.
+            $result = apply_filters( 'emono_admin_save_action', array( 'handled' => false ), $action, $opts, wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Handler sanitizes per field.
+            if ( empty( $result['handled'] ) && function_exists( 'emono_admin_save_portfolio_action' ) ) {
+                $result = emono_admin_save_portfolio_action( $action, $opts );
+            }
             if ( empty( $result['handled'] ) ) return;
             $opts = isset( $result['opts'] ) ? $result['opts'] : $opts;
             $tab = isset( $result['tab'] ) ? $result['tab'] : $action;
@@ -126,13 +133,13 @@ function emono_handle_save() {
     }
 
     if ( $from_design ) {
-        $scope_map = array( 'general' => 'general', 'nav' => 'nav', 'design' => 'design', 'profile' => 'profile' );
+        $scope_map = apply_filters( 'emono_design_editor_save_scope_map', array( 'general' => 'general', 'nav' => 'nav', 'design' => 'design', 'profile' => 'profile' ), $action );
         $sc = isset( $scope_map[ $action ] ) ? $scope_map[ $action ] : 'top';
         wp_safe_redirect( admin_url( 'admin.php?page=ene-top&scope=' . $sc . '&saved=1' ) );
         exit;
     }
 
-    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono-portfolio&tab=' . $tab . '&saved=1' ) );
+    wp_safe_redirect( admin_url( 'admin.php?page=emerge-mono&tab=' . $tab . '&saved=1' ) );
     exit;
 }
 

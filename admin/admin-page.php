@@ -6,13 +6,13 @@ function emono_admin_page() {
     // フロント（見た目）の編集は「Design Editor」へ集約したため、ここには
     // バックエンド寄りの機能設定のみを残す。
     $tabs = array(
-        'contact'  => array( 'label' => __( 'Contact Form', 'emerge-mono-portfolio' ),        'icon' => '✉' ),
-        'cpt'      => array( 'label' => __( 'Post Type (Works)', 'emerge-mono-portfolio' ),     'icon' => '📂' ),
-        'privacy'  => array( 'label' => __( 'Privacy Policy', 'emerge-mono-portfolio' ),               'icon' => '🔒' ),
-        'terms'    => array( 'label' => __( 'Terms of Service', 'emerge-mono-portfolio' ),                           'icon' => '📋' ),
-        'estimate' => array( 'label' => __( 'Estimate Simulator', 'emerge-mono-portfolio' ),               'icon' => '💰' ),
-        'editor'   => array( 'label' => __( 'Editor', 'emerge-mono-portfolio' ),                            'icon' => '✏️' ),
-        'shortcodes' => array( 'label' => __( 'Shortcodes', 'emerge-mono-portfolio' ),        'icon' => '📋' ),
+        'contact'  => array( 'label' => __( 'Contact Form', 'emerge-mono' ),        'icon' => '✉' ),
+        'cpt'      => array( 'label' => __( 'Post Type Settings', 'emerge-mono' ),     'icon' => '📂' ),
+        'privacy'  => array( 'label' => __( 'Privacy Policy', 'emerge-mono' ),               'icon' => '🔒' ),
+        'terms'    => array( 'label' => __( 'Terms of Service', 'emerge-mono' ),                           'icon' => '📋' ),
+        'estimate' => array( 'label' => __( 'Estimate Simulator', 'emerge-mono' ),               'icon' => '💰' ),
+        'editor'   => array( 'label' => __( 'Editor', 'emerge-mono' ),                            'icon' => '✏️' ),
+        'shortcodes' => array( 'label' => __( 'Shortcodes', 'emerge-mono' ),        'icon' => '📋' ),
     );
     $opts = emono_get_options();
     ?>
@@ -32,7 +32,7 @@ function emono_admin_page() {
             <a class="en-admin-theme-btn<?php echo $en_theme_disabled ? ' is-disabled' : ''; ?>"
                href="<?php echo esc_url( $en_theme_url ); ?>"
                <?php if ( ! $en_theme_disabled ) : ?>target="_blank" rel="noopener noreferrer"<?php else : ?>onclick="return false;" aria-disabled="true"<?php endif; ?>>
-                <span class="en-admin-theme-btn-label"><?php esc_html_e( 'Theme', 'emerge-mono-portfolio' ); ?></span>
+                <span class="en-admin-theme-btn-label"><?php esc_html_e( 'Theme', 'emerge-mono' ); ?></span>
                 <span class="en-admin-theme-btn-sep">-</span>
                 <span class="en-admin-theme-btn-name">Emerge Mono Zero</span>
             </a>
@@ -40,7 +40,7 @@ function emono_admin_page() {
         <div class="en-admin-body">
             <nav class="en-admin-sidebar">
                 <?php foreach ( $tabs as $key => $info ) : ?>
-                    <a href="?page=emerge-mono-portfolio&tab=<?php echo esc_attr( $key ); ?>"
+                    <a href="?page=emerge-mono&tab=<?php echo esc_attr( $key ); ?>"
                        class="en-admin-nav-item <?php echo $tab === $key ? 'active' : ''; ?>">
                         <span class="en-admin-nav-icon"><?php echo esc_html( $info['icon'] ); ?></span>
                         <?php echo esc_html($info['label']); ?>
@@ -71,7 +71,7 @@ function emono_admin_page() {
 
 function emono_admin_notice() {
     if ( isset($_GET['saved']) && $_GET['saved'] === '1' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display parameter; no state change.
-        echo '<div class="en-admin-notice success">✓ ' . esc_html__( 'Saved.', 'emerge-mono-portfolio' ) . '</div>';
+        echo '<div class="en-admin-notice success">✓ ' . esc_html__( 'Saved.', 'emerge-mono' ) . '</div>';
     }
 }
 
